@@ -1351,10 +1351,24 @@
                         backgroundColor: null,
                         scale: 2
                     }).then(function (canvas) {
+                        const dataUrl = canvas.toDataURL('image/png');
                         const link = document.createElement('a');
-                        link.download = 'manifestor_anonymous_arrows_snapshot.png';
-                        link.href = canvas.toDataURL('image/png');
-                        link.click();
+                        link.href = dataUrl;
+                        const supportDownload = 'download' in link;
+
+                        if (supportDownload) {
+                            link.download = 'manifestor_anonymous_arrows_snapshot.png';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        } else {
+                            // mobile browsers (iOS Safari etc.) ignore download attr
+                            // open in new tab so user can long‑press and save
+                            const win = window.open(dataUrl, '_blank');
+                            if (!win) {
+                                setDisplay('red', 'Could not open snapshot. Please allow popups or use a desktop browser.');
+                            }
+                        }
                     }).catch(function () {
                         setDisplay('red', 'Could not create download image');
                     });
