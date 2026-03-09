@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Arrows Room · Manifestor Anonymous</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="Arrows Room inside the Manifestor Anonymous Underground Terminal. Peek at your four arrows and get your cognition snapshot." />
+
+    <style>
+        :root {
+            --bg: #050608;
+            --panel: rgba(255, 255, 255, 0.045);
+            --line: rgba(255, 255, 255, 0.11);
+            --line-strong: rgba(255, 255, 255, 0.18);
+            --text: #f5f7fb;
+            --muted: rgba(245, 247, 251, 0.66);
+            --dim: rgba(245, 247, 251, 0.42);
+            --green: #39ff88;
+            --danger: #ff4d6d;
+            --radius: 26px;
+            --shadow: 0 22px 70px rgba(0, 0, 0, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(255, 77, 109, 0.22), transparent 18%),
+                radial-gradient(circle at 12% 80%, rgba(57, 255, 136, 0.12), transparent 22%),
+                radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.04), transparent 14%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.06;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 88%);
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .container {
+            /* larger limit for header and page content */
+            width: min(1200px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        /* TOPBAR */
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(14px);
+            background: rgba(5, 6, 8, 0.88);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            padding: 12px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--line-strong);
+            overflow: hidden;
+            background: #08090d;
+            box-shadow: 0 0 18px rgba(57, 255, 136, 0.22);
+            flex-shrink: 0;
+        }
+
+        .brand-copy small,
+        .section-label {
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.26em;
+            font-size: 10px;
+            color: var(--dim);
+        }
+
+        .brand-copy strong {
+            display: block;
+            margin-top: 2px;
+            font-size: 14px;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+        }
+
+        .top-links {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* SHELL */
+        .page-wrap {
+            min-height: 100vh;
+            padding: 1.75rem 1.75rem 3rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* SHELL */
+        .page-wrap {
+            min-height: 100vh;
+            padding: 1.75rem 1.75rem 3rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .page-inner {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* obsolete top-bar styles left for reference; new header uses .topbar */
+        /*
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.78rem;
+        }
+
+        .brand-lockup {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .brand-mark {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 20%, #ffffff, #8aebff 30%, #2f4a86 65%, #070b16 100%);
+            box-shadow: 0 0 16px rgba(138, 235, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #02040a;
+        }
+
+        .brand-text-main {
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .back-link {
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(203, 209, 255, 0.75);
+            cursor: pointer;
+        }
+
+        .back-link span {
+            opacity: 0.8;
+            margin-right: 0.25rem;
+        }
+
+        .back-link:hover {
+            color: rgba(255, 255, 255, 0.95);
+        }
+        */
+
+        /* MAIN TWO-COLUMN CONTENT (LIKE RAGE) */
+        .main-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.4fr);
+            gap: 1.75rem;
+            align-items: flex-start;
+        }
+
+        @media (max-width: 960px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* LEFT PANEL – MODULE + PATH + TITLE + TOOL */
+        .left-panel {
+            border-radius: 26px;
+            background: radial-gradient(circle at top, #13151c 0, #05060a 70%);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+            padding: 1.6rem 1.8rem 1.7rem;
+            border: 1px solid rgba(115, 128, 170, 0.5);
+        }
+
+        .module-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            border: 1px solid rgba(57, 255, 136, 0.6);
+            /* green border */
+            background: rgba(57, 255, 136, 0.14);
+            /* translucent green */
+            color: #c3ffe5;
+            box-shadow: 0 0 26px rgba(57, 255, 136, 0.3);
+            margin-bottom: 1rem;
+        }
+
+        .module-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 16px rgba(57, 255, 136, 0.9);
+        }
+
+        .path-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(190, 198, 255, 0.7);
+            margin-bottom: 0.4rem;
+        }
+
+        .title {
+            font-size: 2.6rem;
+            line-height: 1.05;
+            margin: 0 0 0.2rem;
+        }
+
+        .subtitle {
+            font-size: 0.98rem;
+            line-height: 1.6;
+            color: #d4d7f2;
+            margin: 0 0 1.4rem;
+            max-width: 540px;
+        }
+
+        .steps-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: rgba(178, 187, 240, 0.7);
+            margin-top: 0.5rem;
+            margin-bottom: 0.55rem;
+        }
+
+        .steps-text {
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(213, 220, 255, 0.9);
+            margin-bottom: 1rem;
+        }
+
+        /* ARROWS MACHINE (simplified narrative, same core UI) */
+        .machine-shell {
+            width: 100%;
+            border-radius: 20px;
+            background: linear-gradient(180deg, #181b2a, #0c0f1b 55%, #03040a 100%);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
+            border: 1px solid #02030a;
+            padding: 1.1rem 1.35rem 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .machine-shell::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 12% 0, rgba(255, 255, 255, 0.14), transparent 50%);
+            pointer-events: none;
+        }
+
+        .machine-top {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 0.7rem;
+            z-index: 1;
+        }
+
+        .machine-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 0.75rem;
+        }
+
+        .machine-heading-block {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .machine-heading {
+            font-size: 0.82rem;
+            letter-spacing: 0.19em;
+            text-transform: uppercase;
+        }
+
+        .machine-subheading {
+            font-size: 0.75rem;
+            color: #d0d7ff;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .machine-note {
+            font-size: 0.72rem;
+            color: #c3caea;
+            margin-top: 0.15rem;
+        }
+
+        .pill-small {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            padding: 0.22rem 0.7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            background: rgba(5, 7, 18, 0.95);
+            letter-spacing: 0.18em;
+        }
+
+        .control-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 1.7fr) auto;
+            gap: 0.8rem;
+            align-items: center;
+            padding: 0.55rem 0.7rem;
+            border-radius: 14px;
+            background: linear-gradient(180deg, #090c1b, #050614);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.8);
+        }
+
+        .email-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .email-label {
+            font-size: 0.7rem;
+            color: #cfd6ff;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+
+        .email-input-wrap {
+            display: flex;
+            gap: 0.35rem;
+            margin-top: 0.05rem;
+        }
+
+        .email-input-wrap input {
+            flex: 1;
+            padding: 0.35rem 0.55rem;
+            border-radius: 7px;
+            border: 1px solid rgba(204, 214, 255, 0.8);
+            background: #050716;
+            color: #f9fbff;
+            font-size: 0.78rem;
+        }
+
+        .email-input-wrap input:focus {
+            outline: 1px solid #46e6a8;
+            border-color: #46e6a8;
+        }
+
+        .email-input-wrap button {
+            padding: 0.35rem 0.75rem;
+            border-radius: 7px;
+            border: none;
+            background: #46e6a8;
+            color: #02120b;
+            font-size: 0.74rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .email-input-wrap button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        .email-error {
+            font-size: 0.7rem;
+            color: #ff9e9e;
+        }
+
+        .coin-block {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .coin-labels {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            flex: 1 1 140px;
+        }
+
+        .coin-slot-label {
+            font-size: 0.7rem;
+            color: #c3caea;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+
+        .coin {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 20%, #ffffff, #ffd76a 35%, #b3760b 65%, #5a3202 100%);
+            border: 2px solid #4d2b03;
+            box-shadow: 0 0 18px rgba(255, 215, 106, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #3d2400;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+        }
+
+        .coin::after {
+            content: "";
+            position: absolute;
+            inset: 4px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.35);
+        }
+
+        .coin.disabled {
+            opacity: 0.35;
+            cursor: default;
+            box-shadow: none;
+        }
+
+        .coin.enabled:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 20px rgba(255, 215, 106, 1);
+        }
+
+        .coin.enabled:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 12px rgba(255, 215, 106, 0.9);
+        }
+
+        .display-strip {
+            margin-top: 0.55rem;
+            min-height: 42px;
+            border-radius: 14px;
+            border: 2px solid #0e1f13;
+            padding: 0.55rem 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            font-size: 0.8rem;
+            color: #03130a;
+        }
+
+        .display-strip.red {
+            background: radial-gradient(circle at 15% 50%, #ffb1b1 0, #ff6b6b 20%, #5a1010 70%, #020203 100%);
+        }
+
+        .display-strip.yellow {
+            background: radial-gradient(circle at 15% 50%, #fff3b0 0, #ffd56b 20%, #5a4a10 70%, #020203 100%);
+        }
+
+        .display-strip.green {
+            background: radial-gradient(circle at 15% 50%, #9bffba 0, #4be39a 10%, #0b301b 65%, #020506 100%);
+        }
+
+        .display-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #0bff7e;
+            box-shadow: 0 0 10px rgba(11, 255, 126, 0.9);
+            flex: 0 0 auto;
+        }
+
+        .mid-panel {
+            position: relative;
+            margin: 0.8rem 0 0.9rem;
+            border-radius: 18px;
+            background: linear-gradient(180deg, rgba(8, 10, 26, 0.97), rgba(3, 4, 12, 0.98));
+            border: 2px solid #020309;
+            box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.9);
+            padding: 0.8rem 0.9rem;
+            z-index: 1;
+        }
+
+        .mid-grid {
+            display: grid;
+            grid-template-rows: repeat(4, minmax(0, 1fr));
+            gap: 0.55rem;
+        }
+
+        .arrow-row {
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            gap: 0.5rem;
+            align-items: center;
+            padding: 0.4rem 0.6rem;
+            border-radius: 10px;
+            background: linear-gradient(90deg, rgba(15, 18, 40, 0.9), rgba(7, 9, 24, 0.9));
+            position: relative;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .arrow-row.active {
+            box-shadow: 0 0 12px rgba(90, 192, 255, 0.4);
+        }
+
+        .row-tag {
+            font-size: 0.7rem;
+            background: rgba(1, 2, 8, 0.9);
+            padding: 0.1rem 0.4rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #c5ccff;
+        }
+
+        .row-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .row-sub {
+            font-size: 0.73rem;
+            color: #b3b9dd;
+        }
+
+        .row-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .coil-line {
+            position: absolute;
+            left: 0.7rem;
+            right: 0.7rem;
+            bottom: 0.3rem;
+            height: 3px;
+            background-image: radial-gradient(circle, #b9c3ff 2px, transparent 3px);
+            background-size: 18px 10px;
+            background-repeat: repeat-x;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .arrow-btn {
+            min-width: 70px;
+            padding: 0.35rem 0.55rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(5, 7, 18, 0.96);
+            color: #f9fbff;
+            font-size: 0.76rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .arrow-btn span:first-child {
+            font-size: 0.8rem;
+        }
+
+        .arrow-btn.active-left {
+            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+            border-color: rgba(0, 0, 0, 0.5);
+            color: #050711;
+            box-shadow: 0 0 10px rgba(90, 192, 255, 0.9);
+        }
+
+        .arrow-btn.active-right {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            border-color: rgba(0, 0, 0, 0.5);
+            color: #201000;
+            box-shadow: 0 0 10px rgba(255, 223, 122, 0.9);
+        }
+
+        .bottom-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            align-items: stretch;
+        }
+
+        .vend-row {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.6rem;
+            align-items: center;
+        }
+
+        .vend-btn {
+            padding: 0.6rem 0.85rem;
+            border-radius: 999px;
+            border: none;
+            background: #313842;
+            color: #9da4b2;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            cursor: default;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .vend-btn.ready {
+            background: #46e6a8;
+            color: #02120b;
+            cursor: pointer;
+            box-shadow: 0 0 14px rgba(70, 230, 168, 0.85);
+        }
+
+        .vend-btn.ready:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 18px rgba(70, 230, 168, 1);
+        }
+
+        .vend-led {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #262b32;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        }
+
+        .vend-led.on {
+            background: #46e6a8;
+            box-shadow: 0 0 10px rgba(70, 230, 168, 0.9);
+        }
+
+        .tags-line {
+            font-size: 0.7rem;
+            color: #c5ccff;
+        }
+
+        .snapshot-panel {
+            border-radius: 16px;
+            background: linear-gradient(145deg, #050713, #0b1020);
+            border: 1px solid rgba(159, 171, 255, 0.45);
+            box-shadow: 0 18px 38px rgba(0, 0, 0, 0.85);
+            padding: 0.9rem 1rem 0.85rem;
+        }
+
+        .snapshot-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: rgba(209, 217, 255, 0.9);
+            margin-bottom: 0.4rem;
+        }
+
+        .snapshot-list-item {
+            font-size: 0.8rem;
+            margin-bottom: 0.3rem;
+            color: #e5e9ff;
+        }
+
+        .snapshot-list-item strong {
+            font-weight: 600;
+        }
+
+        .snapshot-blend-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #b2b8e5;
+            margin-top: 0.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .snapshot-blend-text {
+            font-size: 0.8rem;
+            color: #f1f3ff;
+            margin-bottom: 0.1rem;
+        }
+
+        #downloadSnapshotBtn {
+            margin-top: 0.4rem;
+            padding: 0.35rem 0.7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(159, 171, 255, 0.7);
+            background: rgba(5, 7, 20, 0.95);
+            color: #e5e8ff;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        #downloadSnapshotBtn:hover {
+            border-color: rgba(255, 255, 255, 0.9);
+        }
+
+        @media (max-width: 700px) {
+            .page-wrap {
+                padding: 1.25rem 1rem 2.5rem;
+            }
+
+            .left-panel {
+                padding: 1.25rem 1.2rem 1.4rem;
+            }
+
+            .machine-shell {
+                padding: 1rem 0.85rem;
+                border-radius: 20px;
+            }
+
+            .control-panel,
+            .vend-row {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .arrow-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.45rem;
+            }
+
+            .row-tag,
+            .row-text {
+                grid-column: 1 / -1;
+            }
+
+            .email-input-wrap {
+                flex-direction: column;
+            }
+
+            .pill-small {
+                align-self: flex-start;
+            }
+        }
+
+        /* RIGHT PANEL – WHY THIS EXISTS / USE THIS WHEN (like rage page) */
+        .right-panel {
+            border-radius: 26px;
+            background: radial-gradient(circle at top, #12151f 0, #05060b 70%);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+            padding: 1.6rem 1.8rem 1.8rem;
+            border: 1px solid rgba(115, 128, 170, 0.55);
+            font-size: 0.9rem;
+        }
+
+        .right-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(190, 198, 255, 0.7);
+            margin-bottom: 0.6rem;
+        }
+
+        .right-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+        }
+
+        .right-body {
+            color: #dde2ff;
+            line-height: 1.6;
+            margin-bottom: 1.3rem;
+        }
+
+        .right-body strong {
+            font-weight: 600;
+        }
+
+        .right-section-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(184, 193, 255, 0.85);
+            margin: 1.1rem 0 0.45rem;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.86rem;
+            color: #dde2ff;
+        }
+
+        .bullet-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .bullet-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #46e6a8;
+            box-shadow: 0 0 10px rgba(70, 230, 168, 0.9);
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-wrap">
+        <div class="page-inner">
+            <!-- TOP BAR (matches rage.html) -->
+            <header class="topbar">
+                <div class="container topbar-inner">
+                    <div class="brand">
+                        <div class="brand-icon">
+                            <img src="images/logocircle.png" alt="Manifestor Anonymous icon" />
+                        </div>
+                        <div class="brand-copy">
+                            <small>Manifestor Anonymous</small>
+                            <strong>Arrows Machine</strong>
+                        </div>
+                    </div>
+                    <nav class="top-links">
+                        <a href="index.html">Back to terminal</a>
+                    </nav>
+                </div>
+            </header>
+
+            <!-- MAIN CONTENT GRID (LIKE RAGE ROOM) -->
+            <div class="main-grid">
+                <!-- LEFT: MODULE + TOOL -->
+                <section class="left-panel">
+                    <div class="module-pill">
+                        <div class="module-dot"></div>
+                        <span>Module 01 · Path: Cognition</span>
+                    </div>
+
+                    <div class="path-label">Top left, bottom left, top right, bottom right.</div>
+                    <h1 class="title">Arrows Room.</h1>
+                    <p class="subtitle">
+                        This is where you see what your four arrows are actually asking for.
+                        No optimization. No “biohacking”. Just the settings your Manifestor
+                        nervous system came with so your Creative Urges have somewhere real
+                        to land.
+                    </p>
+
+                    <div class="steps-label">Step 1 · Load the arrows. Step 2 · Read the scan.</div>
+                    <div class="steps-text">
+                        Enter your email to unlock the scanner. Set each arrow left or right. Hit SCAN to get your
+                        Arrows Snapshot.
+                    </div>
+
+                    <!-- ARROWS MACHINE -->
+                    <div class="machine-shell" id="machineShell">
+                        <div class="machine-top">
+                            <div class="machine-header-row">
+                                <div class="machine-heading-block">
+                                    <div class="machine-heading">Arrows scanner</div>
+                                    <div class="machine-subheading">Cognition snapshot for Manifestors</div>
+                                    <div class="machine-note">
+                                        Email unlocks the scan so your Snapshot can be sent to your system later.
+                                    </div>
+                                </div>
+                                <div class="pill-small">Manifestor only</div>
+                            </div>
+
+                            <div class="control-panel">
+                                <div class="email-row">
+                                    <div class="email-label">Email to unlock the scan</div>
+                                    <div class="email-input-wrap">
+                                        <input type="email" id="emailInput" placeholder="you@example.com" />
+                                        <button id="emailBtn" type="button">Unlock</button>
+                                    </div>
+                                    <div class="email-error" id="emailError" style="display:none;">
+                                        Please enter a valid email address.
+                                    </div>
+                                </div>
+
+                                <div class="coin-block">
+                                    <div class="coin-labels">
+                                        <div class="coin-slot-label">Tap to start the arrows scan</div>
+                                    </div>
+                                    <div class="coin disabled" id="coin"><span>M</span></div>
+                                </div>
+                            </div>
+
+                            <div class="display-strip red" id="displayStrip">
+                                <div id="displayText">
+                                    Waiting for email to unlock the scan.
+                                </div>
+                                <div class="display-dot"></div>
+                            </div>
+                        </div>
+
+                        <div class="mid-panel">
+                            <div class="mid-grid">
+                                <div class="arrow-row" data-row="topLeft">
+                                    <div class="row-tag">A</div>
+                                    <div class="row-text">
+                                        <div class="row-label">Top Left · Determination · Design brain</div>
+                                        <div class="row-sub">How your Manifestor brain takes in life.</div>
+                                    </div>
+                                    <button class="arrow-btn" type="button" data-slot="topLeft" data-dir="L">
+                                        <span>⬅</span><span>Left</span>
+                                    </button>
+                                    <button class="arrow-btn" type="button" data-slot="topLeft" data-dir="R">
+                                        <span>Right</span><span>➝</span>
+                                    </button>
+                                    <div class="coil-line"></div>
+                                </div>
+
+                                <div class="arrow-row" data-row="bottomLeft">
+                                    <div class="row-tag">B</div>
+                                    <div class="row-text">
+                                        <div class="row-label">Bottom Left · Environment · Body setting</div>
+                                        <div class="row-sub">How your Manifestor body and spaces like to operate.</div>
+                                    </div>
+                                    <button class="arrow-btn" type="button" data-slot="bottomLeft" data-dir="L">
+                                        <span>⬅</span><span>Left</span>
+                                    </button>
+                                    <button class="arrow-btn" type="button" data-slot="bottomLeft" data-dir="R">
+                                        <span>Right</span><span>➝</span>
+                                    </button>
+                                    <div class="coil-line"></div>
+                                </div>
+
+                                <div class="arrow-row" data-row="topRight">
+                                    <div class="row-tag">C</div>
+                                    <div class="row-text">
+                                        <div class="row-label">Top Right · Perspective · Manifestor view</div>
+                                        <div class="row-sub">How you are meant to see the world.</div>
+                                    </div>
+                                    <button class="arrow-btn" type="button" data-slot="topRight" data-dir="L">
+                                        <span>⬅</span><span>Left</span>
+                                    </button>
+                                    <button class="arrow-btn" type="button" data-slot="topRight" data-dir="R">
+                                        <span>Right</span><span>➝</span>
+                                    </button>
+                                    <div class="coil-line"></div>
+                                </div>
+
+                                <div class="arrow-row" data-row="bottomRight">
+                                    <div class="row-tag">D</div>
+                                    <div class="row-text">
+                                        <div class="row-label">Bottom Right · Motivation · Mental aim</div>
+                                        <div class="row-sub">How your mind aims your message and impact.</div>
+                                    </div>
+                                    <button class="arrow-btn" type="button" data-slot="bottomRight" data-dir="L">
+                                        <span>⬅</span><span>Left</span>
+                                    </button>
+                                    <button class="arrow-btn" type="button" data-slot="bottomRight" data-dir="R">
+                                        <span>Right</span><span>➝</span>
+                                    </button>
+                                    <div class="coil-line"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bottom-panel">
+                            <div class="vend-row">
+                                <button class="vend-btn" id="vendBtn" type="button">
+                                    <div class="vend-led" id="vendLed"></div>
+                                    <span>Scan arrows</span>
+                                </button>
+                                <div class="tags-line" id="tagsLine">No arrows selected yet.</div>
+                            </div>
+
+                            <div class="snapshot-panel" id="snapshotPanel">
+                                <div class="snapshot-title">Arrows Snapshot</div>
+                                <div id="snapshotList">
+                                    <div class="snapshot-list-item">
+                                        Press SCAN once your arrows are set to read each arrow in plain Manifestor
+                                        language.
+                                    </div>
+                                </div>
+                                <div class="snapshot-blend-label">How this moves together</div>
+                                <div class="snapshot-blend-text" id="snapshotBlend">
+                                    When you run the scan you will see how your brain, body, view and motivation want to
+                                    move as one Manifestor system instead of being managed for other people.
+                                </div>
+                                <button id="downloadSnapshotBtn" type="button">Download Snapshot Card</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RIGHT: WHY THIS EXISTS PANEL -->
+                <aside class="right-panel">
+                    <div class="right-label">Why this exists</div>
+                    <div class="right-title">Manifestor arrows are nervous system settings.</div>
+                    <div class="right-body">
+                        Most Manifestors meet their arrows as rules. Eat like this. Work like this.
+                        Meditate like this. It turns your variables into homework instead of a
+                        <strong>permission slip</strong> for how your body and brain already operate.<br><br>
+                        This room is here so you can watch your four arrows line up as one pattern.
+                        No fixing. No chasing a “perfect” configuration. Just seeing the settings
+                        that make your Creative Urges cleaner and your Rest cycles honest.
+                    </div>
+
+                    <div class="right-section-label">Use this when</div>
+                    <ul class="bullet-list">
+                        <li>
+                            <div class="bullet-dot"></div>
+                            <span>You keep trying to copy non‑Manifestor routines and they never stick.</span>
+                        </li>
+                        <li>
+                            <div class="bullet-dot"></div>
+                            <span>You feel guilty for how inconsistent your focus, appetite or schedule seems.</span>
+                        </li>
+                        <li>
+                            <div class="bullet-dot"></div>
+                            <span>You want words for your arrows you can actually inform people with.</span>
+                        </li>
+                        <li>
+                            <div class="bullet-dot"></div>
+                            <span>You are tired of treating your arrows like a self‑improvement project.</span>
+                        </li>
+                    </ul>
+
+                    <div class="right-section-label">Deeper scan</div>
+                    <div class="right-body" style="margin-top:0.2rem;">
+                        Coming soon · a full Variables Vending Machine that runs all four
+                        transformations for you – digestion, environment, perspective and
+                        motivation – and drops a longer pattern report instead of a quick
+                        Snapshot. It will read how your arrows plug into your whole system so
+                        you can see why your current routines either work or burn you out.<br><br>
+                        If you want to go deeper now, you can book a
+                        <a href="https://manifestoranonymous.com/b/8hUDf"
+                            style="text-decoration:underline; color:#9fe6ff;">
+                            Cognition Scan
+                        </a>
+                        – a focused read on your variables and nervous system, for how you take things in, move through
+                        spaces and
+                        aim your mind.
+                    </div>
+
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <script>
+        (function () {
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzruZAt_Yurxr7buzplxusGROvrB_xoIMaGVHavNDXcZ39Eeap2MZfsx8v3BTVh_wa/exec';
+
+            const state = {
+                emailUnlocked: false,
+                coinTapped: false,
+                topLeft: null,
+                topRight: null,
+                bottomLeft: null,
+                bottomRight: null,
+                savedEmail: ''
+            };
+
+            const emailInput = document.getElementById('emailInput');
+            const emailBtn = document.getElementById('emailBtn');
+            const emailError = document.getElementById('emailError');
+            const coin = document.getElementById('coin');
+            const displayText = document.getElementById('displayText');
+            const displayStrip = document.getElementById('displayStrip');
+            const tagsLine = document.getElementById('tagsLine');
+            const vendBtn = document.getElementById('vendBtn');
+            const vendLed = document.getElementById('vendLed');
+            const machineShell = document.getElementById('machineShell');
+            const snapshotList = document.getElementById('snapshotList');
+            const snapshotBlend = document.getElementById('snapshotBlend');
+            const downloadBtn = document.getElementById('downloadSnapshotBtn');
+
+            function setDisplay(mode, text) {
+                displayText.textContent = text;
+                displayStrip.classList.remove('red', 'yellow', 'green');
+                displayStrip.classList.add(mode);
+            }
+
+            function validateEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+            async function saveEmailToGoogleSheet(email) {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        source: 'Manifestor Arrows Snapshot Room'
+                    })
+                });
+            }
+
+            emailBtn.addEventListener('click', async function () {
+                const val = emailInput.value.trim();
+
+                if (!validateEmail(val)) {
+                    emailError.style.display = 'block';
+                    setDisplay('red', 'Enter a valid email to unlock the scan');
+                    return;
+                }
+
+                emailError.style.display = 'none';
+                emailBtn.disabled = true;
+                setDisplay('yellow', 'Saving your email and waking up the scanner');
+
+                try {
+                    await saveEmailToGoogleSheet(val);
+
+                    state.emailUnlocked = true;
+                    state.savedEmail = val;
+
+                    coin.classList.remove('disabled');
+                    coin.classList.add('enabled');
+
+                    emailInput.disabled = true;
+                    emailBtn.textContent = 'Email saved';
+                    setDisplay('yellow', 'Email accepted. Tap the M to start the arrows scan.');
+                } catch (err) {
+                    emailBtn.disabled = false;
+                    setDisplay('red', 'Something went wrong saving your email');
+                }
+            });
+
+            emailInput.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    emailBtn.click();
+                }
+            });
+
+            coin.addEventListener('click', function () {
+                if (!state.emailUnlocked) return;
+                state.coinTapped = true;
+                machineShell.classList.add('live');
+                setDisplay('green', 'Scanner ready. Choose Left or Right for each arrow, then press SCAN.');
+                updateRowsAndVendState();
+            });
+
+            document.querySelectorAll('.arrow-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    if (!state.coinTapped) {
+                        setDisplay('yellow', 'Tap the M once to start the arrows scan first');
+                        return;
+                    }
+
+                    const slot = btn.getAttribute('data-slot');
+                    const dir = btn.getAttribute('data-dir');
+
+                    document.querySelectorAll('.arrow-btn[data-slot="' + slot + '"]').forEach(function (b) {
+                        b.classList.remove('active-left', 'active-right');
+                    });
+
+                    if (dir === 'L') {
+                        btn.classList.add('active-left');
+                    } else {
+                        btn.classList.add('active-right');
+                    }
+
+                    state[slot] = dir;
+                    updateRowsAndVendState();
+                });
+            });
+
+            function updateRowsAndVendState() {
+                const rows = document.querySelectorAll('.arrow-row');
+
+                rows.forEach(function (row) {
+                    const key = row.getAttribute('data-row');
+                    if (state[key]) {
+                        row.classList.add('active');
+                    } else {
+                        row.classList.remove('active');
+                    }
+                });
+
+                const selected = [];
+                if (state.topLeft) selected.push('Top Left ' + (state.topLeft === 'L' ? 'Left' : 'Right'));
+                if (state.bottomLeft) selected.push('Bottom Left ' + (state.bottomLeft === 'L' ? 'Left' : 'Right'));
+                if (state.topRight) selected.push('Top Right ' + (state.topRight === 'L' ? 'Left' : 'Right'));
+                if (state.bottomRight) selected.push('Bottom Right ' + (state.bottomRight === 'L' ? 'Left' : 'Right'));
+
+                if (selected.length === 0) {
+                    tagsLine.textContent = 'No arrows selected yet.';
+                } else {
+                    tagsLine.textContent = 'Current arrows ' + selected.join(' · ');
+                }
+
+                if (state.topLeft && state.bottomLeft && state.topRight && state.bottomRight && state.coinTapped) {
+                    vendBtn.classList.add('ready');
+                    vendLed.classList.add('on');
+                } else {
+                    vendBtn.classList.remove('ready');
+                    vendLed.classList.remove('on');
+                }
+            }
+
+            vendBtn.addEventListener('click', function () {
+                if (!vendBtn.classList.contains('ready')) {
+                    if (!state.coinTapped) {
+                        setDisplay('yellow', 'Tap the M to start the arrows scan first');
+                    } else {
+                        setDisplay('yellow', 'Set all four arrows before you run the scan');
+                    }
+                    return;
+                }
+
+                const topLeft = state.topLeft;
+                const bottomLeft = state.bottomLeft;
+                const topRight = state.topRight;
+                const bottomRight = state.bottomRight;
+
+                const listParts = [];
+
+                if (topLeft === 'L') {
+                    listParts.push('<div class="snapshot-list-item"><strong>Top Left · Left</strong> your design brain is more active. You enter Creative Cycles by locking on for a burst of focus then you are done.</div>');
+                } else {
+                    listParts.push('<div class="snapshot-list-item"><strong>Top Left · Right</strong> your design brain is receptive. Creative Urges land when you are relaxed and letting your mind wander instead of trying to force focus.</div>');
+                }
+
+                if (bottomLeft === 'L') {
+                    listParts.push('<div class="snapshot-list-item"><strong>Bottom Left · Left</strong> your body and spaces like simple rhythm. A little structure around food, rest and work lets your non Sacral system feel safe to go hard then switch off.</div>');
+                } else {
+                    listParts.push('<div class="snapshot-list-item"><strong>Bottom Left · Right</strong> your body and spaces want options. Flexible plans and easy exits keep your Rest Cycles honest so you do not stay in rooms after your energy is gone.</div>');
+                }
+
+                if (topRight === 'L') {
+                    listParts.push('<div class="snapshot-list-item"><strong>Top Right · Left</strong> your perspective is strategic. You see the steps and patterns ahead but you still only initiate when your Authority says yes.</div>');
+                } else {
+                    listParts.push('<div class="snapshot-list-item"><strong>Top Right · Right</strong> your perspective is receptive. You read the whole atmosphere and know where things are heading before there is a plan.</div>');
+                }
+
+                if (bottomRight === 'L') {
+                    listParts.push('<div class="snapshot-list-item"><strong>Bottom Right · Left</strong> your motivation is focused. Your words land like a clean arrow and your informing can sharply reroute people.</div>');
+                } else {
+                    listParts.push('<div class="snapshot-list-item"><strong>Bottom Right · Right</strong> your motivation is peripheral. People are initiated just by being in your aura, stories and spaces even when you are not aiming at them.</div>');
+                }
+
+                snapshotList.innerHTML = listParts.join('');
+
+                let blend = '';
+
+                if (topLeft === 'L') {
+                    blend += 'You have an active Manifestor brain that comes online in short sharp bursts. ';
+                } else {
+                    blend += 'You have a receptive Manifestor brain that wakes up when you are relaxed and not trying so hard. ';
+                }
+
+                if (bottomLeft === 'L') {
+                    blend += 'Your body wants a bit of rhythm so those bursts have somewhere safe to land and crash. ';
+                } else {
+                    blend += 'Your body wants freedom in timing and environment so you can disappear when your energy is done without explaining yourself. ';
+                }
+
+                if (topRight === 'L') {
+                    blend += 'Your mind sees the steps so you can map the path once the urge is here. ';
+                } else {
+                    blend += 'Your mind reads the field so you are here to speak to the vibe not the spreadsheet. ';
+                }
+
+                if (bottomRight === 'L') {
+                    blend += 'When you talk your impact is direct so clean informing matters. ';
+                } else {
+                    blend += 'When you talk and create the impact is atmospheric so curating your spaces matters more than being understood. ';
+                }
+
+                blend += 'All of this moves through your Manifestor mechanics closed aura, motorized throat and no Sacral so you are built for Creative Urges and real Rest, not constant availability.';
+
+                snapshotBlend.textContent = blend;
+                setDisplay('green', 'Scan complete. Read your list, then the blend, to feel how it actually works in your life.');
+            });
+
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', function () {
+                    const card = document.getElementById('snapshotPanel');
+
+                    if (!card || !window.html2canvas) {
+                        setDisplay('red', 'Download library failed to load on this page');
+                        return;
+                    }
+
+                    html2canvas(card, {
+                        backgroundColor: null,
+                        scale: 2
+                    }).then(function (canvas) {
+                        const link = document.createElement('a');
+                        link.download = 'manifestor_anonymous_arrows_snapshot.png';
+                        link.href = canvas.toDataURL('image/png');
+                        link.click();
+                    }).catch(function () {
+                        setDisplay('red', 'Could not create download image');
+                    });
+                });
+            }
+        })();
+    </script>
+</body>
+
+</html>

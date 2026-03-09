@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manifestor Anonymous • Underground Terminal</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+
+    <meta name="description"
+        content="Manifestor Anonymous Underground Terminal. Machines, signals, and scans built for Manifestors." />
+    <style>
+        :root {
+            --bg: #050608;
+            --panel: rgba(255, 255, 255, 0.045);
+            --line: rgba(255, 255, 255, 0.11);
+            --line-strong: rgba(255, 255, 255, 0.18);
+            --text: #f5f7fb;
+            --muted: rgba(245, 247, 251, 0.66);
+            --dim: rgba(245, 247, 251, 0.42);
+            --green: #39ff88;
+            --purple: #7c3aed;
+            --radius: 28px;
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.58);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(57, 255, 136, 0.08), transparent 16%),
+                radial-gradient(circle at 20% 14%, rgba(124, 58, 237, 0.14), transparent 21%),
+                radial-gradient(circle at 78% 10%, rgba(255, 255, 255, 0.05), transparent 12%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.06;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 88%);
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .container {
+            width: min(1240px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        /* TOPBAR */
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(14px);
+            background: rgba(5, 6, 8, 0.62);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 16px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid var(--line-strong);
+            overflow: hidden;
+            box-shadow: 0 0 24px rgba(57, 255, 136, 0.12);
+            background: #08090d;
+        }
+
+        .brand-copy small,
+        .section-label,
+        .eyebrow,
+        .micro {
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.28em;
+            font-size: 11px;
+            color: var(--dim);
+        }
+
+        .brand-copy strong {
+            display: block;
+            margin-top: 4px;
+            font-size: 18px;
+            letter-spacing: 0.04em;
+            font-weight: 700;
+        }
+
+        .topbar-tagline {
+            margin-top: 4px;
+            font-size: 10px;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--dim);
+        }
+
+        .top-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 48px 0 28px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 34px;
+            align-items: stretch;
+        }
+
+        .hero-copy,
+        .hero-visual-card,
+        .module-card,
+        .signal-card,
+        .statement-card,
+        .status-card,
+        .feature-card {
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-copy {
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signal-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(57, 255, 136, 0.22);
+            background: rgba(57, 255, 136, 0.08);
+            color: #b8ffd3;
+            box-shadow: 0 0 28px rgba(57, 255, 136, 0.09);
+        }
+
+        .signal-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+
+        h1 {
+            margin: 20px 0 0;
+            font-size: clamp(46px, 7vw, 72px);
+            line-height: 0.96;
+            letter-spacing: -0.06em;
+        }
+
+        .hero-sub {
+            display: block;
+            color: rgba(245, 247, 251, 0.8);
+            margin-top: 10px;
+        }
+
+        .hero-body {
+            margin: 22px 0 0;
+            max-width: 720px;
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        .hero-body strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .hero-tagline {
+            margin-top: 14px;
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--dim);
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 26px;
+        }
+
+        .btn,
+        .module-btn {
+            border: 0;
+            border-radius: 18px;
+            padding: 14px 22px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+        }
+
+        .btn:hover,
+        .module-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: #05130a;
+            box-shadow: 0 0 30px rgba(57, 255, 136, 0.22);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: 1px solid var(--line-strong);
+        }
+
+        .hero-visual-wrap {
+            position: relative;
+            min-height: 100%;
+        }
+
+        .hero-visual-card {
+            padding: 14px;
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .visual-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            margin-bottom: 14px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(57, 255, 136, 0.22);
+            background: rgba(57, 255, 136, 0.08);
+            font-size: 10px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #bbffda;
+            white-space: nowrap;
+        }
+
+        .hero-image-box {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            border: 1px solid var(--line);
+            background: #030406;
+            min-height: 480px;
+        }
+
+        .hero-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 18px;
+            z-index: 2;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 22px;
+            background: rgba(0, 0, 0, 0.42);
+            backdrop-filter: blur(14px);
+            padding: 18px;
+        }
+
+        .hero-overlay h2 {
+            margin: 8px 0 0;
+            font-size: 26px;
+            letter-spacing: -0.04em;
+        }
+
+        .hero-overlay p {
+            margin: 8px 0 0;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        /* SECTIONS */
+
+        .section {
+            padding: 28px 0 0;
+        }
+
+        .section-head {
+            display: block;
+            margin-bottom: 18px;
+        }
+
+        .section-head h2 {
+            margin: 8px 0 4px;
+            font-size: clamp(30px, 4vw, 42px);
+            letter-spacing: -0.05em;
+        }
+
+        .section-head p {
+            max-width: 520px;
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        /* MACHINES */
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .module-card {
+            padding: 20px 20px 76px;
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+            box-shadow: var(--shadow);
+            position: relative;
+            min-height: 240px;
+        }
+
+        .module-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .module-label {
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            color: var(--dim);
+        }
+
+        .module-status {
+            border-radius: 999px;
+            padding: 6px 10px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.04);
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.22em;
+            color: var(--dim);
+        }
+
+        .module-status.live {
+            border-color: rgba(57, 255, 136, 0.24);
+            background: rgba(57, 255, 136, 0.08);
+            color: #b8ffd3;
+        }
+
+        /* live badge glow above hero */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(57, 255, 136, 0.22);
+            background: rgba(57, 255, 136, 0.08);
+            font-size: 10px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #bbffda;
+            white-space: nowrap;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .status-badge.live {
+            /* badge shown only when applied in markup (signal card) */
+            box-shadow: 0 0 40px rgba(57, 255, 136, 0.4), 0 0 80px rgba(57, 255, 136, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 40px rgba(57, 255, 136, 0.4), 0 0 80px rgba(57, 255, 136, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 60px rgba(57, 255, 136, 0.6), 0 0 120px rgba(57, 255, 136, 0.3);
+            }
+        }
+
+        .module-status.standby {
+            border-color: rgba(124, 58, 237, 0.18);
+            background: rgba(124, 58, 237, 0.08);
+            color: #d6c3ff;
+        }
+
+        .module-path {
+            margin-top: 8px;
+            font-size: 11px;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--dim);
+        }
+
+        .module-card h3 {
+            margin: 12px 0 0;
+            font-size: 26px;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+        }
+
+        .module-card p {
+            margin: 12px 0 0;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 14px;
+            max-width: 32ch;
+        }
+
+        .module-btn {
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: 1px solid var(--line-strong);
+        }
+
+        .module-btn.live {
+            background: #f5f7fb;
+            color: #06080b;
+            border: 0;
+        }
+
+        /* SIGNAL */
+
+        .signal-card {
+            padding: 22px;
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+            box-shadow: var(--shadow);
+        }
+
+        .signal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .signal-meta {
+            font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+            font-size: 11px;
+            color: var(--dim);
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+        }
+
+        .signal-value {
+            margin-top: 10px;
+            font-size: 30px;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            font-weight: 700;
+        }
+
+        .signal-dates {
+            margin-top: 4px;
+            font-size: 12px;
+            color: var(--dim);
+        }
+
+        .signal-tags {
+            margin-top: 8px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: var(--dim);
+        }
+
+        .terminal-text {
+            font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+            color: #b8ffd3;
+            font-size: 13px;
+            line-height: 1.8;
+            letter-spacing: 0.03em;
+            margin-top: 16px;
+            border: 1px solid rgba(57, 255, 136, 0.18);
+            background: rgba(3, 13, 8, 0.35);
+            border-radius: 18px;
+            padding: 14px;
+        }
+
+        .signal-track {
+            margin-top: 20px;
+            padding: 20px;
+            font-size: 15px;
+            color: var(--text);
+            background: rgba(5, 6, 8, 0.8);
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .signal-track a {
+            color: var(--green);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .signal-track .track-embed {
+            margin: 12px 0;
+        }
+
+        .signal-track iframe {
+            width: 100%;
+            height: 80px;
+            border: none;
+            border-radius: 12px;
+        }
+
+        /* SYSTEM */
+
+        .statement-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .statement-card {
+            padding: 22px;
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+            box-shadow: var(--shadow);
+        }
+
+        .statement-card p {
+            margin: 12px 0 0;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        /* FEATURE STRIP: SIGNAL RADIO */
+
+        .feature-strip {
+            padding: 32px 0 40px;
+        }
+
+        .feature-card {
+            padding: 26px 24px 26px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 18px;
+            align-items: flex-end;
+            border-radius: var(--radius);
+            border: 1px solid var(--line-strong);
+            background:
+                linear-gradient(135deg,
+                    rgba(124, 58, 237, 0.9),
+                    rgba(48, 255, 152, 0.28) 42%,
+                    rgba(10, 12, 16, 0.96) 100%);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-card h2 {
+            margin: 10px 0 0;
+            font-size: clamp(32px, 4vw, 50px);
+            line-height: 1;
+            letter-spacing: -0.05em;
+        }
+
+        .feature-card p {
+            margin: 12px 0 0;
+            color: rgba(255, 255, 255, 0.86);
+            line-height: 1.8;
+            font-size: 15px;
+            max-width: 56ch;
+        }
+
+        .feature-actions {
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid var(--line);
+            margin-top: 32px;
+            padding: 18px 0 26px;
+            font-size: 12px;
+            color: var(--dim);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 1100px) {
+
+            .hero-grid,
+            .feature-card {
+                grid-template-columns: 1fr;
+            }
+
+            .module-grid,
+            .statement-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 760px) {
+
+            .topbar-inner,
+            .feature-actions,
+            .footer-inner {
+                align-items: flex-start;
+            }
+
+            .topbar-inner,
+            .feature-card {
+                flex-direction: column;
+            }
+
+            .top-links {
+                display: none;
+            }
+
+            .hero,
+            .feature-strip {
+                padding-top: 26px;
+            }
+
+            .hero-copy,
+            .hero-visual-card,
+            .signal-card,
+            .statement-card,
+            .feature-card,
+            .module-card {
+                padding: 20px;
+            }
+
+            .module-grid,
+            .statement-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .module-card {
+                padding-bottom: 78px;
+            }
+
+            .cta-row,
+            .feature-actions {
+                width: 100%;
+            }
+
+            .btn,
+            .module-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="brand">
+                <div class="brand-icon">
+                    <img src="images/logocircle.png" alt="Manifestor Anonymous icon" />
+                </div>
+                <div class="brand-copy">
+                    <small>Manifestor Anonymous</small>
+                    <strong>Underground Terminal</strong>
+                    <div class="topbar-tagline">For Manifestors only.</div>
+                </div>
+            </div>
+            <nav class="top-links">
+                <a href="#machines">Machines</a>
+                <span>/</span>
+                <a href="#signal">Signal</a>
+                <span>/</span>
+                <a href="#system">System</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <div class="signal-chip">
+                        <span class="signal-dot"></span>
+                        <span class="eyebrow">Transmission active</span>
+                    </div>
+
+                    <h1>Not softened.<br>A terminal for Manifestors.</h1>
+                    <span class="hero-sub">Dark. Sharp. Underground.</span>
+
+                    <p class="hero-body">
+                        Manifestor Anonymous is a <strong>hidden terminal</strong> for people who have always been
+                        called too much.
+                        This is where you stop getting explained and finally see your signal reflected back to you.
+                    </p>
+
+                    <p class="hero-tagline">
+                        Not a coaching website. A system interface.
+                    </p>
+
+                    <div class="cta-row">
+                        <a class="btn btn-primary" href="#machines">Enter the terminal</a>
+                        <a class="btn btn-secondary" href="#signal">Check the signal</a>
+                    </div>
+                </div>
+
+                <div class="hero-visual-wrap">
+                    <div class="hero-visual-card">
+                        <div class="visual-meta">
+                            <div>
+                                <span class="micro">Transmission visual</span>
+                                <!-- description removed for cleaner look -->
+                            </div>
+                            <!-- live badge removed; only appears on signal card now -->
+                        </div>
+
+                        <div class="hero-image-box">
+                            <img src="images/logofull.png"
+                                alt="Manifestor Anonymous hooded figure with glowing throat" />
+                            <div class="hero-overlay">
+                                <span class="micro">Core line</span>
+                                <h2>Initiate. Inform. Move.</h2>
+                                <p>
+                                    The glow is the throat. This is a transmission room, not a storefront. The identity
+                                    stays hidden. The signal does not.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SIGNAL (Gate 22 block) -->
+        <section class="section" id="signal">
+            <div class="container">
+                <div class="section-head">
+                    <span class="section-label">Broadcast</span>
+                    <h2>Current Sun gate.</h2>
+                    <p>
+                        The terminal tracks the Sun through the gates. One signal at a time.
+                        Use it as background frequency; if this is your Sun gate, read it as a mirror.
+                    </p>
+                </div>
+
+                <article class="signal-card">
+                    <div class="signal-header">
+                        <span class="status-badge live" style="font-size:10px;letter-spacing:0.22em;">Live signal</span>
+                        <span class="signal-meta">Sun feed</span>
+                    </div>
+
+                    <div class="signal-value" id="signalGate">Gate 22 · Grace</div>
+                    <div class="signal-dates" id="signalDates">March 7th-12th</div>
+                    <div class="signal-tags" id="signalTags">Mood • Openness • Expression • Timing</div>
+
+                    <div class="terminal-text" id="signalText">
+                        SIGNAL DROP // Your openness is not weakness. When the mood is right,
+                        one sentence from you can flip the emotional field.
+                    </div>
+
+                    <div class="signal-track" id="signalTrack">
+                        <div class="track-reason">
+                            <strong>Why this track:</strong>
+                            <span id="signalReason">
+                                Gate 22 carries mood and grace. “Feeling Good” holds that swell from heaviness
+                                into confidence. It feels like the moment you decide to stop apologizing
+                                for your emotional weather.
+                            </span>
+                        </div>
+                        <div class="track-embed">
+                            <iframe
+                                src="https://open.spotify.com/embed/track/7u6HRyEoWlUkoEsbQxX7sa?utm_source=generator"
+                                allow="encrypted-media" allowfullscreen></iframe>
+                        </div>
+                        <div class="track-link">
+                            Track:
+                            <a id="signalTrackLink"
+                                href="https://open.spotify.com/track/7u6HRyEoWlUkoEsbQxX7sa?si=866d82b485584ca3"
+                                target="_blank" rel="noopener noreferrer">
+                                Listen on Spotify
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- MACHINES -->
+        <section class="section" id="machines">
+            <div class="container">
+                <div class="section-head">
+                    <span class="section-label">Terminal machines</span>
+                    <h2>Pick your door.</h2>
+                    <p>
+                        This place runs on machines, not services. Each machine is an experience you step into. Some
+                        doors are open now. Others stay dark until they are ready.
+                    </p>
+
+                    <div class="module-grid">
+                        <article class="module-card">
+                            <div class="module-top">
+                                <span class="module-label">Module 01</span>
+                                <span class="module-status live">Live</span>
+                            </div>
+                            <div class="module-path">Path: Cognition</div>
+                            <h3>Arrows Machine</h3>
+                            <p>
+                                Four arrows. One snapshot. See how your mind, body, and environment actually process
+                                life so
+                                you can stop forcing the wrong way of operating.
+                            </p>
+                            <a class="module-btn live" href="arrows.html">Enter machine</a>
+                        </article>
+
+                        <article class="module-card">
+                            <div class="module-top">
+                                <span class="module-label">Module 02</span>
+                                <span class="module-status live">Live</span>
+                            </div>
+                            <div class="module-path">Path: Anger</div>
+                            <h3>Rage Room</h3>
+                            <p>
+                                Type what you never say out loud. Empty the pressure. Then see what your anger is really
+                                pointing at instead of turning it against yourself.
+                            </p>
+                            <a class="module-btn live" href="/rage.html">Open room</a>
+                        </article>
+
+                        <article class="module-card">
+                            <div class="module-top">
+                                <span class="module-label">Module 03</span>
+                                <span class="module-status standby">Stand by</span>
+                            </div>
+                            <div class="module-path">Path: Frequency</div>
+                            <h3>Signal Radio</h3>
+                            <p>
+                                Gate stations, incarnation‑cross record labels, and playlists that let you feel Human
+                                Design
+                                as sound and signal instead of theory.
+                            </p>
+                            <button class="module-btn" type="button">Locked</button>
+                        </article>
+
+                        <article class="module-card">
+                            <div class="module-top">
+                                <span class="module-label">Module 04</span>
+                                <span class="module-status standby">Stand by</span>
+                            </div>
+                            <div class="module-path">Path: Shadow</div>
+                            <h3>Black Market</h3>
+                            <p>
+                                The traits they called too intense, too direct, too much. Meet the shadow, name the
+                                conditioning, and reclaim the power underneath it.
+                            </p>
+                            <button class="module-btn" type="button">Locked</button>
+                        </article>
+
+                        <article class="module-card">
+                            <div class="module-top">
+                                <span class="module-label">Module 05</span>
+                                <span class="module-status standby">Stand by</span>
+                            </div>
+                            <div class="module-path">Path: Urge</div>
+                            <h3>Initiation Exchange</h3>
+                            <p>
+                                The urges and ideas you never ran don’t go to waste here. Drop one in. Pull one out. Let
+                                initiation move instead of dying in your notes app.
+                            </p>
+                            <button class="module-btn" type="button">Locked</button>
+                        </article>
+
+                        <article class="module-card">
+                            <div class="module-top">
+                                <span class="module-label">Module 06</span>
+                                <span class="module-status standby">Stand by</span>
+                            </div>
+                            <div class="module-path">Path: Recovery</div>
+                            <h3>MA Meetings</h3>
+                            <p>
+                                Anonymous Manifestor rooms for anger, failed initiations, informing disasters, and
+                                burnout.
+                                No masterminds. No performance.
+                            </p>
+                            <button class="module-btn" type="button">Locked</button>
+                        </article>
+                    </div>
+                </div>
+        </section>
+
+
+
+        <!-- SYSTEM / ABOUT -->
+        <section class="section" id="system">
+            <div class="container">
+                <div class="section-head">
+                    <span class="section-label">System</span>
+                    <h2>What this place is.</h2>
+                    <p>
+                        Clean lines. Clear doors. No fluff. This is a Manifestor system, not a personal brand.
+                    </p>
+                </div>
+
+                <div class="statement-grid">
+                    <article class="statement-card">
+                        <span class="section-label">Language</span>
+                        <h2 style="margin:12px 0 0;font-size:28px;letter-spacing:-0.05em;">
+                            Not a clean spiritual brand.
+                        </h2>
+                        <p>
+                            This terminal is for people who were told to tone it down. The language is blunt.
+                            The visuals are dark. The structure is intentional. No forced softness. No teacher
+                            voice pretending to be mysterious.
+                        </p>
+                    </article>
+
+                    <article class="statement-card">
+                        <span class="section-label">Depth</span>
+                        <h2 style="margin:12px 0 0;font-size:28px;letter-spacing:-0.05em;">
+                            Machines lead. Scans deepen.
+                        </h2>
+                        <p>
+                            You step into a machine first and feel your own pattern in real time. When you want more,
+                            Cognition, Anger, Signal, and Terminal scans go deeper into the same pattern instead of
+                            selling you something random.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURE STRIP: SIGNAL RADIO -->
+        <section class="feature-strip">
+            <div class="container">
+                <article class="feature-card">
+                    <div>
+                        <span class="section-label" style="color:rgba(255,255,255,0.78);">
+                            Long‑term engine
+                        </span>
+                        <h2>Signal Radio is the frequency spine.</h2>
+                        <p>
+                            One live Sun gate. Sixty‑four stations. Crosses as record labels. Curated tracks for each
+                            signal.
+                            When this is fully online, the terminal becomes a frequency network Manifestors can live
+                            inside,
+                            not just a site they visit once.
+                        </p>
+                    </div>
+                    <div class="feature-actions">
+                        <a class="btn btn-primary" href="#signal">Listen to the live gate</a>
+                        <a class="btn btn-secondary" href="#machines">See all machines</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <div>© Manifestor Anonymous. Underground Terminal.</div>
+            <div>Operator: Manifestor‑run. For Manifestors only.</div>
+        </div>
+    </footer>
+</body>
+
+</html>

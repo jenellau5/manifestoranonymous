@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rage Room • Manifestor Anonymous</title>
+    <meta name="description"
+        content="Rage Room inside the Manifestor Anonymous Underground Terminal. Vent first. Decode the anger after." />
+    <style>
+        :root {
+            --bg: #050608;
+            --panel: rgba(255, 255, 255, 0.045);
+            --line: rgba(255, 255, 255, 0.11);
+            --line-strong: rgba(255, 255, 255, 0.18);
+            --text: #f5f7fb;
+            --muted: rgba(245, 247, 251, 0.66);
+            --dim: rgba(245, 247, 251, 0.42);
+            --green: #39ff88;
+            --danger: #ff4d6d;
+            --radius: 26px;
+            --shadow: 0 22px 70px rgba(0, 0, 0, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(255, 77, 109, 0.22), transparent 18%),
+                radial-gradient(circle at 12% 80%, rgba(57, 255, 136, 0.12), transparent 22%),
+                radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.04), transparent 14%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.06;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 88%);
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .container {
+            /* match arrows.html maximum width */
+            width: min(1200px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        /* TOP BAR */
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(14px);
+            background: rgba(5, 6, 8, 0.88);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            padding: 12px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--line-strong);
+            overflow: hidden;
+            background: #08090d;
+            box-shadow: 0 0 18px rgba(57, 255, 136, 0.22);
+            flex-shrink: 0;
+        }
+
+        .brand-copy small,
+        .section-label {
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.26em;
+            font-size: 10px;
+            color: var(--dim);
+        }
+
+        .brand-copy strong {
+            display: block;
+            margin-top: 2px;
+            font-size: 14px;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+        }
+
+        .top-links {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* MAIN LAYOUT */
+
+        main {
+            padding: 30px 0 40px;
+        }
+
+        .room-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .panel,
+        .side-card {
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+            box-shadow: var(--shadow);
+        }
+
+        .panel {
+            padding: 24px 22px 22px;
+        }
+
+        .side-card {
+            padding: 20px 20px 18px;
+        }
+
+        /* LEFT PANEL */
+
+        .signal-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 77, 109, 0.6);
+            background: rgba(255, 77, 109, 0.14);
+            color: #ffd1dd;
+            box-shadow: 0 0 26px rgba(255, 77, 109, 0.3);
+            font-size: 11px;
+        }
+
+        .signal-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--danger);
+            box-shadow: 0 0 16px rgba(255, 77, 109, 0.9);
+        }
+
+        h1 {
+            margin: 18px 0 0;
+            font-size: clamp(36px, 5vw, 46px);
+            letter-spacing: -0.06em;
+            line-height: 0.98;
+        }
+
+        .hero-sub {
+            margin-top: 8px;
+            font-size: 15px;
+            color: rgba(245, 247, 251, 0.86);
+        }
+
+        .intro {
+            margin-top: 16px;
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--muted);
+            max-width: 46ch;
+        }
+
+        .intro strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .step-labels {
+            margin-top: 18px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--dim);
+        }
+
+        /* FORM */
+
+        form {
+            margin-top: 18px;
+            display: grid;
+            gap: 12px;
+        }
+
+        label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--dim);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 170px;
+            resize: vertical;
+            border-radius: 18px;
+            border: 1px solid var(--line-strong);
+            background: rgba(3, 4, 6, 0.95);
+            color: var(--text);
+            padding: 14px 14px;
+            font-size: 14px;
+            line-height: 1.75;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: rgba(255, 77, 109, 0.7);
+            box-shadow: 0 0 0 1px rgba(255, 77, 109, 0.7);
+        }
+
+        .hint {
+            font-size: 11px;
+            color: var(--dim);
+            margin-top: 3px;
+        }
+
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 6px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            border: 0;
+            border-radius: 999px;
+            padding: 10px 20px;
+            background: var(--danger);
+            color: #240208;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            cursor: pointer;
+            box-shadow: 0 0 28px rgba(255, 77, 109, 0.45);
+            transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 36px rgba(255, 77, 109, 0.65);
+        }
+
+        .btn-secondary {
+            border-radius: 999px;
+            border: 1px solid var(--line-strong);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 9px 18px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        .terminal-text {
+            margin-top: 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 77, 109, 0.55);
+            background: rgba(15, 4, 9, 0.9);
+            padding: 12px 14px;
+            font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+            font-size: 12px;
+            line-height: 1.8;
+            color: #ffd7e1;
+            letter-spacing: 0.03em;
+            white-space: pre-wrap;
+        }
+
+        /* Rage wall: starts EMPTY, shows only after purge */
+
+        #rageWall {
+            margin-top: 14px;
+            display: none;
+        }
+
+        /* SIDE COLUMN */
+
+        .side-card h2 {
+            margin: 10px 0 0;
+            font-size: 20px;
+            letter-spacing: -0.04em;
+        }
+
+        .side-card p {
+            margin: 10px 0 0;
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        ul.clean {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 0;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        ul.clean li {
+            position: relative;
+            padding-left: 14px;
+            margin-top: 8px;
+        }
+
+        ul.clean li::before {
+            content: "";
+            position: absolute;
+            left: 2px;
+            top: 9px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 10px rgba(57, 255, 136, 0.6);
+        }
+
+        .side-chip {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 10px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--dim);
+        }
+
+        .offer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: rgba(184, 255, 211, 0.9);
+            cursor: pointer;
+        }
+
+        .offer-link span {
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid var(--line);
+            margin-top: 30px;
+            padding: 16px 0 24px;
+            font-size: 11px;
+            color: var(--dim);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width:880px) {
+            .room-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width:640px) {
+            .topbar-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .top-links {
+                display: none;
+            }
+
+            main {
+                padding-top: 24px;
+            }
+
+            .panel,
+            .side-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="brand">
+                <div class="brand-icon">
+                    <img src="images/logocircle.png" alt="Manifestor Anonymous icon" />
+                </div>
+                <div class="brand-copy">
+                    <small>Manifestor Anonymous</small>
+                    <strong>Rage Room</strong>
+                </div>
+            </div>
+            <nav class="top-links">
+                <a href="index.html#machines">Back to terminal</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container room-grid">
+            <!-- LEFT: VENT + WALL -->
+            <section class="panel">
+                <div class="signal-chip">
+                    <span class="signal-dot"></span>
+                    <span>Module 02 · Path: Anger</span>
+                </div>
+
+                <h1>Rage Room.</h1>
+                <p class="hero-sub">Vent first. Decode it after.</p>
+
+                <p class="intro">
+                    This is where Manifestor anger goes when it is done behaving.
+                    Dump it here <strong>uncensored</strong>. No fixing. No polite informing.
+                    Once it is out of your body, the terminal will reflect what the signal is actually about.
+                </p>
+
+                <p class="step-labels">
+                    Step 1 · Purge the room. Step 2 · Read the signal.
+                </p>
+
+                <form id="rageForm">
+                    <div>
+                        <label for="rageText">Rage dump</label>
+                        <textarea id="rageText" name="rageText"
+                            placeholder="Type exactly what you are thinking. Swear. Repeat yourself. Say the thing you keep swallowing."></textarea>
+                        <div class="hint">
+                            Nothing here is sent anywhere. This is between you and the terminal.
+                        </div>
+                    </div>
+
+                    <div class="btn-row">
+                        <button type="submit" class="btn-primary">Purge the room</button>
+                        <button type="button" id="clearBtn" class="btn-secondary">Clear room</button>
+                    </div>
+                </form>
+
+                <!-- This is the ONLY red box. Starts blank & hidden. -->
+                <div id="rageWall" class="terminal-text"></div>
+            </section>
+
+            <!-- RIGHT: CONTEXT + ANGER SCAN -->
+            <aside class="side-card">
+                <span class="section-label">Why this exists</span>
+                <h2>Manifestor anger is blocked signal.</h2>
+                <p>
+                    Your aura is built to move first and inform as you go. When you slow yourself down
+                    to keep people comfortable, the energy has nowhere to go. It stacks as irritation,
+                    resentment, volcanic rage, or numb shutdown.
+                </p>
+                <p>
+                    The Rage Room gives that backlog a wall to hit so you can see
+                    <strong>what the anger is protecting</strong> instead of turning it on yourself.
+                </p>
+
+                <span class="side-chip">Use this when</span>
+                <ul class="clean">
+                    <li>You feel like everyone is in your way and you want to disappear or explode.</li>
+                    <li>You keep getting interrupted, questioned, or controlled.</li>
+                    <li>You are exhausted but still forcing yourself to initiate.</li>
+                    <li>You are sick of “being the calm one” when you are not calm.</li>
+                </ul>
+
+                <span class="side-chip" style="margin-top:14px;">Deeper scan</span>
+                <p>
+                    If you want this rage pattern read through your chart, the next step is an
+                    Anger Scan. The machine holds the vent. The scan maps it to your design.
+                </p>
+
+                <a href="https://manifestoranonymous.com/b/KNY1x" class="offer-link">
+                    <span>➜</span> Open Anger Scan
+                </a>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <div>© Manifestor Anonymous. Underground Terminal.</div>
+            <div>Module 02 · Rage Room.</div>
+        </div>
+    </footer>
+
+    <script>
+        const form = document.getElementById('rageForm');
+        const textarea = document.getElementById('rageText');
+        const clearBtn = document.getElementById('clearBtn');
+        const rageWall = document.getElementById('rageWall');
+
+        // Pool of random ROOM NOTE messages
+        const roomNotes = [
+            "ROOM NOTE // SIGNAL · CONTROL BREACH.\n\nYour anger is flagging every place someone is trying to run your energy for you. Manifestor systems short‑circuit when they are managed.\n\nMOVE // Inform once: what you are doing and what you are unavailable for. Then act without asking permission. Peace comes from movement, not from explaining.",
+            "ROOM NOTE // SIGNAL · PACE VIOLATION.\n\nThis is not laziness. Your body is saying the cycle ended and you kept pushing.\n\nMOVE // Cancel or pause one thing. Call a rest cycle on purpose. When you come back online, choose one initiation that actually matters and drop the rest.",
+            "ROOM NOTE // SIGNAL · VOICE JAM.\n\nYour voice is built to change the field. Being ignored feels like erasure.\n\nMOVE // Stop repeating yourself. Inform once from a grounded place, then move your energy where it is received. Your throat is not meant to fight for airtime.",
+            "ROOM NOTE // SIGNAL · COMPLIANCE HANGOVER.\n\nYour anger is the invoice for keeping everyone else comfortable.\n\nMOVE // Let one person be mildly disappointed today. Inform your no, then leave the space. Your nervous system needs proof that nothing explodes when you stop pleasing.",
+            "ROOM NOTE // SIGNAL · AURA OVERLOAD.\n\nYour aura wants room. Too many people, too close, for too long.\n\nMOVE // Take ten minutes of complete aloneness: no phone, no talking, no explaining. Call it maintenance, not a luxury.",
+            "ROOM NOTE // SIGNAL · BODY OVERRIDE.\n\nYour body has been saying no and you have been saying yes.\n\nMOVE // Honour one body signal today without negotiation: lie down, log off, eat, drink water, go outside.",
+            "ROOM NOTE // SIGNAL · MIXED LOAD.\n\nThis rage holds more than one thread: control, pace, voice, and old roles all tangled together.\n\nMOVE // You do not have to fix all of it tonight. Change your behaviour by one degree—say no sooner, rest earlier, or move without asking. The system recalibrates through action, not self‑judgment."
+        ];
+
+        const quietNote =
+            "ROOM NOTE // The room is quiet.\n\nType what you are actually thinking, not what you think you should say.";
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const text = textarea.value.trim();
+
+            rageWall.style.display = 'block';
+
+            if (!text) {
+                rageWall.textContent = quietNote;
+                return;
+            }
+
+            // pick a random anger note
+            const randomIndex = Math.floor(Math.random() * roomNotes.length);
+            const note = roomNotes[randomIndex];
+
+            // show ROOM NOTE + RAGE LOG together in the one red box
+            rageWall.textContent = note + "\n\nRAGE LOG // " + text;
+        });
+
+        clearBtn.addEventListener('click', function () {
+            textarea.value = "";
+            rageWall.style.display = 'none';
+            rageWall.textContent = "";
+        });
+    </script>
+</body>
+
+</html>
