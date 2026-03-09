@@ -8,7 +8,8 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
 
     <meta name="description"
-        content="Manifestor Anonymous Underground Terminal. Machines, signals, and scans built for Manifestors." />
+        content="Manifestor Anonymous Underground Terminal. DJ sun, Gates Radio, and machines built for Manifestors." />
+
     <style>
         :root {
             --bg: #050608;
@@ -306,6 +307,24 @@
             text-transform: uppercase;
             color: #bbffda;
             white-space: nowrap;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .status-badge.live {
+            box-shadow: 0 0 40px rgba(57, 255, 136, 0.4), 0 0 80px rgba(57, 255, 136, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 40px rgba(57, 255, 136, 0.4), 0 0 80px rgba(57, 255, 136, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 60px rgba(57, 255, 136, 0.6), 0 0 120px rgba(57, 255, 136, 0.3);
+            }
         }
 
         .hero-image-box {
@@ -423,41 +442,6 @@
             color: #b8ffd3;
         }
 
-        /* live badge glow above hero */
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            border-radius: 999px;
-            border: 1px solid rgba(57, 255, 136, 0.22);
-            background: rgba(57, 255, 136, 0.08);
-            font-size: 10px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: #bbffda;
-            white-space: nowrap;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .status-badge.live {
-            /* badge shown only when applied in markup (signal card) */
-            box-shadow: 0 0 40px rgba(57, 255, 136, 0.4), 0 0 80px rgba(57, 255, 136, 0.2);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                box-shadow: 0 0 40px rgba(57, 255, 136, 0.4), 0 0 80px rgba(57, 255, 136, 0.2);
-            }
-
-            50% {
-                box-shadow: 0 0 60px rgba(57, 255, 136, 0.6), 0 0 120px rgba(57, 255, 136, 0.3);
-            }
-        }
-
         .module-status.standby {
             border-color: rgba(124, 58, 237, 0.18);
             background: rgba(124, 58, 237, 0.08);
@@ -502,98 +486,151 @@
             border: 0;
         }
 
-        /* SIGNAL */
+        /* DJ SUN DECK */
 
-        .signal-card {
-            padding: 22px;
-            border-radius: var(--radius);
-            border: 1px solid var(--line);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
-            box-shadow: var(--shadow);
+        .dj-section {
+            padding: 28px 0 0;
         }
 
-        .signal-header {
+        .dj-card {
+            border-radius: var(--radius);
+            border: 1px solid var(--line-strong);
+            background:
+                linear-gradient(135deg,
+                    rgba(124, 58, 237, 0.9),
+                    rgba(48, 255, 152, 0.28) 42%,
+                    rgba(10, 12, 16, 0.96) 100%);
+            box-shadow: var(--shadow);
+            padding: 26px 24px 26px;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .dj-left-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
             gap: 12px;
+            margin-bottom: 10px;
         }
 
-        .signal-meta {
-            font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+        .dj-label {
+            text-transform: uppercase;
+            letter-spacing: 0.28em;
             font-size: 11px;
-            color: var(--dim);
+            color: rgba(255, 255, 255, 0.86);
+        }
+
+        .dj-heading {
+            margin: 6px 0 0;
+            font-size: clamp(32px, 4vw, 50px);
+            line-height: 1;
+            letter-spacing: -0.05em;
+        }
+
+        .dj-subcopy {
+            margin: 12px 0 0;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            font-size: 15px;
+            max-width: 56ch;
+        }
+
+        .dj-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.86);
+        }
+
+        .dj-meta-label {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 10px;
+            opacity: 0.9;
+        }
+
+        .dj-gate-value {
+            margin-top: 8px;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
+
+        .dj-tags {
+            margin-top: 4px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.86);
             text-transform: uppercase;
             letter-spacing: 0.18em;
         }
 
-        .signal-value {
-            margin-top: 10px;
-            font-size: 30px;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            font-weight: 700;
-        }
-
-        .signal-dates {
-            margin-top: 4px;
-            font-size: 12px;
-            color: var(--dim);
-        }
-
-        .signal-tags {
-            margin-top: 8px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.22em;
-            color: var(--dim);
-        }
-
-        .terminal-text {
-            font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
-            color: #b8ffd3;
-            font-size: 13px;
-            line-height: 1.8;
-            letter-spacing: 0.03em;
+        .dj-description-box {
             margin-top: 16px;
-            border: 1px solid rgba(57, 255, 136, 0.18);
-            background: rgba(3, 13, 8, 0.35);
             border-radius: 18px;
-            padding: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(5, 6, 8, 0.72);
+            padding: 14px 16px;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #f5f7fb;
         }
 
-        .signal-track {
-            margin-top: 20px;
-            padding: 20px;
-            font-size: 15px;
-            color: var(--text);
-            background: rgba(5, 6, 8, 0.8);
-            border: 1px solid var(--line-strong);
-            border-radius: var(--radius);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        .dj-description-box strong {
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 10px;
+            display: block;
+            margin-bottom: 4px;
+            color: rgba(245, 247, 251, 0.92);
+        }
+
+        .dj-right {
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.42);
+            background: rgba(1, 3, 5, 0.82);
+            padding: 18px 18px 18px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
 
-        .signal-track a {
+        .dj-right-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: rgba(245, 247, 251, 0.86);
+        }
+
+        .dj-track-reason {
+            font-size: 13px;
+            line-height: 1.8;
+            color: rgba(245, 247, 251, 0.9);
+        }
+
+        .dj-track-embed iframe {
+            width: 100%;
+            height: 90px;
+            border: none;
+            border-radius: 12px;
+        }
+
+        .dj-track-link {
+            font-size: 13px;
+            color: var(--green);
+        }
+
+        .dj-track-link a {
             color: var(--green);
             font-weight: 600;
             text-decoration: underline;
         }
 
-        .signal-track .track-embed {
-            margin: 12px 0;
-        }
-
-        .signal-track iframe {
-            width: 100%;
-            height: 80px;
-            border: none;
-            border-radius: 12px;
-        }
-
-        /* SYSTEM */
+        /* SYSTEM / ABOUT */
 
         .statement-grid {
             display: grid;
@@ -617,50 +654,6 @@
             font-size: 15px;
         }
 
-        /* FEATURE STRIP: SIGNAL RADIO */
-
-        .feature-strip {
-            padding: 32px 0 40px;
-        }
-
-        .feature-card {
-            padding: 26px 24px 26px;
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 18px;
-            align-items: flex-end;
-            border-radius: var(--radius);
-            border: 1px solid var(--line-strong);
-            background:
-                linear-gradient(135deg,
-                    rgba(124, 58, 237, 0.9),
-                    rgba(48, 255, 152, 0.28) 42%,
-                    rgba(10, 12, 16, 0.96) 100%);
-            box-shadow: var(--shadow);
-        }
-
-        .feature-card h2 {
-            margin: 10px 0 0;
-            font-size: clamp(32px, 4vw, 50px);
-            line-height: 1;
-            letter-spacing: -0.05em;
-        }
-
-        .feature-card p {
-            margin: 12px 0 0;
-            color: rgba(255, 255, 255, 0.86);
-            line-height: 1.8;
-            font-size: 15px;
-            max-width: 56ch;
-        }
-
-        .feature-actions {
-            display: flex;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
         /* FOOTER */
 
         footer {
@@ -679,9 +672,7 @@
         }
 
         @media (max-width: 1100px) {
-
-            .hero-grid,
-            .feature-card {
+            .hero-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -689,18 +680,20 @@
             .statement-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            .dj-card {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 760px) {
 
             .topbar-inner,
-            .feature-actions,
             .footer-inner {
                 align-items: flex-start;
             }
 
-            .topbar-inner,
-            .feature-card {
+            .topbar-inner {
                 flex-direction: column;
             }
 
@@ -708,17 +701,15 @@
                 display: none;
             }
 
-            .hero,
-            .feature-strip {
+            .hero {
                 padding-top: 26px;
             }
 
             .hero-copy,
             .hero-visual-card,
-            .signal-card,
             .statement-card,
-            .feature-card,
-            .module-card {
+            .module-card,
+            .dj-card {
                 padding: 20px;
             }
 
@@ -731,8 +722,7 @@
                 padding-bottom: 78px;
             }
 
-            .cta-row,
-            .feature-actions {
+            .cta-row {
                 width: 100%;
             }
 
@@ -755,13 +745,13 @@
                 <div class="brand-copy">
                     <small>Manifestor Anonymous</small>
                     <strong>Underground Terminal</strong>
-                    <div class="topbar-tagline">For Manifestors only.</div>
+                    <div class="topbar-tagline">DJ sun. Gates as tracks. For Manifestors only.</div>
                 </div>
             </div>
             <nav class="top-links">
                 <a href="#machines">Machines</a>
                 <span>/</span>
-                <a href="#signal">Signal</a>
+                <a href="#dj-sun">DJ sun</a>
                 <span>/</span>
                 <a href="#system">System</a>
             </nav>
@@ -778,8 +768,8 @@
                         <span class="eyebrow">Transmission active</span>
                     </div>
 
-                    <h1>Not softened.<br>A terminal for Manifestors.</h1>
-                    <span class="hero-sub">Dark. Sharp. Underground.</span>
+                    <h1>A terminal for Manifestors.</h1>
+                    <span class="hero-sub">Underground Manifestor experiences.</span>
 
                     <p class="hero-body">
                         Manifestor Anonymous is a <strong>hidden terminal</strong> for people who have always been
@@ -793,7 +783,7 @@
 
                     <div class="cta-row">
                         <a class="btn btn-primary" href="#machines">Enter the terminal</a>
-                        <a class="btn btn-secondary" href="#signal">Check the signal</a>
+                        <a class="btn btn-secondary" href="#dj-sun">Listen to DJ sun</a>
                     </div>
                 </div>
 
@@ -802,9 +792,7 @@
                         <div class="visual-meta">
                             <div>
                                 <span class="micro">Transmission visual</span>
-                                <!-- description removed for cleaner look -->
                             </div>
-                            <!-- live badge removed; only appears on signal card now -->
                         </div>
 
                         <div class="hero-image-box">
@@ -824,59 +812,93 @@
             </div>
         </section>
 
-        <!-- SIGNAL (Gate 22 block) -->
-        <section class="section" id="signal">
+        <section class="dj-section" id="dj-sun">
             <div class="container">
-                <div class="section-head">
-                    <span class="section-label">Broadcast</span>
-                    <h2>Current Sun gate.</h2>
-                    <p>
-                        The terminal tracks the Sun through the gates. One signal at a time.
-                        Use it as background frequency; if this is your Sun gate, read it as a mirror.
-                    </p>
-                </div>
+                <article class="dj-card">
+                    <!-- LEFT: GATE + COPY -->
+                    <div>
+                        <div class="dj-left-header">
+                            <span class="status-badge live">Now playing</span>
+                            <span class="dj-label">DJ sun • weekly main broadcast</span>
+                        </div>
 
-                <article class="signal-card">
-                    <div class="signal-header">
-                        <span class="status-badge live" style="font-size:10px;letter-spacing:0.22em;">Live signal</span>
-                        <span class="signal-meta">Sun feed</span>
-                    </div>
-
-                    <div class="signal-value" id="signalGate">Gate 22 · Grace</div>
-                    <div class="signal-dates" id="signalDates">March 7th-12th</div>
-                    <div class="signal-tags" id="signalTags">Mood • Openness • Expression • Timing</div>
-
-                    <div class="terminal-text" id="signalText">
-                        SIGNAL DROP // Your openness is not weakness. When the mood is right,
-                        one sentence from you can flip the emotional field.
-                    </div>
-
-                    <div class="signal-track" id="signalTrack">
-                        <div class="track-reason">
-                            <strong>Why this track:</strong>
-                            <span id="signalReason">
-                                Gate 22 carries mood and grace. “Feeling Good” holds that swell from heaviness
-                                into confidence. It feels like the moment you decide to stop apologizing
-                                for your emotional weather.
+                        <!-- PROMINENT TRANSIT TRACK LINE -->
+                        <div
+                            style="margin-top:8px;font-size:12px;text-transform:uppercase;letter-spacing:0.18em;color:rgba(255,255,255,0.86);">
+                            DJ sun transit track:
+                            <span id="djTrackTitle" style="font-weight:700;letter-spacing:0.08em;">
+                                Feeling Good
                             </span>
                         </div>
-                        <div class="track-embed">
+
+                        <h2 class="dj-heading" style="margin-top:16px;">One gate. One set. Per week.</h2>
+                        <p class="dj-subcopy">
+                            The Sun moves through the gates. The deck updates with it.
+                            Use this as background frequency. If this is your Sun gate, read it as a mirror.
+                        </p>
+
+                        <!-- GATE + KEYWORDS -->
+                        <div class="dj-gate-value" id="djGate" style="margin-top:18px;">Gate 22 · Grace</div>
+                        <div class="dj-tags" id="djTags">Mood • Openness • Expression • Timing</div>
+
+                        <!-- STACKED META -->
+                        <div style="margin-top:14px;font-size:11px;color:rgba(245,247,251,0.9);line-height:1.9;">
+                            <div>
+                                <span class="dj-meta-label" style="margin-right:6px;">Gate window</span>
+                                <span id="djDates" style="letter-spacing:0.04em;">March 7th–12th</span>
+                            </div>
+                            <div>
+                                <span class="dj-meta-label" style="margin-right:6px;">Set ID</span>
+                                <span id="djSetId" style="letter-spacing:0.06em;">SET 022</span>
+                            </div>
+                            <div style="margin-top:4px;">
+                                <span class="dj-meta-label" style="margin-right:6px;">Record label</span>
+                                <span id="djLabel" style="letter-spacing:0.06em;">Right Angle Cross of the
+                                    Phoenix</span>
+                            </div>
+                            <div>
+                                <span class="dj-meta-label" style="margin-right:6px;">Artist</span>
+                                <span id="djArtist" style="letter-spacing:0.06em;">Individual Circuit</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: TRACK PANEL (HEAVIER SIDE) -->
+                    <div class="dj-right">
+                        <div class="dj-right-title">Current track</div>
+
+                        <div class="dj-track-reason" id="djReason">
+                            Gate 22 carries mood and grace. This set moves from heaviness into confidence.
+                            It feels like the moment you decide to stop apologizing for your emotional weather.
+                        </div>
+
+                        <div class="dj-track-embed">
                             <iframe
                                 src="https://open.spotify.com/embed/track/7u6HRyEoWlUkoEsbQxX7sa?utm_source=generator"
                                 allow="encrypted-media" allowfullscreen></iframe>
                         </div>
-                        <div class="track-link">
+
+                        <div class="dj-track-link">
                             Track:
-                            <a id="signalTrackLink"
+                            <a id="djTrackLink"
                                 href="https://open.spotify.com/track/7u6HRyEoWlUkoEsbQxX7sa?si=866d82b485584ca3"
                                 target="_blank" rel="noopener noreferrer">
-                                Listen on Spotify
+                                Listen to the set on Spotify
                             </a>
+                        </div>
+
+                        <!-- BROADCAST NOTE UNDER TRACK -->
+                        <div class="dj-description-box" id="djDescription" style="margin-top:14px;">
+                            <strong>Station 22 broadcast note</strong>
+                            Your openness is not weakness. When the mood is right,
+                            one sentence from you can flip the emotional field.
                         </div>
                     </div>
                 </article>
             </div>
         </section>
+
+
 
         <!-- MACHINES -->
         <section class="section" id="machines">
@@ -899,8 +921,7 @@
                             <h3>Arrows Machine</h3>
                             <p>
                                 Four arrows. One snapshot. See how your mind, body, and environment actually process
-                                life so
-                                you can stop forcing the wrong way of operating.
+                                life so you can stop forcing the wrong way of operating.
                             </p>
                             <a class="module-btn live" href="arrows.html">Enter machine</a>
                         </article>
@@ -925,10 +946,9 @@
                                 <span class="module-status standby">Stand by</span>
                             </div>
                             <div class="module-path">Path: Frequency</div>
-                            <h3>Signal Radio</h3>
+                            <h3>Gates Radio</h3>
                             <p>
-                                Gate stations, incarnation‑cross record labels, and playlists that let you feel Human
-                                Design
+                                Gate stations, DJ sun replays, and playlists that let you feel Human Design
                                 as sound and signal instead of theory.
                             </p>
                             <button class="module-btn" type="button">Locked</button>
@@ -971,16 +991,13 @@
                             <h3>MA Meetings</h3>
                             <p>
                                 Anonymous Manifestor rooms for anger, failed initiations, informing disasters, and
-                                burnout.
-                                No masterminds. No performance.
+                                burnout. No masterminds. No performance.
                             </p>
                             <button class="module-btn" type="button">Locked</button>
                         </article>
                     </div>
                 </div>
         </section>
-
-
 
         <!-- SYSTEM / ABOUT -->
         <section class="section" id="system">
@@ -1013,36 +1030,11 @@
                         </h2>
                         <p>
                             You step into a machine first and feel your own pattern in real time. When you want more,
-                            Cognition, Anger, Signal, and Terminal scans go deeper into the same pattern instead of
+                            Cognition, Anger, Frequency, and Terminal scans go deeper into the same pattern instead of
                             selling you something random.
                         </p>
                     </article>
                 </div>
-            </div>
-        </section>
-
-        <!-- FEATURE STRIP: SIGNAL RADIO -->
-        <section class="feature-strip">
-            <div class="container">
-                <article class="feature-card">
-                    <div>
-                        <span class="section-label" style="color:rgba(255,255,255,0.78);">
-                            Long‑term engine
-                        </span>
-                        <h2>Signal Radio is the frequency spine.</h2>
-                        <p>
-                            One live Sun gate. Sixty‑four stations. Crosses as record labels. Curated tracks for each
-                            signal.
-                            When this is fully online, the terminal becomes a frequency network Manifestors can live
-                            inside,
-                            not just a site they visit once.
-                        </p>
-                    </div>
-                    <div class="feature-actions">
-                        <a class="btn btn-primary" href="#signal">Listen to the live gate</a>
-                        <a class="btn btn-secondary" href="#machines">See all machines</a>
-                    </div>
-                </article>
             </div>
         </section>
     </main>
