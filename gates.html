@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gates Radio • Manifestor Anonymous</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+
+    <meta name="description"
+        content="Gates Radio is the archive behind DJ sun. Pick a gate, get a track. Founder access to full stations and custom incarnation cross record labels for Manifestors." />
+
+    <style>
+        :root {
+            --bg: #020711;
+            --panel: rgba(17, 24, 39, 0.92);
+            --panel-soft: rgba(15, 23, 42, 0.85);
+            --line: rgba(148, 163, 184, 0.32);
+            --line-strong: rgba(148, 163, 184, 0.6);
+            --text: #ecf4ff;
+            --muted: rgba(226, 232, 240, 0.8);
+            --dim: rgba(148, 163, 184, 0.82);
+            --accent: #38bdf8;
+            /* sky blue */
+            --accent-soft: rgba(56, 189, 248, 0.2);
+            --purple: #7c3aed;
+            --radius: 26px;
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.66);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 20%),
+                radial-gradient(circle at 15% 80%, rgba(56, 189, 248, 0.12), transparent 26%),
+                radial-gradient(circle at 80% 10%, rgba(124, 58, 237, 0.14), transparent 32%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.06;
+            background-image:
+                linear-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.18) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 86%);
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .container {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        /* module pill used by arrows/rage pages */
+        .module-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            border: 1px solid var(--accent);
+            background: var(--accent-soft);
+            color: #fff;
+            box-shadow: 0 0 26px var(--accent-soft);
+            margin-bottom: 1rem;
+        }
+
+        .module-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 16px var(--accent);
+        }
+
+        /* TOPBAR – mirror other rooms */
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            backdrop-filter: blur(14px);
+            background: rgba(3, 7, 18, 0.82);
+            border-bottom: 1px solid rgba(30, 64, 175, 0.4);
+        }
+
+        .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            padding: 14px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid var(--line-strong);
+            overflow: hidden;
+            box-shadow: 0 0 22px rgba(56, 189, 248, 0.3);
+            background: #020617;
+        }
+
+        .brand-copy small,
+        .eyebrow,
+        .micro,
+        .section-label {
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.26em;
+            font-size: 10px;
+            color: var(--dim);
+        }
+
+        .brand-copy strong {
+            display: block;
+            margin-top: 3px;
+            font-size: 17px;
+            letter-spacing: 0.06em;
+            font-weight: 700;
+        }
+
+        .topbar-tagline {
+            margin-top: 4px;
+            font-size: 9px;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: rgba(148, 163, 184, 0.9);
+        }
+
+        .top-links {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        /* BUTTONS */
+
+        .btn {
+            border-radius: 999px;
+            border: 1px solid var(--line-strong);
+            padding: 11px 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text);
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #020617;
+            border-color: rgba(56, 189, 248, 0.9);
+            box-shadow: 0 0 28px rgba(56, 189, 248, 0.46);
+        }
+
+        .btn-secondary {
+            background: rgba(15, 23, 42, 0.9);
+            /* glow to match page accent for consistency */
+            box-shadow: 0 0 18px var(--accent);
+            border: 1px solid var(--accent);
+            color: var(--text);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 50px rgba(15, 23, 42, 0.9);
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 32px 0 18px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .hero-panel {
+            border-radius: var(--radius);
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.36), transparent 50%),
+                radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96));
+            box-shadow: var(--shadow);
+            padding: 26px 26px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: rgba(226, 232, 240, 0.86);
+        }
+
+        .chip {
+            padding: 7px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(15, 23, 42, 0.1);
+            background: rgba(15, 23, 42, 0.74);
+        }
+
+        .chip-primary {
+            border-color: rgba(56, 189, 248, 0.8);
+            background: rgba(15, 23, 42, 0.92);
+            color: rgba(191, 239, 255, 0.94);
+            box-shadow: 0 0 26px rgba(56, 189, 248, 0.55);
+        }
+
+        .hero-title {
+            margin: 20px 0 0;
+            font-size: clamp(34px, 5vw, 46px);
+            line-height: 1.02;
+            letter-spacing: -0.05em;
+        }
+
+        .hero-body {
+            margin: 16px 0 0;
+            max-width: 540px;
+            font-size: 15px;
+            line-height: 1.9;
+            color: var(--muted);
+        }
+
+        .hero-body strong {
+            color: var(--text);
+        }
+
+        .hero-cta-row {
+            margin-top: 22px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .hero-side-card {
+            border-radius: var(--radius);
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            background: rgba(15, 23, 42, 0.96);
+            box-shadow: var(--shadow);
+            padding: 22px 22px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .hero-side-card h2 {
+            margin: 4px 0;
+            font-size: 18px;
+            letter-spacing: -0.04em;
+        }
+
+        .hero-side-card p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        /* SECTION WRAPPER */
+
+        .section {
+            padding: 26px 0 0;
+        }
+
+        .section-head {
+            margin-bottom: 16px;
+        }
+
+        .section-head h2 {
+            margin: 8px 0 4px;
+            font-size: 26px;
+            letter-spacing: -0.04em;
+        }
+
+        .section-head p {
+            margin: 0;
+            max-width: 560px;
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--muted);
+        }
+
+        /* JUKEBOX */
+
+        .jukebox-grid {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        .jukebox-panel {
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+            background: var(--panel);
+            box-shadow: var(--shadow);
+            padding: 20px 20px 22px;
+        }
+
+        .jukebox-panel h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+            letter-spacing: -0.03em;
+        }
+
+        .jukebox-panel p {
+            margin: 0 0 14px;
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        .field-label {
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 10px;
+            color: var(--dim);
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        select {
+            width: 100%;
+            padding: 11px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.65);
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text);
+            font-size: 13px;
+            outline: none;
+        }
+
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5);
+        }
+
+        .jukebox-meta {
+            margin-top: 16px;
+            font-size: 11px;
+            color: var(--dim);
+            line-height: 1.9;
+        }
+
+        .jukebox-meta span.label {
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 9px;
+            color: var(--dim);
+            margin-right: 6px;
+        }
+
+        .jukebox-result {
+            border-radius: var(--radius);
+            border: 1px solid var(--line-strong);
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.3), transparent 60%),
+                var(--panel-soft);
+            box-shadow: var(--shadow);
+            padding: 20px 20px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .jukebox-result-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: rgba(226, 232, 240, 0.9);
+        }
+
+        .jukebox-gate-line {
+            margin-top: 4px;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
+
+        .jukebox-tags {
+            margin-top: 2px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--dim);
+        }
+
+        .jukebox-note {
+            margin-top: 10px;
+            border-radius: 18px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: rgba(15, 23, 42, 0.96);
+            padding: 12px 14px;
+            font-size: 13px;
+            line-height: 1.9;
+            color: var(--muted);
+        }
+
+        .jukebox-note strong {
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 9px;
+            margin-bottom: 4px;
+            color: rgba(226, 232, 240, 0.9);
+        }
+
+        .jukebox-track {
+            margin-top: 12px;
+            font-size: 13px;
+            color: rgba(226, 232, 240, 0.94);
+        }
+
+        .jukebox-track a {
+            color: var(--accent);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .jukebox-coming {
+            margin-top: 8px;
+            font-size: 11px;
+            color: rgba(148, 163, 184, 0.9);
+        }
+
+        /* FOUNDER ACCESS */
+
+        .founder-card {
+            margin-top: 18px;
+            border-radius: var(--radius);
+            border: 1px solid rgba(56, 189, 248, 0.66);
+            background:
+                linear-gradient(135deg,
+                    rgba(15, 23, 42, 0.98),
+                    rgba(56, 189, 248, 0.24));
+            box-shadow: var(--shadow);
+            padding: 22px 22px 18px;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .founder-card h3 {
+            margin: 8px 0 6px;
+            font-size: 22px;
+            letter-spacing: -0.04em;
+        }
+
+        .founder-card p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.9;
+            color: rgba(226, 232, 240, 0.9);
+        }
+
+        .founder-list {
+            margin: 10px 0 0;
+            padding-left: 16px;
+            font-size: 13px;
+            color: rgba(226, 232, 240, 0.9);
+            line-height: 1.8;
+        }
+
+        .founder-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .founder-tag {
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            font-size: 10px;
+            color: rgba(226, 232, 240, 0.9);
+        }
+
+        /* CUSTOM LABELS */
+
+        .label-card {
+            margin-top: 18px;
+            border-radius: var(--radius);
+            border: 1px dashed rgba(148, 163, 184, 0.7);
+            background: rgba(15, 23, 42, 0.92);
+            padding: 18px 18px 16px;
+            font-size: 13px;
+            line-height: 1.9;
+            color: var(--muted);
+        }
+
+        .label-card h3 {
+            margin: 0 0 6px;
+            font-size: 18px;
+            letter-spacing: -0.03em;
+        }
+
+        .label-card p {
+            margin: 0;
+        }
+
+        /* FOOTER */
+
+        footer {
+            margin-top: 30px;
+            padding: 18px 0 26px;
+            border-top: 1px solid rgba(30, 64, 175, 0.7);
+            font-size: 11px;
+            color: var(--dim);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        @media (max-width: 960px) {
+
+            .hero-grid,
+            .jukebox-grid,
+            .founder-card {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .topbar-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .top-links {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 24px;
+            }
+
+            .hero-panel,
+            .hero-side-card,
+            .jukebox-panel,
+            .jukebox-result,
+            .founder-card,
+            .label-card {
+                padding: 18px 18px 16px;
+            }
+
+            .founder-actions {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="brand">
+                <div class="brand-icon">
+                    <img src="images/logocircle.png" alt="Manifestor Anonymous icon" />
+                </div>
+                <div class="brand-copy">
+                    <small>Manifestor Anonymous</small>
+                    <strong>Gates Radio</strong>
+                    <div class="topbar-tagline">DJ sun. Gates as tracks. For Manifestors only.</div>
+                </div>
+            </div>
+            <nav class="top-links">
+                <a href="index.html" class="btn btn-secondary">Back to terminal</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero">
+            <div class="container hero-grid">
+                <article class="hero-panel">
+                    <div class="module-pill">
+                        <div class="module-dot"></div>
+                        <span>Module 03 · Path: Frequency</span>
+                    </div>
+                    <div class="hero-chip-row">
+                        <span class="chip chip-primary">Gates Radio</span>
+                        <span class="chip">Archive behind DJ sun</span>
+                    </div>
+                    <h1 class="hero-title">Pick a gate. Hear the station.</h1>
+                    <p class="hero-body">
+                        Gates Radio is the **frequency archive** that sits behind DJ sun.
+                        One room lets you feel a single transit. This room lets you start
+                        feeling the gates as stations you can actually tune into.
+                    </p>
+                    <div class="hero-cta-row">
+                        <a href="#jukebox" class="btn btn-primary">Open the jukebox</a>
+                        <a href="#founder" class="btn btn-secondary">See founder access</a>
+                    </div>
+                </article>
+
+                <aside class="hero-side-card">
+                    <span class="micro">How it works</span>
+                    <h2>Jukebox now. Network later.</h2>
+                    <p>
+                        Right now you can choose a gate and get one track plus a brief station note.
+                        As Gates Radio comes online, full playlists and cross “record labels”
+                        unlock for people inside the network.
+                    </p>
+                </aside>
+            </div>
+        </section>
+
+        <!-- JUKEBOX -->
+        <section class="section" id="jukebox">
+            <div class="container">
+                <div class="section-head">
+                    <span class="section-label">Free room</span>
+                    <h2>Gate jukebox.</h2>
+                    <p>
+                        Choose a gate and get a track picked for that signal. Use it as
+                        background frequency while you work, walk, or spiral. Some stations are
+                        online now. Others are dark until they’re ready.
+                    </p>
+                </div>
+
+                <div class="jukebox-grid">
+                    <!-- LEFT: CONTROLS -->
+                    <article class="jukebox-panel">
+                        <h3>Pick your gate.</h3>
+                        <p>
+                            Start with the current Sun gate or your own Sun gate if you know it.
+                            This isn’t a full playlist—just one slice of the station.
+                        </p>
+
+                        <label class="field-label" for="gateSelect">Gate</label>
+                        <select id="gateSelect">
+                            <!-- You can wire this up later with JS. For now, Gate 22 is the default. -->
+                            <option value="22" selected>Gate 22 · Grace (online)</option>
+                            <option value="34" disabled>Gate 34 · Power (offline)</option>
+                            <option value="3" disabled>Gate 3 · Ordering (offline)</option>
+                            <option value="1" disabled>Gate 1 · Creative (offline)</option>
+                            <option value="other" disabled>More stations coming online…</option>
+                        </select>
+
+                        <div class="jukebox-meta">
+                            <div>
+                                <span class="label">Status</span>
+                                <span id="gateStatus">Online · Single-track preview</span>
+                            </div>
+                            <div>
+                                <span class="label">Artist</span>
+                                <span id="gateArtist">Individual – Knowing circuit</span>
+                            </div>
+                            <div>
+                                <span class="label">Record label</span>
+                                <span id="gateLabel">Stations featuring Gate 22 as a Sun theme</span>
+                            </div>
+                        </div>
+
+                        <div class="jukebox-coming">
+                            Want a specific vibe next time?
+                            <br />Drop a genre request in DJ sun stories:
+                            emo, rage, jazz, studio‑only, whatever fits your system.
+                        </div>
+                    </article>
+
+                    <!-- RIGHT: RESULT -->
+                    <article class="jukebox-result">
+                        <div class="jukebox-result-title">Current station sample</div>
+                        <div class="jukebox-gate-line" id="gateTitle">Gate 22 · Grace</div>
+                        <div class="jukebox-tags" id="gateTags">Mood • Openness • Expression • Timing</div>
+
+                        <div class="jukebox-note" id="gateNote">
+                            <strong>Station note</strong>
+                            Your openness is not weakness. When the mood is right,
+                            one sentence from you can flip the emotional field.
+                            This station is about owning your emotional weather instead
+                            of apologizing for it.
+                        </div>
+
+                        <div class="jukebox-track" id="gateTrack">
+                            Transit track sample:
+                            <a href="https://open.spotify.com/track/7u6HRyEoWlUkoEsbQxX7sa?si=866d82b485584ca3"
+                                target="_blank" rel="noopener noreferrer">
+                                “Feeling Good” – Nina Simone
+                            </a>
+                        </div>
+
+                        <div class="jukebox-coming">
+                            Full Gate 22 playlist lives inside Gates Radio access.
+                            This jukebox only spins one record at a time.
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOUNDER ACCESS -->
+        <section class="section" id="founder">
+            <div class="container">
+                <div class="section-head">
+                    <span class="section-label">Network access</span>
+                    <h2>Founder pass: Gates Radio.</h2>
+                    <p>
+                        For Manifestors who want the whole frequency network, not just a jukebox.
+                        Founders get every station as it drops at a price that never repeats.
+                    </p>
+                </div>
+
+                <article class="founder-card">
+                    <div>
+                        <span class="micro" style="color:rgba(191,219,254,0.94);">Founder / forever</span>
+                        <h3>Full Gates Radio access.</h3>
+                        <p>
+                            One decision now. A growing archive of stations as your background
+                            frequency later. When the network is fully online, this price goes up.
+                            Founders stay where they entered.
+                        </p>
+                        <ul class="founder-list">
+                            <li>Full playlists for each gate station as they come online.</li>
+                            <li>DJ sun transit tracks saved into their home stations.</li>
+                            <li>Future themed mixes (creative urges, breakups, launches, rage).</li>
+                        </ul>
+                    </div>
+                    <div class="founder-actions">
+                        <div class="founder-tag">Founder pricing window</div>
+                        <!-- plug in actual URL when you have checkout -->
+                        <a href="#" class="btn btn-primary">Join Gates Radio as a founder</a>
+                        <a href="#labels" class="btn btn-secondary">See custom record labels</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- CUSTOM RECORD LABELS -->
+        <section class="section" id="labels">
+            <div class="container">
+                <div class="section-head">
+                    <span class="section-label">Custom label</span>
+                    <h2>Your incarnation cross as a record label.</h2>
+                    <p>
+                        When you want your chart to sound like something, not just read like
+                        something. This is where your life theme turns into a private label and
+                        a playlist built for your genres.
+                    </p>
+                </div>
+
+                <article class="label-card">
+                    <h3>Frequency scan: Record Label edition.</h3>
+                    <p>
+                        You send your incarnation cross gates and the genres your system actually
+                        likes. You get a custom playlist built around your cross and key
+                        placements—either themed mixes or a track for each planet/gate.
+                    </p>
+                    <p style="margin-top:10px;">
+                        Example: if your Venus is Gate 22, that track sounds like moody,
+                        graceful love. Mars gets something that carries your way of fighting.
+                        Mercury gets your voice. It’s not a PDF reading. It’s a label you can
+                        listen to.
+                    </p>
+                    <p style="margin-top:10px;font-size:12px;color:rgba(148,163,184,0.96);">
+                        This offer opens after the first wave of Gates Radio founders are in.
+                        If you want to be first in line, there’ll be a form here instead of
+                        this text.
+                    </p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <div>© Manifestor Anonymous. Gates Radio.</div>
+            <div>Module 03 · Gates Radio.</div>
+            <div>Operator: Manifestor‑run. For Manifestors only.</div>
+            <div>
+                <a href="https://instagram.com/manifestor.anonymous" target="_blank" rel="noopener noreferrer">
+                    @manifestor.anonymous
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

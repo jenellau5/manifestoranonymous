@@ -35,11 +35,11 @@
         body {
             margin: 0;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            /* green glow always, no pink/red highlights */
+            /* green glow to match arrows accent */
             background:
-                radial-gradient(circle at top, rgba(57, 255, 136, 0.22), transparent 18%),
-                radial-gradient(circle at 12% 80%, rgba(57, 255, 136, 0.12), transparent 22%),
-                radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.04), transparent 14%),
+                radial-gradient(circle at top, rgba(57, 255, 136, 0.18), transparent 20%),
+                radial-gradient(circle at 15% 80%, rgba(57, 255, 136, 0.12), transparent 26%),
+                radial-gradient(circle at 80% 10%, rgba(57, 255, 136, 0.14), transparent 32%),
                 var(--bg);
             color: var(--text);
             min-height: 100vh;
@@ -53,8 +53,8 @@
             pointer-events: none;
             opacity: 0.06;
             background-image:
-                linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+                linear-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.18) 1px, transparent 1px);
             background-size: 42px 42px;
             mask-image: radial-gradient(circle at center, black 40%, transparent 88%);
         }
@@ -64,9 +64,21 @@
             max-width: 100%;
         }
 
+        /* anchors should use page accent and glow when appropriate */
         a {
-            color: inherit;
+            color: var(--green);
             text-decoration: none;
+            text-shadow: 0 0 6px var(--green);
+        }
+
+        a:hover {
+            text-shadow: 0 0 12px var(--green);
+        }
+
+        /* keep topbar buttons sized consistently */
+        .top-links .btn {
+            font-size: 13px;
+            padding: 14px 22px;
         }
 
         button {
@@ -81,10 +93,11 @@
         .topbar {
             position: sticky;
             top: 0;
-            z-index: 50;
+            z-index: 40;
             backdrop-filter: blur(14px);
-            background: rgba(5, 6, 8, 0.88);
-            border-bottom: 1px solid var(--line);
+            background: rgba(3, 7, 18, 0.82);
+            border-bottom: 1px solid rgba(30, 64, 175, 0.4);
+            /* gates blue */
         }
 
         .topbar-inner {
@@ -92,24 +105,24 @@
             justify-content: space-between;
             align-items: center;
             gap: 18px;
-            padding: 12px 0;
+            padding: 14px 0;
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .brand-icon {
-            width: 34px;
-            height: 34px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             border: 1px solid var(--line-strong);
             overflow: hidden;
+            box-shadow: 0 0 22px rgba(57, 255, 136, 0.3);
+            /* green glow to match page accent */
             background: #08090d;
-            box-shadow: 0 0 18px rgba(57, 255, 136, 0.22);
-            flex-shrink: 0;
         }
 
         .brand-copy small {
@@ -128,6 +141,14 @@
             font-weight: 700;
         }
 
+        .topbar-tagline {
+            margin-top: 4px;
+            font-size: 9px;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: rgba(148, 163, 184, 0.9);
+        }
+
         .top-links {
             display: flex;
             align-items: center;
@@ -144,6 +165,40 @@
 
         .top-links a:hover {
             color: #ffffff;
+        }
+
+        /* button utilities shared with other pages */
+        .btn,
+        .module-btn {
+            border: 0;
+            border-radius: 18px;
+            padding: 14px 22px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+        }
+
+        .btn:hover,
+        .module-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: #05130a;
+            box-shadow: 0 0 30px rgba(57, 255, 136, 0.22);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: 1px solid var(--line-strong);
+            /* glow in page accent (green) */
+            box-shadow: 0 0 18px var(--green);
+            border-color: var(--green);
         }
 
         .page-wrap {
@@ -791,10 +846,13 @@
                 <div class="brand-copy">
                     <small>Manifestor Anonymous</small>
                     <strong>Arrows Machine</strong>
+                    <div class="topbar-tagline">
+                        Four arrows. One snapshot. See your settings, not routines.
+                    </div>
                 </div>
             </div>
             <nav class="top-links">
-                <a href="index.html">Back to terminal</a>
+                <a href="index.html" class="btn btn-secondary">Back to terminal</a>
             </nav>
         </div>
     </header>
