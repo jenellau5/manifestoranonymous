@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description"
         content="Arrows Room inside the Manifestor Anonymous Underground Terminal. Peek at your four arrows and get your cognition snapshot." />
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
     <style>
         :root {
@@ -34,8 +35,9 @@
         body {
             margin: 0;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            /* green glow always, no pink/red highlights */
             background:
-                radial-gradient(circle at top, rgba(255, 77, 109, 0.22), transparent 18%),
+                radial-gradient(circle at top, rgba(57, 255, 136, 0.22), transparent 18%),
                 radial-gradient(circle at 12% 80%, rgba(57, 255, 136, 0.12), transparent 22%),
                 radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.04), transparent 14%),
                 var(--bg);
@@ -72,12 +74,10 @@
         }
 
         .container {
-            /* larger limit for header and page content */
             width: min(1200px, calc(100% - 32px));
             margin: 0 auto;
         }
 
-        /* TOPBAR */
         .topbar {
             position: sticky;
             top: 0;
@@ -112,8 +112,7 @@
             flex-shrink: 0;
         }
 
-        .brand-copy small,
-        .section-label {
+        .brand-copy small {
             display: inline-block;
             text-transform: uppercase;
             letter-spacing: 0.26em;
@@ -132,20 +131,21 @@
         .top-links {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             color: var(--muted);
             font-size: 12px;
         }
 
-        /* SHELL */
-        .page-wrap {
-            min-height: 100vh;
-            padding: 1.75rem 1.75rem 3rem;
-            display: flex;
-            justify-content: center;
+        .top-links a {
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 10px;
         }
 
-        /* SHELL */
+        .top-links a:hover {
+            color: #ffffff;
+        }
+
         .page-wrap {
             min-height: 100vh;
             padding: 1.75rem 1.75rem 3rem;
@@ -158,65 +158,12 @@
             max-width: 1200px;
         }
 
-        /* obsolete top-bar styles left for reference; new header uses .topbar */
-        /*
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            font-size: 0.78rem;
-        }
-
-        .brand-lockup {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .brand-mark {
-            width: 32px;
-            height: 32px;
-            border-radius: 999px;
-            background: radial-gradient(circle at 30% 20%, #ffffff, #8aebff 30%, #2f4a86 65%, #070b16 100%);
-            box-shadow: 0 0 16px rgba(138, 235, 255, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #02040a;
-        }
-
-        .brand-text-main {
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-        }
-
-        .back-link {
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: rgba(203, 209, 255, 0.75);
-            cursor: pointer;
-        }
-
-        .back-link span {
-            opacity: 0.8;
-            margin-right: 0.25rem;
-        }
-
-        .back-link:hover {
-            color: rgba(255, 255, 255, 0.95);
-        }
-        */
-
-        /* MAIN TWO-COLUMN CONTENT (LIKE RAGE) */
         .main-grid {
             display: grid;
             grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.4fr);
             gap: 1.75rem;
             align-items: flex-start;
+            margin-top: 1.25rem;
         }
 
         @media (max-width: 960px) {
@@ -225,10 +172,9 @@
             }
         }
 
-        /* LEFT PANEL – MODULE + PATH + TITLE + TOOL */
         .left-panel {
-            border-radius: 26px;
-            background: radial-gradient(circle at top, #13151c 0, #05060a 70%);
+            border-radius: var(--radius);
+            background: radial-gradient(circle at top, #13151c 0%, #05060a 70%);
             box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
             padding: 1.6rem 1.8rem 1.7rem;
             border: 1px solid rgba(115, 128, 170, 0.5);
@@ -244,9 +190,7 @@
             letter-spacing: 0.18em;
             text-transform: uppercase;
             border: 1px solid rgba(57, 255, 136, 0.6);
-            /* green border */
             background: rgba(57, 255, 136, 0.14);
-            /* translucent green */
             color: #c3ffe5;
             box-shadow: 0 0 26px rgba(57, 255, 136, 0.3);
             margin-bottom: 1rem;
@@ -278,28 +222,18 @@
             font-size: 0.98rem;
             line-height: 1.6;
             color: #d4d7f2;
-            margin: 0 0 1.4rem;
+            margin: 0 0 1.1rem;
             max-width: 540px;
         }
 
-        .steps-label {
-            font-size: 0.72rem;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-            color: rgba(178, 187, 240, 0.7);
-            margin-top: 0.5rem;
-            margin-bottom: 0.55rem;
-        }
-
         .steps-text {
-            font-size: 0.8rem;
-            letter-spacing: 0.12em;
+            font-size: 0.78rem;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
             color: rgba(213, 220, 255, 0.9);
-            margin-bottom: 1rem;
+            margin: 0 0 1.25rem;
         }
 
-        /* ARROWS MACHINE (simplified narrative, same core UI) */
         .machine-shell {
             width: 100%;
             border-radius: 20px;
@@ -319,6 +253,10 @@
             pointer-events: none;
         }
 
+        .machine-shell.live {
+            box-shadow: 0 0 22px rgba(70, 230, 168, 0.9);
+        }
+
         .machine-top {
             position: relative;
             display: flex;
@@ -326,19 +264,6 @@
             gap: 0.6rem;
             margin-bottom: 0.7rem;
             z-index: 1;
-        }
-
-        .machine-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            gap: 0.75rem;
-        }
-
-        .machine-heading-block {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
         }
 
         .machine-heading {
@@ -357,7 +282,6 @@
         .machine-note {
             font-size: 0.72rem;
             color: #c3caea;
-            margin-top: 0.15rem;
         }
 
         .pill-small {
@@ -368,6 +292,7 @@
             border: 1px solid rgba(255, 255, 255, 0.35);
             background: rgba(5, 7, 18, 0.95);
             letter-spacing: 0.18em;
+            align-self: flex-start;
         }
 
         .control-panel {
@@ -380,6 +305,7 @@
             background: linear-gradient(180deg, #090c1b, #050614);
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.8);
+            margin-top: 0.3rem;
         }
 
         .email-row {
@@ -398,7 +324,6 @@
         .email-input-wrap {
             display: flex;
             gap: 0.35rem;
-            margin-top: 0.05rem;
         }
 
         .email-input-wrap input {
@@ -443,14 +368,6 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .coin-labels {
-            display: flex;
-            flex-direction: column;
-            gap: 0.1rem;
-            flex: 1 1 140px;
         }
 
         .coin-slot-label {
@@ -458,6 +375,8 @@
             color: #c3caea;
             text-transform: uppercase;
             letter-spacing: 0.16em;
+            max-width: 140px;
+            white-space: normal;
         }
 
         .coin {
@@ -517,15 +436,15 @@
         }
 
         .display-strip.red {
-            background: radial-gradient(circle at 15% 50%, #ffb1b1 0, #ff6b6b 20%, #5a1010 70%, #020203 100%);
+            background: radial-gradient(circle at 15% 50%, #ffb1b1 0%, #ff6b6b 20%, #5a1010 70%, #020203 100%);
         }
 
         .display-strip.yellow {
-            background: radial-gradient(circle at 15% 50%, #fff3b0 0, #ffd56b 20%, #5a4a10 70%, #020203 100%);
+            background: radial-gradient(circle at 15% 50%, #fff3b0 0%, #ffd56b 20%, #5a4a10 70%, #020203 100%);
         }
 
         .display-strip.green {
-            background: radial-gradient(circle at 15% 50%, #9bffba 0, #4be39a 10%, #0b301b 65%, #020506 100%);
+            background: radial-gradient(circle at 15% 50%, #9bffba 0%, #4be39a 10%, #0b301b 65%, #020506 100%);
         }
 
         .display-dot {
@@ -624,10 +543,6 @@
             transition: all 0.15s ease;
         }
 
-        .arrow-btn span:first-child {
-            font-size: 0.8rem;
-        }
-
         .arrow-btn.active-left {
             background: linear-gradient(135deg, #36d1dc, #5b86e5);
             border-color: rgba(0, 0, 0, 0.5);
@@ -710,6 +625,7 @@
             border: 1px solid rgba(159, 171, 255, 0.45);
             box-shadow: 0 18px 38px rgba(0, 0, 0, 0.85);
             padding: 0.9rem 1rem 0.85rem;
+            margin-top: 1rem;
         }
 
         .snapshot-title {
@@ -726,10 +642,6 @@
             color: #e5e9ff;
         }
 
-        .snapshot-list-item strong {
-            font-weight: 600;
-        }
-
         .snapshot-blend-label {
             font-size: 0.72rem;
             text-transform: uppercase;
@@ -742,7 +654,7 @@
         .snapshot-blend-text {
             font-size: 0.8rem;
             color: #f1f3ff;
-            margin-bottom: 0.1rem;
+            margin-bottom: 0.4rem;
         }
 
         #downloadSnapshotBtn {
@@ -763,50 +675,9 @@
             border-color: rgba(255, 255, 255, 0.9);
         }
 
-        @media (max-width: 700px) {
-            .page-wrap {
-                padding: 1.25rem 1rem 2.5rem;
-            }
-
-            .left-panel {
-                padding: 1.25rem 1.2rem 1.4rem;
-            }
-
-            .machine-shell {
-                padding: 1rem 0.85rem;
-                border-radius: 20px;
-            }
-
-            .control-panel,
-            .vend-row {
-                display: flex;
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .arrow-row {
-                grid-template-columns: 1fr 1fr;
-                gap: 0.45rem;
-            }
-
-            .row-tag,
-            .row-text {
-                grid-column: 1 / -1;
-            }
-
-            .email-input-wrap {
-                flex-direction: column;
-            }
-
-            .pill-small {
-                align-self: flex-start;
-            }
-        }
-
-        /* RIGHT PANEL – WHY THIS EXISTS / USE THIS WHEN (like rage page) */
         .right-panel {
-            border-radius: 26px;
-            background: radial-gradient(circle at top, #12151f 0, #05060b 70%);
+            border-radius: var(--radius);
+            background: radial-gradient(circle at top, #12151f 0%, #05060b 70%);
             box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
             padding: 1.6rem 1.8rem 1.8rem;
             border: 1px solid rgba(115, 128, 170, 0.55);
@@ -831,10 +702,6 @@
             color: #dde2ff;
             line-height: 1.6;
             margin-bottom: 1.3rem;
-        }
-
-        .right-body strong {
-            font-weight: 600;
         }
 
         .right-section-label {
@@ -869,157 +736,188 @@
             margin-top: 0.25rem;
             flex-shrink: 0;
         }
+
+        /* link style used by deeper‑scan offers */
+        .offer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: rgba(184, 255, 211, 0.9);
+            cursor: pointer;
+        }
+
+        .offer-link span {
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+            .page-wrap {
+                padding: 1.25rem 1rem 2.5rem;
+            }
+
+            .left-panel {
+                padding: 1.25rem 1.2rem 1.4rem;
+            }
+
+            .machine-shell {
+                padding: 1rem 0.85rem;
+                border-radius: 20px;
+            }
+
+            .control-panel,
+            .vend-row {
+                grid-template-columns: 1fr;
+                align-items: stretch;
+            }
+
+            .email-input-wrap {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="brand">
+                <div class="brand-icon">
+                    <img src="images/logocircle.png" alt="Manifestor Anonymous icon" />
+                </div>
+                <div class="brand-copy">
+                    <small>Manifestor Anonymous</small>
+                    <strong>Arrows Machine</strong>
+                </div>
+            </div>
+            <nav class="top-links">
+                <a href="index.html">Back to terminal</a>
+            </nav>
+        </div>
+    </header>
+
     <div class="page-wrap">
         <div class="page-inner">
-            <!-- TOP BAR (matches rage.html) -->
-            <header class="topbar">
-                <div class="container topbar-inner">
-                    <div class="brand">
-                        <div class="brand-icon">
-                            <img src="images/logocircle.png" alt="Manifestor Anonymous icon" />
-                        </div>
-                        <div class="brand-copy">
-                            <small>Manifestor Anonymous</small>
-                            <strong>Arrows Machine</strong>
-                        </div>
-                    </div>
-                    <nav class="top-links">
-                        <a href="index.html">Back to terminal</a>
-                    </nav>
-                </div>
-            </header>
-
-            <!-- MAIN CONTENT GRID (LIKE RAGE ROOM) -->
             <div class="main-grid">
-                <!-- LEFT: MODULE + TOOL -->
+
                 <section class="left-panel">
                     <div class="module-pill">
                         <div class="module-dot"></div>
                         <span>Module 01 · Path: Cognition</span>
                     </div>
 
-                    <div class="path-label">Top left, bottom left, top right, bottom right.</div>
-                    <h1 class="title">Arrows Room.</h1>
-                    <p class="subtitle">
-                        This is where you see what your four arrows are actually asking for.
-                        No optimization. No “biohacking”. Just the settings your Manifestor
-                        nervous system came with so your Creative Urges have somewhere real
-                        to land.
-                    </p>
-
-                    <div class="steps-label">Step 1 · Load the arrows. Step 2 · Read the scan.</div>
-                    <div class="steps-text">
-                        Enter your email to unlock the scanner. Set each arrow left or right. Hit SCAN to get your
-                        Arrows Snapshot.
+                    <div class="path-label">
+                        Top left, bottom left, top right, bottom right.
                     </div>
 
-                    <!-- ARROWS MACHINE -->
+                    <h1 class="title">Arrows Room.</h1>
+
+                    <p class="subtitle">
+                        This is where you see what your four arrows are actually asking for.
+                        No optimization, no biohacking. Just the settings your Manifestor
+                        nervous system came with so your Creative Urges have somewhere real to land.
+                    </p>
+
+                    <p class="steps-text">
+                        Step 1 · Enter your email. <br>Step 2 · Set each arrow Left or Right.
+                        <br>Step 3 · Press Scan to read your snapshot.
+                    </p>
+
                     <div class="machine-shell" id="machineShell">
                         <div class="machine-top">
-                            <div class="machine-header-row">
-                                <div class="machine-heading-block">
-                                    <div class="machine-heading">Arrows scanner</div>
-                                    <div class="machine-subheading">Cognition snapshot for Manifestors</div>
-                                    <div class="machine-note">
-                                        Email unlocks the scan so your Snapshot can be sent to your system later.
-                                    </div>
-                                </div>
-                                <div class="pill-small">Manifestor only</div>
+                            <div class="machine-heading">Arrows scanner</div>
+                            <div class="machine-subheading">Cognition snapshot for Manifestors</div>
+                            <div class="machine-note">
+                                Email unlocks the scanner so your snapshot can be sent to your system later.
                             </div>
+                            <div class="pill-small">Manifestor only</div>
+                        </div>
 
-                            <div class="control-panel">
-                                <div class="email-row">
-                                    <div class="email-label">Email to unlock the scan</div>
-                                    <div class="email-input-wrap">
-                                        <input type="email" id="emailInput" placeholder="you@example.com" />
-                                        <button id="emailBtn" type="button">Unlock</button>
-                                    </div>
-                                    <div class="email-error" id="emailError" style="display:none;">
-                                        Please enter a valid email address.
-                                    </div>
+                        <div class="control-panel">
+                            <div class="email-row">
+                                <div class="email-label">Email to unlock the scan</div>
+                                <div class="email-input-wrap">
+                                    <input type="email" id="emailInput" placeholder="you@example.com" />
+                                    <button id="emailBtn" type="button">Unlock</button>
                                 </div>
-
-                                <div class="coin-block">
-                                    <div class="coin-labels">
-                                        <div class="coin-slot-label">Tap to start the arrows scan</div>
-                                    </div>
-                                    <div class="coin disabled" id="coin"><span>M</span></div>
+                                <div class="email-error" id="emailError" style="display:none;">
+                                    Please enter a valid email address.
                                 </div>
                             </div>
 
-                            <div class="display-strip red" id="displayStrip">
-                                <div id="displayText">
-                                    Waiting for email to unlock the scan.
+                            <div class="coin-block">
+                                <div>
+                                    <div class="coin-slot-label">Tap the coin to start the scan</div>
                                 </div>
-                                <div class="display-dot"></div>
+                                <div class="coin disabled" id="coin">
+                                    <span>M</span>
+                                </div>
                             </div>
+                        </div>
+
+                        <div class="display-strip red" id="displayStrip">
+                            <div id="displayText">Waiting for email to unlock the scan.</div>
+                            <div class="display-dot"></div>
                         </div>
 
                         <div class="mid-panel">
                             <div class="mid-grid">
+
                                 <div class="arrow-row" data-row="topLeft">
                                     <div class="row-tag">A</div>
                                     <div class="row-text">
-                                        <div class="row-label">Top Left · Determination · Design brain</div>
+                                        <div class="row-label">Top Left · Determination</div>
                                         <div class="row-sub">How your Manifestor brain takes in life.</div>
                                     </div>
-                                    <button class="arrow-btn" type="button" data-slot="topLeft" data-dir="L">
-                                        <span>⬅</span><span>Left</span>
-                                    </button>
-                                    <button class="arrow-btn" type="button" data-slot="topLeft" data-dir="R">
-                                        <span>Right</span><span>➝</span>
-                                    </button>
+                                    <button class="arrow-btn" type="button" data-slot="topLeft"
+                                        data-dir="L">Left</button>
+                                    <button class="arrow-btn" type="button" data-slot="topLeft"
+                                        data-dir="R">Right</button>
                                     <div class="coil-line"></div>
                                 </div>
 
                                 <div class="arrow-row" data-row="bottomLeft">
                                     <div class="row-tag">B</div>
                                     <div class="row-text">
-                                        <div class="row-label">Bottom Left · Environment · Body setting</div>
-                                        <div class="row-sub">How your Manifestor body and spaces like to operate.</div>
+                                        <div class="row-label">Bottom Left · Environment</div>
+                                        <div class="row-sub">How your body and spaces like to operate.</div>
                                     </div>
-                                    <button class="arrow-btn" type="button" data-slot="bottomLeft" data-dir="L">
-                                        <span>⬅</span><span>Left</span>
-                                    </button>
-                                    <button class="arrow-btn" type="button" data-slot="bottomLeft" data-dir="R">
-                                        <span>Right</span><span>➝</span>
-                                    </button>
+                                    <button class="arrow-btn" type="button" data-slot="bottomLeft"
+                                        data-dir="L">Left</button>
+                                    <button class="arrow-btn" type="button" data-slot="bottomLeft"
+                                        data-dir="R">Right</button>
                                     <div class="coil-line"></div>
                                 </div>
 
                                 <div class="arrow-row" data-row="topRight">
                                     <div class="row-tag">C</div>
                                     <div class="row-text">
-                                        <div class="row-label">Top Right · Perspective · Manifestor view</div>
-                                        <div class="row-sub">How you are meant to see the world.</div>
+                                        <div class="row-label">Top Right · Perspective</div>
+                                        <div class="row-sub">How you see the world.</div>
                                     </div>
-                                    <button class="arrow-btn" type="button" data-slot="topRight" data-dir="L">
-                                        <span>⬅</span><span>Left</span>
-                                    </button>
-                                    <button class="arrow-btn" type="button" data-slot="topRight" data-dir="R">
-                                        <span>Right</span><span>➝</span>
-                                    </button>
+                                    <button class="arrow-btn" type="button" data-slot="topRight"
+                                        data-dir="L">Left</button>
+                                    <button class="arrow-btn" type="button" data-slot="topRight"
+                                        data-dir="R">Right</button>
                                     <div class="coil-line"></div>
                                 </div>
 
                                 <div class="arrow-row" data-row="bottomRight">
                                     <div class="row-tag">D</div>
                                     <div class="row-text">
-                                        <div class="row-label">Bottom Right · Motivation · Mental aim</div>
+                                        <div class="row-label">Bottom Right · Motivation</div>
                                         <div class="row-sub">How your mind aims your message and impact.</div>
                                     </div>
-                                    <button class="arrow-btn" type="button" data-slot="bottomRight" data-dir="L">
-                                        <span>⬅</span><span>Left</span>
-                                    </button>
-                                    <button class="arrow-btn" type="button" data-slot="bottomRight" data-dir="R">
-                                        <span>Right</span><span>➝</span>
-                                    </button>
+                                    <button class="arrow-btn" type="button" data-slot="bottomRight"
+                                        data-dir="L">Left</button>
+                                    <button class="arrow-btn" type="button" data-slot="bottomRight"
+                                        data-dir="R">Right</button>
                                     <div class="coil-line"></div>
                                 </div>
+
                             </div>
                         </div>
 
@@ -1029,352 +927,318 @@
                                     <div class="vend-led" id="vendLed"></div>
                                     <span>Scan arrows</span>
                                 </button>
-                                <div class="tags-line" id="tagsLine">No arrows selected yet.</div>
-                            </div>
-
-                            <div class="snapshot-panel" id="snapshotPanel">
-                                <div class="snapshot-title">Arrows Snapshot</div>
-                                <div id="snapshotList">
-                                    <div class="snapshot-list-item">
-                                        Press SCAN once your arrows are set to read each arrow in plain Manifestor
-                                        language.
-                                    </div>
+                                <div class="tags-line" id="tagsLine">
+                                    No arrows selected yet.
                                 </div>
-                                <div class="snapshot-blend-label">How this moves together</div>
-                                <div class="snapshot-blend-text" id="snapshotBlend">
-                                    When you run the scan you will see how your brain, body, view and motivation want to
-                                    move as one Manifestor system instead of being managed for other people.
-                                </div>
-                                <button id="downloadSnapshotBtn" type="button">Download Snapshot Card</button>
                             </div>
                         </div>
                     </div>
+
+                    <div class="snapshot-panel" id="snapshotPanel">
+                        <div class="snapshot-title">Arrows Snapshot</div>
+                        <div id="snapshotList">
+                            <div class="snapshot-list-item">
+                                Press Scan once your arrows are set to read each arrow in plain Manifestor language.
+                            </div>
+                        </div>
+                        <div class="snapshot-blend-label">How this moves together</div>
+                        <div class="snapshot-blend-text" id="snapshotBlend">
+                            When you run the scan you’ll see how your brain, body, view and motivation move as one
+                            Manifestor system instead of being managed for other people.
+                        </div>
+                        <button id="downloadSnapshotBtn" type="button">
+                            Download Snapshot Card
+                        </button>
+                    </div>
                 </section>
 
-                <!-- RIGHT: WHY THIS EXISTS PANEL -->
                 <aside class="right-panel">
                     <div class="right-label">Why this exists</div>
                     <div class="right-title">Manifestor arrows are nervous system settings.</div>
                     <div class="right-body">
                         Most Manifestors meet their arrows as rules. Eat like this. Work like this.
-                        Meditate like this. It turns your variables into homework instead of a
-                        <strong>permission slip</strong> for how your body and brain already operate.<br><br>
-                        This room is here so you can watch your four arrows line up as one pattern.
-                        No fixing. No chasing a “perfect” configuration. Just seeing the settings
-                        that make your Creative Urges cleaner and your Rest cycles honest.
+                        Meditate like this. It turns your variables into homework instead of a permission
+                        slip for how your body and brain already operate.
+                        This room is here so you can watch your four arrows line up as one pattern,
+                        without chasing a perfect configuration.
                     </div>
 
                     <div class="right-section-label">Use this when</div>
                     <ul class="bullet-list">
                         <li>
-                            <div class="bullet-dot"></div>
-                            <span>You keep trying to copy non‑Manifestor routines and they never stick.</span>
+                            <div class="bullet-dot"></div><span>You keep trying to copy non-Manifestor routines and they
+                                never stick.</span>
                         </li>
                         <li>
-                            <div class="bullet-dot"></div>
-                            <span>You feel guilty for how inconsistent your focus, appetite or schedule seems.</span>
+                            <div class="bullet-dot"></div><span>You feel guilty for how inconsistent your focus,
+                                appetite or schedule seems.</span>
                         </li>
                         <li>
-                            <div class="bullet-dot"></div>
-                            <span>You want words for your arrows you can actually inform people with.</span>
+                            <div class="bullet-dot"></div><span>You want words for your arrows you can actually inform
+                                people with.</span>
                         </li>
                         <li>
-                            <div class="bullet-dot"></div>
-                            <span>You are tired of treating your arrows like a self‑improvement project.</span>
+                            <div class="bullet-dot"></div><span>You are tired of treating your arrows like a
+                                self-improvement project.</span>
                         </li>
                     </ul>
-
-                    <div class="right-section-label">Deeper scan</div>
-                    <div class="right-body" style="margin-top:0.2rem;">
+                    <div class="right-section-label" style="margin-top:1rem;">Deeper scan</div>
+                    <div class="right-body">
                         Coming soon · a full Variables Vending Machine that runs all four
-                        transformations for you – digestion, environment, perspective and
-                        motivation – and drops a longer pattern report instead of a quick
-                        Snapshot. It will read how your arrows plug into your whole system so
-                        you can see why your current routines either work or burn you out.<br><br>
-                        If you want to go deeper now, you can book a
-                        <a href="https://payhip.com/b/8hUDf" style="text-decoration:underline; color:#9fe6ff;">
-                            Cognition Scan
-                        </a>
-                        – a focused read on your variables and nervous system, for how you take things in, move through
-                        spaces and
-                        aim your mind.
+                        transformations for you – digestion, environment, perspective and motivation –
+                        and drops a longer pattern report instead of a quick Snapshot. It will read how
+                        your arrows plug into your whole system so you can see why your current routines
+                        either work or burn you out.
                     </div>
-
+                    <a href="https://payhip.com/b/8hUDf" class="offer-link">
+                        <span>➜</span> Book a Cognition Scan
+                    </a>
                 </aside>
+
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-
     <script>
-        (function () {
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzruZAt_Yurxr7buzplxusGROvrB_xoIMaGVHavNDXcZ39Eeap2MZfsx8v3BTVh_wa/exec';
+        const SCRIPTURL = "https://script.google.com/macros/s/AKfycbwajvwN9lt-dQAmDx5wlOBwrYTRhI1xOswA7DfHZ65N9eB9sqfJjJ2wEqoM4P0yRWzx/exec";
 
-            const state = {
-                emailUnlocked: false,
-                coinTapped: false,
-                topLeft: null,
-                topRight: null,
-                bottomLeft: null,
-                bottomRight: null,
-                savedEmail: ''
-            };
+        const state = {
+            emailUnlocked: false,
+            coinTapped: false,
+            topLeft: null,
+            topRight: null,
+            bottomLeft: null,
+            bottomRight: null,
+            savedEmail: null
+        };
 
-            const emailInput = document.getElementById('emailInput');
-            const emailBtn = document.getElementById('emailBtn');
-            const emailError = document.getElementById('emailError');
-            const coin = document.getElementById('coin');
-            const displayText = document.getElementById('displayText');
-            const displayStrip = document.getElementById('displayStrip');
-            const tagsLine = document.getElementById('tagsLine');
-            const vendBtn = document.getElementById('vendBtn');
-            const vendLed = document.getElementById('vendLed');
-            const machineShell = document.getElementById('machineShell');
-            const snapshotList = document.getElementById('snapshotList');
-            const snapshotBlend = document.getElementById('snapshotBlend');
-            const downloadBtn = document.getElementById('downloadSnapshotBtn');
+        const emailInput = document.getElementById("emailInput");
+        const emailBtn = document.getElementById("emailBtn");
+        const emailError = document.getElementById("emailError");
+        const coin = document.getElementById("coin");
+        const displayText = document.getElementById("displayText");
+        const displayStrip = document.getElementById("displayStrip");
+        const tagsLine = document.getElementById("tagsLine");
+        const vendBtn = document.getElementById("vendBtn");
+        const vendLed = document.getElementById("vendLed");
+        const snapshotList = document.getElementById("snapshotList");
+        const snapshotBlend = document.getElementById("snapshotBlend");
+        const downloadBtn = document.getElementById("downloadSnapshotBtn");
+        const machineShell = document.getElementById("machineShell");
 
-            function setDisplay(mode, text) {
-                displayText.textContent = text;
-                displayStrip.classList.remove('red', 'yellow', 'green');
-                displayStrip.classList.add(mode);
+        function setDisplay(mode, text) {
+            displayText.textContent = text;
+            displayStrip.classList.remove("red", "yellow", "green");
+            displayStrip.classList.add(mode);
+        }
+
+        function validateEmail(email) {
+            const input = document.createElement("input");
+            input.type = "email";
+            input.value = email;
+            return input.checkValidity();
+        }
+
+        async function saveEmailToGoogleSheet(email) {
+            const formData = new URLSearchParams();
+            formData.append("email", email);
+            formData.append("source", "Manifestor Arrows Snapshot Room");
+
+            const response = await fetch(SCRIPTURL, {
+                method: "POST",
+                body: formData
+            });
+
+            const text = await response.text();
+            console.log("Apps Script response:", text);
+
+            if (!response.ok || !text.toLowerCase().includes("success")) {
+                throw new Error(text || "Google Sheets save failed.");
             }
 
-            function validateEmail(email) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            return text;
+        }
+
+        emailBtn.addEventListener("click", async () => {
+            const val = emailInput.value.trim();
+
+            if (!validateEmail(val)) {
+                emailError.style.display = "block";
+                setDisplay("red", "Enter a valid email to unlock the scan.");
+                return;
             }
 
-            async function saveEmailToGoogleSheet(email) {
-                await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8'
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        source: 'Manifestor Arrows Snapshot Room'
-                    })
-                });
+            emailError.style.display = "none";
+            emailBtn.disabled = true;
+            setDisplay("yellow", "Saving your email and waking up the scanner...");
+
+            try {
+                await saveEmailToGoogleSheet(val);
+
+                state.emailUnlocked = true;
+                state.savedEmail = val;
+
+                coin.classList.remove("disabled");
+                coin.classList.add("enabled");
+                emailInput.disabled = true;
+                emailBtn.textContent = "Email saved";
+
+                setDisplay("yellow", "Email accepted. Tap the M to start scan.");
+            } catch (err) {
+                console.error("Email save failed:", err);
+                emailBtn.disabled = false;
+                setDisplay("red", "Email did not save. Your Apps Script is still not set up right.");
             }
+        });
 
-            emailBtn.addEventListener('click', async function () {
-                const val = emailInput.value.trim();
+        emailInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                emailBtn.click();
+            }
+        });
 
-                if (!validateEmail(val)) {
-                    emailError.style.display = 'block';
-                    setDisplay('red', 'Enter a valid email to unlock the scan');
+        coin.addEventListener("click", () => {
+            if (!state.emailUnlocked) return;
+            state.coinTapped = true;
+            machineShell.classList.add("live");
+            setDisplay("green", "Scanner ready. Choose Left or Right for each arrow, then press Scan.");
+            updateRowsAndVendState();
+        });
+
+        document.querySelectorAll(".arrow-btn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                if (!state.coinTapped) {
+                    setDisplay("yellow", "Tap the coin once to start the arrows scan.");
                     return;
                 }
 
-                emailError.style.display = 'none';
-                emailBtn.disabled = true;
-                setDisplay('yellow', 'Saving your email and waking up the scanner');
+                const slot = btn.getAttribute("data-slot");
+                const dir = btn.getAttribute("data-dir");
 
-                try {
-                    await saveEmailToGoogleSheet(val);
+                document.querySelectorAll(`.arrow-btn[data-slot="${slot}"]`).forEach((b) => {
+                    b.classList.remove("active-left", "active-right");
+                });
 
-                    state.emailUnlocked = true;
-                    state.savedEmail = val;
+                if (dir === "L") btn.classList.add("active-left");
+                if (dir === "R") btn.classList.add("active-right");
 
-                    coin.classList.remove('disabled');
-                    coin.classList.add('enabled');
-
-                    emailInput.disabled = true;
-                    emailBtn.textContent = 'Email saved';
-                    setDisplay('yellow', 'Email accepted. Tap the M to start the arrows scan.');
-                } catch (err) {
-                    emailBtn.disabled = false;
-                    setDisplay('red', 'Something went wrong saving your email');
-                }
-            });
-
-            emailInput.addEventListener('keydown', function (e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    emailBtn.click();
-                }
-            });
-
-            coin.addEventListener('click', function () {
-                if (!state.emailUnlocked) return;
-                state.coinTapped = true;
-                machineShell.classList.add('live');
-                setDisplay('green', 'Scanner ready. Choose Left or Right for each arrow, then press SCAN.');
+                state[slot] = dir;
                 updateRowsAndVendState();
             });
+        });
 
-            document.querySelectorAll('.arrow-btn').forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    if (!state.coinTapped) {
-                        setDisplay('yellow', 'Tap the M once to start the arrows scan first');
-                        return;
-                    }
-
-                    const slot = btn.getAttribute('data-slot');
-                    const dir = btn.getAttribute('data-dir');
-
-                    document.querySelectorAll('.arrow-btn[data-slot="' + slot + '"]').forEach(function (b) {
-                        b.classList.remove('active-left', 'active-right');
-                    });
-
-                    if (dir === 'L') {
-                        btn.classList.add('active-left');
-                    } else {
-                        btn.classList.add('active-right');
-                    }
-
-                    state[slot] = dir;
-                    updateRowsAndVendState();
-                });
+        function updateRowsAndVendState() {
+            document.querySelectorAll(".arrow-row").forEach((row) => {
+                const key = row.getAttribute("data-row");
+                if (state[key]) row.classList.add("active");
+                else row.classList.remove("active");
             });
 
-            function updateRowsAndVendState() {
-                const rows = document.querySelectorAll('.arrow-row');
+            const selected = [];
+            if (state.topLeft) selected.push(`Top Left ${state.topLeft === "L" ? "Left" : "Right"}`);
+            if (state.bottomLeft) selected.push(`Bottom Left ${state.bottomLeft === "L" ? "Left" : "Right"}`);
+            if (state.topRight) selected.push(`Top Right ${state.topRight === "L" ? "Left" : "Right"}`);
+            if (state.bottomRight) selected.push(`Bottom Right ${state.bottomRight === "L" ? "Left" : "Right"}`);
 
-                rows.forEach(function (row) {
-                    const key = row.getAttribute('data-row');
-                    if (state[key]) {
-                        row.classList.add('active');
-                    } else {
-                        row.classList.remove('active');
-                    }
-                });
+            tagsLine.textContent =
+                selected.length === 0 ? "No arrows selected yet." : "Current arrows: " + selected.join(" · ");
 
-                const selected = [];
-                if (state.topLeft) selected.push('Top Left ' + (state.topLeft === 'L' ? 'Left' : 'Right'));
-                if (state.bottomLeft) selected.push('Bottom Left ' + (state.bottomLeft === 'L' ? 'Left' : 'Right'));
-                if (state.topRight) selected.push('Top Right ' + (state.topRight === 'L' ? 'Left' : 'Right'));
-                if (state.bottomRight) selected.push('Bottom Right ' + (state.bottomRight === 'L' ? 'Left' : 'Right'));
+            if (state.topLeft && state.bottomLeft && state.topRight && state.bottomRight && state.coinTapped) {
+                vendBtn.classList.add("ready");
+                vendLed.classList.add("on");
+            } else {
+                vendBtn.classList.remove("ready");
+                vendLed.classList.remove("on");
+            }
+        }
 
-                if (selected.length === 0) {
-                    tagsLine.textContent = 'No arrows selected yet.';
+        vendBtn.addEventListener("click", () => {
+            if (!vendBtn.classList.contains("ready")) {
+                if (!state.coinTapped) {
+                    setDisplay("yellow", "Tap the coin to start the arrows scan first.");
                 } else {
-                    tagsLine.textContent = 'Current arrows ' + selected.join(' · ');
+                    setDisplay("yellow", "Set all four arrows before you run the scan.");
                 }
-
-                if (state.topLeft && state.bottomLeft && state.topRight && state.bottomRight && state.coinTapped) {
-                    vendBtn.classList.add('ready');
-                    vendLed.classList.add('on');
-                } else {
-                    vendBtn.classList.remove('ready');
-                    vendLed.classList.remove('on');
-                }
+                return;
             }
 
-            vendBtn.addEventListener('click', function () {
-                if (!vendBtn.classList.contains('ready')) {
-                    if (!state.coinTapped) {
-                        setDisplay('yellow', 'Tap the M to start the arrows scan first');
-                    } else {
-                        setDisplay('yellow', 'Set all four arrows before you run the scan');
-                    }
+            const { topLeft, bottomLeft, topRight, bottomRight } = state;
+            const listParts = [];
+
+            listParts.push(
+                topLeft === "L"
+                    ? `<div class="snapshot-list-item"><strong>Top Left · Left</strong> · Your design brain is more active. You lock on for a burst of focus and then you are done.</div>`
+                    : `<div class="snapshot-list-item"><strong>Top Left · Right</strong> · Your design brain is receptive. Creative urges land when you are relaxed and letting your mind wander.</div>`
+            );
+
+            listParts.push(
+                bottomLeft === "L"
+                    ? `<div class="snapshot-list-item"><strong>Bottom Left · Left</strong> · Your body and spaces like simple rhythm. Light structure around food, rest and work lets your system feel safe.</div>`
+                    : `<div class="snapshot-list-item"><strong>Bottom Left · Right</strong> · Your body and spaces want options. Flexible plans and exits keep your rest cycles honest.</div>`
+            );
+
+            listParts.push(
+                topRight === "L"
+                    ? `<div class="snapshot-list-item"><strong>Top Right · Left</strong> · Your perspective is strategic. You see the steps and patterns once the urge is here.</div>`
+                    : `<div class="snapshot-list-item"><strong>Top Right · Right</strong> · Your perspective is receptive. You read the whole atmosphere and know where things are heading.</div>`
+            );
+
+            listParts.push(
+                bottomRight === "L"
+                    ? `<div class="snapshot-list-item"><strong>Bottom Right · Left</strong> · Your motivation is focused. Your words land like a clean arrow and your informing can sharply reroute people.</div>`
+                    : `<div class="snapshot-list-item"><strong>Bottom Right · Right</strong> · Your motivation is peripheral. People are initiated just by being in your aura, stories and spaces.</div>`
+            );
+
+            snapshotList.innerHTML = listParts.join("");
+
+            let blend = "";
+
+            blend += topLeft === "L"
+                ? "You have an active Manifestor brain that comes online in short sharp bursts. "
+                : "You have a receptive Manifestor brain that wakes up when you are relaxed and not trying so hard. ";
+
+            blend += bottomLeft === "L"
+                ? "Your body wants a bit of rhythm so those bursts have somewhere safe to land and crash. "
+                : "Your body wants freedom in timing and environment so you can disappear when your energy is done. ";
+
+            blend += topRight === "L"
+                ? "Your mind sees the steps so you can map the path once the urge is here. "
+                : "Your mind reads the field, so you speak to the vibe more than the plan. ";
+
+            blend += bottomRight === "L"
+                ? "When you talk, your impact is direct so clean informing matters. "
+                : "When you talk and create, the impact is atmospheric so curating your spaces matters more than being understood. ";
+
+            blend += "All of this runs through your Manifestor mechanics – closed aura, motorized throat and no Sacral – so you are built for Creative Urges and real Rest, not constant availability.";
+
+            snapshotBlend.textContent = blend;
+            setDisplay("green", "Scan complete. Read your list, then the blend, and notice where this already shows up in your life.");
+        });
+
+        if (downloadBtn) {
+            downloadBtn.addEventListener("click", () => {
+                const card = document.getElementById("snapshotPanel");
+                if (!card || !window.html2canvas) {
+                    setDisplay("red", "Download failed to load. Try refreshing or using a desktop browser.");
                     return;
                 }
 
-                const topLeft = state.topLeft;
-                const bottomLeft = state.bottomLeft;
-                const topRight = state.topRight;
-                const bottomRight = state.bottomRight;
-
-                const listParts = [];
-
-                if (topLeft === 'L') {
-                    listParts.push('<div class="snapshot-list-item"><strong>Top Left · Left</strong> your design brain is more active. You enter Creative Cycles by locking on for a burst of focus then you are done.</div>');
-                } else {
-                    listParts.push('<div class="snapshot-list-item"><strong>Top Left · Right</strong> your design brain is receptive. Creative Urges land when you are relaxed and letting your mind wander instead of trying to force focus.</div>');
-                }
-
-                if (bottomLeft === 'L') {
-                    listParts.push('<div class="snapshot-list-item"><strong>Bottom Left · Left</strong> your body and spaces like simple rhythm. A little structure around food, rest and work lets your non Sacral system feel safe to go hard then switch off.</div>');
-                } else {
-                    listParts.push('<div class="snapshot-list-item"><strong>Bottom Left · Right</strong> your body and spaces want options. Flexible plans and easy exits keep your Rest Cycles honest so you do not stay in rooms after your energy is gone.</div>');
-                }
-
-                if (topRight === 'L') {
-                    listParts.push('<div class="snapshot-list-item"><strong>Top Right · Left</strong> your perspective is strategic. You see the steps and patterns ahead but you still only initiate when your Authority says yes.</div>');
-                } else {
-                    listParts.push('<div class="snapshot-list-item"><strong>Top Right · Right</strong> your perspective is receptive. You read the whole atmosphere and know where things are heading before there is a plan.</div>');
-                }
-
-                if (bottomRight === 'L') {
-                    listParts.push('<div class="snapshot-list-item"><strong>Bottom Right · Left</strong> your motivation is focused. Your words land like a clean arrow and your informing can sharply reroute people.</div>');
-                } else {
-                    listParts.push('<div class="snapshot-list-item"><strong>Bottom Right · Right</strong> your motivation is peripheral. People are initiated just by being in your aura, stories and spaces even when you are not aiming at them.</div>');
-                }
-
-                snapshotList.innerHTML = listParts.join('');
-
-                let blend = '';
-
-                if (topLeft === 'L') {
-                    blend += 'You have an active Manifestor brain that comes online in short sharp bursts. ';
-                } else {
-                    blend += 'You have a receptive Manifestor brain that wakes up when you are relaxed and not trying so hard. ';
-                }
-
-                if (bottomLeft === 'L') {
-                    blend += 'Your body wants a bit of rhythm so those bursts have somewhere safe to land and crash. ';
-                } else {
-                    blend += 'Your body wants freedom in timing and environment so you can disappear when your energy is done without explaining yourself. ';
-                }
-
-                if (topRight === 'L') {
-                    blend += 'Your mind sees the steps so you can map the path once the urge is here. ';
-                } else {
-                    blend += 'Your mind reads the field so you are here to speak to the vibe not the spreadsheet. ';
-                }
-
-                if (bottomRight === 'L') {
-                    blend += 'When you talk your impact is direct so clean informing matters. ';
-                } else {
-                    blend += 'When you talk and create the impact is atmospheric so curating your spaces matters more than being understood. ';
-                }
-
-                blend += 'All of this moves through your Manifestor mechanics closed aura, motorized throat and no Sacral so you are built for Creative Urges and real Rest, not constant availability.';
-
-                snapshotBlend.textContent = blend;
-                setDisplay('green', 'Scan complete. Read your list, then the blend, to feel how it actually works in your life.');
-            });
-
-            if (downloadBtn) {
-                downloadBtn.addEventListener('click', function () {
-                    const card = document.getElementById('snapshotPanel');
-
-                    if (!card || !window.html2canvas) {
-                        setDisplay('red', 'Download library failed to load on this page');
-                        return;
-                    }
-
-                    html2canvas(card, {
-                        backgroundColor: null,
-                        scale: 2
-                    }).then(function (canvas) {
-                        const dataUrl = canvas.toDataURL('image/png');
-                        const link = document.createElement('a');
+                html2canvas(card, { backgroundColor: null, scale: 2 })
+                    .then((canvas) => {
+                        const dataUrl = canvas.toDataURL("image/png");
+                        const link = document.createElement("a");
                         link.href = dataUrl;
-                        const supportDownload = 'download' in link;
-
-                        if (supportDownload) {
-                            link.download = 'manifestor_anonymous_arrows_snapshot.png';
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                        } else {
-                            // mobile browsers (iOS Safari etc.) ignore download attr
-                            // open in new tab so user can long‑press and save
-                            const win = window.open(dataUrl, '_blank');
-                            if (!win) {
-                                setDisplay('red', 'Could not open snapshot. Please allow popups or use a desktop browser.');
-                            }
-                        }
-                    }).catch(function () {
-                        setDisplay('red', 'Could not create download image');
+                        link.download = "manifestor-arrows-snapshot.png";
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    })
+                    .catch(() => {
+                        setDisplay("red", "Could not create the download image. Please try again.");
                     });
-                });
-            }
-        })();
+            });
+        }
     </script>
 </body>
 
