@@ -64,6 +64,13 @@
             max-width: 100%;
         }
 
+        /* ensure header logo fits its circular container without distortion */
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         /* anchors should use page accent and glow when appropriate */
         a {
             color: var(--green);
@@ -887,11 +894,11 @@
                     <div class="machine-shell" id="machineShell">
                         <div class="machine-top">
                             <div class="machine-heading">Arrows scanner</div>
-                            <div class="machine-subheading">Cognition snapshot for Manifestors</div>
+                            <div class="machine-subheading"></div>
                             <div class="machine-note">
-                                Email unlocks the scanner so your snapshot can be sent to your system later.
+
                             </div>
-                            <div class="pill-small">Manifestor only</div>
+                            <div class="pill-small">Manifestors</div>
                         </div>
 
                         <div class="control-panel">
