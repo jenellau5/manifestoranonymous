@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Top Albums · Incarnation Cross Playlists • Manifestor Anonymous</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+
+    <meta name="description"
+        content="Top Albums chart for Incarnation Cross Playlists. See which cross playlists are online, dark, or coming soon, and choose between generic albums and a custom $111 life theme playlist built for Manifestors." />
+
+    <style>
+        :root {
+            --bg: #020711;
+            --panel: rgba(17, 24, 39, 0.92);
+            --panel-soft: rgba(15, 23, 42, 0.85);
+            --line: rgba(148, 163, 184, 0.32);
+            --line-strong: rgba(148, 163, 184, 0.6);
+            --text: #ecf4ff;
+            --muted: rgba(226, 232, 240, 0.8);
+            --dim: rgba(148, 163, 184, 0.82);
+            --accent: #38bdf8;
+            --accent-soft: rgba(56, 189, 248, 0.2);
+            --radius: 26px;
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.66);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 20%),
+                radial-gradient(circle at 15% 80%, rgba(56, 189, 248, 0.12), transparent 26%),
+                radial-gradient(circle at 80% 10%, rgba(124, 58, 237, 0.14), transparent 32%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.06;
+            background-image:
+                linear-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.18) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 86%);
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            backdrop-filter: blur(14px);
+            background: rgba(3, 7, 18, 0.82);
+            border-bottom: 1px solid rgba(30, 64, 175, 0.4);
+        }
+
+        .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            padding: 14px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid var(--line-strong);
+            overflow: hidden;
+            box-shadow: 0 0 22px rgba(56, 189, 248, 0.3);
+            background: #020617;
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand-copy small {
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.26em;
+            font-size: 10px;
+            color: var(--dim);
+        }
+
+        .brand-copy strong {
+            display: block;
+            margin-top: 3px;
+            font-size: 17px;
+            letter-spacing: 0.06em;
+            font-weight: 700;
+        }
+
+        .topbar-tagline {
+            margin-top: 4px;
+            font-size: 9px;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: rgba(148, 163, 184, 0.9);
+        }
+
+        .top-links {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .btn {
+            border-radius: 999px;
+            border: 1px solid var(--line-strong);
+            padding: 11px 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #020617;
+            border-color: rgba(56, 189, 248, 0.9);
+            box-shadow: 0 0 28px rgba(56, 189, 248, 0.46);
+        }
+
+        .btn-secondary {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--accent);
+            color: var(--text);
+        }
+
+        .btn-tertiary {
+            background: transparent;
+            border: 1px dashed rgba(148, 163, 184, 0.6);
+            color: var(--muted);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 50px rgba(15, 23, 42, 0.9);
+        }
+
+        .section {
+            padding: 26px 0 0;
+        }
+
+        .section-head {
+            margin-bottom: 16px;
+        }
+
+        .section-head h1 {
+            margin: 8px 0 4px;
+            font-size: 30px;
+            letter-spacing: -0.04em;
+        }
+
+        .section-head p {
+            margin: 0;
+            max-width: 640px;
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--muted);
+        }
+
+        .section-label {
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.26em;
+            font-size: 10px;
+            color: var(--dim);
+            margin-bottom: 4px;
+        }
+
+        .micro {
+            text-transform: uppercase;
+            letter-spacing: 0.26em;
+            font-size: 10px;
+            color: var(--dim);
+        }
+
+        .chart-card {
+            margin-top: 18px;
+            border-radius: var(--radius);
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: rgba(15, 23, 42, 0.96);
+            box-shadow: var(--shadow);
+            padding: 18px 18px 16px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .chart-header h2 {
+            margin: 0;
+            font-size: 22px;
+            letter-spacing: -0.03em;
+        }
+
+        .chart-sub {
+            font-size: 11px;
+            color: var(--dim);
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+        }
+
+        .chart-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .chart-table th,
+        .chart-table td {
+            padding: 6px 4px;
+            border-bottom: 1px solid rgba(30, 64, 175, 0.6);
+        }
+
+        .chart-table th {
+            text-align: left;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--dim);
+        }
+
+        .chart-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+
+        .badge-online {
+            background: rgba(34, 197, 94, 0.12);
+            color: #bbf7d0;
+            border: 1px solid rgba(34, 197, 94, 0.6);
+        }
+
+        .badge-dark {
+            background: rgba(30, 64, 175, 0.12);
+            color: rgba(148, 163, 184, 0.96);
+            border: 1px solid rgba(30, 64, 175, 0.6);
+        }
+
+        .badge-soon {
+            background: rgba(234, 179, 8, 0.12);
+            color: #facc15;
+            border: 1px solid rgba(234, 179, 8, 0.7);
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: currentColor;
+        }
+
+        .chart-cta-row {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding: 18px 0 26px;
+            border-top: 1px solid rgba(30, 64, 175, 0.7);
+            font-size: 11px;
+            color: var(--dim);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        @media (max-width: 720px) {
+            .topbar-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .top-links {
+                display: none;
+            }
+
+            .chart-card {
+                padding: 18px 18px 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="brand">
+                <div class="brand-icon">
+                    <img src="images/logocircle.png" alt="Manifestor Anonymous icon" />
+                </div>
+                <div class="brand-copy">
+                    <small>Manifestor Anonymous</small>
+                    <strong>Top Albums · Cross Playlists</strong>
+                    <div class="topbar-tagline">Incarnation crosses as albums.</div>
+                </div>
+            </div>
+            <nav class="top-links">
+                <a href="gates.html" class="btn btn-secondary">Back to Gates Radio</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="section-head">
+                    <span class="section-label">Full chart</span>
+                    <h1>Top Albums · Incarnation cross playlists.</h1>
+                    <p>
+                        Gates are the singles. Your incarnation cross is the album. This chart
+                        tracks generic cross playlists (pre‑made albums) and shows which ones
+                        are online, dark, or coming soon. The custom life theme playlist is
+                        the deluxe edition built just for you.
+                    </p>
+                    <p class="micro" style="margin-top:6px;color:rgba(148,163,184,0.96);">
+                        Online = playlist available · Dark = not recorded yet · Coming soon = in production.
+                    </p>
+                </div>
+
+                <!-- RIGHT ANGLE CROSSES -->
+                <article class="chart-card">
+                    <div class="chart-header">
+                        <div>
+                            <h2>Right Angle crosses · Top Albums.</h2>
+                            <div class="chart-sub">Personal destiny · Generic playlists</div>
+                        </div>
+                    </div>
+
+                    <table class="chart-table" aria-label="Right Angle Incarnation Cross playlists">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Cross</th>
+                                <th>Vibe</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- ONLINE -->
+                            <tr>
+                                <td>01</td>
+                                <td>Right Angle Cross of Tension</td>
+                                <td>Oldies / R&B / 2000s</td>
+                                <td>
+                                    <span class="badge-status badge-online">
+                                        <span class="badge-dot"></span> Online
+                                    </span>
+                                </td>
+                            </tr>
+                            <!-- DARK -->
+                            <tr>
+                                <td>02</td>
+                                <td>Right Angle Cross of Consciousness</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>03</td>
+                                <td>Right Angle Cross of Contagion</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>04</td>
+                                <td>Right Angle Cross of Cycles</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>05</td>
+                                <td>Right Angle Cross of Eden</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>06</td>
+                                <td>Right Angle Cross of Explanation</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>07</td>
+                                <td>Right Angle Cross of Four Ways</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>08</td>
+                                <td>Right Angle Cross of Grace</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>09</td>
+                                <td>Right Angle Cross of Laws</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>Right Angle Cross of Maya</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>Right Angle Cross of Penetration</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>Right Angle Cross of Planning</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td>Right Angle Cross of Rulership</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td>Right Angle Cross of Service</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td>Right Angle Cross of The Unexpected</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td>Right Angle Cross of The Sleeping Phoenix</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>17</td>
+                                <td>Right Angle Cross of Upheaval</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>18</td>
+                                <td>Right Angle Cross of The Vessel of Love</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+
+                <!-- LEFT ANGLE CROSSES -->
+                <article class="chart-card" style="margin-top:22px;">
+                    <div class="chart-header">
+                        <div>
+                            <h2>Left Angle crosses · Top Albums.</h2>
+                            <div class="chart-sub">Transpersonal destiny · Generic playlists</div>
+                        </div>
+                    </div>
+
+                    <table class="chart-table" aria-label="Left Angle Incarnation Cross playlists">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Cross</th>
+                                <th>Vibe</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- ONLINE -->
+                            <tr>
+                                <td>01</td>
+                                <td>Left Angle Cross of Informing</td>
+                                <td>Swift + New Country</td>
+                                <td>
+                                    <span class="badge-status badge-online">
+                                        <span class="badge-dot"></span> Online
+                                    </span>
+                                </td>
+                            </tr>
+                            <!-- DARK -->
+                            <tr>
+                                <td>02</td>
+                                <td>Left Angle Cross of Alignment</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>03</td>
+                                <td>Left Angle Cross of Bargains</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>04</td>
+                                <td>Left Angle Cross of Demands</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>05</td>
+                                <td>Left Angle Cross of Dominion</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>06</td>
+                                <td>Left Angle Cross of Education</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>07</td>
+                                <td>Left Angle Cross of Endeavor</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>08</td>
+                                <td>Left Angle Cross of Healing</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>09</td>
+                                <td>Left Angle Cross of Industry</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>Left Angle Cross of Interaction</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>Left Angle Cross of Limitation</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>Left Angle Cross of Masks</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td>Left Angle Cross of Migration</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td>Left Angle Cross of Prevention</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td>Left Angle Cross of Refinement</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td>Left Angle Cross of Revolution</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>17</td>
+                                <td>Left Angle Cross of Separation</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>18</td>
+                                <td>Left Angle Cross of Spirit</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+
+                <!-- JUXTAPOSED CROSSES -->
+                <article class="chart-card" style="margin-top:22px;">
+                    <div class="chart-header">
+                        <div>
+                            <h2>Juxtaposed crosses · Top Albums.</h2>
+                            <div class="chart-sub">Fixed fate · Generic playlists</div>
+                        </div>
+                    </div>
+
+                    <table class="chart-table" aria-label="Juxtaposed Incarnation Cross playlists">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Cross</th>
+                                <th>Vibe</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- All Dark for now -->
+                            <tr>
+                                <td>01</td>
+                                <td>Juxtaposition Cross of Articulation</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>02</td>
+                                <td>Juxtaposition Cross of Duality</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>03</td>
+                                <td>Juxtaposition Cross of Experience</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>04</td>
+                                <td>Juxtaposition Cross of Fantasy</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>05</td>
+                                <td>Juxtaposition Cross of Formulization</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>06</td>
+                                <td>Juxtaposition Cross of Grace</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>07</td>
+                                <td>Juxtaposition Cross of Innocence</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>08</td>
+                                <td>Juxtaposition Cross of Influence</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>09</td>
+                                <td>Juxtaposition Cross of Listening</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>Juxtaposition Cross of Moods</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>Juxtaposition Cross of Now</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>Juxtaposition Cross of Principles</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td>Juxtaposition Cross of Self Expression</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td>Juxtaposition Cross of Strategy</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td>Juxtaposition Cross of Thinking</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td>Juxtaposition Cross of Vitality</td>
+                                <td>—</td>
+                                <td>
+                                    <span class="badge-status badge-dark">
+                                        <span class="badge-dot"></span> Dark
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+
+                <!-- CUSTOM LIFE THEME PLAYLIST -->
+                <article class="chart-card" style="margin-top:22px;">
+                    <div class="chart-header">
+                        <div>
+                            <h2>Custom Incarnation Cross Playlist (Life Theme).</h2>
+                            <div class="chart-sub">Deluxe edition · 4‑gate playlist</div>
+                        </div>
+                    </div>
+
+                    <p style="font-size:14px;line-height:1.9;color:var(--muted);margin:0 0 10px;">
+                        This is where your chart stops being a PDF and starts sounding like something.
+                        You send the four gates of your incarnation cross and 1–5 artists or genres your
+                        system actually likes. You get a custom 20–30 track playlist (about 1.5–2 hours
+                        of music) built around those four gates, curated only from the artists/genres
+                        you chose, plus a simple PDF cover with your cross name and a QR code to your playlist.
+                    </p>
+                    <p style="font-size:13px;line-height:1.9;color:var(--muted);margin:0 0 6px;">
+                        Inside the PDF you get a mini life‑theme reading: a breakdown of your cross,
+                        a short write‑up for each gate, and an overview of why each song was paired
+                        with that gate. It’s not a long written reading to scroll. It’s your life theme
+                        translated into four gates and a soundtrack you can actually play.
+                    </p>
+                    <p class="micro" style="margin-top:8px;color:rgba(191,219,254,0.96);">
+                        4 gates · 20–30 tracks · about 1.5–2 hours of music · built only from 1–5
+                        artists/genres you pick.
+                    </p>
+
+                    <div class="chart-cta-row" style="margin-top:14px;">
+                        <!-- TODO: replace # with your real $111 custom checkout/intake URL -->
+                        <a href="#" class="btn btn-primary">Book your custom life theme playlist · $111</a>
+                        <a href="mailto:hello@manifestoranonymous.com?subject=Incarnation%20Cross%20Playlist%20Question"
+                            class="btn btn-tertiary">
+                            Ask a question first
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <div>© Manifestor Anonymous. Incarnation Cross Playlists.</div>
+            <div>Top Albums · Cross chart.</div>
+            <div>Operator: Manifestor‑run. For Manifestors only.</div>
+            <div>
+                <a href="https://instagram.com/manifestor.anonymous" target="_blank" rel="noopener noreferrer">
+                    @manifestor.anonymous
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

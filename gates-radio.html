@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Top 64 Gates · Gates Radio Stations • Manifestor Anonymous</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+
+    <meta name="description"
+        content="Full Top 64 Gates chart for Gates Radio. See which gate stations are online, dark, or coming soon, and unlock lifetime access with a Gates Radio Pass or a Single Gate Pass." />
+
+    <style>
+        :root {
+            --bg: #020711;
+            --panel: rgba(17, 24, 39, 0.92);
+            --panel-soft: rgba(15, 23, 42, 0.85);
+            --line: rgba(148, 163, 184, 0.32);
+            --line-strong: rgba(148, 163, 184, 0.6);
+            --text: #ecf4ff;
+            --muted: rgba(226, 232, 240, 0.8);
+            --dim: rgba(148, 163, 184, 0.82);
+            --accent: #38bdf8;
+            --accent-soft: rgba(56, 189, 248, 0.2);
+            --radius: 26px;
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.66);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 20%),
+                radial-gradient(circle at 15% 80%, rgba(56, 189, 248, 0.12), transparent 26%),
+                radial-gradient(circle at 80% 10%, rgba(124, 58, 237, 0.14), transparent 32%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.06;
+            background-image:
+                linear-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.18) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 86%);
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            backdrop-filter: blur(14px);
+            background: rgba(3, 7, 18, 0.82);
+            border-bottom: 1px solid rgba(30, 64, 175, 0.4);
+        }
+
+        .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            padding: 14px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid var(--line-strong);
+            overflow: hidden;
+            box-shadow: 0 0 22px rgba(56, 189, 248, 0.3);
+            background: #020617;
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand-copy small {
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.26em;
+            font-size: 10px;
+            color: var(--dim);
+        }
+
+        .brand-copy strong {
+            display: block;
+            margin-top: 3px;
+            font-size: 17px;
+            letter-spacing: 0.06em;
+            font-weight: 700;
+        }
+
+        .topbar-tagline {
+            margin-top: 4px;
+            font-size: 9px;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: rgba(148, 163, 184, 0.9);
+        }
+
+        .top-links {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .btn {
+            border-radius: 999px;
+            border: 1px solid var(--line-strong);
+            padding: 11px 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #020617;
+            border-color: rgba(56, 189, 248, 0.9);
+            box-shadow: 0 0 28px rgba(56, 189, 248, 0.46);
+        }
+
+        .btn-secondary {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--accent);
+            color: var(--text);
+        }
+
+        .btn-tertiary {
+            background: transparent;
+            border: 1px dashed rgba(148, 163, 184, 0.7);
+            color: var(--muted);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 50px rgba(15, 23, 42, 0.9);
+        }
+
+        .section {
+            padding: 26px 0 0;
+        }
+
+        .section-head {
+            margin-bottom: 16px;
+        }
+
+        .section-head h1 {
+            margin: 8px 0 4px;
+            font-size: 30px;
+            letter-spacing: -0.04em;
+        }
+
+        .section-head p {
+            margin: 0;
+            max-width: 640px;
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--muted);
+        }
+
+        .section-label {
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.26em;
+            font-size: 10px;
+            color: var(--dim);
+            margin-bottom: 4px;
+        }
+
+        .micro {
+            text-transform: uppercase;
+            letter-spacing: 0.26em;
+            font-size: 10px;
+            color: var(--dim);
+        }
+
+        .chart-card {
+            margin-top: 18px;
+            border-radius: var(--radius);
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: rgba(15, 23, 42, 0.96);
+            box-shadow: var(--shadow);
+            padding: 18px 18px 16px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .chart-header h2 {
+            margin: 0;
+            font-size: 22px;
+            letter-spacing: -0.03em;
+        }
+
+        .chart-sub {
+            font-size: 11px;
+            color: var(--dim);
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+        }
+
+        .chart-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .chart-table th,
+        .chart-table td {
+            padding: 6px 4px;
+            border-bottom: 1px solid rgba(30, 64, 175, 0.6);
+        }
+
+        .chart-table th {
+            text-align: left;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--dim);
+        }
+
+        .chart-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+
+        .badge-online {
+            background: rgba(34, 197, 94, 0.12);
+            color: #bbf7d0;
+            border: 1px solid rgba(34, 197, 94, 0.6);
+        }
+
+        .badge-dark {
+            background: rgba(30, 64, 175, 0.12);
+            color: rgba(148, 163, 184, 0.96);
+            border: 1px solid rgba(30, 64, 175, 0.6);
+        }
+
+        .badge-soon {
+            background: rgba(234, 179, 8, 0.12);
+            color: #facc15;
+            border: 1px solid rgba(234, 179, 8, 0.7);
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: currentColor;
+        }
+
+        .chart-cta-row {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding: 18px 0 26px;
+            border-top: 1px solid rgba(30, 64, 175, 0.7);
+            font-size: 11px;
+            color: var(--dim);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        @media (max-width: 720px) {
+            .topbar-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .top-links {
+                display: none;
+            }
+
+            .chart-card {
+                padding: 18px 18px 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="brand">
+                <div class="brand-icon">
+                    <img src="images/logocircle.png" alt="Manifestor Anonymous icon" />
+                </div>
+                <div class="brand-copy">
+                    <small>Manifestor Anonymous</small>
+                    <strong>Top 64 Gates · Gates Radio</strong>
+                    <div class="topbar-tagline">DJ sun archive · Gate stations chart.</div>
+                </div>
+            </div>
+            <nav class="top-links">
+                <a href="gates.html" class="btn btn-secondary">Back to DJ sun & overview</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="section-head">
+                    <span class="section-label">Full chart</span>
+                    <h1>Top 64 Gates · Stations.</h1>
+                    <p>
+                        This is the full Gates Radio chart. Each gate is a station. Online gates already
+                        have playlists. Dark gates haven’t gone on air yet. Coming soon gates are
+                        building quietly through transits and incarnation cross work.
+                    </p>
+                    <p class="micro" style="margin-top:6px;color:rgba(148,163,184,0.96);">
+                        Online = station playlist available · Dark = not broadcast yet · Coming soon = station in
+                        production.
+                    </p>
+                </div>
+
+                <article class="chart-card">
+                    <div class="chart-header">
+                        <div>
+                            <h2>Gate stations · access rules.</h2>
+                            <div class="chart-sub">Gates Radio Pass · Single Gate Pass</div>
+                        </div>
+                        <div style="font-size:11px;color:var(--dim);max-width:280px;">
+                            Gates Radio Pass unlocks every gate that’s online now plus all future stations.
+                            Single Gate Pass unlocks one gate station and every song added to it over time.
+                        </div>
+                    </div>
+
+                    <table class="chart-table" aria-label="Top 64 Gates chart">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Gate</th>
+                                <th>Theme</th>
+                                <th>Circuitry</th>
+                                <th>Center</th>
+                                <th>Status</th>
+                                <th>Access</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Head center -->
+                            <tr>
+                                <td>01</td>
+                                <td>Gate 1</td>
+                                <td>Creative</td>
+                                <td>Individual</td>
+                                <td>G Center</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>02</td>
+                                <td>Gate 2</td>
+                                <td>Direction</td>
+                                <td>Individual</td>
+                                <td>G Center</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>03</td>
+                                <td>Gate 3</td>
+                                <td>Ordering</td>
+                                <td>Individual</td>
+                                <td>Sacral</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>04</td>
+                                <td>Gate 4</td>
+                                <td>Formulization</td>
+                                <td>Collective</td>
+                                <td>Ajna</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>05</td>
+                                <td>Gate 5</td>
+                                <td>Fixed Patterns</td>
+                                <td>Collective</td>
+                                <td>Sacral</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>06</td>
+                                <td>Gate 6</td>
+                                <td>Friction</td>
+                                <td>Tribal</td>
+                                <td>Solar Plexus</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>07</td>
+                                <td>Gate 7</td>
+                                <td>The Role of the Self</td>
+                                <td>Collective</td>
+                                <td>G Center</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>08</td>
+                                <td>Gate 8</td>
+                                <td>Contribution</td>
+                                <td>Individual</td>
+                                <td>Throat</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>09</td>
+                                <td>Gate 9</td>
+                                <td>Focus</td>
+                                <td>Collective</td>
+                                <td>Sacral</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>Gate 10</td>
+                                <td>Self‑Love</td>
+                                <td>Individual</td>
+                                <td>G Center</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>Gate 11</td>
+                                <td>Ideas</td>
+                                <td>Collective</td>
+                                <td>Ajna</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>Gate 12</td>
+                                <td>Caution</td>
+                                <td>Individual</td>
+                                <td>Throat</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td>Gate 13</td>
+                                <td>Listener</td>
+                                <td>Collective</td>
+                                <td>G Center</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td>Gate 14</td>
+                                <td>Power Skills</td>
+                                <td>Individual</td>
+                                <td>Sacral</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td>Gate 15</td>
+                                <td>Extremes</td>
+                                <td>Collective</td>
+                                <td>G Center</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td>Gate 16</td>
+                                <td>Skills</td>
+                                <td>Collective</td>
+                                <td>Throat</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>17</td>
+                                <td>Gate 17</td>
+                                <td>Opinions</td>
+                                <td>Collective</td>
+                                <td>Ajna</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>18</td>
+                                <td>Gate 18</td>
+                                <td>Correction</td>
+                                <td>Collective</td>
+                                <td>Spleen</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>19</td>
+                                <td>Gate 19</td>
+                                <td>Wanting</td>
+                                <td>Tribal</td>
+                                <td>Root</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>20</td>
+                                <td>Gate 20</td>
+                                <td>Now</td>
+                                <td>Individual</td>
+                                <td>Throat</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>21</td>
+                                <td>Gate 21</td>
+                                <td>Control</td>
+                                <td>Tribal</td>
+                                <td>Heart/Ego</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+
+                            <!-- Gate 22 Online -->
+                            <tr>
+                                <td>22</td>
+                                <td>Gate 22</td>
+                                <td>Grace</td>
+                                <td>Individual</td>
+                                <td>Solar Plexus</td>
+                                <td>
+                                    <span class="badge-status badge-online"><span class="badge-dot"></span>
+                                        Online</span>
+                                </td>
+                                <td>
+                                    Included in Gates Radio Pass ·
+                                    <!-- TODO: Single gate checkout URL -->
+                                    <a href="#" style="color:var(--accent);text-decoration:underline;">Single Gate 22
+                                        Pass</a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>23</td>
+                                <td>Gate 23</td>
+                                <td>Assimilation</td>
+                                <td>Individual</td>
+                                <td>Throat</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>24</td>
+                                <td>Gate 24</td>
+                                <td>Rationalization</td>
+                                <td>Individual</td>
+                                <td>Ajna</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>25</td>
+                                <td>Gate 25</td>
+                                <td>Spirit of Self</td>
+                                <td>Individual</td>
+                                <td>G Center</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>26</td>
+                                <td>Gate 26</td>
+                                <td>Egoist</td>
+                                <td>Tribal</td>
+                                <td>Heart/Ego</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>27</td>
+                                <td>Gate 27</td>
+                                <td>Caring</td>
+                                <td>Tribal</td>
+                                <td>Sacral</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>28</td>
+                                <td>Gate 28</td>
+                                <td>Game Player</td>
+                                <td>Individual</td>
+                                <td>Spleen</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>29</td>
+                                <td>Gate 29</td>
+                                <td>Perseverance</td>
+                                <td>Collective</td>
+                                <td>Sacral</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>30</td>
+                                <td>Gate 30</td>
+                                <td>Desires</td>
+                                <td>Collective</td>
+                                <td>Solar Plexus</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>31</td>
+                                <td>Gate 31</td>
+                                <td>Influence</td>
+                                <td>Collective</td>
+                                <td>Throat</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>32</td>
+                                <td>Gate 32</td>
+                                <td>Continuity</td>
+                                <td>Tribal</td>
+                                <td>Spleen</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>33</td>
+                                <td>Gate 33</td>
+                                <td>Privacy</td>
+                                <td>Collective</td>
+                                <td>Throat</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>34</td>
+                                <td>Gate 34</td>
+                                <td>Power</td>
+                                <td>Individual</td>
+                                <td>Sacral</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>35</td>
+                                <td>Gate 35</td>
+                                <td>Change</td>
+                                <td>Collective</td>
+                                <td>Throat</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>36</td>
+                                <td>Gate 36</td>
+                                <td>Crisis</td>
+                                <td>Collective</td>
+                                <td>Solar Plexus</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>37</td>
+                                <td>Gate 37</td>
+                                <td>Friendship</td>
+                                <td>Tribal</td>
+                                <td>Solar Plexus</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>38</td>
+                                <td>Gate 38</td>
+                                <td>Fighter</td>
+                                <td>Individual</td>
+                                <td>Root</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>39</td>
+                                <td>Gate 39</td>
+                                <td>Provocation</td>
+                                <td>Individual</td>
+                                <td>Root</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>40</td>
+                                <td>Gate 40</td>
+                                <td>Aloneness</td>
+                                <td>Tribal</td>
+                                <td>Heart/Ego</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>41</td>
+                                <td>Gate 41</td>
+                                <td>Contraction</td>
+                                <td>Collective</td>
+                                <td>Root</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>42</td>
+                                <td>Gate 42</td>
+                                <td>Growth</td>
+                                <td>Collective</td>
+                                <td>Sacral</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>43</td>
+                                <td>Gate 43</td>
+                                <td>Insight</td>
+                                <td>Individual</td>
+                                <td>Ajna</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>44</td>
+                                <td>Gate 44</td>
+                                <td>Alertness</td>
+                                <td>Tribal</td>
+                                <td>Spleen</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>45</td>
+                                <td>Gate 45</td>
+                                <td>Gatherer</td>
+                                <td>Tribal</td>
+                                <td>Throat</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>46</td>
+                                <td>Gate 46</td>
+                                <td>Determination of the Self</td>
+                                <td>Collective</td>
+                                <td>G Center</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>47</td>
+                                <td>Gate 47</td>
+                                <td>Realization</td>
+                                <td>Collective</td>
+                                <td>Ajna</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>48</td>
+                                <td>Gate 48</td>
+                                <td>Depth</td>
+                                <td>Individual</td>
+                                <td>Spleen</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>49</td>
+                                <td>Gate 49</td>
+                                <td>Principles</td>
+                                <td>Tribal</td>
+                                <td>Solar Plexus</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>50</td>
+                                <td>Gate 50</td>
+                                <td>Values</td>
+                                <td>Tribal</td>
+                                <td>Spleen</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>51</td>
+                                <td>Gate 51</td>
+                                <td>Shock</td>
+                                <td>Individual</td>
+                                <td>Heart/Ego</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>52</td>
+                                <td>Gate 52</td>
+                                <td>Stillness</td>
+                                <td>Collective</td>
+                                <td>Root</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>53</td>
+                                <td>Gate 53</td>
+                                <td>Beginning</td>
+                                <td>Collective</td>
+                                <td>Root</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>54</td>
+                                <td>Gate 54</td>
+                                <td>Ambition</td>
+                                <td>Tribal</td>
+                                <td>Root</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>55</td>
+                                <td>Gate 55</td>
+                                <td>Abundance of Spirit</td>
+                                <td>Individual</td>
+                                <td>Solar Plexus</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>56</td>
+                                <td>Gate 56</td>
+                                <td>Storytelling</td>
+                                <td>Collective</td>
+                                <td>Throat</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>57</td>
+                                <td>Gate 57</td>
+                                <td>Intuition</td>
+                                <td>Individual</td>
+                                <td>Spleen</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>58</td>
+                                <td>Gate 58</td>
+                                <td>Joy of Life</td>
+                                <td>Collective</td>
+                                <td>Root</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>59</td>
+                                <td>Gate 59</td>
+                                <td>Intimacy</td>
+                                <td>Tribal</td>
+                                <td>Sacral</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>60</td>
+                                <td>Gate 60</td>
+                                <td>Limitation</td>
+                                <td>Collective</td>
+                                <td>Root</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>61</td>
+                                <td>Gate 61</td>
+                                <td>Mystery</td>
+                                <td>Individual</td>
+                                <td>Head</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>62</td>
+                                <td>Gate 62</td>
+                                <td>Details</td>
+                                <td>Collective</td>
+                                <td>Throat</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>63</td>
+                                <td>Gate 63</td>
+                                <td>Doubt</td>
+                                <td>Collective</td>
+                                <td>Head</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                            <tr>
+                                <td>64</td>
+                                <td>Gate 64</td>
+                                <td>Confusion</td>
+                                <td>Collective</td>
+                                <td>Head</td>
+                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                </td>
+                                <td>Not broadcast yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="chart-cta-row">
+                        <!-- TODO: All-access checkout URL -->
+                        <a href="#" class="btn btn-primary">Gates Radio Pass · All online gates</a>
+                        <span class="micro">
+                            Single Gate Pass = lifetime access to one gate station + all future songs for that gate.
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <div>© Manifestor Anonymous. Gates Radio.</div>
+            <div>Top 64 Gates · Station chart.</div>
+            <div>Operator: Manifestor‑run. For Manifestors only.</div>
+            <div>
+                <a href="https://instagram.com/manifestor.anonymous" target="_blank" rel="noopener noreferrer">
+                    @manifestor.anonymous
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
