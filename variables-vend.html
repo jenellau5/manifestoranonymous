@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Variables Vending Machine</title>
+
+    <!-- =========================
+       STYLES
+       ========================= -->
+    <style>
+        :root {
+            --bg: #05060b;
+            --screen: #0d0f1a;
+            --controls: #101322;
+            --accent: #f7b3ff;
+            --accent2: #ff6bd5;
+            --accent-soft: rgba(247, 179, 255, 0.18);
+            --text-main: #f7f7ff;
+            --text-soft: #a3a7c8;
+            --border-subtle: #272a3b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #1d1635 0, #05060b 50%, #010208 100%);
+            color: var(--text-main);
+            max-width: 980px;
+            margin: 36px auto 64px;
+            padding: 0 16px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 6px;
+            letter-spacing: 0.16em;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            text-align: center;
+            margin-bottom: 22px;
+            font-size: 0.95rem;
+            color: var(--text-soft);
+        }
+
+        .machine {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.9));
+            border-radius: 22px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 26px 50px rgba(0, 0, 0, 0.7);
+            padding: 16px;
+            display: grid;
+            grid-template-columns: 2.2fr 1fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 780px) {
+            .machine {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* LEFT: big screen + choices */
+
+        .screen-panel {
+            background: var(--screen);
+            border-radius: 18px;
+            padding: 16px 14px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .screen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+
+        .screen-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-soft);
+        }
+
+        .screen-status {
+            font-size: 0.8rem;
+            color: var(--text-soft);
+        }
+
+        .display {
+            background: radial-gradient(circle at top left, rgba(247, 179, 255, 0.12), rgba(0, 0, 0, 0.95));
+            border-radius: 14px;
+            border: 1px solid var(--accent-soft);
+            padding: 12px;
+            margin-bottom: 8px;
+            min-height: 90px;
+        }
+
+        .display-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 0.98rem;
+        }
+
+        .display-meta {
+            font-size: 0.8rem;
+            color: var(--text-soft);
+            margin-bottom: 6px;
+        }
+
+        .display-body {
+            font-size: 0.88rem;
+            color: var(--text-soft);
+        }
+
+        /* KEY: circle = Color, triangle = Tone */
+
+        .key-row {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+            margin-bottom: 6px;
+            align-items: center;
+        }
+
+        .key-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .key-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        .key-icon.circle {
+            border-radius: 999px;
+            border: 2px solid var(--accent);
+        }
+
+        .key-icon.triangle {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 18px solid var(--accent2);
+        }
+
+        .key-text {
+            font-size: 0.78rem;
+        }
+
+        .key-label {
+            font-weight: 600;
+        }
+
+        .key-desc {
+            color: var(--text-soft);
+            font-size: 0.75rem;
+        }
+
+        /* Choice button rows */
+
+        .config-groups {
+            margin-top: 10px;
+        }
+
+        .group-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.11em;
+            color: var(--text-soft);
+            margin-bottom: 4px;
+        }
+
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .choice-btn {
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border-subtle);
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--text-main);
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.12s ease-out;
+            white-space: nowrap;
+        }
+
+        .choice-btn:hover {
+            border-color: rgba(247, 179, 255, 0.7);
+            box-shadow: 0 0 0 1px rgba(247, 179, 255, 0.25);
+        }
+
+        .choice-btn.selected {
+            background: linear-gradient(135deg, rgba(247, 179, 255, 0.24), rgba(255, 107, 213, 0.16));
+            border-color: var(--accent);
+        }
+
+        /* Color buttons as circles */
+
+        .color-btn::before {
+            content: "";
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            border: 2px solid var(--accent);
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        /* Tone buttons as triangles */
+
+        .tone-btn {
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .tone-btn::before {
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 12px solid var(--accent2);
+        }
+
+        .tone-note {
+            font-size: 0.75rem;
+            color: var(--text-soft);
+            margin-bottom: 6px;
+        }
+
+        /* RIGHT: arrow buttons + VEND */
+
+        .control-panel {
+            background: var(--controls);
+            border-radius: 18px;
+            padding: 14px 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .arrows-column-title {
+            font-size: 0.86rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--text-soft);
+            margin-bottom: 8px;
+        }
+
+        .arrows-column {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Arrow buttons look like arrows */
+
+        .arrow-btn {
+            position: relative;
+            padding: 8px 10px 8px 32px;
+            border-radius: 999px;
+            border: 1px solid var(--border-subtle);
+            background: radial-gradient(circle at left, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.92));
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.12s ease-out;
+        }
+
+        .arrow-btn::before {
+            content: "";
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-left: 12px solid var(--accent);
+        }
+
+        .arrow-btn span.main {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .arrow-btn span.sub {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-soft);
+        }
+
+        .arrow-btn:hover {
+            border-color: rgba(247, 179, 255, 0.6);
+        }
+
+        .arrow-btn.active {
+            background: linear-gradient(135deg, rgba(247, 179, 255, 0.28), rgba(255, 107, 213, 0.18));
+            border-color: var(--accent);
+        }
+
+        .arrow-btn.complete {
+            border-color: rgba(127, 255, 204, 0.6);
+        }
+
+        .arrow-btn.complete::before {
+            border-left-color: #7dffc6;
+        }
+
+        .arrow-btn.complete span.sub::after {
+            content: " • loaded";
+            color: #7dffc6;
+        }
+
+        .arrow-count {
+            font-size: 0.8rem;
+            color: var(--text-soft);
+            margin-top: 4px;
+        }
+
+        .vend-block {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        #vendBtn {
+            padding: 10px 24px;
+            font-size: 0.9rem;
+            border-radius: 999px;
+            border: none;
+            background: radial-gradient(circle at top, var(--accent2), var(--accent));
+            color: #050505;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-weight: 600;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+            transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, opacity 0.12s;
+        }
+
+        #vendBtn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        #vendBtn:not(:disabled):hover {
+            transform: translateY(-1px);
+            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.95);
+        }
+
+        .vend-note {
+            font-size: 0.78rem;
+            color: var(--text-soft);
+            margin-top: 4px;
+        }
+
+        /* Reading output */
+
+        #reading {
+            margin-top: 24px;
+            padding: 18px 16px 20px;
+            border-radius: 18px;
+            border: 1px solid var(--accent-soft);
+            background: radial-gradient(circle at top left, rgba(247, 179, 255, 0.16), rgba(0, 0, 0, 0.94));
+            display: none;
+        }
+
+        .reading-section {
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+        }
+
+        .reading-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .reading-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .reading-meta {
+            font-size: 0.78rem;
+            color: var(--text-soft);
+            margin-bottom: 6px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 9px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-right: 6px;
+            margin-bottom: 4px;
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: var(--accent);
+        }
+
+        .reading-body p {
+            margin: 0 0 6px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>VARIABLES VEND</h1>
+    <p class="tagline">
+        Press arrow buttons on the right to load each slot with Direction, Color, and Tone. When all four are lit up,
+        hit VEND to drop your full Manifestor variables reading.
+    </p>
+
+    <div class="machine">
+        <!-- =========================
+       LEFT: SCREEN & CHOICES
+       ========================= -->
+        <div class="screen-panel">
+            <div class="screen-header">
+                <div class="screen-title">Arrow screen</div>
+                <div class="screen-status" id="screenStatus">0 / 4 arrows loaded</div>
+            </div>
+
+            <div class="display" id="display">
+                <div class="display-title">Choose an arrow on the right</div>
+                <div class="display-meta">Nothing will vend until all four arrow slots are loaded.</div>
+                <div class="display-body">
+                    Tap an arrow button on the right. On this screen you’ll choose Direction (Left/Right), Color (circle
+                    1–6), and Tone (triangle 1–6) for that arrow, just like in your chart.
+                </div>
+            </div>
+
+            <!-- KEY: circle = Color, triangle = Tone -->
+            <div class="key-row">
+                <div class="key-item">
+                    <div class="key-icon circle"></div>
+                    <div class="key-text">
+                        <div class="key-label">Color</div>
+                        <div class="key-desc">Circle under the arrow (1–6)</div>
+                    </div>
+                </div>
+                <div class="key-item">
+                    <div class="key-icon triangle"></div>
+                    <div class="key-text">
+                        <div class="key-label">Tone</div>
+                        <div class="key-desc">Triangle under the arrow (1–6)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Choice groups -->
+            <div class="config-groups" id="configGroups" style="display:none;">
+                <div class="group-label">Direction</div>
+                <div class="btn-row" id="directionRow"></div>
+
+                <div class="group-label">Color</div>
+                <div class="btn-row" id="colorRow"></div>
+
+                <div class="group-label">Tone</div>
+                <div class="btn-row" id="toneRow"></div>
+
+                <div class="tone-note" id="toneNote"></div>
+            </div>
+        </div>
+
+        <!-- =========================
+       RIGHT: ARROWS & VEND
+       ========================= -->
+        <div class="control-panel">
+            <div>
+                <div class="arrows-column-title">Arrow buttons</div>
+                <div class="arrows-column">
+                    <button class="arrow-btn" data-arrow="determination">
+                        <span class="main">Top Left – Determination</span>
+                        <span class="sub">Brain / digestion</span>
+                    </button>
+                    <button class="arrow-btn" data-arrow="environment">
+                        <span class="main">Bottom Left – Environment</span>
+                        <span class="sub">Where you thrive</span>
+                    </button>
+                    <button class="arrow-btn" data-arrow="perspective">
+                        <span class="main">Top Right – Perspective</span>
+                        <span class="sub">How you see</span>
+                    </button>
+                    <button class="arrow-btn" data-arrow="motivation">
+                        <span class="main">Bottom Right – Motivation</span>
+                        <span class="sub">How you think</span>
+                    </button>
+                </div>
+                <div class="arrow-count" id="arrowCount">0 / 4 arrows loaded</div>
+            </div>
+
+            <div class="vend-block">
+                <button id="vendBtn" disabled>VEND</button>
+                <div class="vend-note">Loads all 4 selected arrows into one variables reading.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================
+     READING OUTPUT
+     ========================= -->
+    <div id="reading"></div>
+
+    <!-- =========================
+     SCRIPT
+     ========================= -->
+    <script>
+        // =========================================
+        // 1) CONTENT OBJECT
+        //    TODO: Replace all placeholder "body" text with your Manifestor-aligned explanations
+        // =========================================
+        const content = {
+            patterns: {
+                // TODO (optional): add overall variable pattern texts, e.g.
+                // "LLRR": { title: "LLRR Variables Overview", body: "..." }
+            },
+
+            // --- Determination (Top Left) ---
+            determination: {
+                label: "Top Left – Determination (Brain & Digestion)",
+                direction: {
+                    // TODO: replace with your real Manifestor explanations
+                    L: { body: "Placeholder: Left Determination for Manifestors." },
+                    R: { body: "Placeholder: Right Determination for Manifestors." }
+                },
+                colors: {
+                    // TODO: fill in real-world examples & implementation tips
+                    1: { name: "Appetite (Consecutive)", title: "Appetite", body: "Placeholder for Appetite." },
+                    2: { name: "Taste (Selective)", title: "Taste", body: "Placeholder for Taste." },
+                    3: { name: "Thirst (Hot/Cold)", title: "Thirst", body: "Placeholder for Thirst." },
+                    4: { name: "Touch (Calm/Nervous)", title: "Touch", body: "Placeholder for Touch." },
+                    5: { name: "Sound (High/Low)", title: "Sound", body: "Placeholder for Sound." },
+                    6: { name: "Light (Direct/Indirect)", title: "Light", body: "Placeholder for Light." }
+                },
+                // Tones here = body cognition (Smell → Touch)
+                tones: {
+                    1: { name: "Smell", body: "Placeholder: Smell cognition in Determination." },
+                    2: { name: "Taste", body: "Placeholder: Taste cognition in Determination." },
+                    3: { name: "Outer Vision", body: "Placeholder: Outer Vision in Determination." },
+                    4: { name: "Inner Vision", body: "Placeholder: Inner Vision in Determination." },
+                    5: { name: "Feeling", body: "Placeholder: Feeling in Determination." },
+                    6: { name: "Touch", body: "Placeholder: Touch in Determination." }
+                }
+            },
+
+            // --- Environment (Bottom Left) ---
+            environment: {
+                label: "Bottom Left – Environment (Where You Thrive)",
+                direction: {
+                    // TODO: replace with your real Manifestor explanations
+                    L: { body: "Placeholder: Left Environment for Manifestors." },
+                    R: { body: "Placeholder: Right Environment for Manifestors." }
+                },
+                colors: {
+                    1: { name: "Caves", title: "Caves", body: "Placeholder for Caves." },
+                    2: { name: "Markets", title: "Markets", body: "Placeholder for Markets." },
+                    3: { name: "Kitchens", title: "Kitchens", body: "Placeholder for Kitchens." },
+                    4: { name: "Mountains", title: "Mountains", body: "Placeholder for Mountains." },
+                    5: { name: "Valleys", title: "Valleys", body: "Placeholder for Valleys." },
+                    6: { name: "Shores", title: "Shores", body: "Placeholder for Shores." }
+                },
+                // Tones = body cognition again
+                tones: {
+                    1: { name: "Smell", body: "Placeholder: Smell cognition in Environment." },
+                    2: { name: "Taste", body: "Placeholder: Taste cognition in Environment." },
+                    3: { name: "Outer Vision", body: "Placeholder: Outer Vision in Environment." },
+                    4: { name: "Inner Vision", body: "Placeholder: Inner Vision in Environment." },
+                    5: { name: "Feeling", body: "Placeholder: Feeling in Environment." },
+                    6: { name: "Touch", body: "Placeholder: Touch in Environment." }
+                }
+            },
+
+            // --- Perspective (Top Right) ---
+            perspective: {
+                label: "Top Right – Perspective (How You See)",
+                direction: {
+                    // TODO: replace with your real Manifestor explanations
+                    L: { body: "Placeholder: Left Perspective for Manifestors." },
+                    R: { body: "Placeholder: Right Perspective for Manifestors." }
+                },
+                colors: {
+                    1: { name: "Survival", title: "Survival", body: "Placeholder for Survival view." },
+                    2: { name: "Possibility", title: "Possibility", body: "Placeholder for Possibility view." },
+                    3: { name: "Power", title: "Power", body: "Placeholder for Power view." },
+                    4: { name: "Wanting", title: "Wanting", body: "Placeholder for Wanting view." },
+                    5: { name: "Probability", title: "Probability", body: "Placeholder for Probability view." },
+                    6: { name: "Personal", title: "Personal", body: "Placeholder for Personal view." }
+                },
+                // Tones = mental tone (Security → Acceptance)
+                tones: {
+                    1: { name: "Security", body: "Placeholder: Security tone for Perspective." },
+                    2: { name: "Uncertainty", body: "Placeholder: Uncertainty tone for Perspective." },
+                    3: { name: "Action", body: "Placeholder: Action tone for Perspective." },
+                    4: { name: "Meditation", body: "Placeholder: Meditation tone for Perspective." },
+                    5: { name: "Judgement", body: "Placeholder: Judgement tone for Perspective." },
+                    6: { name: "Acceptance", body: "Placeholder: Acceptance tone for Perspective." }
+                }
+            },
+
+            // --- Motivation (Bottom Right) ---
+            motivation: {
+                label: "Bottom Right – Motivation (How You Think)",
+                direction: {
+                    // TODO: replace with your real Manifestor explanations
+                    L: { body: "Placeholder: Left Motivation for Manifestors." },
+                    R: { body: "Placeholder: Right Motivation for Manifestors." }
+                },
+                colors: {
+                    1: { name: "Fear", title: "Fear", body: "Placeholder for Fear motivation." },
+                    2: { name: "Hope", title: "Hope", body: "Placeholder for Hope motivation." },
+                    3: { name: "Desire", title: "Desire", body: "Placeholder for Desire motivation." },
+                    4: { name: "Need", title: "Need", body: "Placeholder for Need motivation." },
+                    5: { name: "Guilt", title: "Guilt", body: "Placeholder for Guilt motivation." },
+                    6: { name: "Innocence", title: "Innocence", body: "Placeholder for Innocence motivation." }
+                },
+                // Tones = mental tone again
+                tones: {
+                    1: { name: "Security", body: "Placeholder: Security tone for Motivation." },
+                    2: { name: "Uncertainty", body: "Placeholder: Uncertainty tone for Motivation." },
+                    3: { name: "Action", body: "Placeholder: Action tone for Motivation." },
+                    4: { name: "Meditation", body: "Placeholder: Meditation tone for Motivation." },
+                    5: { name: "Judgement", body: "Placeholder: Judgement tone for Motivation." },
+                    6: { name: "Acceptance", body: "Placeholder: Acceptance tone for Motivation." }
+                }
+            },
+
+            // Overall closing section
+            manifestorWrapUp: {
+                // TODO: update with your own wrap-up
+                title: "Bringing Your Variables Together",
+                body: "Placeholder wrap-up connecting all four arrows back to your Manifestor aura, informing, and creative cycles."
+            }
+        };
+
+        // Arrow metadata: which Tone set to use
+        const arrowMeta = {
+            determination: { toneType: "cognition" },
+            environment: { toneType: "cognition" },
+            perspective: { toneType: "mental" },
+            motivation: { toneType: "mental" }
+        };
+
+        // Tone labels used on the buttons (numbered 1–6)
+        const toneLabels = {
+            cognition: [
+                { value: "1", label: "1 – Smell" },
+                { value: "2", label: "2 – Taste" },
+                { value: "3", label: "3 – Outer Vision" },
+                { value: "4", label: "4 – Inner Vision" },
+                { value: "5", label: "5 – Feeling" },
+                { value: "6", label: "6 – Touch" }
+            ],
+            mental: [
+                { value: "1", label: "1 – Security" },
+                { value: "2", label: "2 – Uncertainty" },
+                { value: "3", label: "3 – Action" },
+                { value: "4", label: "4 – Meditation" },
+                { value: "5", label: "5 – Judgement" },
+                { value: "6", label: "6 – Acceptance" }
+            ]
+        };
+
+        // Stores the user’s choices for each arrow
+        const selection = {
+            determination: { direction: "", color: "", tone: "" },
+            environment: { direction: "", color: "", tone: "" },
+            perspective: { direction: "", color: "", tone: "" },
+            motivation: { direction: "", color: "", tone: "" }
+        };
+
+        // DOM references
+        const screenStatus = document.getElementById("screenStatus");
+        const displayEl = document.getElementById("display");
+        const configGroups = document.getElementById("configGroups");
+        const directionRow = document.getElementById("directionRow");
+        const colorRow = document.getElementById("colorRow");
+        const toneRow = document.getElementById("toneRow");
+        const toneNote = document.getElementById("toneNote");
+        const arrowCount = document.getElementById("arrowCount");
+        const arrowButtons = document.querySelectorAll(".arrow-btn");
+        const vendBtn = document.getElementById("vendBtn");
+        const readingDiv = document.getElementById("reading");
+
+        let currentArrowKey = null;
+
+        // =========================================
+        // 2) ARROW BUTTON HANDLERS
+        // =========================================
+        arrowButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                arrowButtons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                const key = btn.getAttribute("data-arrow");
+                openArrow(key);
+            });
+        });
+
+        function openArrow(key) {
+            currentArrowKey = key;
+            const conf = content[key];
+            const sel = selection[key];
+            const toneType = arrowMeta[key].toneType;
+
+            configGroups.style.display = "block";
+
+            const dirText = sel.direction
+                ? (sel.direction === "L" ? "Left (active/strategic)" : "Right (receptive/relaxed)")
+                : "Direction not set";
+            const colorText = sel.color
+                ? `Color ${sel.color} – ${conf.colors[sel.color].name}`
+                : "Color not set";
+            const toneText = sel.tone
+                ? `Tone ${sel.tone} – ${conf.tones[sel.tone].name}`
+                : "Tone not set";
+
+            displayEl.innerHTML = `
+      <div class="display-title">${conf.label}</div>
+      <div class="display-meta">${dirText} • ${colorText} • ${toneText}</div>
+      <div class="display-body">
+        Match what your chart shows for this arrow, or experiment with combinations and then see it all together when you VEND.
+      </div>
+    `;
+
+            renderDirectionButtons(key);
+            renderColorButtons(key);
+            renderToneButtons(key, toneType);
+        }
+
+        // =========================================
+        // 3) RENDER DIRECTION / COLOR / TONE BUTTONS
+        // =========================================
+        function renderDirectionButtons(key) {
+            directionRow.innerHTML = "";
+            ["L", "R"].forEach(val => {
+                const btn = document.createElement("button");
+                btn.className = "choice-btn";
+                btn.textContent = val === "L" ? "Left arrow" : "Right arrow";
+                if (selection[key].direction === val) btn.classList.add("selected");
+                btn.addEventListener("click", () => {
+                    selection[key].direction = val;
+                    renderDirectionButtons(key);
+                    openArrow(key);
+                    updateCounts();
+                });
+                directionRow.appendChild(btn);
+            });
+        }
+
+        function renderColorButtons(key) {
+            colorRow.innerHTML = "";
+            const colors = content[key].colors;
+            Object.entries(colors).forEach(([num, cfg]) => {
+                const btn = document.createElement("button");
+                btn.className = "choice-btn color-btn";
+                btn.textContent = `${num} – ${cfg.name}`;
+                if (selection[key].color === num) btn.classList.add("selected");
+                btn.addEventListener("click", () => {
+                    selection[key].color = num;
+                    renderColorButtons(key);
+                    openArrow(key);
+                    updateCounts();
+                });
+                colorRow.appendChild(btn);
+            });
+        }
+
+        function renderToneButtons(key, toneType) {
+            toneRow.innerHTML = "";
+            const labels = toneLabels[toneType];
+            labels.forEach(info => {
+                const btn = document.createElement("button");
+                btn.className = "choice-btn tone-btn";
+                btn.textContent = info.label;
+                if (selection[key].tone === info.value) btn.classList.add("selected");
+                btn.addEventListener("click", () => {
+                    selection[key].tone = info.value;
+                    renderToneButtons(key, toneType);
+                    openArrow(key);
+                    updateCounts();
+                });
+                toneRow.appendChild(btn);
+            });
+
+            if (toneType === "cognition") {
+                toneNote.textContent = "Left side: Tone is body cognition (Smell, Taste, Outer/Inner Vision, Feeling, Touch) and fixes the arrow left (1–3) or right (4–6).";
+            } else {
+                toneNote.textContent = "Right side: Tone is mental tone (Security, Uncertainty, Action, Meditation, Judgement, Acceptance) from Rave Psychology.";
+            }
+        }
+
+        // =========================================
+        // 4) COUNTS & VEND BUTTON
+        // =========================================
+        function updateCounts() {
+            const loaded = Object.values(selection).filter(
+                s => s.direction && s.color && s.tone
+            ).length;
+            screenStatus.textContent = `${loaded} / 4 arrows loaded`;
+            arrowCount.textContent = `${loaded} / 4 arrows loaded`;
+            vendBtn.disabled = loaded !== 4;
+
+            arrowButtons.forEach(btn => {
+                const key = btn.getAttribute("data-arrow");
+                const s = selection[key];
+                btn.classList.toggle("complete", !!(s.direction && s.color && s.tone));
+            });
+        }
+
+        // Build a single arrow section for the reading
+        function buildArrowSection(key) {
+            const conf = content[key];
+            const sel = selection[key];
+
+            const sec = document.createElement("div");
+            sec.className = "reading-section";
+
+            const title = document.createElement("div");
+            title.className = "reading-title";
+            title.textContent = conf.label;
+            sec.appendChild(title);
+
+            const meta = document.createElement("div");
+            meta.className = "reading-meta";
+
+            const pillDir = document.createElement("span");
+            pillDir.className = "pill";
+            pillDir.innerHTML = `<span class="pill-dot"></span>${sel.direction === "L" ? "Left direction" : "Right direction"}`;
+
+            const pillColor = document.createElement("span");
+            pillColor.className = "pill";
+            pillColor.innerHTML = `<span class="pill-dot"></span>Color ${sel.color} – ${conf.colors[sel.color].name}`;
+
+            const pillTone = document.createElement("span");
+            pillTone.className = "pill";
+            pillTone.innerHTML = `<span class="pill-dot"></span>Tone ${sel.tone} – ${conf.tones[sel.tone].name}`;
+
+            meta.appendChild(pillDir);
+            meta.appendChild(pillColor);
+            meta.appendChild(pillTone);
+            sec.appendChild(meta);
+
+            const body = document.createElement("div");
+            body.className = "reading-body";
+
+            body.innerHTML += `<p>${conf.direction[sel.direction].body}</p>`;
+            body.innerHTML += `<p><strong>${conf.colors[sel.color].title}</strong></p>`;
+            body.innerHTML += `<p>${conf.colors[sel.color].body}</p>`;
+            body.innerHTML += `<p><strong>${conf.tones[sel.tone].name} tone</strong></p>`;
+            body.innerHTML += `<p>${conf.tones[sel.tone].body}</p>`;
+
+            sec.appendChild(body);
+            return sec;
+        }
+
+        // VEND handler: build full report
+        vendBtn.addEventListener("click", () => {
+            readingDiv.innerHTML = "";
+
+            const pattern =
+                selection.determination.direction +
+                selection.environment.direction +
+                selection.perspective.direction +
+                selection.motivation.direction;
+
+            if (content.patterns[pattern]) {
+                const sec = document.createElement("div");
+                sec.className = "reading-section";
+                const h = document.createElement("div");
+                h.className = "reading-title";
+                h.textContent = content.patterns[pattern].title;
+                sec.appendChild(h);
+                const b = document.createElement("div");
+                b.className = "reading-body";
+                b.innerHTML = `<p>${content.patterns[pattern].body}</p>`;
+                sec.appendChild(b);
+                readingDiv.appendChild(sec);
+            }
+
+            readingDiv.appendChild(buildArrowSection("determination"));
+            readingDiv.appendChild(buildArrowSection("environment"));
+            readingDiv.appendChild(buildArrowSection("perspective"));
+            readingDiv.appendChild(buildArrowSection("motivation"));
+
+            if (content.manifestorWrapUp) {
+                const sec = document.createElement("div");
+                sec.className = "reading-section";
+                const h = document.createElement("div");
+                h.className = "reading-title";
+                h.textContent = content.manifestorWrapUp.title;
+                sec.appendChild(h);
+                const b = document.createElement("div");
+                b.className = "reading-body";
+                b.innerHTML = `<p>${content.manifestorWrapUp.body}</p>`;
+                sec.appendChild(b);
+                readingDiv.appendChild(sec);
+            }
+
+            readingDiv.style.display = "block";
+            readingDiv.scrollIntoView({ behavior: "smooth" });
+        });
+    </script>
+
+</body>
+
+</html>
