@@ -507,12 +507,18 @@
         /* JOURNAL TEASER */
 
         .journal-teaser {
+            display: none;
             margin-top: 28px;
             padding: 15px 13px 17px;
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.09);
             background:
                 radial-gradient(circle at top, rgba(255, 107, 148, 0.18), rgba(0, 0, 0, 0.97));
+        }
+
+        .pdf-actions {
+            text-align: center;
+            margin-top: 22px;
         }
 
         .journal-heading {
@@ -532,6 +538,79 @@
         .journal-body {
             font-size: 0.86rem;
             color: var(--text-soft);
+        }
+
+        /* Download / print styling */
+        #downloadPdfBtn,
+        #journalBtn {
+            margin-top: 10px;
+            padding: 12px 18px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            cursor: pointer;
+            transition: transform 0.13s ease-out, box-shadow 0.13s ease-out, opacity 0.13s;
+            width: 100%;
+            max-width: 280px;
+            letter-spacing: 0.16em;
+        }
+
+        #journalBtn {
+            background: linear-gradient(135deg, rgba(125, 255, 198, 0.35), rgba(255, 122, 240, 0.16));
+            border-color: rgba(125, 255, 198, 0.65);
+            color: var(--bg);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        #journalBtn:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 16px 40px rgba(0, 0, 0, 0.45),
+                0 0 18px rgba(125, 255, 198, 0.55);
+        }
+
+        #downloadPdfBtn:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 14px 30px rgba(0, 0, 0, 0.5),
+                0 0 16px rgba(125, 255, 198, 0.6);
+        }
+
+        #downloadPdfBtn:disabled {
+            opacity: 0.32;
+            cursor: not-allowed;
+        }
+
+        #downloadPdfBtn:not(:disabled):hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 14px 30px rgba(0, 0, 0, 0.5),
+                0 0 16px rgba(125, 255, 198, 0.6);
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #reading,
+            #reading * {
+                visibility: visible;
+            }
+
+            #reading {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+                background: #fff;
+                color: #000;
+            }
         }
     </style>
 </head>
@@ -624,8 +703,10 @@
                 <div class="vend-block">
                     <button id="vendBtn" disabled>VEND MY VARIABLES</button>
                     <div class="vend-note">
-                        One click, four arrows, a Manifestor-only variables download.
+                        One click, four arrows, a Manifestor-only variables download. After vending, click "Open
+                        Manifestor Variables Integration Journal" to explore the integration journal.
                     </div>
+                    <button id="journalBtn" abled>Open Manifestor Variables Integration Journal</button>
                 </div>
             </div>
         </div>
@@ -633,16 +714,23 @@
 
     <div id="reading"></div>
 
+    <div class="pdf-actions" id="pdfActions" style="display:none;">
+        <button id="downloadPdfBtn" disabled>Download PDF</button>
+        <div class="vend-note" style="margin-top: 10px;">
+            Use this to export your report as a PDF once it has been generated.
+        </div>
+    </div>
+
     <div class="journal-teaser">
-        <div class="journal-heading">Variables Journal Challenge</div>
+        <div class="journal-heading">Manifestor Variables Integration Journal</div>
         <div class="journal-sub">
-            Coming soon: take your vending machine reading into a real-life experiment.
+            Coming soon: take your vending machine reading into a real-life integration practice.
         </div>
         <div class="journal-body" id="journalInfo">
-            This section will turn into a guided journal and challenge that walks you through living with your
-            Determination, Environment, Perspective and Motivation for a set number of days. Expect reflection prompts,
-            mini experiments and space to track how your urges, rest and relationships shift as you actually play with
-            your variables.
+            This section will turn into a guided journal that walks you through living with your Determination,
+            Environment, Perspective and Motivation for a set number of days. Expect reflection prompts, mini
+            experiments and space to track how your urges, rest and relationships shift as you actually integrate your
+            variables.
         </div>
     </div>
 
@@ -1127,6 +1215,9 @@
         const arrowButtons = document.querySelectorAll(".arrow-btn");
         const vendBtn = document.getElementById("vendBtn");
         const readingDiv = document.getElementById("reading");
+        const downloadPdfBtn = document.getElementById("downloadPdfBtn");
+        const journalBtn = document.getElementById("journalBtn");
+        const pdfActions = document.getElementById("pdfActions");
 
         let currentArrowKey = null;
 
@@ -1237,7 +1328,14 @@
             ).length;
             screenStatus.textContent = `${loaded} / 4 arrows loaded`;
             arrowCount.textContent = `${loaded} / 4 arrows loaded`;
-            vendBtn.disabled = loaded !== 4;
+            const ready = loaded === 4;
+            vendBtn.disabled = !ready;
+            journalBtn.disabled = !ready;
+            downloadPdfBtn.disabled = true; // require a fresh vend to export the latest reading
+            pdfActions.style.display = "none";
+
+            const journal = document.querySelector(".journal-teaser");
+            if (journal) journal.style.display = "none";
 
             arrowButtons.forEach(btn => {
                 const key = btn.getAttribute("data-arrow");
@@ -1353,7 +1451,18 @@
             }
 
             readingDiv.style.display = "block";
+            pdfActions.style.display = "block";
+            downloadPdfBtn.disabled = false;
+            journalBtn.disabled = false;
             readingDiv.scrollIntoView({ behavior: "smooth" });
+        });
+
+        downloadPdfBtn.addEventListener("click", () => {
+            window.print();
+        });
+
+        journalBtn.addEventListener("click", () => {
+            window.location.href = "./variables-journal.html";
         });
     </script>
 

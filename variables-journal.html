@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
-    <title>Manifestor Variables Journal</title>
+    <title>Manifestor Variables Integration Journal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <style>
@@ -131,7 +131,7 @@
         .title-sub {
             font-size: 0.9rem;
             color: var(--text-soft);
-            max-width: 420px;
+            max-width: 540px;
         }
 
         @media (min-width: 900px) {
@@ -221,19 +221,12 @@
             font-size: 0.9rem;
         }
 
-        .layout {
+        main {
             position: relative;
             z-index: 1;
             display: flex;
             flex-direction: column;
             gap: 16px;
-        }
-
-        @media (min-width: 880px) {
-            .layout {
-                flex-direction: row;
-                align-items: flex-start;
-            }
         }
 
         .tabs {
@@ -290,7 +283,7 @@
         }
 
         .journal-card {
-            flex: 1.2;
+            width: 100%;
             background: radial-gradient(circle at top left, #221133 0, #05030a 60%);
             border-radius: var(--radius-xl);
             border: 1px solid var(--border-subtle);
@@ -397,7 +390,9 @@
         }
 
         .side-note {
-            flex: 0.9;
+            width: 100%;
+            max-width: 1080px;
+            margin: 18px auto;
             border-radius: var(--radius-xl);
             border: 1px solid var(--border-subtle);
             background: radial-gradient(circle at top, #130a24 0, #05030a 60%);
@@ -460,20 +455,8 @@
             opacity: 0.85;
         }
 
-        @media (max-width: 879px) {
-            .side-note {
-                order: -1;
-            }
-
-            .actions-bar {
-                position: static;
-                margin-bottom: 10px;
-                justify-content: flex-end;
-            }
-
-            .page {
-                padding-top: 52px;
-            }
+        .print-journal {
+            display: none;
         }
 
         @media print {
@@ -488,44 +471,73 @@
                 background: white;
                 border-radius: 0;
                 border: none;
+                padding: 20px;
             }
 
             .glow-1,
             .glow-2,
             .actions-bar,
             .hero-note,
+            .tabs,
+            .tab-sub,
+            .journal-card,
             .side-note {
                 display: none !important;
             }
 
-            .journal-card {
-                background: white;
-                border: 1px solid #ccc;
-                box-shadow: none;
+            .header {
+                margin-bottom: 24px;
+            }
+
+            .tagline {
+                color: #666;
+            }
+
+            .title-main {
+                color: #000;
+            }
+
+            .title-main span {
+                color: #000;
+            }
+
+            .print-journal {
+                display: block !important;
+            }
+
+            .print-section {
+                margin-bottom: 2em;
                 page-break-inside: avoid;
             }
 
-            .tabs {
-                border-bottom: 1px solid #ccc;
-                margin-bottom: 8px;
-            }
-
-            .tab-btn {
-                background: #f5f5f5;
-                color: #333;
-                border-color: #ccc;
-            }
-
-            .tab-btn.active {
-                background: #222;
-                color: #fff;
-            }
-
-            textarea {
-                border: 1px solid #aaa;
-                background: transparent;
+            .print-section h2 {
+                margin-top: 0;
+                margin-bottom: 0.5em;
+                font-size: 1.2em;
                 color: #000;
-                min-height: 56px;
+            }
+
+            .print-section>p {
+                margin: 0 0 1em 0;
+                font-size: 0.9em;
+                color: #666;
+            }
+
+            .print-question {
+                margin-top: 1em;
+                margin-bottom: 0.3em;
+                font-weight: 600;
+                color: #000;
+            }
+
+            .print-answer {
+                margin-left: 1.2em;
+                margin-bottom: 1em;
+                white-space: pre-wrap;
+                color: #333;
+                line-height: 1.5;
+                border-left: 2px solid #ddd;
+                padding-left: 0.8em;
             }
         }
     </style>
@@ -538,7 +550,7 @@
 
         <div class="actions-bar">
             <button class="pill-btn secondary" onclick="downloadJournal()">
-                <span class="icon">⬇︎</span> Download TXT
+                <span class="icon">⬇</span> Download TXT
             </button>
             <button class="pill-btn" onclick="window.print()">
                 <span class="icon">🖨</span> Print / Save PDF
@@ -548,12 +560,12 @@
         <header class="header">
             <div class="tagline">
                 <span class="tag-dot"></span>
-                VARIABLES JOURNAL FOR MANIFESTORS
+                Manifestor Variables Integration Journal
             </div>
             <div class="title-row">
                 <div>
                     <div class="title-main">
-                        Arrows Integration <span>Journal</span>
+                        Manifestor Variables Integration <span>Journal</span>
                     </div>
                     <div class="title-sub">
                         Use this space to decondition your variables slowly, gently and in
@@ -561,17 +573,32 @@
                     </div>
                 </div>
             </div>
-            <div class="hero-note">
-                <div class="hero-note-icon">★</div>
-                <div>
-                    <strong>Note:</strong> Your answers auto‑save in this browser. You
-                    can download or print them anytime.
-                </div>
-            </div>
         </header>
 
-        <main class="layout">
-            <section style="flex: 1.2;">
+        <aside class="side-note">
+            <div class="side-note-inner">
+                <div class="side-title">
+                    How to use this journal
+                    <span class="side-pill">Manifestor anonymous</span>
+                </div>
+                <p>
+                    Let your urges pick the tab that feels loudest today. There is no
+                    order, no schedule and no “catching up”.
+                </p>
+                <ul class="side-list">
+                    <li>Pick one question and write a few honest sentences.</li>
+                    <li>Notice how your body feels as you answer, not just what you think.</li>
+                    <li>Close the page when you are done. Your words will still be here.</li>
+                </ul>
+                <p class="side-caption">
+                    When you are ready to integrate deeper, download or print your
+                    answers and keep them with your chart or Manifestor notebook.
+                </p>
+            </div>
+        </aside>
+
+        <main>
+            <section>
                 <div class="tabs">
                     <button class="tab-btn active" data-section="determination">
                         <span class="tab-dot"></span> Top Left · Determination
@@ -594,29 +621,16 @@
                 <div class="journal-card">
                     <div class="journal-inner" id="journalCard"></div>
                 </div>
-            </section>
 
-            <aside class="side-note">
-                <div class="side-note-inner">
-                    <div class="side-title">
-                        How to use this journal
-                        <span class="side-pill">Manifestor anonymous</span>
-                    </div>
-                    <p>
-                        Let your urges pick the tab that feels loudest today. There is no
-                        order, no schedule and no “catching up”.
-                    </p>
-                    <ul class="side-list">
-                        <li>Pick one question and write a few honest sentences.</li>
-                        <li>Notice how your body feels as you answer, not just what you think.</li>
-                        <li>Close the page when you are done. Your words will still be here.</li>
-                    </ul>
-                    <p class="side-caption">
-                        When you are ready to integrate deeper, download or print your
-                        answers and keep them with your chart or Manifestor notebook.
-                    </p>
+                <div class="print-journal" id="printJournal"></div>
+            </section>
+            <div class="hero-note">
+                <div class="hero-note-icon">★</div>
+                <div>
+                    <strong>Note:</strong> Your answers auto-save in this browser. You
+                    can download or print them anytime.
                 </div>
-            </aside>
+            </div>
         </main>
     </div>
 
@@ -649,7 +663,7 @@
                 sub: "Prompts for Survival, Possibility, Power, Wanting, Probability and Personal view.",
                 questions: [
                     "How does my mind naturally look at the world right now – what do I notice first without trying?",
-                    "Where have I been judging my way of seeing (too negative, too hopeful, too self‑focused) instead of respecting it as part of my design?",
+                    "Where have I been judging my way of seeing (too negative, too hopeful, too self-focused) instead of respecting it as part of my design?",
                     "What happens to my urges when I allow myself to see through my own view, instead of forcing myself to think like everyone else?",
                     "Which situations currently feel impossible or stuck, and how does my perspective colour the way I am reading them?",
                     "If I trusted my view for one week, where would I stop giving my mental energy and where would I give it more freely?"
@@ -660,7 +674,7 @@
                 sub: "Prompts for Fear, Hope, Desire, Need, Guilt and Innocence motivation.",
                 questions: [
                     "What actually motivates me to move right now – fear, hope, desire, need, guilt or innocence – if I am really honest?",
-                    "Where am I pushing myself with shoulds and have‑tos that do not match my true motivation at all?",
+                    "Where am I pushing myself with shoulds and have-tos that do not match my true motivation at all?",
                     "How does my body feel when I act from my real motivation versus when I act from what I think should motivate me?",
                     "Which current urge or idea feels most aligned with my true motivation, even if it does not make logical sense to anyone else?",
                     "If I let my natural motivation lead for the next few days, what would I stop doing, and what would I finally start?"
@@ -668,7 +682,7 @@
             }
         };
 
-        const STORAGE_KEY = "manifestorVariablesJournal_v1";
+        const STORAGE_KEY = "manifestorVariablesIntegrationJournal_v1";
 
         function loadAnswers() {
             try {
@@ -749,7 +763,7 @@
         });
 
         function downloadJournal() {
-            let output = "MANIFESTOR VARIABLES JOURNAL\n\n";
+            let output = "MANIFESTOR VARIABLES INTEGRATION JOURNAL\n\n";
 
             Object.keys(journalPrompts).forEach(key => {
                 const data = journalPrompts[key];
@@ -770,10 +784,41 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = "manifestor-variables-journal.txt";
+            a.download = "manifestor-variables-integration-journal.txt";
             a.click();
             URL.revokeObjectURL(url);
         }
+
+        function buildPrintJournal() {
+            const printRoot = document.getElementById("printJournal");
+            if (!printRoot) return;
+
+            let html = "";
+            Object.keys(journalPrompts).forEach(key => {
+                const data = journalPrompts[key];
+                const userAnswers = answers[key] || [];
+
+                html += `<div class="print-section">`;
+                html += `<h2>${data.title}</h2>`;
+                html += `<p>${data.sub}</p>`;
+
+                data.questions.forEach((q, i) => {
+                    html += `<div class="print-question"><strong>Q${i + 1}.</strong> ${q}</div>`;
+                    const response = (userAnswers[i] || "").trim();
+                    html += `<div class="print-answer">${response || "[No response yet]"}</div>`;
+                });
+
+                html += `</div>`;
+            });
+
+            printRoot.innerHTML = html;
+        }
+
+        window.addEventListener("beforeprint", buildPrintJournal);
+        window.addEventListener("afterprint", () => {
+            const printRoot = document.getElementById("printJournal");
+            if (printRoot) printRoot.innerHTML = "";
+        });
 
         window.downloadJournal = downloadJournal;
 
