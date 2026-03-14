@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gates Radio • Manifestor Anonymous</title>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
 
     <meta name="description"
         content="Gates Radio is the archive behind DJ sun. See the Top 64 Gates chart, tune into the Sun gate sampler, and unlock lifetime access to gate stations with a Gates Radio Pass or a Single Gate Pass." />
@@ -877,11 +877,11 @@
                         <div class="jukebox-meta">
                             <div>
                                 <span class="label">Current Sun gate</span>
-                                <span id="sunGateLabel">Gate 22 · Grace</span>
+                                <span id="sunGateLabel">Gate 36 · Crisis</span>
                             </div>
                             <div>
                                 <span class="label">Source station</span>
-                                <span>Gate 22 station inside Gates Radio</span>
+                                <span>Gate 36 station inside Gates Radio</span>
                             </div>
                             <div>
                                 <span class="label">Access</span>
@@ -899,26 +899,26 @@
                     <!-- RIGHT: SUN PLAYLIST LINK -->
                     <article class="jukebox-result">
                         <div class="jukebox-result-title">DJ sun sampler</div>
-                        <div class="jukebox-gate-line" id="sunGateTitle">Gate 22 · Grace mix</div>
-                        <div class="jukebox-tags" id="sunGateTags">Mood · Openness · Expression · Timing</div>
+                        <div class="jukebox-gate-line" id="sunGateTitle">Gate 36 · Crisis mix</div>
+                        <div class="jukebox-tags" id="sunGateTags">Emotional storm · Unknown · Initiation · Compassion
+                        </div>
 
                         <div class="jukebox-note">
                             <strong>Sun note</strong>
-                            This is the Gate 22 mix pulled from the Gate 22 station:
+                            This is the Gate 36 mix pulled from the Gate 36 station:
                             a few tracks to match the Sun transit, not the full archive.
                         </div>
 
                         <div class="jukebox-track">
                             DJ sun playlist:
-                            <!-- TODO: replace # with your actual DJ sun sampler playlist link -->
-                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                Open this week’s DJ sun mix on Spotify
+                            <a href="index.html#dj-sun">
+                                Go to DJ sun in the main terminal
                             </a>
                         </div>
 
                         <div class="jukebox-coming">
                             Love how this feels and want the full gate station behind it?
-                            Scroll down to the Gates Radio chart to unlock Gate 22
+                            Scroll down to the Gates Radio chart to unlock Gate 36
                             or the full network.
                         </div>
                     </article>
@@ -964,7 +964,7 @@
                             <!-- Online example -->
                             <tr>
                                 <td>01</td>
-                                <td>Gate 22 · Grace</td>
+                                <td>Gate 36 · Crisis</td>
                                 <td>
                                     <span class="badge-status badge-online">
                                         <span class="badge-dot"></span> Online
@@ -973,7 +973,7 @@
                                 <td>
                                     Included in Gates Radio Pass ·
                                     <!-- TODO: replace # with single-gate checkout URL -->
-                                    <a href="#" style="color:var(--accent);text-decoration:underline;">Single Gate 22
+                                    <a href="#" style="color:var(--accent);text-decoration:underline;">Single Gate 36
                                         Pass</a>
                                 </td>
                             </tr>
@@ -1142,25 +1142,8 @@
         </div>
     </footer>
 
-    <!-- JS scaffold: ready for dynamic Sun gate or gate chart updates later -->
-    <script>
-        const currentSunGate = {
-            gate: "22",
-            title: "Gate 22 · Grace mix",
-            label: "Gate 22 · Grace",
-            tags: "Mood · Openness · Expression · Timing"
-        };
-
-        const sunGateLabel = document.getElementById("sunGateLabel");
-        const sunGateTitle = document.getElementById("sunGateTitle");
-        const sunGateTags = document.getElementById("sunGateTags");
-
-        if (sunGateLabel && sunGateTitle && sunGateTags) {
-            sunGateLabel.textContent = currentSunGate.label;
-            sunGateTitle.textContent = currentSunGate.title;
-            sunGateTags.textContent = currentSunGate.tags;
-        }
-    </script>
+    <!-- Shared DJ sun data: keeps current Sun gate info synced between index + gates pages -->
+    <script src="assets/dj-sun.js" defer></script>
 </body>
 
 </html>
