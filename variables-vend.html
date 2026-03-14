@@ -4,21 +4,22 @@
 <head>
     <meta charset="UTF-8" />
     <title>Variables Vending Machine</title>
-
-    <!-- =========================
-       STYLES
-       ========================= -->
     <style>
         :root {
-            --bg: #05060b;
-            --screen: #0d0f1a;
-            --controls: #101322;
-            --accent: #f7b3ff;
-            --accent2: #ff6bd5;
-            --accent-soft: rgba(247, 179, 255, 0.18);
-            --text-main: #f7f7ff;
-            --text-soft: #a3a7c8;
-            --border-subtle: #272a3b;
+            --bg: #05040a;
+            --bg-deep: #020109;
+            --hero-glow: #ff7af0;
+            --hero-glow-2: #7dffc6;
+            --hero-glow-3: #8fb0ff;
+            --screen: #0c0a18;
+            --controls: #0e0b1f;
+            --accent-arrow: #ff7af0;
+            --accent-color: #7dffc6;
+            --accent-tone: #ff6b94;
+            --accent-soft: rgba(255, 122, 240, 0.25);
+            --text-main: #f9f7ff;
+            --text-soft: #a9a6d0;
+            --border-subtle: #26233a;
         }
 
         * {
@@ -27,37 +28,111 @@
 
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: radial-gradient(circle at top, #1d1635 0, #05060b 50%, #010208 100%);
+            background:
+                radial-gradient(circle at top left, rgba(255, 122, 240, 0.15), transparent 55%),
+                radial-gradient(circle at top right, rgba(143, 176, 255, 0.12), transparent 55%),
+                radial-gradient(circle at bottom, rgba(125, 255, 198, 0.12), transparent 60%),
+                linear-gradient(145deg, var(--bg), var(--bg-deep));
             color: var(--text-main);
-            max-width: 980px;
-            margin: 36px auto 64px;
-            padding: 0 16px;
+            max-width: 1040px;
+            margin: 32px auto 72px;
+            padding: 0 18px;
+        }
+
+        /* HERO */
+
+        .hero {
+            text-align: center;
+            margin-bottom: 26px;
+            position: relative;
+        }
+
+        .hero-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.9));
+            font-size: 0.78rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-soft);
+            margin-bottom: 12px;
+        }
+
+        .hero-title-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--accent-arrow);
+            box-shadow: 0 0 10px rgba(255, 122, 240, 0.7);
         }
 
         h1 {
-            text-align: center;
-            margin-bottom: 6px;
-            letter-spacing: 0.16em;
-            font-size: 1.8rem;
+            font-size: 2.3rem;
+            letter-spacing: 0.22em;
             text-transform: uppercase;
+            margin: 0 0 8px;
+            text-shadow:
+                0 0 20px rgba(255, 122, 240, 0.7),
+                0 0 40px rgba(125, 255, 198, 0.45);
         }
 
-        .tagline {
-            text-align: center;
-            margin-bottom: 22px;
-            font-size: 0.95rem;
+        .hero-gradient {
+            background: linear-gradient(120deg, #ffffff, #ffe3ff, #7dffc6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-tagline {
+            font-size: 0.96rem;
+            max-width: 640px;
+            margin: 0 auto 6px;
             color: var(--text-soft);
         }
 
+        .hero-flash {
+            font-size: 0.86rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+
+        /* MACHINE WRAP */
+
+        .machine-wrap {
+            position: relative;
+        }
+
+        .glow-ring {
+            position: absolute;
+            inset: -18px;
+            border-radius: 26px;
+            background:
+                radial-gradient(circle at top left, rgba(255, 122, 240, 0.25), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(125, 255, 198, 0.18), transparent 55%);
+            opacity: 0.65;
+            filter: blur(18px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
         .machine {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.9));
+            position: relative;
+            z-index: 1;
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.96));
             border-radius: 22px;
-            border: 1px solid var(--border-subtle);
-            box-shadow: 0 26px 50px rgba(0, 0, 0, 0.7);
-            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow:
+                0 30px 60px rgba(0, 0, 0, 0.9),
+                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+            padding: 18px;
             display: grid;
-            grid-template-columns: 2.2fr 1fr;
-            gap: 14px;
+            grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.1fr);
+            gap: 16px;
         }
 
         @media (max-width: 780px) {
@@ -66,41 +141,42 @@
             }
         }
 
-        /* LEFT: big screen + choices */
+        /* LEFT: SCREEN */
 
         .screen-panel {
             background: var(--screen);
-            border-radius: 18px;
-            padding: 16px 14px 18px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 14px 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
         }
 
-        .screen-header {
+        .screen-top-row {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
             margin-bottom: 10px;
         }
 
-        .screen-title {
-            font-size: 0.9rem;
+        .screen-label {
+            font-size: 0.82rem;
             text-transform: uppercase;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.13em;
             color: var(--text-soft);
         }
 
         .screen-status {
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: var(--text-soft);
         }
 
         .display {
-            background: radial-gradient(circle at top left, rgba(247, 179, 255, 0.12), rgba(0, 0, 0, 0.95));
+            background:
+                radial-gradient(circle at top left, rgba(255, 122, 240, 0.18), rgba(0, 0, 0, 0.96));
             border-radius: 14px;
             border: 1px solid var(--accent-soft);
-            padding: 12px;
-            margin-bottom: 8px;
-            min-height: 90px;
+            padding: 10px 11px 11px;
+            margin-bottom: 10px;
+            min-height: 86px;
         }
 
         .display-title {
@@ -112,122 +188,103 @@
         .display-meta {
             font-size: 0.8rem;
             color: var(--text-soft);
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
 
         .display-body {
-            font-size: 0.88rem;
+            font-size: 0.86rem;
             color: var(--text-soft);
         }
 
-        /* KEY: circle = Color, triangle = Tone */
-
-        .key-row {
-            display: flex;
-            gap: 16px;
-            margin-top: 8px;
-            margin-bottom: 6px;
-            align-items: center;
-        }
-
-        .key-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .key-icon {
-            width: 18px;
-            height: 18px;
-        }
-
-        .key-icon.circle {
-            border-radius: 999px;
-            border: 2px solid var(--accent);
-        }
-
-        .key-icon.triangle {
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 18px solid var(--accent2);
-        }
-
-        .key-text {
-            font-size: 0.78rem;
-        }
-
-        .key-label {
-            font-weight: 600;
-        }
-
-        .key-desc {
-            color: var(--text-soft);
-            font-size: 0.75rem;
-        }
-
-        /* Choice button rows */
-
-        .config-groups {
-            margin-top: 10px;
-        }
-
-        .group-label {
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 0.11em;
-            color: var(--text-soft);
-            margin-bottom: 4px;
-        }
-
-        .btn-row {
+        .legend-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
+            margin: 6px 0 4px;
+            align-items: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.76rem;
+            color: var(--text-soft);
+        }
+
+        .legend-icon-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            border: 2px solid var(--accent-color);
+        }
+
+        .legend-icon-tri {
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 12px solid var(--accent-tone);
+        }
+
+        .config-area {
+            margin-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 8px;
+            display: none;
+        }
+
+        .config-group-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-soft);
+            margin-bottom: 3px;
+        }
+
+        .config-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
             margin-bottom: 8px;
         }
 
         .choice-btn {
-            padding: 6px 10px;
+            padding: 5px 9px;
             border-radius: 999px;
             border: 1px solid var(--border-subtle);
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.86);
             color: var(--text-main);
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             cursor: pointer;
-            transition: all 0.12s ease-out;
             white-space: nowrap;
+            transition: all 0.14s ease-out;
         }
 
         .choice-btn:hover {
-            border-color: rgba(247, 179, 255, 0.7);
-            box-shadow: 0 0 0 1px rgba(247, 179, 255, 0.25);
+            border-color: rgba(255, 122, 240, 0.7);
         }
 
         .choice-btn.selected {
-            background: linear-gradient(135deg, rgba(247, 179, 255, 0.24), rgba(255, 107, 213, 0.16));
-            border-color: var(--accent);
+            background: radial-gradient(circle at top left, rgba(255, 122, 240, 0.22), rgba(0, 0, 0, 0.96));
+            border-color: var(--accent-arrow);
+            box-shadow: 0 0 12px rgba(255, 122, 240, 0.45);
         }
-
-        /* Color buttons as circles */
 
         .color-btn::before {
             content: "";
             display: inline-block;
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 999px;
-            border: 2px solid var(--accent);
-            margin-right: 6px;
+            border: 2px solid var(--accent-color);
+            margin-right: 5px;
             vertical-align: middle;
         }
 
-        /* Tone buttons as triangles */
-
         .tone-btn {
             position: relative;
-            padding-left: 24px;
+            padding-left: 22px;
         }
 
         .tone-btn::before {
@@ -238,55 +295,52 @@
             transform: translateY(-50%);
             width: 0;
             height: 0;
-            border-left: 7px solid transparent;
-            border-right: 7px solid transparent;
-            border-bottom: 12px solid var(--accent2);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 10px solid var(--accent-tone);
         }
 
         .tone-note {
-            font-size: 0.75rem;
+            font-size: 0.74rem;
             color: var(--text-soft);
-            margin-bottom: 6px;
         }
 
-        /* RIGHT: arrow buttons + VEND */
+        /* RIGHT: ARROWS + VEND */
 
         .control-panel {
             background: var(--controls);
-            border-radius: 18px;
-            padding: 14px 12px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 12px 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            gap: 14px;
+            gap: 12px;
         }
 
-        .arrows-column-title {
-            font-size: 0.86rem;
+        .arrows-title {
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 0.14em;
+            letter-spacing: 0.15em;
             color: var(--text-soft);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .arrows-column {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
-
-        /* Arrow buttons look like arrows */
 
         .arrow-btn {
             position: relative;
-            padding: 8px 10px 8px 32px;
+            padding: 7px 9px 7px 32px;
             border-radius: 999px;
             border: 1px solid var(--border-subtle);
             background: radial-gradient(circle at left, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.92));
             cursor: pointer;
             text-align: left;
-            transition: all 0.12s ease-out;
+            transition: all 0.14s ease-out;
         }
 
         .arrow-btn::before {
@@ -299,45 +353,46 @@
             height: 0;
             border-top: 7px solid transparent;
             border-bottom: 7px solid transparent;
-            border-left: 12px solid var(--accent);
+            border-left: 12px solid var(--accent-arrow);
         }
 
-        .arrow-btn span.main {
+        .arrow-main {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.84rem;
             font-weight: 600;
         }
 
-        .arrow-btn span.sub {
+        .arrow-sub {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.74rem;
             color: var(--text-soft);
         }
 
         .arrow-btn:hover {
-            border-color: rgba(247, 179, 255, 0.6);
+            border-color: rgba(255, 122, 240, 0.7);
         }
 
         .arrow-btn.active {
-            background: linear-gradient(135deg, rgba(247, 179, 255, 0.28), rgba(255, 107, 213, 0.18));
-            border-color: var(--accent);
+            background: radial-gradient(circle at left, rgba(255, 122, 240, 0.25), rgba(0, 0, 0, 0.96));
+            border-color: var(--accent-arrow);
+            box-shadow: 0 0 14px rgba(255, 122, 240, 0.45);
         }
 
         .arrow-btn.complete {
-            border-color: rgba(127, 255, 204, 0.6);
+            border-color: rgba(125, 255, 198, 0.85);
         }
 
         .arrow-btn.complete::before {
             border-left-color: #7dffc6;
         }
 
-        .arrow-btn.complete span.sub::after {
+        .arrow-btn.complete .arrow-sub::after {
             content: " • loaded";
             color: #7dffc6;
         }
 
         .arrow-count {
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: var(--text-soft);
             margin-top: 4px;
         }
@@ -348,52 +403,61 @@
         }
 
         #vendBtn {
-            padding: 10px 24px;
+            padding: 10px 26px;
             font-size: 0.9rem;
             border-radius: 999px;
             border: none;
-            background: radial-gradient(circle at top, var(--accent2), var(--accent));
+            background: conic-gradient(from 180deg,
+                    var(--hero-glow),
+                    var(--hero-glow-2),
+                    var(--hero-glow-3),
+                    var(--hero-glow));
             color: #050505;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 0.14em;
-            font-weight: 600;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
-            transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, opacity 0.12s;
+            letter-spacing: 0.18em;
+            font-weight: 700;
+            box-shadow:
+                0 20px 46px rgba(0, 0, 0, 0.95),
+                0 0 18px rgba(255, 122, 240, 0.75);
+            transition: transform 0.13s ease-out, box-shadow 0.13s ease-out, opacity 0.13s;
         }
 
         #vendBtn:disabled {
-            opacity: 0.35;
+            opacity: 0.32;
             cursor: not-allowed;
             box-shadow: none;
         }
 
         #vendBtn:not(:disabled):hover {
             transform: translateY(-1px);
-            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.95);
+            box-shadow:
+                0 26px 60px rgba(0, 0, 0, 0.98),
+                0 0 22px rgba(125, 255, 198, 0.9);
         }
 
         .vend-note {
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             color: var(--text-soft);
-            margin-top: 4px;
+            margin-top: 5px;
         }
 
-        /* Reading output */
+        /* READING */
 
         #reading {
             margin-top: 24px;
-            padding: 18px 16px 20px;
-            border-radius: 18px;
+            padding: 16px 14px 18px;
+            border-radius: 16px;
             border: 1px solid var(--accent-soft);
-            background: radial-gradient(circle at top left, rgba(247, 179, 255, 0.16), rgba(0, 0, 0, 0.94));
+            background:
+                radial-gradient(circle at top left, rgba(255, 122, 240, 0.22), rgba(0, 0, 0, 0.96));
             display: none;
         }
 
         .reading-section {
-            margin-bottom: 18px;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+            margin-bottom: 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
         }
 
         .reading-section:last-child {
@@ -409,7 +473,7 @@
         }
 
         .reading-meta {
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             color: var(--text-soft);
             margin-bottom: 6px;
         }
@@ -417,261 +481,608 @@
         .pill {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            padding: 3px 9px;
+            gap: 4px;
+            padding: 3px 8px;
             border-radius: 999px;
-            background: rgba(0, 0, 0, 0.55);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            margin-right: 6px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin-right: 4px;
             margin-bottom: 4px;
+            font-size: 0.76rem;
         }
 
         .pill-dot {
-            width: 7px;
-            height: 7px;
+            width: 6px;
+            height: 6px;
             border-radius: 999px;
-            background: var(--accent);
+            background: var(--accent-arrow);
         }
 
         .reading-body p {
-            margin: 0 0 6px;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            margin: 0 0 5px;
+            font-size: 0.88rem;
+            line-height: 1.46;
+        }
+
+        /* JOURNAL TEASER */
+
+        .journal-teaser {
+            margin-top: 28px;
+            padding: 15px 13px 17px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            background:
+                radial-gradient(circle at top, rgba(255, 107, 148, 0.18), rgba(0, 0, 0, 0.97));
+        }
+
+        .journal-heading {
+            font-size: 0.98rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            margin-bottom: 4px;
+        }
+
+        .journal-sub {
+            font-size: 0.84rem;
+            color: var(--text-soft);
+            margin-bottom: 6px;
+        }
+
+        .journal-body {
+            font-size: 0.86rem;
+            color: var(--text-soft);
         }
     </style>
 </head>
 
 <body>
 
-    <h1>VARIABLES VEND</h1>
-    <p class="tagline">
-        Press arrow buttons on the right to load each slot with Direction, Color, and Tone. When all four are lit up,
-        hit VEND to drop your full Manifestor variables reading.
-    </p>
-
-    <div class="machine">
-        <!-- =========================
-       LEFT: SCREEN & CHOICES
-       ========================= -->
-        <div class="screen-panel">
-            <div class="screen-header">
-                <div class="screen-title">Arrow screen</div>
-                <div class="screen-status" id="screenStatus">0 / 4 arrows loaded</div>
-            </div>
-
-            <div class="display" id="display">
-                <div class="display-title">Choose an arrow on the right</div>
-                <div class="display-meta">Nothing will vend until all four arrow slots are loaded.</div>
-                <div class="display-body">
-                    Tap an arrow button on the right. On this screen you’ll choose Direction (Left/Right), Color (circle
-                    1–6), and Tone (triangle 1–6) for that arrow, just like in your chart.
-                </div>
-            </div>
-
-            <!-- KEY: circle = Color, triangle = Tone -->
-            <div class="key-row">
-                <div class="key-item">
-                    <div class="key-icon circle"></div>
-                    <div class="key-text">
-                        <div class="key-label">Color</div>
-                        <div class="key-desc">Circle under the arrow (1–6)</div>
-                    </div>
-                </div>
-                <div class="key-item">
-                    <div class="key-icon triangle"></div>
-                    <div class="key-text">
-                        <div class="key-label">Tone</div>
-                        <div class="key-desc">Triangle under the arrow (1–6)</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Choice groups -->
-            <div class="config-groups" id="configGroups" style="display:none;">
-                <div class="group-label">Direction</div>
-                <div class="btn-row" id="directionRow"></div>
-
-                <div class="group-label">Color</div>
-                <div class="btn-row" id="colorRow"></div>
-
-                <div class="group-label">Tone</div>
-                <div class="btn-row" id="toneRow"></div>
-
-                <div class="tone-note" id="toneNote"></div>
-            </div>
+    <div class="hero">
+        <div class="hero-title">
+            <span class="hero-title-dot"></span>
+            <span>Manifestor Anonymous</span>
         </div>
+        <h1><span class="hero-gradient">Variables Vending Machine</span></h1>
+        <p class="hero-tagline">
+            Load your four arrows, pull the lever and watch a custom variables reading spill out just for your
+            Manifestor brain, body and aura.
+        </p>
+        <div class="hero-flash">No generic HD here. This machine is Manifestor-specific</div>
+    </div>
 
-        <!-- =========================
-       RIGHT: ARROWS & VEND
-       ========================= -->
-        <div class="control-panel">
-            <div>
-                <div class="arrows-column-title">Arrow buttons</div>
-                <div class="arrows-column">
-                    <button class="arrow-btn" data-arrow="determination">
-                        <span class="main">Top Left – Determination</span>
-                        <span class="sub">Brain / digestion</span>
-                    </button>
-                    <button class="arrow-btn" data-arrow="environment">
-                        <span class="main">Bottom Left – Environment</span>
-                        <span class="sub">Where you thrive</span>
-                    </button>
-                    <button class="arrow-btn" data-arrow="perspective">
-                        <span class="main">Top Right – Perspective</span>
-                        <span class="sub">How you see</span>
-                    </button>
-                    <button class="arrow-btn" data-arrow="motivation">
-                        <span class="main">Bottom Right – Motivation</span>
-                        <span class="sub">How you think</span>
-                    </button>
+    <div class="machine-wrap">
+        <div class="glow-ring"></div>
+
+        <div class="machine">
+            <!-- LEFT: SCREEN -->
+            <div class="screen-panel">
+                <div class="screen-top-row">
+                    <div class="screen-label">Arrow screen</div>
+                    <div class="screen-status" id="screenStatus">0 / 4 arrows loaded</div>
                 </div>
-                <div class="arrow-count" id="arrowCount">0 / 4 arrows loaded</div>
+
+                <div class="display" id="display">
+                    <div class="display-title">Pick an arrow to load</div>
+                    <div class="display-meta">Nothing vends until all four arrows are loaded.</div>
+                    <div class="display-body">
+                        Tap an arrow on the right. On this screen you will set the Direction, Color and Tone to match
+                        your chart (or to play with new combos).
+                    </div>
+                </div>
+
+                <div class="legend-row">
+                    <div class="legend-item">
+                        <div class="legend-icon-circle"></div>
+                        <span>Color (circle under the arrow)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon-tri"></div>
+                        <span>Tone (triangle under the arrow)</span>
+                    </div>
+                </div>
+
+                <div class="config-area" id="configArea">
+                    <div class="config-group-label">Direction</div>
+                    <div class="config-row" id="directionRow"></div>
+
+                    <div class="config-group-label">Color</div>
+                    <div class="config-row" id="colorRow"></div>
+
+                    <div class="config-group-label">Tone</div>
+                    <div class="config-row" id="toneRow"></div>
+
+                    <div class="tone-note" id="toneNote"></div>
+                </div>
             </div>
 
-            <div class="vend-block">
-                <button id="vendBtn" disabled>VEND</button>
-                <div class="vend-note">Loads all 4 selected arrows into one variables reading.</div>
+            <!-- RIGHT: CONTROLS -->
+            <div class="control-panel">
+                <div>
+                    <div class="arrows-title">Load each arrow</div>
+                    <div class="arrows-column">
+                        <button class="arrow-btn" data-arrow="determination">
+                            <span class="arrow-main">Top Left – Determination</span>
+                            <span class="arrow-sub">How your Manifestor brain digests life</span>
+                        </button>
+                        <button class="arrow-btn" data-arrow="environment">
+                            <span class="arrow-main">Bottom Left – Environment</span>
+                            <span class="arrow-sub">Where your body actually thrives</span>
+                        </button>
+                        <button class="arrow-btn" data-arrow="perspective">
+                            <span class="arrow-main">Top Right – Perspective</span>
+                            <span class="arrow-sub">How you are wired to see the world</span>
+                        </button>
+                        <button class="arrow-btn" data-arrow="motivation">
+                            <span class="arrow-main">Bottom Right – Motivation</span>
+                            <span class="arrow-sub">How your mind is built to think</span>
+                        </button>
+                    </div>
+                    <div class="arrow-count" id="arrowCount">0 / 4 arrows loaded</div>
+                </div>
+
+                <div class="vend-block">
+                    <button id="vendBtn" disabled>VEND MY VARIABLES</button>
+                    <div class="vend-note">
+                        One click, four arrows, a Manifestor-only variables download.
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- =========================
-     READING OUTPUT
-     ========================= -->
     <div id="reading"></div>
 
-    <!-- =========================
-     SCRIPT
-     ========================= -->
+    <div class="journal-teaser">
+        <div class="journal-heading">Variables Journal Challenge</div>
+        <div class="journal-sub">
+            Coming soon: take your vending machine reading into a real-life experiment.
+        </div>
+        <div class="journal-body" id="journalInfo">
+            This section will turn into a guided journal and challenge that walks you through living with your
+            Determination, Environment, Perspective and Motivation for a set number of days. Expect reflection prompts,
+            mini experiments and space to track how your urges, rest and relationships shift as you actually play with
+            your variables.
+        </div>
+    </div>
+
     <script>
         // =========================================
-        // 1) CONTENT OBJECT
-        //    TODO: Replace all placeholder "body" text with your Manifestor-aligned explanations
+        // CONTENT OBJECT
+        // Paste your full determination/environment/perspective/motivation here
+        // in the leftBody/rightBody pattern.
         // =========================================
+
         const content = {
             patterns: {
-                // TODO (optional): add overall variable pattern texts, e.g.
-                // "LLRR": { title: "LLRR Variables Overview", body: "..." }
+                // optional: add pattern-specific sections by 4-letter string, e.g. 'LLRR'
             },
 
-            // --- Determination (Top Left) ---
+            manifestorWrapUp: {
+                title: "Your Manifestor Variables, All Together",
+                body:
+                    "When you put all four arrows together, you are looking at the way your Manifestor system actually wants to live, not the way you were trained to perform. Your Determination shows how your brain digests life so your urges have somewhere stable to land. Your Environment shows where your body can finally exhale so you are not using all your fuel just to survive the room you are in. Your Perspective shows how you are meant to see the world, which is the lens every idea and impulse is filtered through. Your Motivation shows what genuinely moves your mind to think, care and act, instead of what you think should motivate you. None of this is a to‑do list or a set of rules to follow perfectly. It is a map back to the conditions that make it easiest for you to notice your urges, inform the people who need to know and initiate from a regulated, resourced place. The more often you treat these variables as experiments instead of standards to live up to, the more your life starts to feel like it actually belongs to you."
+            },
+
+            // 1️⃣ TOP LEFT – DETERMINATION (DESIGN BRAIN)
             determination: {
                 label: "Top Left – Determination (Brain & Digestion)",
                 direction: {
-                    // TODO: replace with your real Manifestor explanations
-                    L: { body: "Placeholder: Left Determination for Manifestors." },
-                    R: { body: "Placeholder: Right Determination for Manifestors." }
+                    L: {
+                        body:
+                            "Left Determination is the Manifestor brain that runs hot and focused. Your mind is built to be active, to think, to pattern match and to stay engaged. It needs regular fuel and steady input, not big gaps and random spikes. When you give yourself simple, predictable patterns with food and learning, you stop wasting energy on questions like what should I eat or how should I do this and your urges finally have space to come through. This is not you being rigid. It is you building a stable runway so that when the urge hits, you actually have the bandwidth to initiate instead of burning out halfway through."
+                    },
+                    R: {
+                        body:
+                            "Right Determination is the Manifestor brain that works best when it is relaxed and receptive. Your mind is designed to take a lot in without pressure to focus or push, and it does not need constant fuel in the same way as left minds. You digest life by drifting, sampling and letting yourself be moved by what feels good today instead of forcing yesterday’s strategy to still fit. When you drop the pressure to be disciplined here, your nervous system finally exhales and your urges slip in quietly instead of getting drowned out by guilt about not doing it right. The more you trust the way your brain naturally wanders, the easier it is to let the right people and projects draw from you."
+                    }
                 },
+
                 colors: {
-                    // TODO: fill in real-world examples & implementation tips
-                    1: { name: "Appetite (Consecutive)", title: "Appetite", body: "Placeholder for Appetite." },
-                    2: { name: "Taste (Selective)", title: "Taste", body: "Placeholder for Taste." },
-                    3: { name: "Thirst (Hot/Cold)", title: "Thirst", body: "Placeholder for Thirst." },
-                    4: { name: "Touch (Calm/Nervous)", title: "Touch", body: "Placeholder for Touch." },
-                    5: { name: "Sound (High/Low)", title: "Sound", body: "Placeholder for Sound." },
-                    6: { name: "Light (Direct/Indirect)", title: "Light", body: "Placeholder for Light." }
+                    1: {
+                        name: "Appetite",
+                        title: "Appetite",
+                        leftBody:
+                            "Appetite Determination with a Left mind is Consecutive. Your Manifestor system wants one thing at a time until you are complete. One ingredient, one task, one show, one project, then the next. Your digestion is primitive and powerful here, it does not want complex mixes or constant multitasking. Minimally processed, simple foods eaten one by one feed your focus and keep your energy steady for your urges. Eating consecutively may even increase your appetite, which is good; your brain needs to be fed. In everyday life this looks like finishing your steak, then your green beans, then your potatoes, instead of bites of everything at once. It also looks like doing one experience at a time and letting that be enough before you move on.",
+                        rightBody:
+                            "Appetite Determination with a Right mind is Alternating. Your Manifestor system still wants one thing at a time, but you are designed to switch between them. Each mouthful works best as a single ingredient, but you can cycle through them in a rhythm that feels good to you. This is not a chaotic buffet; it is about clean switches between simple inputs. Your brain is made for task switching more than true multitasking and your digestion works the same way. In daily life this might look like a bite of steak, then a pinch of salt, then some green beans, then potatoes, each mouthful complete before you add the next. You will likely move through a few clear focuses and then rotate back again, rather than holding everything all at once."
+                    },
+
+                    2: {
+                        name: "Taste",
+                        title: "Taste",
+                        leftBody:
+                            "Taste Determination with a Left mind is Open Taste. You are here to discover what is for you by trying things once and then getting very repetitive with what you like. Your Manifestor system needs variety at the discovery stage so you can build real discernment. Once something is to your taste, you are meant to eat it or experience it on repeat without needing constant change. This is not you being boring; this is your brain stabilising. In real life this might look like trying different restaurants, recipes, courses or people, then narrowing down to a small set you keep returning to. Your job is to notice what your mouth and body literally open for and let yourself choose that again and again.",
+                        rightBody:
+                            "Taste Determination with a Right mind is Closed Taste. You are not here to sample everything. Your Manifestor system is designed to be picky at the door, and that is correct. You often know if you have a taste for something or not without needing to experiment a lot. If your mouth does not want to open for a food, or your body does not want to open for an experience, forcing it pulls you off your path. Closed Taste does best eating and consuming what feels genuinely right on repeat and opening slowly to new things only when the appetite is there. In everyday life this might look like sticking to the same few meals, the same few teachers, shows or spaces and letting that be enough, instead of making yourself try things just because someone else thinks you should."
+                    },
+
+                    3: {
+                        name: "Thirst",
+                        title: "Thirst",
+                        leftBody:
+                            "Thirst Determination with a Left mind is Hot. Your system tends to run cool and needs warmth to switch on. Food and drinks above body temperature support your digestion and your ability to focus. Cooking and heating are your allies here. Cold, raw meals and icy drinks can leave you feeling underfed, scattered and physically off without understanding why. Warm liquids, warm meals and even warm environments help your Manifestor brain stay online. In practice this might look like choosing soups, stews, teas and heated leftovers, or warming room temperature food a little before eating, especially in the morning. The more you lean into warm inputs, the easier it is for your urges to land in a body that actually has fuel.",
+                        rightBody:
+                            "Thirst Determination with a Right mind is Cold. Your system tends to run hot and needs cooler input to regulate. Food and drinks below body temperature support your presence and help your receptive brain stay clear. This does not require everything to be frozen; it is about finding the refreshing, cooling range that works for you. Let cooked food cool before you eat it and play with different degrees of cool to notice when your body relaxes. In real life this might mean preferring salads, cold or room temperature meals, iced drinks or simply letting your food sit a bit before you eat. The more you honour your need for cool input, the easier it is to stay in your own frequency while the world moves around you."
+                    },
+
+                    4: {
+                        name: "Touch",
+                        title: "Touch",
+                        leftBody:
+                            "Touch Determination with a Left mind is Calm Touch. Your digestion and thinking work best when the space around you is calm, grounded and low stimulus. You are not just eating food; you are eating the mood and the energy in the room. For a Manifestor, too much noise, conflict or movement at mealtimes can feel like an attack on your system and shut down both your appetite and your urges. You are allowed to prefer eating alone, in quiet, or with just one or two relaxed people. In practice this might look like choosing soft music, gentle conversation or even complete silence when you eat or learn, and giving yourself space to come back to calm before you take anything in.",
+                        rightBody:
+                            "Touch Determination with a Right mind is Nervous Touch, which really means stimulated. Your digestion and thinking wake up when there is movement, sound and activity around you. You absorb the energy of the room and that stimulation helps your system process. Being told you had to sit still and eat quietly may have conditioned you away from how you actually work. For a Manifestor, this can look like eating while there is a show on, conversation happening, or even while you move around or work. Your job is to find the level of buzz that feels exciting rather than overwhelming and let yourself consume in the middle of that, instead of forcing a calm that shuts you down."
+                    },
+
+                    5: {
+                        name: "Sound",
+                        title: "Sound",
+                        leftBody:
+                            "Sound Determination with a Left mind is High Sound. Your system is tuned to, and fed by, higher levels of sound and frequency. Too much quiet can leave you restless, unfocused or weirdly flat. You digest best when there is life in your ears, whether it is music, conversation, background noise or the hum of a busy place. For a Manifestor, the right sound field helps your ideas move and makes urges feel more alive and reachable. In daily life this might look like eating, working or learning with music on, in cafes, with voices in the background or with specific frequencies and voices that feel energising to you.",
+                        rightBody:
+                            "Sound Determination with a Right mind is Low Sound. Your system is sensitive to noise and easily overwhelmed by it. You digest best when the soundscape is quiet, soft or very intentional. Too much volume, chatter or harsh frequency can scramble your thoughts, tense your body and make you want to shut the world out. For a Manifestor, this often looks like needing headphones, white noise, low‑frequency music or true silence while you eat or work. In practice this might mean choosing the quiet table, turning down background noise at home or using earplugs and noise‑cancelling when the world is loud so your body can settle and your urges can be heard again."
+                    },
+
+                    6: {
+                        name: "Light",
+                        title: "Light",
+                        leftBody:
+                            "Light Determination with a Left mind is Direct Light. Your system is designed to be in clear, strong light when you eat and take things in. Daylight and focused light sources wake up your digestion and your brain. Dim, cave‑like spaces can make you feel sluggish, foggy or low without any obvious reason. For a Manifestor, choosing to eat and study near windows, outside or under lighting that actually feels bright helps you access more consistent clarity and energy. In practice this might look like having breakfast in the brightest part of your home, working near natural light and avoiding chronically dim spaces for your most important intake moments.",
+                        rightBody:
+                            "Light Determination with a Right mind is Indirect Light. Your system prefers softer, bounced, indirect light rather than harsh, direct beams. Strong overhead lighting or intense sun can feel too sharp, almost like it is burning through your energy. You digest best in shade, lamplight, side lighting or times of day when the light is naturally gentler. For a Manifestor, this often looks like feeling better eating in the evening, at dawn or dusk, or in spaces with cosy, diffuse lighting instead of spotlights. In daily life this might mean choosing the table out of the sun, turning off bright overheads and using lamps, or wearing hats and sunglasses when you need to be in stronger light but still want your body to relax."
+                    }
                 },
-                // Tones here = body cognition (Smell → Touch)
+
                 tones: {
-                    1: { name: "Smell", body: "Placeholder: Smell cognition in Determination." },
-                    2: { name: "Taste", body: "Placeholder: Taste cognition in Determination." },
-                    3: { name: "Outer Vision", body: "Placeholder: Outer Vision in Determination." },
-                    4: { name: "Inner Vision", body: "Placeholder: Inner Vision in Determination." },
-                    5: { name: "Feeling", body: "Placeholder: Feeling in Determination." },
-                    6: { name: "Touch", body: "Placeholder: Touch in Determination." }
+                    1: {
+                        name: "Smell",
+                        body:
+                            "Smell cognition is your built‑in truth detector. If the smell of something is off, whether it is food, people, spaces or opportunities, your body will not fully relax enough to digest or to receive correct urges, even if your mind is interested. Letting yourself trust this smells wrong without needing a logical reason is one of the fastest ways to cut out misaligned commitments that drain your Manifestor system."
+                    },
+                    2: {
+                        name: "Taste",
+                        body:
+                            "Taste cognition sharpens your life into constant this is for me or this is not for me signals. You are meant to try things, spit them out literally or metaphorically and then get clearer and clearer on what is correct. Every time you stay with something that tastes wrong because you already started, you teach your Manifestor body that its signals do not matter, and then it goes quiet when the big urges arrive."
+                    },
+                    3: {
+                        name: "Outer Vision",
+                        body:
+                            "Outer Vision cognition digests through what you see around you. The visual field, colours, layout and clutter level either feed your brain or drain it. Pretending your environment does not matter is often why you feel uninspired in spaces that look technically fine. When you curate what you look at while you eat, work or scroll, your Manifestor system reads that as safety and your creativity comes back online."
+                    },
+                    4: {
+                        name: "Inner Vision",
+                        body:
+                            "Inner Vision cognition processes through the imagery inside your mind more than what is outside. You digest best when you are allowed to drift into daydreams, visualisations and inner movie reels while you take things in, not when you force yourself to stay hyper‑present in a reality that feels dull. For a Manifestor, your next urge often shows up first as an inner picture. Shutting that down is like closing the cinema where your guidance plays."
+                    },
+                    5: {
+                        name: "Feeling",
+                        body:
+                            "Feeling cognition reads the emotional weather of everything around you. You digest in spaces where the vibe feels honest, soft and emotionally safe, even if nobody is saying much, and your system clamps down in rooms that are tense, fake or performative. When you honour that, you stop blaming yourself for being too sensitive and start seeing how vital clean emotional space is for your Manifestor creativity and impact."
+                    },
+                    6: {
+                        name: "Touch",
+                        body:
+                            "Touch cognition processes through contact and texture. The feel of your clothes, the chair underneath you and the way food feels in your mouth are all real data for your body, not superficial preferences. When your physical comfort is off, your Manifestor system spends all its energy bracing and there is very little left for urges, informing or initiation. Choosing textures, fabrics and physical comforts that actually feel good is part of how you keep your energy available for what you are here to start."
+                    }
                 }
             },
 
-            // --- Environment (Bottom Left) ---
+
+            // 2️⃣ BOTTOM LEFT – ENVIRONMENT (DESIGN ENVIRONMENT)
             environment: {
                 label: "Bottom Left – Environment (Where You Thrive)",
                 direction: {
-                    // TODO: replace with your real Manifestor explanations
-                    L: { body: "Placeholder: Left Environment for Manifestors." },
-                    R: { body: "Placeholder: Right Environment for Manifestors." }
+                    L: {
+                        body:
+                            "Left Environment is the active Manifestor body. Your system thrives when you are physically engaged with your surroundings and you are the one choosing where you place yourself. The right environments actually wake you up and make you want to move, create, initiate or simply do life more fully. If a space does not lead to some kind of natural activity for you, it is probably not correct, even if it looks good on paper. You are not here to be endlessly still and chilled. You are here to be in environments that give you enough stimulation to use your energy on purpose, instead of burning it just trying to cope."
+                    },
+                    R: {
+                        body:
+                            "Right Environment is the relaxed Manifestor body. Your system thrives when you feel comfortable in your surroundings and can soften into being there. The right environments bring what you need to you without you having to push for it. If a space constantly pulls you out of your flow or demands that you be on all the time, it is probably not correct for you. You are designed to have a body that is more laid back, observing and receiving, not constantly hustling to make your environment work. In the right places, life comes to you and you can respond to urges from a nervous system that is actually rested."
+                    }
                 },
+
                 colors: {
-                    1: { name: "Caves", title: "Caves", body: "Placeholder for Caves." },
-                    2: { name: "Markets", title: "Markets", body: "Placeholder for Markets." },
-                    3: { name: "Kitchens", title: "Kitchens", body: "Placeholder for Kitchens." },
-                    4: { name: "Mountains", title: "Mountains", body: "Placeholder for Mountains." },
-                    5: { name: "Valleys", title: "Valleys", body: "Placeholder for Valleys." },
-                    6: { name: "Shores", title: "Shores", body: "Placeholder for Shores." }
+                    1: {
+                        name: "Caves",
+                        title: "Caves",
+                        leftBody:
+                            "Caves with a Left Environment is Selective Caves. Your Manifestor body needs a cave that feels safe and that you actively gatekeep. You thrive in spaces with a clear, visible entrance where you can control who comes in and when. This might look like a bedroom with one door, an office you can close, a familiar corner booth or even your car acting as your mobile cave. You are not designed for constant crowds and open access. When you choose secure, contained spaces and pay attention to what has shifted if they stop feeling safe, your system can finally drop its guard. From there, your urges come from genuine safety instead of from constant self‑protection.",
+                        rightBody:
+                            "Caves with a Right Environment is Blending Caves. Your Manifestor body still needs safety, but you find it by blending into shared spaces with people you trust. You might feel best in group offices, shared studios, co‑living situations, social spaces or cosy corners in public places where you can merge with the atmosphere rather than controlling the door. Often your true cave ends up being your bedroom or one small area that is just yours, while the rest of your life happens in communal caves. The priority is that you feel secure with the people and energy in the space. In the right caves, you can relax into the background, watch everything and only step forward when your urge to initiate kicks in."
+                    },
+
+                    2: {
+                        name: "Markets",
+                        title: "Markets",
+                        leftBody:
+                            "Markets with a Left Environment is Internal Markets. Your Manifestor body thrives when you create or choose indoor spaces where exchange can happen and you are the one inviting people in. This might be a home office, a studio, a room where you see clients, or a specific spot in your house where you sell, trade, brainstorm or make offers. You are designed to decide who enters your market and when, and to be discerning about who you do business with or share energy with. If you spend too much time in environments with no potential for exchange, you can feel stagnant or underutilised. When you honour your need for indoor markets, life and opportunities can come straight to your door and you get to initiate from your own turf.",
+                        rightBody:
+                            "Markets with a Right Environment is External Markets. Your Manifestor body thrives when you move through outdoor or public spaces of exchange and let the market happen around you. This can look like co‑working spaces, gyms, cafes, shopping areas, fairs, transit hubs, busy neighbourhoods or any place where people, ideas and resources are flowing. You do not need to control who else is there; you just need to be in the mix, relaxed and available to watch what is happening. Multiple stops in a day – coffee shop, studio, grocery store, park – can actually feel good to you. In the right external markets, you get to be the observer, letting the right exchanges and opportunities light up your urge to initiate instead of forcing deals in places that feel dead."
+                    },
+
+                    3: {
+                        name: "Kitchens",
+                        title: "Kitchens",
+                        leftBody:
+                            "Kitchens with a Left Environment is Wet Kitchens. Your Manifestor body thrives in spaces of transformation that have some level of moisture, humidity or steam in the air. You belong where things are being mixed, cooked, created and changed – with a bit of wetness or warmth. That could be actual kitchens, steamy restaurants, sweaty gyms, saunas, busy cafes, craft rooms full of paints and water, or any place where there is movement plus moisture. These environments support an active, focused life where you are in the middle of the alchemy instead of on the edges. When you allow yourself to choose damp, lively transformation spaces over dry, stagnant ones, your system remembers it is allowed to build things, not just survive them.",
+                        rightBody:
+                            "Kitchens with a Right Environment is Dry Kitchens. Your Manifestor body thrives in spaces of transformation that run drier or have heat that dries things out. You still belong where things are being cooked, crafted or changed, but the air tends to feel clearer or less humid. Think bakeries with ovens, grill restaurants, pottery studios, laundromats, fire pits, dry gyms, libraries, workshops with tools and dust, or higher, drier spaces where the air is thinner. You are here to be around the process of transformation, not necessarily to sweat in the middle of it. When you let yourself inhabit drier transformation spaces and simply observe, you receive the spark for new urges without being weighed down by environments that feel heavy or swampy."
+                    },
+
+                    4: {
+                        name: "Mountains",
+                        title: "Mountains",
+                        leftBody:
+                            "Mountains with a Left Environment is Active Mountains. Your Manifestor body thrives when you choose elevated places that energise you and make you want to move. This might be high‑rise buildings, rooftop restaurants, balconies, hillside walks, mountain trails, gyms with views or even upper floors where you can look out over everything. You are designed to go up to higher ground and use that perspective to initiate. Being at or below ground level with no view for too long can leave you feeling compressed, uninspired or heavy. When you regularly put yourself in elevated spaces that stimulate you, you remember you are not meant to be stuck in the details – you are here to see above the noise and act from that vantage point.",
+                        rightBody:
+                            "Mountains with a Right Environment is Passive Mountains. Your Manifestor body thrives in elevated places where you can relax, observe and let life move below you. This might look like mountain cabins, rooftop lounges, balconies, lookout points, upper‑level seats at concerts or games, or high, quiet neighbourhoods where people have to make an effort to reach you. You do not need constant activity here; you need space to watch, breathe and feel the bigger picture. From up high, it is easier to stay out of petty details and drama. When you give yourself regular time in passive mountain environments, your system decompresses and your urges often arrive in the stillness, offering clear direction without you having to chase it."
+                    },
+
+                    5: {
+                        name: "Valleys",
+                        title: "Valleys",
+                        leftBody:
+                            "Valleys with a Left Environment is Narrow Valleys. Your Manifestor body thrives in ground‑level spaces where people naturally come together and the acoustics are more focused. Think narrow streets, lobbies, small parks, local cafes, community centres, smaller transit hubs, libraries or intimate event spaces where conversations and sound are close by rather than far away. You are designed to be near pathways where information and people move, but in a way that stays clear and contained. Isolation is not supportive for you, yet huge open spaces with scattered sound can feel too diffuse. When you place yourself in narrow valley environments, you can stay plugged into the flow of life without getting lost in it and your urges can arise from real, live connection.",
+                        rightBody:
+                            "Valleys with a Right Environment is Wide Valleys. Your Manifestor body thrives in open, integrative ground‑level spaces where lots of people and frequencies are moving around you. This might look like big university campuses, major transit hubs, convention centres, festivals, large parks, big cultural centres, social gatherings, or even less urban areas that still attract visitors and activity. You do not have to be in the middle of every conversation; you just need to be in an environment where many streams of life are passing through. When you choose wide valley environments over isolated ones, you feel more connected, less stuck and more able to pick up on the ideas, people and opportunities that actually deserve your energy."
+                    },
+
+                    6: {
+                        name: "Shores",
+                        title: "Shores",
+                        leftBody:
+                            "Shores with a Left Environment is Natural Shores. Your Manifestor body thrives in natural transition zones, especially where land and water meet or where one natural landscape shifts into another. Think beaches, lakesides, river paths, forest edges, fields that meet woods, or even homes and workspaces with clear views into different natural spaces. You are designed to stand at the boundary between worlds and actively choose when to step into one or the other. Being able to feel movement and possibility in your environment keeps you from getting stuck. When you honour your pull towards natural shorelines, your system feels stimulated but not overwhelmed and your urges tend to appear right where one phase of life is ending and another is beginning.",
+                        rightBody:
+                            "Shores with a Right Environment is Artificial Shores. Your Manifestor body thrives in transition zones that are more human‑made – the edge between city and park, housing and shops, airport lounges, hotel lobbies, train stations, mall entrances, office‑to‑street thresholds or any place that feels like an in‑between. You do well in spaces where you can linger at the crossing point and let the movement of people and environments wash around you. You do not need to choose one world; you are nourished by feeling the shift between them. When you allow yourself to hang out in these artificial shorelines instead of forcing yourself to fully belong to one side, your urges often show up right at those edges, giving you the next thing to initiate as life naturally changes."
+                    }
                 },
-                // Tones = body cognition again
+
                 tones: {
-                    1: { name: "Smell", body: "Placeholder: Smell cognition in Environment." },
-                    2: { name: "Taste", body: "Placeholder: Taste cognition in Environment." },
-                    3: { name: "Outer Vision", body: "Placeholder: Outer Vision in Environment." },
-                    4: { name: "Inner Vision", body: "Placeholder: Inner Vision in Environment." },
-                    5: { name: "Feeling", body: "Placeholder: Feeling in Environment." },
-                    6: { name: "Touch", body: "Placeholder: Touch in Environment." }
+                    1: {
+                        name: "Smell",
+                        body:
+                            "Smell cognition in Environment means the scent of a place is your first and clearest information. If the air smells wrong to you, your body will not settle there regardless of how nice it looks. That can be as obvious as a literal bad smell or as subtle as the scent of products, food, people or the building itself. When you let your nose lead, you naturally choose environments that feel clean and supportive for your system, which is key for a Manifestor nervous system that already works hard to regulate others’ energy."
+                    },
+                    2: {
+                        name: "Taste",
+                        body:
+                            "Taste cognition in Environment means you are here to sample spaces and notice how they feel over time, like developing a taste for a place. Some environments will feel delicious and satisfying at first then go bland or even sour. Others will grow on you slowly. Honouring that keeps you from staying in rooms, communities or cities that your body has clearly gone off. The more you let yourself move on when the taste is gone, the easier it is to be in places that actually feed your Manifestor energy instead of draining it."
+                    },
+                    3: {
+                        name: "Outer Vision",
+                        body:
+                            "Outer Vision cognition in Environment means what you see in a space matters deeply. Light, colour, layout, clutter and design either nourish you or quietly grind you down. This is not superficial; it is literally how your brain digests your surroundings. When you choose environments that look right to your eyes – or edit your current spaces to be more visually aligned – your Manifestor mind has way more capacity for urges, creativity and initiation instead of being stuck on visual frustration and ennui."
+                    },
+                    4: {
+                        name: "Inner Vision",
+                        body:
+                            "Inner Vision cognition in Environment means the inner imagery a place evokes is more important than its surface details. Spaces that make you imagine, dream, remember or see stories will support you, even if they are not visually perfect. Spaces that look fine but feel empty inside will not. When you choose environments that light up your inner world, it becomes easier to hear the quiet inner pictures that often carry your next urge. For a Manifestor, protecting this inner cinema is essential because it is where so many of your initiations begin."
+                    },
+                    5: {
+                        name: "Feeling",
+                        body:
+                            "Feeling cognition in Environment means you read the emotional climate of a place instantly. You can sense whether a room is tense, kind, performative or genuine before anyone speaks, and your body only rests in environments that feel emotionally safe. If you ignore that, you end up spending all your energy bracing for impact. Respecting your need for clean emotional spaces – online and offline – is one of the most practical ways to keep your Manifestor nervous system regulated and ready to move when the urge arrives."
+                    },
+                    6: {
+                        name: "Touch",
+                        body:
+                            "Touch cognition in Environment means the way a place feels in your body is everything. Temperature, textures, fabrics, chairs, bedding, how the air moves – all of that is how you take in an environment. If your body is uncomfortable, your energy stays on alert and you never fully land. When you prioritise spaces and setups that feel physically good to be in, it becomes much easier to stay, relax and actually follow through on your urges instead of always needing to escape to recover."
+                    }
                 }
             },
 
-            // --- Perspective (Top Right) ---
+            // 3️⃣ TOP RIGHT – PERSPECTIVE (PERSONALITY VIEW)
             perspective: {
                 label: "Top Right – Perspective (How You See)",
                 direction: {
-                    // TODO: replace with your real Manifestor explanations
-                    L: { body: "Placeholder: Left Perspective for Manifestors." },
-                    R: { body: "Placeholder: Right Perspective for Manifestors." }
+                    L: {
+                        body:
+                            "Left Perspective is a focused Manifestor mind. You are here to see the world in a more specific, zoomed‑in way, to track what you are looking at and to stay with it long enough to understand it. Your view wants a clear subject instead of trying to take in everything at once. When you let yourself narrow in on what actually matters to you, you stop scattering your mental energy across a hundred half‑interesting things and your urges land in a mind that can see the path forward. The more you respect your focused way of seeing, the less you get pulled into distractions that look important but never really go anywhere."
+                    },
+                    R: {
+                        body:
+                            "Right Perspective is a peripheral Manifestor mind. You are here to see the world out of the corner of your eye, to notice the background, the patterns and the things nobody else seems to be clocking. Your view wants breadth, not tight focus. You are not supposed to stare down one tiny detail until it makes sense; you are meant to relax, watch the wider field and let the important pieces stand out on their own. When you trust your natural, unfocused way of seeing, you stop exhausting yourself trying to think like everyone else and your urges can rise from a place that has actually taken in the whole picture."
+                    }
                 },
+
                 colors: {
-                    1: { name: "Survival", title: "Survival", body: "Placeholder for Survival view." },
-                    2: { name: "Possibility", title: "Possibility", body: "Placeholder for Possibility view." },
-                    3: { name: "Power", title: "Power", body: "Placeholder for Power view." },
-                    4: { name: "Wanting", title: "Wanting", body: "Placeholder for Wanting view." },
-                    5: { name: "Probability", title: "Probability", body: "Placeholder for Probability view." },
-                    6: { name: "Personal", title: "Personal", body: "Placeholder for Personal view." }
+                    1: {
+                        name: "Survival",
+                        title: "Survival View",
+                        leftBody:
+                            "Survival View with a Left perspective tends to zoom in on what could go wrong and how to prevent it. You see the resources, risks and practical realities that other people miss. This can make you incredibly good at spotting weak spots in plans, systems and relationships. The not‑self is living in constant threat mode and using that awareness to justify never initiating anything. In alignment, your Survival View serves your Manifestor nature by helping you choose where to spend your limited energy wisely. You are here to notice what actually keeps you and the people you care about alive and resourced, not to catastrophize every possible outcome.",
+                        rightBody:
+                            "Survival View with a Right perspective takes in the overall sense of safety or danger without obsessing over every tiny detail. You are sensitive to atmospheres that feel unstable or unsustainable, even if you cannot immediately explain why. The not‑self is quietly scanning for threats all the time and feeling like you can never fully relax or enjoy what you have. In alignment, your Survival View becomes a kind of peripheral early‑warning system that lets you drift through life and gently avoid what feels genuinely unsafe. It helps your Manifestor system steer around situations that would burn you out, so your urges can be used for things that are actually survivable for your body and nervous system."
+                    },
+
+                    2: {
+                        name: "Possibility",
+                        title: "Possibility View",
+                        leftBody:
+                            "Possibility View with a Left perspective focuses on what could be different or better. You naturally see openings, potential upgrades and future versions of things. Your mind latches onto specific possibilities and wants to figure out how to make them real. The not‑self is constantly chasing new possibilities without ever letting one land, or using endless potential as a reason to never commit. In alignment, your Possibility View gives your Manifestor urges somewhere hopeful to go. You are here to spot a real possibility, feel the urge to initiate and then move the idea forward just enough for the right people to pick it up and carry it with you or after you.",
+                        rightBody:
+                            "Possibility View with a Right perspective takes in a wide field of could‑be energy. You can sense when the air in a room, business or relationship is full of potential and when it has gone stale. You do not have to know the exact next step to feel that something more is available. The not‑self is living in fantasy, comfort‑scrolling through possibilities in your head but never letting your body actually start anything. In alignment, your Possibility View lets you relax into environments where potential is present and then notice which ideas keep floating back into your awareness. Those are the ones that deserve your Manifestor initiation, not the thousand maybes that simply pass by."
+                    },
+
+                    3: {
+                        name: "Power",
+                        title: "Power View",
+                        leftBody:
+                            "Power View with a Left perspective looks straight at who has influence, resources and control. You notice hierarchies, leadership, systems of power and what is actually working. You can be very good at seeing where power is being used well and where it is being wasted or abused. The not‑self is obsessing over other people’s power, trying to chase status, or feeling powerless and resentful when you are not the one in charge. In alignment, your Power View helps you place your Manifestor energy where it will have the most impact with the least drama. You are here to notice which rooms, roles and relationships are worth initiating in because they actually give your power somewhere to go.",
+                        rightBody:
+                            "Power View with a Right perspective takes in power dynamics from the edges. You can feel who really holds the influence in a space, even if they are not the loudest person in the room. You might notice where power is stuck or misdirected without wanting to jump in and fix it. The not‑self is quietly judging everyone, including yourself, for how they are using their power and then withdrawing instead of initiating. In alignment, your Power View becomes a soft radar that helps you drift toward situations where power feels clean and aligned. From there your Manifestor urges can move you to say or start exactly enough to shift the power in the direction it wants to go."
+                    },
+
+                    4: {
+                        name: "Wanting",
+                        title: "Wanting View",
+                        leftBody:
+                            "Wanting View with a Left perspective zeroes in on what is missing and what you or others want more of. You can see the gap between current reality and the desires in the room very clearly. This can make you a powerful initiator, because you feel the itch before anyone else does. The not‑self is living in constant dissatisfaction, convinced that nothing is ever enough and using that to blow up or abandon things prematurely. In alignment, your Wanting View helps you name the true desire underneath the noise and initiate toward that. You are here to see what you really want, let the urge move and then trust that fulfilling that desire will also serve the people who are meant to be in your world.",
+                        rightBody:
+                            "Wanting View with a Right perspective notices the hum of desire in the background. You might not fixate on one specific goal, but you can feel whether a person, project or space is hungry for more or quietly content. The not‑self is drifting in vague longing, always feeling like something is missing but never letting yourself want anything clearly enough to initiate. In alignment, your Wanting View lets you relax into what is already here while still being aware of the desires that keep returning. Those soft, persistent wants are the ones that deserve your Manifestor energy. You do not have to chase every craving; you get to respond to the wants that keep circling back."
+                    },
+
+                    5: {
+                        name: "Probability",
+                        title: "Probability View",
+                        leftBody:
+                            "Probability View with a Left perspective focuses on what is likely to happen. You are naturally good at scanning data, patterns and precedents to see which outcomes make sense. You can be incredibly realistic and grounded about what will probably work and what will likely fail. The not‑self is using that realism to talk yourself out of every urge because the odds do not look perfect. In alignment, your Probability View helps your Manifestor nature conserve energy by choosing the paths that are worth initiating, not the ones that are pure fantasy. You are here to see the likely trajectory and then use your initiation to slightly bend that curve in a direction that serves you and your people.",
+                        rightBody:
+                            "Probability View with a Right perspective reads likelihood in a looser, more intuitive way. You pick up on currents and trends without needing to crunch numbers, simply feeling what is gaining momentum and what is fading. The not‑self is passively watching life happen, assuming everything is already decided, and using that as a reason not to start anything. In alignment, your Probability View lets you drift until you feel you are in the middle of the right wave. Then your Manifestor urge can move quickly and cleanly, starting something at exactly the point where the probability of it landing is already high."
+                    },
+
+                    6: {
+                        name: "Personal",
+                        title: "Personal View",
+                        leftBody:
+                            "Personal View with a Left perspective looks at life through a very me‑centric lens and that is correct for you. You naturally ask how does this affect me, my energy, my peace and my path. You see events in terms of your own personal story and what they mean for your next steps. The not‑self is collapsing into self‑absorption and using your view as proof that you are alone or that nobody understands you. In alignment, your Personal View is exactly what a Manifestor needs to protect their energy. You are here to see life from your seat first, so you can decide which initiations are worth your impact and which ones are simply not yours to carry.",
+                        rightBody:
+                            "Personal View with a Right perspective still sees life through a personal lens, but it happens more quietly and in the background. You naturally drift through experiences noticing what they mean for you, how they land in your body and how they change your inner world. The not‑self is feeling guilty for being so self‑referenced and then over‑correcting by ignoring your own needs until you burn out. In alignment, your Personal View gives you permission to let your Manifestor life be about your experience first. When you let yourself admit what is true for you, your urges become much clearer and the people who are meant to benefit from your impact can actually feel you show up."
+                    }
                 },
-                // Tones = mental tone (Security → Acceptance)
+
                 tones: {
-                    1: { name: "Security", body: "Placeholder: Security tone for Perspective." },
-                    2: { name: "Uncertainty", body: "Placeholder: Uncertainty tone for Perspective." },
-                    3: { name: "Action", body: "Placeholder: Action tone for Perspective." },
-                    4: { name: "Meditation", body: "Placeholder: Meditation tone for Perspective." },
-                    5: { name: "Judgement", body: "Placeholder: Judgement tone for Perspective." },
-                    6: { name: "Acceptance", body: "Placeholder: Acceptance tone for Perspective." }
+                    1: {
+                        name: "Security",
+                        body:
+                            "Security tone in Perspective means your mind is always tracking what feels safe, stable and reliable. You see the world through the lens of is this secure enough for me to relax here. The not‑self gets stuck in endless risk assessments and fear stories. In alignment, your eye for security helps your Manifestor system choose people and spaces that can actually hold your impact without collapsing when you initiate."
+                    },
+                    2: {
+                        name: "Uncertainty",
+                        body:
+                            "Uncertainty tone in Perspective means you are meant to live with open questions. Your mind is built to entertain multiple possibilities without needing to lock anything down too fast. The not‑self tries to force certainty and ends up anxious and overthinking. In alignment, your tolerance for not‑knowing keeps your Manifestor life flexible enough for urges and opportunities you could not have planned to actually reach you."
+                    },
+                    3: {
+                        name: "Action",
+                        body:
+                            "Action tone in Perspective means you see the world in terms of what could be done next. Your mind is always half‑asking what is the move here. The not‑self tries to act on everything you see and burns out in hyper‑productivity. In alignment, your Action tone supports your Manifestor nature by letting you recognise the one or two moves that really matter and initiate those, instead of reacting to every single impulse."
+                    },
+                    4: {
+                        name: "Meditation",
+                        body:
+                            "Meditation tone in Perspective means your mind is designed for quiet observation. You are meant to watch, reflect and let understanding emerge over time. The not‑self judges this as laziness or checks out completely. In alignment, your contemplative way of seeing gives your Manifestor system space to integrate and makes your initiations deeper and more accurate, even if you move less often than other people expect you to."
+                    },
+                    5: {
+                        name: "Judgement",
+                        body:
+                            "Judgement tone in Perspective means you are here to evaluate. Your mind naturally weighs what is correct or incorrect, aligned or off. The not‑self turns this into harsh criticism of yourself and others and then feels isolated. In alignment, your discerning eye helps your Manifestor energy land where it actually belongs. You are here to see what is worth your impact and what is not, and there is nothing wrong with that."
+                    },
+                    6: {
+                        name: "Acceptance",
+                        body:
+                            "Acceptance tone in Perspective means your mind is built to see what is and allow it to be there. You are not here to fix everything you notice. The not‑self pretends to accept situations that actually hurt you, then quietly resents everyone. In alignment, your Acceptance tone lets you stop fighting reality long enough to see where a small Manifestor initiation could open a new door, instead of wasting your energy trying to control what you cannot change."
+                    }
                 }
             },
 
-            // --- Motivation (Bottom Right) ---
+            // 4️⃣ BOTTOM RIGHT – MOTIVATION (PERSONALITY MOTIVATION)
             motivation: {
                 label: "Bottom Right – Motivation (How You Think)",
                 direction: {
-                    // TODO: replace with your real Manifestor explanations
-                    L: { body: "Placeholder: Left Motivation for Manifestors." },
-                    R: { body: "Placeholder: Right Motivation for Manifestors." }
+                    L: {
+                        body:
+                            "Left Motivation is a more strategic Manifestor mind. You are here to think in a way that can be organised, explained and followed, even if your urges arrive out of nowhere. Your motivation wants some structure: clear concepts, language and frameworks it can lean on. The not‑self uses that structure to control everything and justify every impulse until the life has been squeezed out of it. In alignment, your more strategic way of thinking simply gives your Manifestor urges a solid channel to move through so other people can actually understand and respond to what you are starting."
+                    },
+                    R: {
+                        body:
+                            "Right Motivation is a more receptive Manifestor mind. You are here to think in a way that is looser, more associative and less predictable. Your motivation wants to float, absorb and let meaning arrive instead of forcing logic. The not‑self tries to copy strategic thinking and ends up feeling scattered, wrong or behind. In alignment, your receptive way of thinking lets you be a well of insight that other people can draw from. When you stop trying to force a plan and let your urges arise out of everything you have quietly taken in, your impact lands in ways you could not have plotted on a whiteboard."
+                    }
                 },
-                colors: {
-                    1: { name: "Fear", title: "Fear", body: "Placeholder for Fear motivation." },
-                    2: { name: "Hope", title: "Hope", body: "Placeholder for Hope motivation." },
-                    3: { name: "Desire", title: "Desire", body: "Placeholder for Desire motivation." },
-                    4: { name: "Need", title: "Need", body: "Placeholder for Need motivation." },
-                    5: { name: "Guilt", title: "Guilt", body: "Placeholder for Guilt motivation." },
-                    6: { name: "Innocence", title: "Innocence", body: "Placeholder for Innocence motivation." }
-                },
-                // Tones = mental tone again
-                tones: {
-                    1: { name: "Security", body: "Placeholder: Security tone for Motivation." },
-                    2: { name: "Uncertainty", body: "Placeholder: Uncertainty tone for Motivation." },
-                    3: { name: "Action", body: "Placeholder: Action tone for Motivation." },
-                    4: { name: "Meditation", body: "Placeholder: Meditation tone for Motivation." },
-                    5: { name: "Judgement", body: "Placeholder: Judgement tone for Motivation." },
-                    6: { name: "Acceptance", body: "Placeholder: Acceptance tone for Motivation." }
-                }
-            },
 
-            // Overall closing section
-            manifestorWrapUp: {
-                // TODO: update with your own wrap-up
-                title: "Bringing Your Variables Together",
-                body: "Placeholder wrap-up connecting all four arrows back to your Manifestor aura, informing, and creative cycles."
+                colors: {
+                    1: {
+                        name: "Fear",
+                        title: "Fear Motivation",
+                        leftBody:
+                            "Fear Motivation with a Left mind is here to see what could go wrong so you can move correctly, not to live in panic. You are naturally motivated by what feels dangerous, misaligned or unsustainable. Your thinking goes to the risks, the shadows and the consequences. The not‑self gets stuck in worst‑case scenarios and uses fear to shut down every urge before it can even form. In alignment, your Fear Motivation lets your Manifestor system say this is not safe for me and walk away, or this is scary but correct and take aligned action anyway. You are designed to initiate in the places where your fear is actually guidance, not a cage.",
+                        rightBody:
+                            "Fear Motivation with a Right mind experiences fear more like a pervasive background feeling than a sharp analysis. You can sense when something is off or unsafe without always having words for it. The not‑self either ignores that fear completely or lets it silently run the show and keep you frozen. In alignment, your Fear Motivation is simply one of the signals your receptive mind listens to. When a new urge arrives, you get to ask is this fear keeping me safe or just keeping me small. You are not here to eliminate fear; you are here to let it inform which Manifestor initiations are truly worth your energy."
+                    },
+
+                    2: {
+                        name: "Hope",
+                        title: "Hope Motivation",
+                        leftBody:
+                            "Hope Motivation with a Left mind is here to think in terms of what could go right. You are naturally motivated by potential, healing, improvement and the possibility that things can get better. Your thinking wants to move from problem‑focused to possibility‑focused. The not‑self uses Hope to spiritually bypass, slap positive thinking on everything and avoid necessary endings. In alignment, your Hope Motivation gives your Manifestor urges a direction that feels uplifting and future‑oriented. You are here to initiate towards the better option you can see, not to stay stuck in what is broken just because everyone else has accepted it.",
+                        rightBody:
+                            "Hope Motivation with a Right mind feels like a soft, underlying sense that something more beautiful is possible. You might not have a clear five‑step plan, but you can feel hope in your body when you are pointed in the right direction. The not‑self either clings to hope and refuses to see reality or gives up completely and calls that being realistic. In alignment, your Hope Motivation lets you rest in I do not know how yet, but I can feel that a better version exists. From that place, your Manifestor urges can move you toward the next honest step instead of trying to jump straight to the end result."
+                    },
+
+                    3: {
+                        name: "Desire",
+                        title: "Desire Motivation",
+                        leftBody:
+                            "Desire Motivation with a Left mind is here to think from what you truly want. You are motivated by your own desires – for experiences, for impact, for resources, for intimacy, for freedom. Your thinking naturally orients around how to move closer to those wants. The not‑self tries to pretend you do not want anything or chases desire in every direction just to fill a void. In alignment, your Desire Motivation is permission to admit what you actually want as a Manifestor and let that shape what you initiate. When your urges are anchored in real desire instead of obligation, you have far more energy to carry them through.",
+                        rightBody:
+                            "Desire Motivation with a Right mind feels like waves of wanting that come and go. You may not be able to explain why you desire certain things, but your body knows. The not‑self judges your desires as too much, too selfish or not spiritual enough and pushes them down until they leak out sideways. In alignment, your Desire Motivation is a quiet inner compass. You let yourself notice which desires keep returning and which fade when you stop feeding them. The ones that remain are the ones your Manifestor urges are trying to move you towards, even if nobody else understands why you want what you want."
+                    },
+
+                    4: {
+                        name: "Need",
+                        title: "Need Motivation",
+                        leftBody:
+                            "Need Motivation with a Left mind is built to think in terms of what is actually necessary. You are motivated by essentials: what needs to be done, what needs to be said, what needs to be built. Your thinking wants to cut through the noise and go straight to the core requirements. The not‑self gets stuck in scarcity and deprivation, believing there is never enough and that you are only allowed to have the bare minimum. In alignment, your Need Motivation makes you a powerful Manifestor because you initiate around what is truly needed – no more, no less. You are here to start the things that keep life functioning, not to waste your energy on fluff.",
+                        rightBody:
+                            "Need Motivation with a Right mind shows up as a subtle sense of when something is missing or out of balance. You can feel needs that are not being met in yourself, in others or in a system even if nobody has named them yet. The not‑self either ignores these signals and over‑gives until you collapse or abandons yourself completely to meet everyone else’s needs. In alignment, your Need Motivation helps you drift until you land where your presence genuinely fills a gap. From there, your Manifestor urges can move you to do or say just enough to meet the real need instead of trying to fix everything for everyone."
+                    },
+
+                    5: {
+                        name: "Guilt",
+                        title: "Guilt Motivation",
+                        leftBody:
+                            "Guilt Motivation with a Left mind is here to think in terms of responsibility, not shame. You are motivated by a sense of what you feel responsible for improving, correcting or contributing. Your thinking naturally asks what could I do here. The not‑self turns that into chronic self‑blame and over‑functioning, taking responsibility for anything that hurts or fails. In alignment, your Guilt Motivation gives your Manifestor energy a clean sense of ownership: this part is mine and that part is not. You are here to initiate where you genuinely feel responsible and to leave the rest alone, even if other people try to hand it to you.",
+                        rightBody:
+                            "Guilt Motivation with a Right mind can feel like a quiet background hum of I should be doing more. You pick up on responsibilities and expectations without anyone saying them out loud. The not‑self lets that unspoken guilt drive you into burnout or complete avoidance. In alignment, your Guilt Motivation becomes a gentle signal, not a whip. You notice where a small action from you could actually make a real difference and where you are only feeling guilty because of conditioning. Your Manifestor urges are meant to move in the places where that sense of responsibility feels clean and correct, not in every situation that triggers your guilt."
+                    },
+
+                    6: {
+                        name: "Innocence",
+                        title: "Innocence Motivation",
+                        leftBody:
+                            "Innocence Motivation with a Left mind is here to think from a place of neutrality and wonder. You are not meant to be driven by heavy agendas; you are motivated by curiosity and the simple experience of being alive. Your thinking wants to explore, observe and engage without always needing a reason. The not‑self feels guilty for not having a big mission or uses innocence as an excuse to disengage from everything. In alignment, your Innocence Motivation keeps your Manifestor life from becoming one long grind. You are here to initiate from what feels clean, interesting or true in the moment, trusting that your impact ripples out even when you are not trying to save the whole world.",
+                        rightBody:
+                            "Innocence Motivation with a Right mind feels like a natural openness to life when you are not forcing yourself to have it all figured out. You are motivated by simple experiences, by being where you are, by letting life move through you without over‑explaining it. The not‑self tells you this is naive or irresponsible and pushes you to manufacture seriousness you do not actually feel. In alignment, your Innocence Motivation lets your Manifestor urges arise from a very honest place. You start things because they feel correct in your body, not because they impress anyone, and that is exactly what makes your impact so pure."
+                    }
+                },
+
+                tones: {
+                    1: {
+                        name: "Security",
+                        body:
+                            "Security tone in Motivation means your mind is always tracking where you can feel safe, held and stable. You are motivated to think and act in ways that protect your sense of safety. The not‑self uses that to avoid any risk at all. In alignment, this tone helps your Manifestor system choose initiations that build real security over time instead of chasing quick hits that destabilise you."
+                    },
+                    2: {
+                        name: "Uncertainty",
+                        body:
+                            "Uncertainty tone in Motivation means your mind is energised by not knowing. You are motivated by questions, ambiguity and the space where many outcomes are still possible. The not‑self panics about this and tries to force certainty too early. In alignment, your comfort with uncertainty keeps your Manifestor path open enough for the right urges, people and opportunities to find you at the exact moment they are ready."
+                    },
+                    3: {
+                        name: "Action",
+                        body:
+                            "Action tone in Motivation means your mind wants to move. You are motivated by doing, by experimenting, by testing your ideas in real life. The not‑self tries to act on everything and burns you out. In alignment, your Action tone works beautifully with your Manifestor nature: you let the few urges that really matter move you into clean action and allow everything else to pass without grabbing it."
+                    },
+                    4: {
+                        name: "Meditation",
+                        body:
+                            "Meditation tone in Motivation means your mind is motivated by reflection and stillness. You need quiet, space and time to sit with things before you move. The not‑self judges this as laziness or checks out completely. In alignment, your contemplative motivation gives your Manifestor urges depth and wisdom. You might initiate less often, but when you do, it comes from a place that has actually been felt and integrated."
+                    },
+                    5: {
+                        name: "Judgement",
+                        body:
+                            "Judgement tone in Motivation means your mind is built to evaluate what is correct and what is not. You are motivated by clarity, discernment and truth. The not‑self turns this into harsh criticism, perfectionism and constant dissatisfaction. In alignment, your Judgement tone helps your Manifestor system decide which ideas, people and projects are truly worth your impact and which ones you are allowed to walk away from without explanation."
+                    },
+                    6: {
+                        name: "Acceptance",
+                        body:
+                            "Acceptance tone in Motivation means your mind is most energised when you let reality be what it is. You are motivated by seeing things clearly and allowing them instead of fighting everything all the time. The not‑self uses acceptance to stay in situations that hurt you because you think you should be okay with them. In alignment, your Acceptance tone helps your Manifestor self stop wasting energy on resistance so that when an urge arrives, you have the space to initiate something genuinely new."
+                    }
+                }
             }
         };
 
-        // Arrow metadata: which Tone set to use
+        // Meta: which tone set each arrow uses
         const arrowMeta = {
             determination: { toneType: "cognition" },
             environment: { toneType: "cognition" },
@@ -679,7 +1090,6 @@
             motivation: { toneType: "mental" }
         };
 
-        // Tone labels used on the buttons (numbered 1–6)
         const toneLabels = {
             cognition: [
                 { value: "1", label: "1 – Smell" },
@@ -699,7 +1109,6 @@
             ]
         };
 
-        // Stores the user’s choices for each arrow
         const selection = {
             determination: { direction: "", color: "", tone: "" },
             environment: { direction: "", color: "", tone: "" },
@@ -707,10 +1116,9 @@
             motivation: { direction: "", color: "", tone: "" }
         };
 
-        // DOM references
         const screenStatus = document.getElementById("screenStatus");
         const displayEl = document.getElementById("display");
-        const configGroups = document.getElementById("configGroups");
+        const configArea = document.getElementById("configArea");
         const directionRow = document.getElementById("directionRow");
         const colorRow = document.getElementById("colorRow");
         const toneRow = document.getElementById("toneRow");
@@ -722,9 +1130,6 @@
 
         let currentArrowKey = null;
 
-        // =========================================
-        // 2) ARROW BUTTON HANDLERS
-        // =========================================
         arrowButtons.forEach(btn => {
             btn.addEventListener("click", () => {
                 arrowButtons.forEach(b => b.classList.remove("active"));
@@ -740,23 +1145,23 @@
             const sel = selection[key];
             const toneType = arrowMeta[key].toneType;
 
-            configGroups.style.display = "block";
+            configArea.style.display = "block";
 
             const dirText = sel.direction
-                ? (sel.direction === "L" ? "Left (active/strategic)" : "Right (receptive/relaxed)")
+                ? (sel.direction === "L" ? "Left direction" : "Right direction")
                 : "Direction not set";
             const colorText = sel.color
-                ? `Color ${sel.color} – ${conf.colors[sel.color].name}`
+                ? `Color ${sel.color}`
                 : "Color not set";
             const toneText = sel.tone
-                ? `Tone ${sel.tone} – ${conf.tones[sel.tone].name}`
+                ? `Tone ${sel.tone}`
                 : "Tone not set";
 
             displayEl.innerHTML = `
       <div class="display-title">${conf.label}</div>
       <div class="display-meta">${dirText} • ${colorText} • ${toneText}</div>
       <div class="display-body">
-        Match what your chart shows for this arrow, or experiment with combinations and then see it all together when you VEND.
+        Match your chart data for this arrow, or use this like a Manifestor lab and try out different combinations to see what lands when you hit VEND.
       </div>
     `;
 
@@ -765,15 +1170,12 @@
             renderToneButtons(key, toneType);
         }
 
-        // =========================================
-        // 3) RENDER DIRECTION / COLOR / TONE BUTTONS
-        // =========================================
         function renderDirectionButtons(key) {
             directionRow.innerHTML = "";
             ["L", "R"].forEach(val => {
                 const btn = document.createElement("button");
                 btn.className = "choice-btn";
-                btn.textContent = val === "L" ? "Left arrow" : "Right arrow";
+                btn.textContent = val === "L" ? "Left" : "Right";
                 if (selection[key].direction === val) btn.classList.add("selected");
                 btn.addEventListener("click", () => {
                     selection[key].direction = val;
@@ -787,7 +1189,7 @@
 
         function renderColorButtons(key) {
             colorRow.innerHTML = "";
-            const colors = content[key].colors;
+            const colors = content[key].colors || {};
             Object.entries(colors).forEach(([num, cfg]) => {
                 const btn = document.createElement("button");
                 btn.className = "choice-btn color-btn";
@@ -821,15 +1223,14 @@
             });
 
             if (toneType === "cognition") {
-                toneNote.textContent = "Left side: Tone is body cognition (Smell, Taste, Outer/Inner Vision, Feeling, Touch) and fixes the arrow left (1–3) or right (4–6).";
+                toneNote.textContent =
+                    "Left side: body cognition (Smell, Taste, Outer/Inner Vision, Feeling, Touch) fixes this arrow left (tones 1–3) or right (tones 4–6).";
             } else {
-                toneNote.textContent = "Right side: Tone is mental tone (Security, Uncertainty, Action, Meditation, Judgement, Acceptance) from Rave Psychology.";
+                toneNote.textContent =
+                    "Right side: mental tone (Security, Uncertainty, Action, Meditation, Judgement, Acceptance) shapes how your mind processes what you see and think.";
             }
         }
 
-        // =========================================
-        // 4) COUNTS & VEND BUTTON
-        // =========================================
         function updateCounts() {
             const loaded = Object.values(selection).filter(
                 s => s.direction && s.color && s.tone
@@ -845,7 +1246,6 @@
             });
         }
 
-        // Build a single arrow section for the reading
         function buildArrowSection(key) {
             const conf = content[key];
             const sel = selection[key];
@@ -863,15 +1263,15 @@
 
             const pillDir = document.createElement("span");
             pillDir.className = "pill";
-            pillDir.innerHTML = `<span class="pill-dot"></span>${sel.direction === "L" ? "Left direction" : "Right direction"}`;
+            pillDir.innerHTML = `<span class="pill-dot"></span>${sel.direction === "L" ? "Left" : "Right"} direction`;
 
             const pillColor = document.createElement("span");
             pillColor.className = "pill";
-            pillColor.innerHTML = `<span class="pill-dot"></span>Color ${sel.color} – ${conf.colors[sel.color].name}`;
+            pillColor.innerHTML = `<span class="pill-dot"></span>Color ${sel.color}`;
 
             const pillTone = document.createElement("span");
             pillTone.className = "pill";
-            pillTone.innerHTML = `<span class="pill-dot"></span>Tone ${sel.tone} – ${conf.tones[sel.tone].name}`;
+            pillTone.innerHTML = `<span class="pill-dot"></span>Tone ${sel.tone}`;
 
             meta.appendChild(pillDir);
             meta.appendChild(pillColor);
@@ -881,17 +1281,35 @@
             const body = document.createElement("div");
             body.className = "reading-body";
 
-            body.innerHTML += `<p>${conf.direction[sel.direction].body}</p>`;
-            body.innerHTML += `<p><strong>${conf.colors[sel.color].title}</strong></p>`;
-            body.innerHTML += `<p>${conf.colors[sel.color].body}</p>`;
-            body.innerHTML += `<p><strong>${conf.tones[sel.tone].name} tone</strong></p>`;
-            body.innerHTML += `<p>${conf.tones[sel.tone].body}</p>`;
+            const dirBody = conf.direction?.[sel.direction]?.body || "";
+            if (dirBody) body.innerHTML += `<p>${dirBody}</p>`;
+
+            const colorConf = conf.colors?.[sel.color];
+            if (colorConf) {
+                const colorBody =
+                    sel.direction === "L"
+                        ? (colorConf.leftBody || colorConf.body || "")
+                        : (colorConf.rightBody || colorConf.body || "");
+                if (colorConf.title) {
+                    body.innerHTML += `<p><strong>${colorConf.title}</strong></p>`;
+                }
+                if (colorBody) {
+                    body.innerHTML += `<p>${colorBody}</p>`;
+                }
+            }
+
+            const toneConf = conf.tones?.[sel.tone];
+            if (toneConf) {
+                body.innerHTML += `<p><strong>${toneConf.name} tone</strong></p>`;
+                if (toneConf.body) {
+                    body.innerHTML += `<p>${toneConf.body}</p>`;
+                }
+            }
 
             sec.appendChild(body);
             return sec;
         }
 
-        // VEND handler: build full report
         vendBtn.addEventListener("click", () => {
             readingDiv.innerHTML = "";
 

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Manifestor Variables Journal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+        :root {
+            --bg-deep: #05030a;
+            --bg-card: #0d0818;
+            --bg-soft: #120b24;
+            --accent-1: #f5d3ff;
+            --accent-2: #ff7ac7;
+            --accent-3: #9fe2ff;
+            --text-main: #fdf7ff;
+            --text-soft: #c1b6d9;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.7);
+            --radius-xl: 24px;
+            --radius-pill: 999px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                "SF Pro Display", "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #24123f 0, #05030a 55%);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 16px 40px;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 1080px;
+            background: radial-gradient(circle at top left, #1a0f33 0, #05030a 55%);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow: var(--shadow-soft);
+            padding: 24px 24px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 900px) {
+            .page {
+                padding: 28px 32px 36px;
+            }
+        }
+
+        .glow-1,
+        .glow-2 {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(52px);
+            opacity: 0.6;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        .glow-1 {
+            width: 220px;
+            height: 220px;
+            background: rgba(255, 122, 199, 0.35);
+            top: -60px;
+            right: -40px;
+        }
+
+        .glow-2 {
+            width: 260px;
+            height: 260px;
+            background: rgba(159, 226, 255, 0.3);
+            bottom: -80px;
+            left: -40px;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tagline {
+            font-size: 0.8rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent-3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.8;
+        }
+
+        .tag-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: var(--accent-2);
+            box-shadow: 0 0 10px rgba(255, 122, 199, 0.9);
+        }
+
+        .title-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .title-main {
+            font-size: 1.5rem;
+            letter-spacing: 0.04em;
+        }
+
+        .title-main span {
+            color: var(--accent-2);
+        }
+
+        .title-sub {
+            font-size: 0.9rem;
+            color: var(--text-soft);
+            max-width: 420px;
+        }
+
+        @media (min-width: 900px) {
+            .title-main {
+                font-size: 1.8rem;
+            }
+        }
+
+        .hero-note {
+            margin-top: 4px;
+            font-size: 0.85rem;
+            color: var(--text-soft);
+            background: linear-gradient(90deg,
+                    rgba(255, 122, 199, 0.08),
+                    rgba(9, 9, 11, 0.6));
+            border-radius: 999px;
+            border: 1px solid rgba(255, 122, 199, 0.22);
+            padding: 7px 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hero-note-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 122, 199, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            color: var(--accent-1);
+        }
+
+        .hero-note strong {
+            color: var(--accent-2);
+            font-weight: 600;
+        }
+
+        .actions-bar {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            display: flex;
+            gap: 8px;
+            z-index: 2;
+        }
+
+        .pill-btn {
+            padding: 7px 14px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            background: rgba(9, 9, 11, 0.88);
+            color: var(--accent-3);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.18s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .pill-btn:hover {
+            background: var(--accent-3);
+            color: #040308;
+            border-color: transparent;
+            box-shadow: 0 10px 30px rgba(159, 226, 255, 0.35);
+        }
+
+        .pill-btn.secondary {
+            color: var(--accent-2);
+            border-color: rgba(255, 122, 199, 0.6);
+        }
+
+        .pill-btn.secondary:hover {
+            background: var(--accent-2);
+            color: #040308;
+            box-shadow: 0 10px 30px rgba(255, 122, 199, 0.4);
+        }
+
+        .pill-btn span.icon {
+            font-size: 0.9rem;
+        }
+
+        .layout {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        @media (min-width: 880px) {
+            .layout {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .tab-btn {
+            flex: 1 1 110px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            padding: 7px 10px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            background: rgba(5, 3, 10, 0.8);
+            color: var(--text-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.16s ease-out;
+            backdrop-filter: blur(8px);
+            white-space: nowrap;
+        }
+
+        .tab-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .tab-btn.active {
+            color: var(--bg-deep);
+            background: linear-gradient(135deg,
+                    rgba(255, 122, 199, 0.98),
+                    rgba(164, 213, 255, 0.98));
+            border-color: transparent;
+            box-shadow: 0 8px 26px rgba(0, 0, 0, 0.55);
+        }
+
+        .tab-btn.active .tab-dot {
+            background: rgba(5, 3, 10, 0.96);
+        }
+
+        .tab-sub {
+            font-size: 0.8rem;
+            color: var(--text-soft);
+            margin-top: 2px;
+        }
+
+        .journal-card {
+            flex: 1.2;
+            background: radial-gradient(circle at top left, #221133 0, #05030a 60%);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-subtle);
+            padding: 16px 16px 18px;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 880px) {
+            .journal-card {
+                padding: 18px 18px 20px;
+            }
+        }
+
+        .journal-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right,
+                    rgba(255, 122, 199, 0.16),
+                    transparent 55%);
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .journal-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .section-title-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--accent-3);
+        }
+
+        .section-sub {
+            font-size: 0.8rem;
+            color: var(--text-soft);
+            margin-bottom: 10px;
+        }
+
+        .question {
+            margin-top: 10px;
+            margin-bottom: 4px;
+            font-size: 0.86rem;
+            color: var(--accent-1);
+        }
+
+        .question strong {
+            color: var(--accent-2);
+            font-weight: 600;
+            margin-right: 4px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 72px;
+            padding: 8px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(4, 2, 9, 0.9);
+            color: var(--text-main);
+            font-size: 0.85rem;
+            resize: vertical;
+            outline: none;
+            margin-bottom: 4px;
+            font-family: inherit;
+            line-height: 1.4;
+        }
+
+        textarea:focus {
+            border-color: rgba(159, 226, 255, 0.8);
+            box-shadow: 0 0 0 1px rgba(159, 226, 255, 0.5);
+        }
+
+        textarea::placeholder {
+            color: rgba(193, 182, 217, 0.7);
+        }
+
+        .hint {
+            margin-top: 8px;
+            font-size: 0.78rem;
+            color: var(--text-soft);
+            padding: 7px 9px;
+            border-radius: 11px;
+            background: rgba(12, 10, 24, 0.9);
+            border: 1px dashed rgba(159, 226, 255, 0.4);
+        }
+
+        .hint strong {
+            color: var(--accent-3);
+        }
+
+        .side-note {
+            flex: 0.9;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-subtle);
+            background: radial-gradient(circle at top, #130a24 0, #05030a 60%);
+            padding: 14px 14px 16px;
+            color: var(--text-soft);
+            font-size: 0.8rem;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-note::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at bottom left,
+                    rgba(159, 226, 255, 0.18),
+                    transparent 55%);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .side-note-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .side-title {
+            font-size: 0.86rem;
+            color: var(--accent-1);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .side-pill {
+            padding: 2px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(159, 226, 255, 0.6);
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--accent-3);
+        }
+
+        .side-list {
+            margin: 0;
+            padding-left: 16px;
+            margin-top: 6px;
+        }
+
+        .side-list li {
+            margin-bottom: 4px;
+        }
+
+        .side-caption {
+            margin-top: 8px;
+            font-size: 0.78rem;
+            opacity: 0.85;
+        }
+
+        @media (max-width: 879px) {
+            .side-note {
+                order: -1;
+            }
+
+            .actions-bar {
+                position: static;
+                margin-bottom: 10px;
+                justify-content: flex-end;
+            }
+
+            .page {
+                padding-top: 52px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+                padding: 0;
+            }
+
+            .page {
+                box-shadow: none;
+                background: white;
+                border-radius: 0;
+                border: none;
+            }
+
+            .glow-1,
+            .glow-2,
+            .actions-bar,
+            .hero-note,
+            .side-note {
+                display: none !important;
+            }
+
+            .journal-card {
+                background: white;
+                border: 1px solid #ccc;
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+
+            .tabs {
+                border-bottom: 1px solid #ccc;
+                margin-bottom: 8px;
+            }
+
+            .tab-btn {
+                background: #f5f5f5;
+                color: #333;
+                border-color: #ccc;
+            }
+
+            .tab-btn.active {
+                background: #222;
+                color: #fff;
+            }
+
+            textarea {
+                border: 1px solid #aaa;
+                background: transparent;
+                color: #000;
+                min-height: 56px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+
+        <div class="actions-bar">
+            <button class="pill-btn secondary" onclick="downloadJournal()">
+                <span class="icon">⬇︎</span> Download TXT
+            </button>
+            <button class="pill-btn" onclick="window.print()">
+                <span class="icon">🖨</span> Print / Save PDF
+            </button>
+        </div>
+
+        <header class="header">
+            <div class="tagline">
+                <span class="tag-dot"></span>
+                VARIABLES JOURNAL FOR MANIFESTORS
+            </div>
+            <div class="title-row">
+                <div>
+                    <div class="title-main">
+                        Arrows Integration <span>Journal</span>
+                    </div>
+                    <div class="title-sub">
+                        Use this space to decondition your variables slowly, gently and in
+                        real Manifestor life, not just in your mind.
+                    </div>
+                </div>
+            </div>
+            <div class="hero-note">
+                <div class="hero-note-icon">★</div>
+                <div>
+                    <strong>Note:</strong> Your answers auto‑save in this browser. You
+                    can download or print them anytime.
+                </div>
+            </div>
+        </header>
+
+        <main class="layout">
+            <section style="flex: 1.2;">
+                <div class="tabs">
+                    <button class="tab-btn active" data-section="determination">
+                        <span class="tab-dot"></span> Top Left · Determination
+                    </button>
+                    <button class="tab-btn" data-section="environment">
+                        <span class="tab-dot"></span> Bottom Left · Environment
+                    </button>
+                    <button class="tab-btn" data-section="perspective">
+                        <span class="tab-dot"></span> Top Right · Perspective
+                    </button>
+                    <button class="tab-btn" data-section="motivation">
+                        <span class="tab-dot"></span> Bottom Right · Motivation
+                    </button>
+                </div>
+                <div class="tab-sub">
+                    Click an arrow to work with that variable. You can keep coming back to
+                    the same tab over time.
+                </div>
+
+                <div class="journal-card">
+                    <div class="journal-inner" id="journalCard"></div>
+                </div>
+            </section>
+
+            <aside class="side-note">
+                <div class="side-note-inner">
+                    <div class="side-title">
+                        How to use this journal
+                        <span class="side-pill">Manifestor anonymous</span>
+                    </div>
+                    <p>
+                        Let your urges pick the tab that feels loudest today. There is no
+                        order, no schedule and no “catching up”.
+                    </p>
+                    <ul class="side-list">
+                        <li>Pick one question and write a few honest sentences.</li>
+                        <li>Notice how your body feels as you answer, not just what you think.</li>
+                        <li>Close the page when you are done. Your words will still be here.</li>
+                    </ul>
+                    <p class="side-caption">
+                        When you are ready to integrate deeper, download or print your
+                        answers and keep them with your chart or Manifestor notebook.
+                    </p>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script>
+        const journalPrompts = {
+            determination: {
+                title: "Top Left – Determination (Brain & Digestion)",
+                sub: "Prompts for Appetite, Taste, Thirst, Touch, Sound and Light.",
+                questions: [
+                    "Where am I currently trying to digest too many things at once (food, information, conversations, projects)?",
+                    "What would it look like this week to simplify my intake and let one thing at a time be enough?",
+                    "Have I been respecting my natural hunger and appetite, or forcing myself to consume when I am not actually ready?",
+                    "How does the temperature, sound or energy of my eating / learning environments really feel in my body?",
+                    "Where could I tweak one tiny Determination variable today (quantity, routine, temperature, sound, light) and see what happens?"
+                ]
+            },
+            environment: {
+                title: "Bottom Left – Environment (Where You Thrive)",
+                sub: "Prompts for Caves, Markets, Kitchens, Mountains, Valleys and Shores.",
+                questions: [
+                    "Do I feel safe and relaxed in the place where I spend most of my time, or does my body stay on alert there?",
+                    "Have I been in environments that match my hardscape/landscape style (caves, markets, kitchens, mountains, valleys, shores) enough lately?",
+                    "What small change could I make to my bedroom, work space or favourite spot that would make it feel more like my correct environment?",
+                    "Where have I been tolerating environments or people that my body clearly does not like being around?",
+                    "If I treated my environment as medicine for my Manifestor nervous system, what would I add, remove or visit this week?"
+                ]
+            },
+            perspective: {
+                title: "Top Right – Perspective (How You See)",
+                sub: "Prompts for Survival, Possibility, Power, Wanting, Probability and Personal view.",
+                questions: [
+                    "How does my mind naturally look at the world right now – what do I notice first without trying?",
+                    "Where have I been judging my way of seeing (too negative, too hopeful, too self‑focused) instead of respecting it as part of my design?",
+                    "What happens to my urges when I allow myself to see through my own view, instead of forcing myself to think like everyone else?",
+                    "Which situations currently feel impossible or stuck, and how does my perspective colour the way I am reading them?",
+                    "If I trusted my view for one week, where would I stop giving my mental energy and where would I give it more freely?"
+                ]
+            },
+            motivation: {
+                title: "Bottom Right – Motivation (How You Think)",
+                sub: "Prompts for Fear, Hope, Desire, Need, Guilt and Innocence motivation.",
+                questions: [
+                    "What actually motivates me to move right now – fear, hope, desire, need, guilt or innocence – if I am really honest?",
+                    "Where am I pushing myself with shoulds and have‑tos that do not match my true motivation at all?",
+                    "How does my body feel when I act from my real motivation versus when I act from what I think should motivate me?",
+                    "Which current urge or idea feels most aligned with my true motivation, even if it does not make logical sense to anyone else?",
+                    "If I let my natural motivation lead for the next few days, what would I stop doing, and what would I finally start?"
+                ]
+            }
+        };
+
+        const STORAGE_KEY = "manifestorVariablesJournal_v1";
+
+        function loadAnswers() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                return raw ? JSON.parse(raw) : {};
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function saveAnswers(data) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            } catch (e) { }
+        }
+
+        let answers = loadAnswers();
+
+        const tabs = document.querySelectorAll(".tab-btn");
+        const card = document.getElementById("journalCard");
+
+        function renderSection(key) {
+            const data = journalPrompts[key];
+            card.innerHTML = "";
+
+            const headerRow = document.createElement("div");
+            headerRow.className = "section-title";
+
+            const titleLeft = document.createElement("div");
+            titleLeft.textContent = data.title;
+
+            const labelRight = document.createElement("div");
+            labelRight.className = "section-title-label";
+            labelRight.textContent = key.replace(/^\w/, c => c.toUpperCase());
+
+            headerRow.appendChild(titleLeft);
+            headerRow.appendChild(labelRight);
+            card.appendChild(headerRow);
+
+            const sub = document.createElement("div");
+            sub.className = "section-sub";
+            sub.textContent = data.sub;
+            card.appendChild(sub);
+
+            const existing = answers[key] || [];
+
+            data.questions.forEach((q, index) => {
+                const p = document.createElement("div");
+                p.className = "question";
+                p.innerHTML = `<strong>Q${index + 1}.</strong> ${q}`;
+                card.appendChild(p);
+
+                const ta = document.createElement("textarea");
+                ta.placeholder = "Write your response here…";
+                ta.value = existing[index] || "";
+                ta.addEventListener("input", () => {
+                    if (!answers[key]) answers[key] = [];
+                    answers[key][index] = ta.value;
+                    saveAnswers(answers);
+                });
+                card.appendChild(ta);
+            });
+
+            const hint = document.createElement("div");
+            hint.className = "hint";
+            hint.innerHTML =
+                "<strong>Saving:</strong> Your answers are stored in this browser on this device. Download a TXT copy or print to keep them elsewhere.";
+            card.appendChild(hint);
+        }
+
+        tabs.forEach(btn => {
+            btn.addEventListener("click", () => {
+                tabs.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                const key = btn.getAttribute("data-section");
+                renderSection(key);
+            });
+        });
+
+        function downloadJournal() {
+            let output = "MANIFESTOR VARIABLES JOURNAL\n\n";
+
+            Object.keys(journalPrompts).forEach(key => {
+                const data = journalPrompts[key];
+                const userAnswers = answers[key] || [];
+
+                output += data.title + "\n";
+                output += data.sub + "\n\n";
+
+                data.questions.forEach((q, i) => {
+                    output += `Q${i + 1}. ${q}\n`;
+                    output += (userAnswers[i] || "[No response yet]") + "\n\n";
+                });
+
+                output += "\n----------------------------------------\n\n";
+            });
+
+            const blob = new Blob([output], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "manifestor-variables-journal.txt";
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        window.downloadJournal = downloadJournal;
+
+        renderSection("determination");
+    </script>
+</body>
+
+</html>
