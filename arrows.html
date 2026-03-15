@@ -1086,7 +1086,7 @@
     </div>
 
     <script>
-        const SCRIPTURL = "https://script.google.com/macros/s/AKfycbwajvwN9lt-dQAmDx5wlOBwrYTRhI1xOswA7DfHZ65N9eB9sqfJjJ2wEqoM4P0yRWzx/exec";
+        const SCRIPTURL = "https://script.google.com/macros/s/AKfycbzBVX_KUnpw6oJ5jnt08kIM5UYyJnxj_BbTA1icTFjf39LePrCxX-v616hBMlViBIqW/exec";
 
         const state = {
             emailUnlocked: false,
@@ -1128,7 +1128,8 @@
         async function saveEmailToGoogleSheet(email) {
             const formData = new URLSearchParams();
             formData.append("email", email);
-            formData.append("source", "Manifestor Arrows Snapshot Room");
+            formData.append("source", "arrows scanner");
+            formData.append("page", "arrows-scanner");
 
             const response = await fetch(SCRIPTURL, {
                 method: "POST",
