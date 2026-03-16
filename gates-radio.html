@@ -8,7 +8,7 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
 
     <meta name="description"
-        content="Full Top 64 Gates chart for Gates Radio. See which gate stations are online, dark, or coming soon, and unlock lifetime access with a Gates Radio Pass or a Single Gate Pass." />
+        content="Full Top 64 Gates chart for Gates Radio. See which gate stations are online or in progress, open free playlists, and unlock lifetime access to the Master Gates Radio Log." />
 
     <style>
         :root {
@@ -60,14 +60,14 @@
             mask-image: radial-gradient(circle at center, black 40%, transparent 86%);
         }
 
-        img {
-            display: block;
-            max-width: 100%;
-        }
-
         a {
             color: inherit;
             text-decoration: none;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
         }
 
         .container {
@@ -106,12 +106,6 @@
             overflow: hidden;
             box-shadow: 0 0 22px rgba(56, 189, 248, 0.3);
             background: #020617;
-        }
-
-        .brand-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         .brand-copy small {
@@ -266,6 +260,7 @@
         .chart-table td {
             padding: 6px 4px;
             border-bottom: 1px solid rgba(30, 64, 175, 0.6);
+            vertical-align: top;
         }
 
         .chart-table th {
@@ -284,58 +279,59 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            padding: 3px 8px;
+            padding: 2px 7px;
             border-radius: 999px;
             font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.16em;
-        }
-
-        .badge-online {
-            background: rgba(34, 197, 94, 0.12);
-            color: #bbf7d0;
-            border: 1px solid rgba(34, 197, 94, 0.6);
-        }
-
-        .badge-dark {
-            background: rgba(30, 64, 175, 0.12);
-            color: rgba(148, 163, 184, 0.96);
-            border: 1px solid rgba(30, 64, 175, 0.6);
-        }
-
-        .badge-soon {
-            background: rgba(234, 179, 8, 0.12);
-            color: #facc15;
-            border: 1px solid rgba(234, 179, 8, 0.7);
+            letter-spacing: 0.18em;
         }
 
         .badge-dot {
-            width: 6px;
-            height: 6px;
+            width: 7px;
+            height: 7px;
             border-radius: 999px;
-            background: currentColor;
         }
 
-        .chart-cta-row {
-            margin-top: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+        .badge-online {
+            background: rgba(34, 197, 94, 0.1);
+            color: #bbf7d0;
+            border: 1px solid rgba(34, 197, 94, 0.5);
+        }
+
+        .badge-online .badge-dot {
+            background: #4ade80;
+        }
+
+        .badge-offline {
+            background: rgba(148, 163, 184, 0.12);
+            color: var(--dim);
+            border: 1px solid rgba(148, 163, 184, 0.5);
+        }
+
+        .badge-offline .badge-dot {
+            background: rgba(148, 163, 184, 0.8);
+        }
+
+        .label-price {
+            font-size: 13px;
+            color: var(--muted);
         }
 
         footer {
-            margin-top: 30px;
-            padding: 18px 0 26px;
-            border-top: 1px solid rgba(30, 64, 175, 0.7);
-            font-size: 11px;
-            color: var(--dim);
+            margin-top: 36px;
+            border-top: 1px solid rgba(15, 23, 42, 0.9);
+            background: rgba(3, 7, 18, 0.94);
         }
 
         .footer-inner {
+            padding: 16px 0 20px;
+            font-size: 11px;
+            color: var(--dim);
             display: flex;
-            justify-content: space-between;
             flex-wrap: wrap;
-            gap: 14px;
+            gap: 10px 16px;
+            justify-content: space-between;
+            align-items: center;
         }
 
         @media (max-width: 720px) {
@@ -344,12 +340,13 @@
                 align-items: flex-start;
             }
 
-            .top-links {
-                display: none;
+            .chart-card {
+                padding: 16px 14px;
             }
 
-            .chart-card {
-                padding: 18px 18px 16px;
+            .chart-table th,
+            .chart-table td {
+                font-size: 11px;
             }
         }
     </style>
@@ -364,42 +361,55 @@
                 </div>
                 <div class="brand-copy">
                     <small>Manifestor Anonymous</small>
-                    <strong>Top 64 Gates · Gates Radio</strong>
-                    <div class="topbar-tagline">DJ sun archive · Gate stations chart.</div>
+                    <strong>Gates Radio</strong>
+                    <div class="topbar-tagline">Gate stations · Free playlists · Master Gates Radio Log</div>
                 </div>
             </div>
             <nav class="top-links">
-                <a href="gates.html" class="btn btn-secondary">Back to DJ sun & overview</a>
+                <a href="gates.html" class="btn btn-secondary">Back to Gates Radio</a>
             </nav>
         </div>
     </header>
 
     <main>
+        <!-- Hero / intro -->
         <section class="section">
             <div class="container">
                 <div class="section-head">
-                    <span class="section-label">Full chart</span>
-                    <h1>Top 64 Gates · Stations.</h1>
+                    <span class="section-label">Top 64 Gates · Stations</span>
+                    <h1>Top 64 Gates · Gates Radio Stations</h1>
                     <p>
-                        This is the full Gates Radio chart. Each gate is a station. Online gates already
-                        have playlists. Dark gates haven’t gone on air yet. Coming soon gates are
-                        building quietly through transits and incarnation cross work.
-                    </p>
-                    <p class="micro" style="margin-top:6px;color:rgba(148,163,184,0.96);">
-                        Online = station playlist available · Dark = not broadcast yet · Coming soon = station in
-                        production.
+                        This chart shows all 64 gate stations and their status. You can open any
+                        gate playlist that’s online for free. If you want the backend map that
+                        tracks every song by gate, center, circuitry, and channel, that’s inside
+                        the paid Master Gates Radio Log (lifetime access).
                     </p>
                 </div>
 
+                <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                    <a href="https://manifestoranonymous.com/gates" class="btn btn-secondary">
+                        Back to Gates Radio page
+                    </a>
+                    <!-- TODO: replace # with checkout URL -->
+                    <a href="#" class="btn btn-primary">
+                        Get Master Gates Radio Log · $64
+                    </a>
+                </div>
+
+                <p class="micro" style="margin-top:4px;">
+                    Free: gate playlists. Paid: Master Gates Radio Log – the searchable, living archive.
+                </p>
+            </div>
+        </section>
+
+        <!-- Top 64 gates chart -->
+        <section class="section">
+            <div class="container">
                 <article class="chart-card">
                     <div class="chart-header">
                         <div>
-                            <h2>Gate stations · access rules.</h2>
-                            <div class="chart-sub">Gates Radio Pass · Single Gate Pass</div>
-                        </div>
-                        <div style="font-size:11px;color:var(--dim);max-width:280px;">
-                            Gates Radio Pass unlocks every gate that’s online now plus all future stations.
-                            Single Gate Pass unlocks one gate station and every song added to it over time.
+                            <h2>Top 64 Gates · Station chart</h2>
+                            <div class="chart-sub">Gate stations · Online & in progress</div>
                         </div>
                     </div>
 
@@ -408,674 +418,562 @@
                             <tr>
                                 <th>#</th>
                                 <th>Gate</th>
-                                <th>Theme</th>
-                                <th>Circuitry</th>
-                                <th>Center</th>
                                 <th>Status</th>
-                                <th>Access</th>
+                                <th>Playlist</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Head center -->
+                            <!-- 1–9 -->
                             <tr>
-                                <td>01</td>
-                                <td>Gate 1</td>
-                                <td>Creative</td>
-                                <td>Individual</td>
-                                <td>G Center</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>1</td>
+                                <td>Gate 1 · Self‑Expression</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
-                                <td>02</td>
-                                <td>Gate 2</td>
-                                <td>Direction</td>
-                                <td>Individual</td>
-                                <td>G Center</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>2</td>
+                                <td>Gate 2 · Direction</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
-                                <td>03</td>
-                                <td>Gate 3</td>
-                                <td>Ordering</td>
-                                <td>Individual</td>
-                                <td>Sacral</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>3</td>
+                                <td>Gate 3 · Ordering</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
-                                <td>04</td>
-                                <td>Gate 4</td>
-                                <td>Formulization</td>
-                                <td>Collective</td>
-                                <td>Ajna</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>4</td>
+                                <td>Gate 4 · Answers</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
-                                <td>05</td>
-                                <td>Gate 5</td>
-                                <td>Fixed Patterns</td>
-                                <td>Collective</td>
-                                <td>Sacral</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>5</td>
+                                <td>Gate 5 · Fixed Rhythms</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
-                                <td>06</td>
-                                <td>Gate 6</td>
-                                <td>Friction</td>
-                                <td>Tribal</td>
-                                <td>Solar Plexus</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>6</td>
+                                <td>Gate 6 · Friction</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
-                                <td>07</td>
-                                <td>Gate 7</td>
-                                <td>The Role of the Self</td>
-                                <td>Collective</td>
-                                <td>G Center</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>7</td>
+                                <td>Gate 7 · Role of the Self</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
-                                <td>08</td>
-                                <td>Gate 8</td>
-                                <td>Contribution</td>
-                                <td>Individual</td>
-                                <td>Throat</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>8</td>
+                                <td>Gate 8 · Contribution</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
-                                <td>09</td>
-                                <td>Gate 9</td>
-                                <td>Focus</td>
-                                <td>Collective</td>
-                                <td>Sacral</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>9</td>
+                                <td>Gate 9 · Focus</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
+
+                            <!-- 10–19 -->
                             <tr>
                                 <td>10</td>
-                                <td>Gate 10</td>
-                                <td>Self‑Love</td>
-                                <td>Individual</td>
-                                <td>G Center</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                <td>Gate 10 · Behaviour of the Self</td>
+                                <td>
+                                    <span class="badge-status badge-offline">
+                                        <span class="badge-dot"></span> In progress
+                                    </span>
                                 </td>
-                                <td>Not broadcast yet.</td>
+                                <td><span class="micro">Playlist in the works.</span></td>
                             </tr>
                             <tr>
                                 <td>11</td>
-                                <td>Gate 11</td>
-                                <td>Ideas</td>
-                                <td>Collective</td>
-                                <td>Ajna</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                <td>Gate 11 · Ideas</td>
+                                <td>
+                                    <span class="badge-status badge-offline">
+                                        <span class="badge-dot"></span> In progress
+                                    </span>
                                 </td>
-                                <td>Not broadcast yet.</td>
+                                <td><span class="micro">Playlist coming soon.</span></td>
                             </tr>
                             <tr>
                                 <td>12</td>
-                                <td>Gate 12</td>
-                                <td>Caution</td>
-                                <td>Individual</td>
-                                <td>Throat</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                <td>Gate 12 · Caution</td>
+                                <td>
+                                    <span class="badge-status badge-online">
+                                        <span class="badge-dot"></span> Online
+                                    </span>
                                 </td>
-                                <td>Not broadcast yet.</td>
+                                <td>
+                                    <a href="https://open.spotify.com/playlist/5JiFAS4gmNyzNQfzadFjjd?si=4e_LNCaASx-QLtSNkz2sAg"
+                                        target="_blank" rel="noopener noreferrer" class="btn btn-tertiary"
+                                        style="padding:5px 10px;font-size:10px;">
+                                        Open playlist
+                                    </a>
+                                    <div class="micro" style="margin-top:4px;opacity:0.7;">
+                                        Track‑by‑track notes live in the Log.
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td>13</td>
-                                <td>Gate 13</td>
-                                <td>Listener</td>
-                                <td>Collective</td>
-                                <td>G Center</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 13 · Listener</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>14</td>
-                                <td>Gate 14</td>
-                                <td>Power Skills</td>
-                                <td>Individual</td>
-                                <td>Sacral</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 14 · Power Skills</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>15</td>
-                                <td>Gate 15</td>
-                                <td>Extremes</td>
-                                <td>Collective</td>
-                                <td>G Center</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 15 · Extremes</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>16</td>
-                                <td>Gate 16</td>
-                                <td>Skills</td>
-                                <td>Collective</td>
-                                <td>Throat</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 16 · Skills</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>17</td>
-                                <td>Gate 17</td>
-                                <td>Opinions</td>
-                                <td>Collective</td>
-                                <td>Ajna</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 17 · Opinions</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>18</td>
-                                <td>Gate 18</td>
-                                <td>Correction</td>
-                                <td>Collective</td>
-                                <td>Spleen</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 18 · Correction</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>19</td>
-                                <td>Gate 19</td>
-                                <td>Wanting</td>
-                                <td>Tribal</td>
-                                <td>Root</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 19 · Wanting</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
+
+                            <!-- 20–29 -->
                             <tr>
                                 <td>20</td>
-                                <td>Gate 20</td>
-                                <td>Now</td>
-                                <td>Individual</td>
-                                <td>Throat</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 20 · The Now</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>21</td>
-                                <td>Gate 21</td>
-                                <td>Control</td>
-                                <td>Tribal</td>
-                                <td>Heart/Ego</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 21 · Hunter/Huntress</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
-
-                            <!-- Gate 22 Online -->
                             <tr>
                                 <td>22</td>
-                                <td>Gate 22</td>
-                                <td>Grace</td>
-                                <td>Individual</td>
-                                <td>Solar Plexus</td>
+                                <td>Gate 22 · Grace</td>
                                 <td>
-                                    <span class="badge-status badge-online"><span class="badge-dot"></span>
-                                        Online</span>
+                                    <span class="badge-status badge-online">
+                                        <span class="badge-dot"></span> Online
+                                    </span>
                                 </td>
                                 <td>
-                                    Included in Gates Radio Pass ·
-                                    <!-- TODO: Single gate checkout URL -->
-                                    <a href="#" style="color:var(--accent);text-decoration:underline;">Single Gate 22
-                                        Pass</a>
+                                    <a href="https://open.spotify.com/playlist/4dRtSluSyPUpDwhcJE0r8D?si=DIvyJYSxTe22yfONcGSUPQ"
+                                        target="_blank" rel="noopener noreferrer" class="btn btn-tertiary"
+                                        style="padding:5px 10px;font-size:10px;">
+                                        Open playlist
+                                    </a>
+                                    <div class="micro" style="margin-top:4px;opacity:0.7;">
+                                        Full Gate 22 notes live in the Log.
+                                    </div>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td>23</td>
-                                <td>Gate 23</td>
-                                <td>Assimilation</td>
-                                <td>Individual</td>
-                                <td>Throat</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 23 · Assimilation</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>24</td>
-                                <td>Gate 24</td>
-                                <td>Rationalization</td>
-                                <td>Individual</td>
-                                <td>Ajna</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 24 · Rationalizing</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>25</td>
-                                <td>Gate 25</td>
-                                <td>Spirit of Self</td>
-                                <td>Individual</td>
-                                <td>G Center</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 25 · Spirit of the Self</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>26</td>
-                                <td>Gate 26</td>
-                                <td>Egoist</td>
-                                <td>Tribal</td>
-                                <td>Heart/Ego</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 26 · Egoist/Trickster</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>27</td>
-                                <td>Gate 27</td>
-                                <td>Caring</td>
-                                <td>Tribal</td>
-                                <td>Sacral</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 27 · Caring</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>28</td>
-                                <td>Gate 28</td>
-                                <td>Game Player</td>
-                                <td>Individual</td>
-                                <td>Spleen</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                <td>Gate 28 · Struggle for Purpose</td>
+                                <td>
+                                    <span class="badge-status badge-offline">
+                                        <span class="badge-dot"></span> In progress
+                                    </span>
                                 </td>
-                                <td>Not broadcast yet.</td>
+                                <td><span class="micro">Playlist in the works.</span></td>
                             </tr>
                             <tr>
                                 <td>29</td>
-                                <td>Gate 29</td>
-                                <td>Perseverance</td>
-                                <td>Collective</td>
-                                <td>Sacral</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 29 · Saying Yes</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
+
+                            <!-- 30–39 -->
                             <tr>
                                 <td>30</td>
-                                <td>Gate 30</td>
-                                <td>Desires</td>
-                                <td>Collective</td>
-                                <td>Solar Plexus</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 30 · Desire</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>31</td>
-                                <td>Gate 31</td>
-                                <td>Influence</td>
-                                <td>Collective</td>
-                                <td>Throat</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 31 · Leading/Influence</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>32</td>
-                                <td>Gate 32</td>
-                                <td>Continuity</td>
-                                <td>Tribal</td>
-                                <td>Spleen</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 32 · Continuity</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>33</td>
-                                <td>Gate 33</td>
-                                <td>Privacy</td>
-                                <td>Collective</td>
-                                <td>Throat</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 33 · Privacy</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>34</td>
-                                <td>Gate 34</td>
-                                <td>Power</td>
-                                <td>Individual</td>
-                                <td>Sacral</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 34 · Power</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>35</td>
-                                <td>Gate 35</td>
-                                <td>Change</td>
-                                <td>Collective</td>
-                                <td>Throat</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 35 · Change</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>36</td>
-                                <td>Gate 36</td>
-                                <td>Crisis</td>
-                                <td>Collective</td>
-                                <td>Solar Plexus</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                <td>Gate 36 · Crisis</td>
+                                <td>
+                                    <span class="badge-status badge-online">
+                                        <span class="badge-dot"></span> Online
+                                    </span>
                                 </td>
-                                <td>Not broadcast yet.</td>
+                                <td>
+                                    <a href="YOUR_GATE_36_PLAYLIST_URL_HERE" target="_blank" rel="noopener noreferrer"
+                                        class="btn btn-tertiary" style="padding:5px 10px;font-size:10px;">
+                                        Open playlist
+                                    </a>
+                                    <div class="micro" style="margin-top:4px;opacity:0.7;">
+                                        Every crisis track is mapped in the Log.
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td>37</td>
-                                <td>Gate 37</td>
-                                <td>Friendship</td>
-                                <td>Tribal</td>
-                                <td>Solar Plexus</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                <td>Gate 37 · Harmony/Friendship</td>
+                                <td>
+                                    <span class="badge-status badge-offline">
+                                        <span class="badge-dot"></span> In progress
+                                    </span>
                                 </td>
-                                <td>Not broadcast yet.</td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>38</td>
-                                <td>Gate 38</td>
-                                <td>Fighter</td>
-                                <td>Individual</td>
-                                <td>Root</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
+                                <td>Gate 38 · Struggle</td>
+                                <td>
+                                    <span class="badge-status badge-online">
+                                        <span class="badge-dot"></span> Online
+                                    </span>
                                 </td>
-                                <td>Not broadcast yet.</td>
+                                <td>
+                                    <a href="YOUR_GATE_38_PLAYLIST_URL_HERE" target="_blank" rel="noopener noreferrer"
+                                        class="btn btn-tertiary" style="padding:5px 10px;font-size:10px;">
+                                        Open playlist
+                                    </a>
+                                    <div class="micro" style="margin-top:4px;opacity:0.7;">
+                                        Notes on what’s worth the fight live in the Log.
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td>39</td>
-                                <td>Gate 39</td>
-                                <td>Provocation</td>
-                                <td>Individual</td>
-                                <td>Root</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 39 · Provocation</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
+
+                            <!-- 40–49 -->
                             <tr>
                                 <td>40</td>
-                                <td>Gate 40</td>
-                                <td>Aloneness</td>
-                                <td>Tribal</td>
-                                <td>Heart/Ego</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 40 · Aloneness</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>41</td>
-                                <td>Gate 41</td>
-                                <td>Contraction</td>
-                                <td>Collective</td>
-                                <td>Root</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 41 · Contraction</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>42</td>
-                                <td>Gate 42</td>
-                                <td>Growth</td>
-                                <td>Collective</td>
-                                <td>Sacral</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 42 · Growth</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>43</td>
-                                <td>Gate 43</td>
-                                <td>Insight</td>
-                                <td>Individual</td>
-                                <td>Ajna</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 43 · Breakthrough/Insight</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>44</td>
-                                <td>Gate 44</td>
-                                <td>Alertness</td>
-                                <td>Tribal</td>
-                                <td>Spleen</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 44 · Alertness</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>45</td>
-                                <td>Gate 45</td>
-                                <td>Gatherer</td>
-                                <td>Tribal</td>
-                                <td>Throat</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 45 · The Gatherer</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>46</td>
-                                <td>Gate 46</td>
-                                <td>Determination of the Self</td>
-                                <td>Collective</td>
-                                <td>G Center</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 46 · Determination of the Self</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>47</td>
-                                <td>Gate 47</td>
-                                <td>Realization</td>
-                                <td>Collective</td>
-                                <td>Ajna</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 47 · Realization</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>48</td>
-                                <td>Gate 48</td>
-                                <td>Depth</td>
-                                <td>Individual</td>
-                                <td>Spleen</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 48 · Depth</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>49</td>
-                                <td>Gate 49</td>
-                                <td>Principles</td>
-                                <td>Tribal</td>
-                                <td>Solar Plexus</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 49 · Principles</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
+
+                            <!-- 50–64 -->
                             <tr>
                                 <td>50</td>
-                                <td>Gate 50</td>
-                                <td>Values</td>
-                                <td>Tribal</td>
-                                <td>Spleen</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 50 · Values</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>51</td>
-                                <td>Gate 51</td>
-                                <td>Shock</td>
-                                <td>Individual</td>
-                                <td>Heart/Ego</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 51 · Shock/Initiation</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>52</td>
-                                <td>Gate 52</td>
-                                <td>Stillness</td>
-                                <td>Collective</td>
-                                <td>Root</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 52 · Stillness</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>53</td>
-                                <td>Gate 53</td>
-                                <td>Beginning</td>
-                                <td>Collective</td>
-                                <td>Root</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 53 · Beginnings</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>54</td>
-                                <td>Gate 54</td>
-                                <td>Ambition</td>
-                                <td>Tribal</td>
-                                <td>Root</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 54 · Ambition</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>55</td>
-                                <td>Gate 55</td>
-                                <td>Abundance of Spirit</td>
-                                <td>Individual</td>
-                                <td>Solar Plexus</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 55 · Spirit</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>56</td>
-                                <td>Gate 56</td>
-                                <td>Storytelling</td>
-                                <td>Collective</td>
-                                <td>Throat</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 56 · Storytelling</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>57</td>
-                                <td>Gate 57</td>
-                                <td>Intuition</td>
-                                <td>Individual</td>
-                                <td>Spleen</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 57 · Intuitive Clarity</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>58</td>
-                                <td>Gate 58</td>
-                                <td>Joy of Life</td>
-                                <td>Collective</td>
-                                <td>Root</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 58 · Joy of Life</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>59</td>
-                                <td>Gate 59</td>
-                                <td>Intimacy</td>
-                                <td>Tribal</td>
-                                <td>Sacral</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 59 · Intimacy</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>60</td>
-                                <td>Gate 60</td>
-                                <td>Limitation</td>
-                                <td>Collective</td>
-                                <td>Root</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 60 · Acceptance/Limitation</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>61</td>
-                                <td>Gate 61</td>
-                                <td>Mystery</td>
-                                <td>Individual</td>
-                                <td>Head</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 61 · Mystery</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>62</td>
-                                <td>Gate 62</td>
-                                <td>Details</td>
-                                <td>Collective</td>
-                                <td>Throat</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 62 · Details</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>63</td>
-                                <td>Gate 63</td>
-                                <td>Doubt</td>
-                                <td>Collective</td>
-                                <td>Head</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 63 · Doubt</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                             <tr>
                                 <td>64</td>
-                                <td>Gate 64</td>
-                                <td>Confusion</td>
-                                <td>Collective</td>
-                                <td>Head</td>
-                                <td><span class="badge-status badge-dark"><span class="badge-dot"></span> Dark</span>
-                                </td>
-                                <td>Not broadcast yet.</td>
+                                <td>Gate 64 · Confusion</td>
+                                <td><span class="badge-status badge-offline"><span class="badge-dot"></span> In
+                                        progress</span></td>
+                                <td><span class="micro">Station not online yet.</span></td>
                             </tr>
                         </tbody>
                     </table>
+                </article>
+            </div>
+        </section>
 
-                    <div class="chart-cta-row">
-                        <!-- TODO: All-access checkout URL -->
-                        <a href="#" class="btn btn-primary">Gates Radio Pass · All online gates</a>
-                        <span class="micro">
-                            Single Gate Pass = lifetime access to one gate station + all future songs for that gate.
-                        </span>
+        <!-- Master Gates Radio Log upsell card -->
+        <section class="section">
+            <div class="container">
+                <article class="chart-card">
+                    <div class="chart-header">
+                        <div>
+                            <h2>Master Gates Radio Log</h2>
+                            <div class="chart-sub">Paid library · Lifetime access</div>
+                        </div>
+                    </div>
+                    <p>
+                        The playlists are free. The Master Gates Radio Log is the private backend:
+                        a Google Sheet that logs every track by gate, center, circuitry, channel,
+                        and a short “why this lives here” note. It’s the tool you use to build
+                        your own playlists by transit, natal chart, or mood.
+                    </p>
+                    <ul style="margin:8px 0 12px 1.1rem;font-size:13px;line-height:1.7;color:var(--muted);">
+                        <li>64 gates · 64 stations · one searchable sheet.</li>
+                        <li>Filter by gate, center, circuitry, or channel.</li>
+                        <li>Includes DJ Sun sets and DJ Request tracks as they’re added.</li>
+                    </ul>
+                    <p class="label-price">
+                        Founding access: <strong>$64</strong> for the full 64‑gate Log
+                        (rising to <strong>$111</strong> once all 64 gates are populated).
+                    </p>
+                    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:10px;">
+                        <!-- TODO: replace # with checkout URL -->
+                        <a href="#" class="btn btn-primary">Get Master Gates Radio Log</a>
                     </div>
                 </article>
             </div>
@@ -1086,7 +984,7 @@
         <div class="container footer-inner">
             <div>© Manifestor Anonymous. Gates Radio.</div>
             <div>Top 64 Gates · Station chart.</div>
-            <div>Operator: Manifestor‑run. For Manifestors only.</div>
+            <div>Operator: Manifestor‑run. For Manifestors & HD‑obsessed.</div>
             <div>
                 <a href="https://instagram.com/manifestor.anonymous" target="_blank" rel="noopener noreferrer">
                     @manifestor.anonymous

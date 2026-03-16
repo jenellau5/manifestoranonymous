@@ -6,25 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gates Radio • Manifestor Anonymous</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
-
     <meta name="description"
-        content="Gates Radio is the archive behind DJ sun. See the Top 64 Gates chart, tune into the Sun gate sampler, and unlock lifetime access to gate stations with a Gates Radio Pass or a Single Gate Pass." />
+        content="Gates Radio is the archive behind DJ Sun. Explore gate playlists, submit a DJ request, and access the full 64-gate Master Gates Radio Log." />
 
     <style>
         :root {
             --bg: #020711;
+            --bg-2: #071120;
             --panel: rgba(17, 24, 39, 0.92);
-            --panel-soft: rgba(15, 23, 42, 0.85);
-            --line: rgba(148, 163, 184, 0.32);
-            --line-strong: rgba(148, 163, 184, 0.6);
-            --text: #ecf4ff;
-            --muted: rgba(226, 232, 240, 0.8);
+            --panel-soft: rgba(15, 23, 42, 0.94);
+            --line: rgba(148, 163, 184, 0.24);
+            --line-strong: rgba(148, 163, 184, 0.5);
+            --text: #edf4ff;
+            --muted: rgba(226, 232, 240, 0.78);
             --dim: rgba(148, 163, 184, 0.82);
             --accent: #38bdf8;
-            --accent-soft: rgba(56, 189, 248, 0.2);
-            --purple: #7c3aed;
-            --radius: 26px;
-            --shadow: 0 24px 80px rgba(0, 0, 0, 0.66);
+            --accent-soft: rgba(56, 189, 248, 0.14);
+            --accent-glow: rgba(56, 189, 248, 0.34);
+            --green: #4ade80;
+            --radius: 24px;
+            --shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+            --shadow-soft: 0 14px 38px rgba(0, 0, 0, 0.35);
+            --max: 1120px;
         }
 
         * {
@@ -38,12 +41,12 @@
         body {
             margin: 0;
             font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background:
-                radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 20%),
-                radial-gradient(circle at 15% 80%, rgba(56, 189, 248, 0.12), transparent 26%),
-                radial-gradient(circle at 80% 10%, rgba(124, 58, 237, 0.14), transparent 32%),
-                var(--bg);
             color: var(--text);
+            background:
+                radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 18%),
+                radial-gradient(circle at 15% 80%, rgba(56, 189, 248, 0.10), transparent 24%),
+                radial-gradient(circle at 85% 12%, rgba(56, 189, 248, 0.08), transparent 22%),
+                linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -53,12 +56,12 @@
             position: fixed;
             inset: 0;
             pointer-events: none;
-            opacity: 0.06;
+            opacity: 0.05;
             background-image:
                 linear-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(148, 163, 184, 0.18) 1px, transparent 1px);
             background-size: 40px 40px;
-            mask-image: radial-gradient(circle at center, black 40%, transparent 86%);
+            mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
         }
 
         img {
@@ -66,57 +69,29 @@
             max-width: 100%;
         }
 
-        .brand-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         a {
             color: inherit;
             text-decoration: none;
         }
 
-        button {
+        button,
+        input,
+        textarea {
             font: inherit;
         }
 
         .container {
-            width: min(1120px, calc(100% - 32px));
+            width: min(var(--max), calc(100% - 32px));
             margin: 0 auto;
-        }
-
-        .module-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.45rem 1rem;
-            border-radius: 999px;
-            font-size: 0.75rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            border: 1px solid var(--accent);
-            background: var(--accent-soft);
-            color: #fff;
-            box-shadow: 0 0 26px var(--accent-soft);
-            margin-bottom: 1rem;
-        }
-
-        .module-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent);
-            box-shadow: 0 0 16px var(--accent);
         }
 
         .topbar {
             position: sticky;
             top: 0;
-            z-index: 40;
+            z-index: 100;
             backdrop-filter: blur(14px);
-            background: rgba(3, 7, 18, 0.82);
-            border-bottom: 1px solid rgba(30, 64, 175, 0.4);
+            background: rgba(2, 7, 17, 0.84);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.16);
         }
 
         .topbar-inner {
@@ -131,25 +106,32 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            min-width: 0;
         }
 
         .brand-icon {
-            width: 42px;
-            height: 42px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             border: 1px solid var(--line-strong);
             overflow: hidden;
-            box-shadow: 0 0 22px rgba(56, 189, 248, 0.3);
             background: #020617;
+            box-shadow: 0 0 22px rgba(56, 189, 248, 0.22);
+            flex: 0 0 auto;
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .brand-copy small,
-        .eyebrow,
         .micro,
         .section-label {
             display: inline-block;
             text-transform: uppercase;
-            letter-spacing: 0.26em;
+            letter-spacing: 0.22em;
             font-size: 10px;
             color: var(--dim);
         }
@@ -157,7 +139,7 @@
         .brand-copy strong {
             display: block;
             margin-top: 3px;
-            font-size: 17px;
+            font-size: 16px;
             letter-spacing: 0.06em;
             font-weight: 700;
         }
@@ -165,334 +147,321 @@
         .topbar-tagline {
             margin-top: 4px;
             font-size: 9px;
-            letter-spacing: 0.26em;
+            letter-spacing: 0.24em;
             text-transform: uppercase;
-            color: rgba(148, 163, 184, 0.9);
+            color: rgba(148, 163, 184, 0.88);
         }
 
         .top-links {
             display: flex;
             align-items: center;
-            gap: 14px;
-            font-size: 13px;
-            color: var(--muted);
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
             border-radius: 999px;
             border: 1px solid var(--line-strong);
-            padding: 11px 20px;
+            padding: 11px 18px;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.18em;
             font-size: 11px;
             font-weight: 700;
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(15, 23, 42, 0.92);
             color: var(--text);
             cursor: pointer;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
             text-align: center;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #020617;
-            border-color: rgba(56, 189, 248, 0.9);
-            box-shadow: 0 0 28px rgba(56, 189, 248, 0.46);
-        }
-
-        .btn-secondary {
-            background: rgba(15, 23, 42, 0.9);
-            box-shadow: 0 0 18px var(--accent);
-            border: 1px solid var(--accent);
-            color: var(--text);
-        }
-
-        .btn-tertiary {
-            background: transparent;
-            border: 1px dashed rgba(148, 163, 184, 0.7);
-            color: var(--muted);
         }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 18px 50px rgba(15, 23, 42, 0.9);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #02121c;
+            border-color: rgba(56, 189, 248, 0.9);
+            box-shadow: 0 0 24px rgba(56, 189, 248, 0.28);
+        }
+
+        .btn-secondary {
+            background: rgba(15, 23, 42, 0.92);
+            border-color: rgba(56, 189, 248, 0.54);
+            box-shadow: 0 0 16px rgba(56, 189, 248, 0.12);
+        }
+
+        .btn-tertiary {
+            background: transparent;
+            border: 1px dashed rgba(148, 163, 184, 0.58);
+            color: var(--muted);
+        }
+
+        .btn[disabled] {
+            opacity: 0.72;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        main {
+            padding-bottom: 36px;
         }
 
         .hero {
-            padding: 32px 0 18px;
+            padding: 30px 0 18px;
         }
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 26px;
+            grid-template-columns: 1.08fr 0.92fr;
+            gap: 24px;
             align-items: stretch;
         }
 
-        .hero-panel {
+        .panel {
             border-radius: var(--radius);
-            border: 1px solid rgba(148, 163, 184, 0.5);
-            background:
-                radial-gradient(circle at top left, rgba(56, 189, 248, 0.36), transparent 50%),
-                radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96));
+            border: 1px solid var(--line);
+            background: var(--panel);
             box-shadow: var(--shadow);
-            padding: 26px 26px 24px;
+            padding: 24px;
             position: relative;
             overflow: hidden;
         }
 
-        .hero-chip-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+        .hero-main {
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 42%),
+                linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.95));
+        }
+
+        .hero-side {
+            background:
+                radial-gradient(circle at top right, rgba(56, 189, 248, 0.16), transparent 36%),
+                rgba(15, 23, 42, 0.97);
+        }
+
+        .module-pill {
+            display: inline-flex;
             align-items: center;
-            font-size: 10px;
+            gap: 0.5rem;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            border: 1px solid var(--accent);
+            background: var(--accent-soft);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.12);
+            margin-bottom: 1rem;
+        }
+
+        .module-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 16px var(--accent);
+        }
+
+        .hero-title {
+            margin: 0 0 10px;
+            font-size: clamp(34px, 5vw, 52px);
+            letter-spacing: -0.05em;
+            line-height: 0.98;
+        }
+
+        .hero-sub {
+            margin: 0 0 14px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.22em;
             color: rgba(226, 232, 240, 0.86);
         }
 
-        .chip {
-            padding: 7px 14px;
-            border-radius: 999px;
-            border: 1px solid rgba(15, 23, 42, 0.1);
-            background: rgba(15, 23, 42, 0.74);
-        }
-
-        .chip-primary {
-            border-color: rgba(56, 189, 248, 0.8);
-            background: rgba(15, 23, 42, 0.92);
-            color: rgba(191, 239, 255, 0.94);
-            box-shadow: 0 0 26px rgba(56, 189, 248, 0.55);
-        }
-
-        .hero-title {
-            margin: 20px 0 0;
-            font-size: clamp(34px, 5vw, 46px);
-            line-height: 1.02;
-            letter-spacing: -0.05em;
-        }
-
-        .hero-body {
-            margin: 16px 0 0;
-            max-width: 540px;
-            font-size: 15px;
-            line-height: 1.9;
+        .hero-text,
+        .panel p,
+        .chart-card p,
+        .label-card p {
+            font-size: 14px;
+            line-height: 1.85;
             color: var(--muted);
         }
 
-        .hero-body strong {
+        .hero-text {
+            max-width: 580px;
+            margin: 0 0 12px;
+        }
+
+        .hero-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 16px 0 16px;
+        }
+
+        .hero-chips span {
+            padding: 6px 11px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            background: rgba(15, 23, 42, 0.98);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--dim);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .hero-note {
+            margin-top: 12px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: var(--dim);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            border: 1px solid rgba(74, 222, 128, 0.55);
+            background: rgba(22, 163, 74, 0.14);
+            color: #bbf7d0;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: var(--green);
+        }
+
+        .hero-side-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .dj-kicker {
+            margin-top: 2px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: rgba(248, 250, 252, 0.9);
+        }
+
+        .dj-title {
+            margin: 14px 0 6px;
+            font-size: 20px;
+            letter-spacing: -0.03em;
+        }
+
+        .dj-copy {
+            margin: 0 0 10px;
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .dj-gate {
+            margin-top: 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
             color: var(--text);
         }
 
-        .hero-cta-row {
-            margin-top: 22px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .hero-side-card {
-            border-radius: var(--radius);
-            border: 1px solid rgba(148, 163, 184, 0.5);
-            background: rgba(15, 23, 42, 0.96);
-            box-shadow: var(--shadow);
-            padding: 22px 22px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .hero-side-card h2 {
-            margin: 4px 0;
-            font-size: 18px;
-            letter-spacing: -0.04em;
-        }
-
-        .hero-side-card p {
-            margin: 0;
-            font-size: 13px;
-            line-height: 1.8;
+        .dj-tags {
+            margin-top: 4px;
+            font-size: 11px;
             color: var(--muted);
         }
 
+        .dj-meta {
+            margin-top: 12px;
+            display: grid;
+            gap: 6px;
+            font-size: 11px;
+            color: rgba(226, 232, 240, 0.86);
+            line-height: 1.7;
+        }
+
+        .dj-meta-row .label {
+            margin-right: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 9px;
+            color: var(--dim);
+        }
+
+        .dj-reason {
+            margin-top: 12px;
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
         .section {
-            padding: 26px 0 0;
+            padding: 18px 0 0;
         }
 
         .section-head {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .section-head h2 {
-            margin: 8px 0 4px;
-            font-size: 26px;
-            letter-spacing: -0.04em;
+            margin: 6px 0 4px;
+            font-size: 22px;
+            letter-spacing: -0.03em;
         }
 
         .section-head p {
             margin: 0;
-            max-width: 560px;
+            max-width: 680px;
             font-size: 14px;
-            line-height: 1.9;
-            color: var(--muted);
-        }
-
-        .section-label {
-            margin-bottom: 4px;
-        }
-
-        .jukebox-grid {
-            display: grid;
-            grid-template-columns: 0.95fr 1.05fr;
-            gap: 20px;
-            align-items: stretch;
-        }
-
-        .jukebox-panel {
-            border-radius: var(--radius);
-            border: 1px solid var(--line);
-            background: var(--panel);
-            box-shadow: var(--shadow);
-            padding: 20px 20px 22px;
-        }
-
-        .jukebox-panel h3 {
-            margin: 0 0 10px;
-            font-size: 18px;
-            letter-spacing: -0.03em;
-        }
-
-        .jukebox-panel p {
-            margin: 0 0 14px;
-            font-size: 13px;
             line-height: 1.8;
             color: var(--muted);
         }
 
-        .field-label {
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            font-size: 10px;
-            color: var(--dim);
-            margin-bottom: 6px;
-            display: block;
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1.08fr 0.92fr;
+            gap: 20px;
+            align-items: flex-start;
         }
 
-        select {
-            width: 100%;
-            padding: 11px 12px;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.65);
-            background: rgba(15, 23, 42, 0.9);
-            color: var(--text);
-            font-size: 13px;
-            outline: none;
-        }
-
-        select:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5);
-        }
-
-        .jukebox-meta {
-            margin-top: 16px;
-            font-size: 11px;
-            color: var(--dim);
-            line-height: 1.9;
-        }
-
-        .jukebox-meta span.label {
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            font-size: 9px;
-            color: var(--dim);
-            margin-right: 6px;
-        }
-
-        .jukebox-result {
+        .chart-card,
+        .label-card {
             border-radius: var(--radius);
-            border: 1px solid var(--line-strong);
-            background:
-                radial-gradient(circle at top left, rgba(56, 189, 248, 0.3), transparent 60%),
-                var(--panel-soft);
-            box-shadow: var(--shadow);
-            padding: 20px 20px 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .jukebox-result-title {
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
-            color: rgba(226, 232, 240, 0.9);
-        }
-
-        .jukebox-gate-line {
-            margin-top: 4px;
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: -0.04em;
-        }
-
-        .jukebox-tags {
-            margin-top: 2px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--dim);
-        }
-
-        .jukebox-note {
-            margin-top: 10px;
-            border-radius: 18px;
-            border: 1px solid rgba(148, 163, 184, 0.6);
+            border: 1px solid var(--line);
             background: rgba(15, 23, 42, 0.96);
-            padding: 12px 14px;
-            font-size: 13px;
-            line-height: 1.9;
-            color: var(--muted);
-        }
-
-        .jukebox-note strong {
-            display: block;
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
-            font-size: 9px;
-            margin-bottom: 4px;
-            color: rgba(226, 232, 240, 0.9);
-        }
-
-        .jukebox-track {
-            margin-top: 12px;
-            font-size: 13px;
-            color: rgba(226, 232, 240, 0.94);
-        }
-
-        .jukebox-track a {
-            color: var(--accent);
-            text-decoration: underline;
-            font-weight: 600;
-        }
-
-        .jukebox-coming {
-            margin-top: 8px;
-            font-size: 11px;
-            color: rgba(148, 163, 184, 0.9);
-        }
-
-        .chart-card {
-            margin-top: 18px;
-            border-radius: var(--radius);
-            border: 1px solid rgba(148, 163, 184, 0.6);
-            background: rgba(15, 23, 42, 0.96);
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-soft);
             padding: 18px 18px 16px;
+        }
+
+        .chart-card.preview-card {
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.08), transparent 30%),
+                rgba(15, 23, 42, 0.97);
         }
 
         .chart-header {
@@ -516,17 +485,22 @@
             letter-spacing: 0.22em;
         }
 
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 4px;
+        }
+
         .chart-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 12px;
-            margin-top: 6px;
         }
 
         .chart-table th,
         .chart-table td {
-            padding: 6px 4px;
-            border-bottom: 1px solid rgba(30, 64, 175, 0.6);
+            padding: 8px 6px;
+            border-bottom: 1px solid rgba(30, 64, 175, 0.45);
+            vertical-align: middle;
         }
 
         .chart-table th {
@@ -535,10 +509,36 @@
             text-transform: uppercase;
             letter-spacing: 0.16em;
             color: var(--dim);
+            white-space: nowrap;
         }
 
         .chart-table tr:last-child td {
             border-bottom: none;
+        }
+
+        .chart-rank {
+            width: 42px;
+            font-weight: 700;
+            color: rgba(226, 232, 240, 0.94);
+        }
+
+        .chart-gate {
+            min-width: 220px;
+        }
+
+        .chart-gate strong {
+            display: block;
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .chart-gate span {
+            display: block;
+            margin-top: 2px;
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--dim);
         }
 
         .badge-status {
@@ -552,134 +552,148 @@
             letter-spacing: 0.16em;
         }
 
-        .badge-online {
-            background: rgba(34, 197, 94, 0.12);
-            color: #bbf7d0;
-            border: 1px solid rgba(34, 197, 94, 0.6);
-        }
-
-        .badge-dark {
-            background: rgba(30, 64, 175, 0.12);
-            color: rgba(148, 163, 184, 0.96);
-            border: 1px solid rgba(30, 64, 175, 0.6);
-        }
-
-        .badge-soon {
-            background: rgba(234, 179, 8, 0.12);
-            color: #facc15;
-            border: 1px solid rgba(234, 179, 8, 0.7);
-        }
-
         .badge-dot {
-            width: 6px;
-            height: 6px;
+            width: 7px;
+            height: 7px;
             border-radius: 999px;
-            background: currentColor;
         }
 
-        .chart-cta-row {
+        .badge-online {
+            background: rgba(34, 197, 94, 0.1);
+            color: #bbf7d0;
+            border: 1px solid rgba(34, 197, 94, 0.5);
+        }
+
+        .badge-online .badge-dot {
+            background: var(--green);
+        }
+
+        .badge-offline {
+            background: rgba(148, 163, 184, 0.12);
+            color: var(--dim);
+            border: 1px solid rgba(148, 163, 184, 0.5);
+        }
+
+        .badge-offline .badge-dot {
+            background: rgba(148, 163, 184, 0.8);
+        }
+
+        .chart-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .chart-footnote {
+            margin-top: 8px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--dim);
+        }
+
+        .label-card h3 {
+            margin: 0 0 8px;
+            font-size: 20px;
+            letter-spacing: -0.03em;
+        }
+
+        .label-price {
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .label-actions {
             margin-top: 12px;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
 
-        .founder-card {
-            margin-top: 18px;
-            border-radius: var(--radius);
-            border: 1px solid rgba(56, 189, 248, 0.66);
-            background:
-                linear-gradient(135deg,
-                    rgba(15, 23, 42, 0.98),
-                    rgba(56, 189, 248, 0.24));
-            box-shadow: var(--shadow);
-            padding: 22px 22px 18px;
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 18px;
-            align-items: center;
-        }
-
-        .founder-card h3 {
-            margin: 8px 0 6px;
-            font-size: 22px;
-            letter-spacing: -0.04em;
-        }
-
-        .founder-card p {
-            margin: 0;
-            font-size: 14px;
-            line-height: 1.9;
-            color: rgba(226, 232, 240, 0.9);
-        }
-
-        .founder-list {
-            margin: 10px 0 0;
-            padding-left: 16px;
-            font-size: 13px;
-            color: rgba(226, 232, 240, 0.9);
-            line-height: 1.8;
-        }
-
-        .founder-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: flex-end;
-        }
-
-        .founder-tag {
-            text-transform: uppercase;
-            letter-spacing: 0.22em;
-            font-size: 10px;
-            color: rgba(226, 232, 240, 0.9);
-        }
-
-        .label-card {
-            margin-top: 18px;
-            border-radius: var(--radius);
-            border: 1px dashed rgba(148, 163, 184, 0.7);
-            background: rgba(15, 23, 42, 0.92);
-            padding: 18px 18px 16px;
-            font-size: 13px;
-            line-height: 1.9;
+        .bullet-list {
+            padding-left: 18px;
+            margin: 8px 0 0;
+            list-style: disc;
             color: var(--muted);
+            line-height: 1.8;
+            font-size: 14px;
         }
 
-        .label-card h3 {
-            margin: 0 0 6px;
-            font-size: 18px;
-            letter-spacing: -0.03em;
-        }
-
-        .label-price {
-            margin-top: 10px;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: rgba(191, 219, 254, 0.96);
-        }
-
-        footer {
-            margin-top: 30px;
-            padding: 18px 0 26px;
-            border-top: 1px solid rgba(30, 64, 175, 0.7);
-            font-size: 11px;
-            color: var(--dim);
-        }
-
-        .footer-inner {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+        .request-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 14px;
         }
 
-        @media (max-width: 960px) {
+        .form-block {
+            margin-bottom: 10px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--dim);
+            margin-bottom: 4px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: rgba(15, 23, 42, 0.96);
+            color: var(--text);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.35);
+        }
+
+        .form-input::placeholder {
+            color: rgba(148, 163, 184, 0.7);
+        }
+
+        .form-note {
+            margin-top: 8px;
+            font-size: 11px;
+            color: var(--dim);
+            line-height: 1.7;
+        }
+
+        .form-status {
+            margin-top: 10px;
+            font-size: 11px;
+            color: var(--muted);
+            min-height: 18px;
+        }
+
+        footer {
+            margin-top: 34px;
+            border-top: 1px solid rgba(15, 23, 42, 0.9);
+            background: rgba(3, 7, 18, 0.94);
+        }
+
+        .footer-inner {
+            padding: 16px 0 20px;
+            font-size: 11px;
+            color: var(--dim);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
 
             .hero-grid,
-            .jukebox-grid,
-            .founder-card {
+            .split-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -690,26 +704,25 @@
                 align-items: flex-start;
             }
 
-            .top-links {
-                display: none;
-            }
-
-            .hero {
-                padding-top: 24px;
-            }
-
-            .hero-panel,
-            .hero-side-card,
-            .jukebox-panel,
-            .jukebox-result,
+            .panel,
             .chart-card,
-            .founder-card,
             .label-card {
-                padding: 18px 18px 16px;
+                padding: 18px 16px;
             }
 
-            .founder-actions {
-                align-items: flex-start;
+            .request-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-actions .btn,
+            .chart-actions .btn,
+            .label-actions .btn {
+                width: 100%;
+            }
+
+            .chart-table th,
+            .chart-table td {
+                padding: 8px 4px;
             }
         }
     </style>
@@ -725,7 +738,7 @@
                 <div class="brand-copy">
                     <small>Manifestor Anonymous</small>
                     <strong>Gates Radio</strong>
-                    <div class="topbar-tagline">DJ sun. Gates as tracks. For Manifestors only.</div>
+                    <div class="topbar-tagline">DJ Sun · Gate stations · Incarnation cross scans</div>
                 </div>
             </div>
             <nav class="top-links">
@@ -735,396 +748,439 @@
     </header>
 
     <main>
-        <!-- HERO -->
         <section class="hero">
             <div class="container hero-grid">
-                <article class="hero-panel">
+                <article class="panel hero-main">
                     <div class="module-pill">
-                        <div class="module-dot"></div>
-                        <span>Module 03 · Path: Frequency</span>
+                        <span class="module-dot"></span>
+                        <span>Module 03 · Gates Radio</span>
                     </div>
-                    <div class="hero-chip-row">
-                        <span class="chip chip-primary">Gates Radio</span>
-                        <span class="chip">Archive behind DJ sun</span>
-                    </div>
-                    <h1 class="hero-title">Pick a gate. Hear the station.</h1>
-                    <p class="hero-body">
-                        Gates Radio is the <strong>frequency archive</strong> that sits underneath DJ sun.
-                        DJ sun plays the current Sun gate. This room holds the gate stations
-                        that keep growing, even after the transit moves on.
+
+                    <h1 class="hero-title">Gate stations for Manifestors.</h1>
+                    <p class="hero-sub">64 gates · 64 stations · one music archive</p>
+
+                    <p class="hero-text">
+                        Gates Radio is the archive behind DJ Sun. Each gate gets its own station.
+                        You can tune into the free playlists, send in a DJ request, and step into the
+                        full Top 64 Gates chart where the paid Master Gates Radio Log lives.
                     </p>
-                    <div class="hero-cta-row">
-                        <a href="#djsun" class="btn btn-primary">Listen to DJ sun</a>
-                        <a href="#gates-radio" class="btn btn-secondary">See Top 64 Gates chart</a>
+
+                    <p class="hero-text">
+                        The point is simple: playlists first, explanation second. Let the frequency hit before the
+                        lecture does.
+                    </p>
+
+                    <div class="hero-chips">
+                        <span>Manifestor-run</span>
+                        <span>Free gate playlists</span>
+                        <span>64-station archive</span>
                     </div>
+
+                    <div class="hero-actions">
+                        <a href="#gate-stations" class="btn btn-primary">See gate stations</a>
+                        <a href="#dj-request" class="btn btn-secondary">Submit DJ request</a>
+                        <a href="#cross-playlists" class="btn btn-tertiary">Cross playlist scan</a>
+                    </div>
+
+                    <p class="hero-note">
+                        Current online gates: 22 · 36 · 12 · 38 · More in progress: 11 · 10 · 28
+                    </p>
                 </article>
 
-                <aside class="hero-side-card">
-                    <span class="micro">How this works</span>
-                    <h2>Live single. Archive stations.</h2>
-                    <p>
-                        DJ sun is the live single: one gate, one moment, one mix.
-                        Gates Radio is the archive: fixed gate stations you can unlock
-                        for life—either one gate at a time or the whole 64‑gate network.
-                    </p>
-                    <div class="how-graphic-wrap">
-                        <div class="radio-scan">
-                            <div class="scan-line"></div>
-                        </div>
-                        <div class="scan-caption">64 gates • one frequency active at a time</div>
+                <article class="panel hero-side" id="dj-sun">
+                    <div class="hero-side-top">
+                        <span class="status-badge">
+                            <span class="status-dot"></span>
+                            Now playing
+                        </span>
+                        <span class="micro">DJ Sun · weekly main broadcast</span>
                     </div>
 
-                    <style>
-                        .how-graphic-wrap {
-                            margin-top: 28px;
-                        }
+                    <div class="dj-kicker">
+                        DJ Sun transit track:
+                        <span id="djTrackTitleHero" style="font-weight:700;letter-spacing:0.14em;">
+                            CRISIS RADIO
+                        </span>
+                    </div>
 
-                        .radio-scan {
-                            position: relative;
-                            height: 84px;
-                            width: 100%;
-                            border-radius: 12px;
-                            overflow: hidden;
-                            border: 1px solid rgba(80, 180, 255, .22);
-                            background:
-                                linear-gradient(180deg, rgba(11, 20, 40, .55), rgba(4, 10, 24, .88)),
-                                repeating-linear-gradient(to right,
-                                    rgba(120, 190, 255, .16) 0px,
-                                    rgba(120, 190, 255, .16) 1px,
-                                    transparent 1px,
-                                    transparent 18px);
-                            box-shadow:
-                                inset 0 0 18px rgba(0, 140, 255, .08),
-                                0 0 24px rgba(0, 140, 255, .08);
-                        }
+                    <h2 class="dj-title">One gate. One set. Per week.</h2>
 
-                        .radio-scan::before {
-                            content: "";
-                            position: absolute;
-                            inset: 0;
-                            background:
-                                linear-gradient(to bottom,
-                                    transparent 0%,
-                                    rgba(120, 190, 255, .05) 48%,
-                                    rgba(120, 190, 255, .10) 50%,
-                                    rgba(120, 190, 255, .05) 52%,
-                                    transparent 100%);
-                            pointer-events: none;
-                        }
+                    <p class="dj-copy">
+                        The Sun moves through the gates. The main set updates with it.
+                        Use this as background frequency. If this is your Sun gate, read it as a mirror.
+                    </p>
 
-                        .scan-line {
-                            position: absolute;
-                            top: 0;
-                            left: -56px;
-                            width: 56px;
-                            height: 100%;
-                            background: linear-gradient(90deg,
-                                    transparent 0%,
-                                    rgba(58, 195, 255, .25) 30%,
-                                    rgba(193, 60, 255, .92) 50%,
-                                    rgba(58, 195, 255, .25) 70%,
-                                    transparent 100%);
-                            filter: blur(3px);
-                            box-shadow: 0 0 22px rgba(193, 60, 255, .55);
-                            animation: gateScan 4.8s linear infinite;
-                        }
+                    <div class="dj-gate" id="djGateHero">Gate 36 · Crisis</div>
+                    <div class="dj-tags" id="djTagsHero">Emotional storm · Unknown · Initiation · Compassion</div>
 
-                        .scan-caption {
-                            margin-top: 12px;
-                            font-size: 12px;
-                            letter-spacing: .16em;
-                            text-transform: uppercase;
-                            color: rgba(210, 230, 255, .62);
-                        }
+                    <div class="dj-meta">
+                        <div class="dj-meta-row">
+                            <span class="label">Gate window</span>
+                            <span id="djDatesHero">March 13–18</span>
+                        </div>
+                        <div class="dj-meta-row">
+                            <span class="label">Set ID</span>
+                            <span id="djSetIdHero">SET 036</span>
+                        </div>
+                    </div>
 
-                        @keyframes gateScan {
-                            from {
-                                left: -56px;
-                            }
+                    <div style="margin-top:12px;">
+                        <iframe style="border-radius:12px"
+                            src="https://open.spotify.com/embed/playlist/0PoKnHg6wjZjbVgNSd0SdK?utm_source=generator&theme=0"
+                            width="100%" height="132" frameborder="0"
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                            loading="lazy">
+                        </iframe>
+                    </div>
 
-                            to {
-                                left: 100%;
-                            }
-                        }
-                    </style>
-                </aside>
+                    <p class="dj-reason" id="djReasonHero">
+                        Station 36 holds the emotional storm — the dark hallway between who you were
+                        and who you’re about to become. Crisis is not failure. It’s the ignition point.
+                    </p>
+
+                    <div style="margin-top:12px;">
+                        <a href="gates-radio.html" class="btn btn-tertiary">Open full station chart</a>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- DJ SUN -->
-        <section class="section" id="djsun">
+        <section id="gate-stations" class="section">
             <div class="container">
-                <div class="section-head">
-                    <span class="section-label">Top single</span>
-                    <h2>DJ sun · current Sun gate.</h2>
+                <header class="section-head">
+                    <span class="section-label">Gate stations</span>
+                    <h2>Top 64 Gates · Station chart</h2>
                     <p>
-                        Each week the Sun moves through a new gate. DJ sun follows it.
-                        This is the sampler mix for the current Sun gate—pulled from the
-                        gate’s station inside Gates Radio.
+                        The full chart lives on the Top 64 Gates page. This preview keeps the chart feel,
+                        shows what is already online, and sends people to the full station board where the paid Log is
+                        sold.
                     </p>
-                </div>
+                </header>
 
-                <div class="jukebox-grid">
-                    <!-- LEFT: INFO -->
-                    <article class="jukebox-panel">
-                        <h3>This week’s signal.</h3>
-                        <p>
-                            When the Sun sits in a gate, that gate gets louder in your field.
-                            DJ sun turns that into a playlist you can actually hear while you
-                            work, walk, clean, spiral, or launch.
+                <article class="chart-card preview-card">
+                    <div class="chart-header">
+                        <div>
+                            <h3>Top stations now streaming</h3>
+                            <div class="chart-sub">Online gates · Free playlists</div>
+                        </div>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table class="chart-table" aria-label="Online gate stations">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Gate</th>
+                                    <th>Status</th>
+                                    <th>Playlist</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="chart-rank">22</td>
+                                    <td class="chart-gate">
+                                        <strong>Gate 22 · Grace</strong>
+                                        <span>Mood · Presence · Emotional influence</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-status badge-online">
+                                            <span class="badge-dot"></span> Online
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="https://open.spotify.com/playlist/4dRtSluSyPUpDwhcJE0r8D?si=DIvyJYSxTe22yfONcGSUPQ"
+                                            target="_blank" rel="noopener noreferrer" class="btn btn-tertiary"
+                                            style="padding:6px 10px;font-size:10px;">
+                                            Open playlist
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="chart-rank">36</td>
+                                    <td class="chart-gate">
+                                        <strong>Gate 36 · Crisis</strong>
+                                        <span>Transition · Experience · Emotional intensity</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-status badge-online">
+                                            <span class="badge-dot"></span> Online
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="YOUR_GATE_36_PLAYLIST_URL_HERE" target="_blank"
+                                            rel="noopener noreferrer" class="btn btn-tertiary"
+                                            style="padding:6px 10px;font-size:10px;">
+                                            Open playlist
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="chart-rank">12</td>
+                                    <td class="chart-gate">
+                                        <strong>Gate 12 · Caution</strong>
+                                        <span>Timing · Emotional voice · Shy-bold</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-status badge-online">
+                                            <span class="badge-dot"></span> Online
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="https://open.spotify.com/playlist/5JiFAS4gmNyzNQfzadFjjd?si=4e_LNCaASx-QLtSNkz2sAg"
+                                            target="_blank" rel="noopener noreferrer" class="btn btn-tertiary"
+                                            style="padding:6px 10px;font-size:10px;">
+                                            Open playlist
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="chart-rank">38</td>
+                                    <td class="chart-gate">
+                                        <strong>Gate 38 · Struggle</strong>
+                                        <span>Purpose · Resistance · The right fight</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-status badge-online">
+                                            <span class="badge-dot"></span> Online
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="YOUR_GATE_38_PLAYLIST_URL_HERE" target="_blank"
+                                            rel="noopener noreferrer" class="btn btn-tertiary"
+                                            style="padding:6px 10px;font-size:10px;">
+                                            Open playlist
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="chart-rank">11</td>
+                                    <td class="chart-gate">
+                                        <strong>Gate 11 · Ideas</strong>
+                                        <span>Storytelling · Imagination · Meaning-making</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-status badge-offline">
+                                            <span class="badge-dot"></span> In progress
+                                        </span>
+                                    </td>
+                                    <td><span class="micro">Coming soon</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="chart-rank">10</td>
+                                    <td class="chart-gate">
+                                        <strong>Gate 10 · Behaviour of the Self</strong>
+                                        <span>Authenticity · Self-love · Empowerment</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-status badge-offline">
+                                            <span class="badge-dot"></span> In progress
+                                        </span>
+                                    </td>
+                                    <td><span class="micro">Coming soon</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="chart-rank">28</td>
+                                    <td class="chart-gate">
+                                        <strong>Gate 28 · Struggle for Purpose</strong>
+                                        <span>Risk · Meaning · Worth the fight</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-status badge-offline">
+                                            <span class="badge-dot"></span> In progress
+                                        </span>
+                                    </td>
+                                    <td><span class="micro">Coming soon</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="chart-actions">
+                        <a href="gates-radio.html" class="btn btn-secondary">
+                            Open full Top 64 Gates chart
+                        </a>
+                    </div>
+
+                    <p class="chart-footnote">
+                        Free: gate playlists · Paid on that page: Master Gates Radio Log
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section id="dj-request" class="section">
+            <div class="container">
+                <header class="section-head">
+                    <span class="section-label">Free feature</span>
+                    <h2>DJ Request Line</h2>
+                    <p>
+                        Send me a song, I’ll place it in a Human Design gate, add it to that gate’s playlist,
+                        and email you which gate it lands in. This part is free. The full reasoning lives in the Log.
+                    </p>
+                </header>
+
+                <article class="chart-card">
+                    <form id="dj-request-form" method="POST"
+                        action="https://script.google.com/macros/s/AKfycby_QG1g9pGGSLetpLtHy1kjIlVgbjKVhtGi4rGCP9hnq2M2XaXrQz1e717xbfYkdA37/exec">
+
+                        <input type="hidden" name="source" value="gates_radio" />
+                        <input type="hidden" name="page" value="gates.html" />
+                        <input type="hidden" name="formType" value="dj_request" />
+                        <input type="hidden" name="tag" value="gates-radio-dj-request" />
+                        <input type="hidden" name="resultKey" value="" />
+                        <input type="hidden" name="resultTitle" value="" />
+                        <input type="hidden" name="resultBody" value="" />
+
+                        <div class="request-grid">
+                            <div class="form-block">
+                                <label class="form-label" for="name">Name</label>
+                                <input class="form-input" type="text" id="name" name="name" required
+                                    placeholder="Your name" />
+                            </div>
+
+                            <div class="form-block">
+                                <label class="form-label" for="email">Email</label>
+                                <input class="form-input" type="email" id="email" name="email" required
+                                    placeholder="you@email.com" />
+                            </div>
+                        </div>
+
+                        <div class="form-block">
+                            <label class="form-label" for="song_title">Song title</label>
+                            <input class="form-input" type="text" id="song_title" name="song_title" required
+                                placeholder="Song title" />
+                        </div>
+
+                        <div class="form-block">
+                            <label class="form-label" for="song_artist">Artist</label>
+                            <input class="form-input" type="text" id="song_artist" name="song_artist" required
+                                placeholder="Artist name" />
+                        </div>
+
+                        <div class="form-block">
+                            <label class="form-label" for="why_track_hits">Why this track hits you (optional)</label>
+                            <textarea class="form-input" id="why_track_hits" name="why_track_hits" rows="4"
+                                placeholder="Tell me why this one matters to you"></textarea>
+                        </div>
+
+                        <p class="form-note">
+                            I’ll choose the gate, add your song to that station, and email you where it lands.
+                            Want the bigger backend map? That lives inside the full Top 64 Gates chart page.
                         </p>
 
-                        <div class="jukebox-meta">
+                        <button type="submit" class="btn btn-secondary" id="dj-submit-btn">
+                            Submit DJ request
+                        </button>
+
+                        <p class="form-status" id="form-status"></p>
+                    </form>
+                </article>
+            </div>
+        </section>
+
+        <section id="cross-playlists" class="section">
+            <div class="container">
+                <header class="section-head">
+                    <span class="section-label">Custom service</span>
+                    <h2>Incarnation Cross Playlist Scan</h2>
+                    <p>
+                        A personalized 25–30 song playlist built from artists and genres you actually like,
+                        mapped to the four gates of your incarnation cross, plus a PDF guide that breaks down
+                        your life theme and every track choice.
+                    </p>
+                </header>
+
+                <div class="split-grid">
+                    <article class="chart-card">
+                        <div class="chart-header">
                             <div>
-                                <span class="label">Current Sun gate</span>
-                                <span id="sunGateLabel">Gate 36 · Crisis</span>
-                            </div>
-                            <div>
-                                <span class="label">Source station</span>
-                                <span>Gate 36 station inside Gates Radio</span>
-                            </div>
-                            <div>
-                                <span class="label">Access</span>
-                                <span>Free sampler mix · full station via Gates Radio</span>
+                                <h3>Top Albums · Cross chart</h3>
+                                <div class="chart-sub">Example cross · Life theme deluxe</div>
                             </div>
                         </div>
 
-                        <div class="jukebox-coming">
-                            When the Sun shifts gates, this mix changes. The gate stations
-                            themselves keep growing inside Gates Radio as more songs show up
-                            in transits and incarnation cross work.
+                        <div class="table-wrap">
+                            <table class="chart-table" aria-label="Incarnation Cross playlists chart">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Cross</th>
+                                        <th>Edition</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="chart-rank">01</td>
+                                        <td class="chart-gate">
+                                            <strong>Left Angle Cross of Informing</strong>
+                                            <span>Taylor Swift + New Country</span>
+                                        </td>
+                                        <td>Taylor Swift + New Country</td>
+                                        <td>
+                                            <span class="badge-status badge-online">
+                                                <span class="badge-dot"></span> Online example
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                    </article>
 
-                    <!-- RIGHT: SUN PLAYLIST LINK -->
-                    <article class="jukebox-result">
-                        <div class="jukebox-result-title">DJ sun sampler</div>
-                        <div class="jukebox-gate-line" id="sunGateTitle">Gate 36 · Crisis mix</div>
-                        <div class="jukebox-tags" id="sunGateTags">Emotional storm · Unknown · Initiation · Compassion
-                        </div>
-
-                        <div class="jukebox-note">
-                            <strong>Sun note</strong>
-                            This is the Gate 36 mix pulled from the Gate 36 station:
-                            a few tracks to match the Sun transit, not the full archive.
-                        </div>
-
-                        <div class="jukebox-track">
-                            DJ sun playlist:
-                            <a href="index.html#dj-sun">
-                                Go to DJ sun in the main terminal
+                        <div class="chart-actions">
+                            <a href="https://open.spotify.com/playlist/5qsptj3qMJg0WaLbCQqiPc?si=QJh_qHZYRq2FTP54bqDSMg"
+                                target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                                Open LAX of Informing playlist
+                            </a>
+                            <a href="https://drive.google.com/file/d/1h6vWazx7TrE2c2CqRT55d4-JzDcCvcJc/view?usp=sharing"
+                                target="_blank" rel="noopener noreferrer" class="btn btn-tertiary">
+                                View sample guide
                             </a>
                         </div>
+                    </article>
 
-                        <div class="jukebox-coming">
-                            Love how this feels and want the full gate station behind it?
-                            Scroll down to the Gates Radio chart to unlock Gate 36
-                            or the full network.
+                    <article class="label-card">
+                        <h3>Custom Incarnation Cross Playlist</h3>
+
+                        <p>
+                            You pick the artists and genres your system actually likes.
+                            I take the four gates of your incarnation cross and build a 25–30 track Spotify playlist
+                            around them, using the sounds you chose so your life theme actually sounds like you.
+                        </p>
+
+                        <p>
+                            You also get a PDF guide: a plain-language reading of your cross,
+                            short write-ups for each of your four gates, and why every song was paired where it was.
+                            It is an incarnation cross scan scored through music, not just another PDF to forget.
+                        </p>
+
+                        <div style="margin-top:12px;font-size:14px;color:var(--muted);line-height:1.8;">
+                            <strong style="color:var(--text);">What your guide looks like:</strong>
+                            <ul class="bullet-list">
+                                <li>Cover with your cross name + QR code and/or link to your playlist</li>
+                                <li>1–2 paragraphs on your life theme in plain language</li>
+                                <li>One section per gate with meaning, key tracks, and why each song lives there</li>
+                            </ul>
+                        </div>
+
+                        <p class="label-price">
+                            4 gates · 25–30 tracks · PDF guide · starting at <strong>$197</strong> · rises to
+                            <strong>$277</strong> as the roster fills
+                        </p>
+
+                        <div class="label-actions">
+                            <a href="YOUR_CHECKOUT_URL_FOR_CROSS_SCAN" class="btn btn-primary">
+                                Book your cross playlist scan
+                            </a>
                         </div>
                     </article>
                 </div>
-            </div>
-        </section>
-
-        <!-- GATES RADIO · TOP 64 GATES PREVIEW -->
-        <section class="section" id="gates-radio">
-            <div class="container">
-                <div class="section-head">
-                    <span class="section-label">Top 64 Gates</span>
-                    <h2>Gates Radio chart.</h2>
-                    <p>
-                        Think of this like a Billboard chart for the Human Design gates.
-                        Each gate is a station. Online gates have full playlists. Dark gates
-                        haven’t gone on air yet. You can unlock one station or the entire network.
-                    </p>
-                </div>
-
-                <article class="chart-card">
-                    <div class="chart-header">
-                        <div>
-                            <h3>Current gate stations.</h3>
-                            <div class="chart-sub">Preview · See full Top 64</div>
-                        </div>
-                        <div style="font-size:11px;color:var(--dim);max-width:260px;">
-                            This is a preview of the chart. The full Top 64 list lives on the
-                            Gates Radio Stations page with circuitry and centers for every gate.
-                        </div>
-                    </div>
-
-                    <table class="chart-table" aria-label="Top 64 Gates preview chart">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Gate</th>
-                                <th>Status</th>
-                                <th>Access</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Online example -->
-                            <tr>
-                                <td>01</td>
-                                <td>Gate 36 · Crisis</td>
-                                <td>
-                                    <span class="badge-status badge-online">
-                                        <span class="badge-dot"></span> Online
-                                    </span>
-                                </td>
-                                <td>
-                                    Included in Gates Radio Pass ·
-                                    <!-- TODO: replace # with single-gate checkout URL -->
-                                    <a href="#" style="color:var(--accent);text-decoration:underline;">Single Gate 36
-                                        Pass</a>
-                                </td>
-                            </tr>
-                            <!-- A couple of dark / coming soon examples -->
-                            <tr>
-                                <td>02</td>
-                                <td>Gate 12 · Caution</td>
-                                <td>
-                                    <span class="badge-status badge-soon">
-                                        <span class="badge-dot"></span> Coming soon
-                                    </span>
-                                </td>
-                                <td>Station building in progress · Will be added to Gates Radio Pass.</td>
-                            </tr>
-                            <tr>
-                                <td>03</td>
-                                <td>Gate 11 · Ideas</td>
-                                <td>
-                                    <span class="badge-status badge-dark">
-                                        <span class="badge-dot"></span> Dark
-                                    </span>
-                                </td>
-                                <td>Not broadcast yet.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="chart-cta-row">
-                        <!-- TODO: replace with your all-access Gates Radio Pass checkout URL -->
-                        <a href="#" class="btn btn-primary">Gates Radio Pass · All online gates</a>
-                        <a href="gates-radio.html" class="btn btn-tertiary">
-                            Open full Top 64 gates chart (stations, circuitry, centers)
-                        </a>
-                    </div>
-                </article>
-
-                <!-- FOUNDER / ALL-ACCESS EXPLANATION -->
-                <article class="founder-card" style="margin-top:22px;">
-                    <div>
-                        <span class="micro" style="color:rgba(191,219,254,0.94);">All‑access / forever</span>
-                        <h3>Gates Radio Pass.</h3>
-                        <p>
-                            One pass unlocks every gate that’s online now plus every future gate
-                            station as it comes on air. You don’t rebuy when new gates go live.
-                        </p>
-                        <ul class="founder-list">
-                            <li>Full playlists for all online gate stations.</li>
-                            <li>Future gates added automatically as stations are built.</li>
-                            <li>Ongoing song additions as transits and cross work bring in new tracks.</li>
-                            <li>Discounted upgrades for future specialty mixes (creative urges, rage, launches).</li>
-                        </ul>
-                    </div>
-                    <div class="founder-actions">
-                        <div class="founder-tag">Network pricing window</div>
-                        <!-- TODO: same URL as your all-access checkout -->
-                        <a href="#" class="btn btn-primary">Unlock Gates Radio Pass</a>
-                        <a href="#cross-albums" class="btn btn-secondary">See cross “albums”</a>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- INCARNATION CROSS PLAYLISTS TEASER -->
-        <section class="section" id="cross-albums">
-            <div class="container">
-                <div class="section-head">
-                    <span class="section-label">Top albums</span>
-                    <h2>Incarnation cross playlists.</h2>
-                    <p>
-                        Gates are the singles. Your incarnation cross is the full album.
-                        Generic cross playlists are pre‑made “albums” for popular crosses,
-                        with a custom life theme playlist as the deluxe edition.
-                    </p>
-                </div>
-
-                <article class="chart-card">
-                    <div class="chart-header">
-                        <div>
-                            <h3>Top Albums · Cross chart</h3>
-                            <div class="chart-sub">Generic playlists · Life theme deluxe</div>
-                        </div>
-                    </div>
-
-                    <table class="chart-table" aria-label="Incarnation Cross playlists chart">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Cross</th>
-                                <th>Edition</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td>Left Angle Cross of Informing</td>
-                                <td>Generic playlist · Swift + New Country</td>
-                                <td>
-                                    <span class="badge-status badge-online">
-                                        <span class="badge-dot"></span> Online
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>02</td>
-                                <td>Right Angle Cross of Tension</td>
-                                <td>Generic playlist · Oldies / R&B / 2000s</td>
-                                <td>
-                                    <span class="badge-status badge-online">
-                                        <span class="badge-dot"></span> Online
-                                    </span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="chart-cta-row">
-                        <a href="cross-albums.html" class="btn btn-primary">Open full Top Albums chart</a>
-                        <!-- TODO: replace # with your $111 custom cross playlist checkout URL -->
-                        <a href="#" class="btn btn-secondary">Book custom life theme playlist · $111</a>
-                    </div>
-                </article>
-
-                <article class="label-card">
-                    <h3>Custom Incarnation Cross Playlist (Life Theme).</h3>
-                    <p>
-                        This is where your chart stops being a PDF and starts sounding like something.
-                        You send the four gates of your incarnation cross and 1–5 artists or genres your
-                        system actually likes. You get a custom 20–30 track playlist (about 1.5–2 hours
-                        of music) built around those four gates, curated only from the artists/genres
-                        you chose, plus a simple PDF cover with your cross name and a QR code to your playlist.
-                    </p>
-                    <p>
-                        Inside the PDF you get a mini life‑theme reading: a breakdown of your cross,
-                        a short write‑up for each gate, and an overview of why each song was paired
-                        with that gate. It’s not a long written reading to scroll. It’s your life theme
-                        translated into four gates and a soundtrack you can actually play.
-                    </p>
-                    <p class="label-price">
-                        4 gates · 20–30 tracks · about 1.5–2 hours of music · built only from 1–5 artists/genres you
-                        pick · $111
-                    </p>
-                    <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;">
-                        <!-- TODO: same URL as the custom button above -->
-                        <a href="#" class="btn btn-primary">Book your custom life theme playlist</a>
-                        <a href="mailto:hello@manifestoranonymous.com?subject=Incarnation%20Cross%20Playlist%20Question"
-                            class="btn btn-tertiary">
-                            Ask a question first
-                        </a>
-                    </div>
-                </article>
             </div>
         </section>
     </main>
@@ -1133,17 +1189,43 @@
         <div class="container footer-inner">
             <div>© Manifestor Anonymous. Gates Radio.</div>
             <div>Module 03 · Gates Radio.</div>
-            <div>Operator: Manifestor‑run. For Manifestors only.</div>
-            <div>
-                <a href="https://instagram.com/manifestor.anonymous" target="_blank" rel="noopener noreferrer">
-                    @manifestor.anonymous
-                </a>
-            </div>
+            <div>Operator: Manifestor-run. For Manifestors & HD-obsessed.</div>
         </div>
     </footer>
 
-    <!-- Shared DJ sun data: keeps current Sun gate info synced between index + gates pages -->
-    <script src="assets/dj-sun.js" defer></script>
+    <script>
+        (function () {
+            const form = document.getElementById('dj-request-form');
+            const endpoint = 'https://script.google.com/macros/s/AKfycby_QG1g9pGGSLetpLtHy1kjIlVgbjKVhtGi4rGCP9hnq2M2XaXrQz1e717xbfYkdA37/exec';
+            if (!form) return;
+
+            const statusEl = document.getElementById('form-status');
+            const submitBtn = document.getElementById('dj-submit-btn');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (!submitBtn) return;
+
+                submitBtn.disabled = true;
+                statusEl.textContent = 'Submitting...';
+
+                const formData = new FormData(form);
+
+                fetch(endpoint, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                }).then(function () {
+                    form.reset();
+                    submitBtn.disabled = false;
+                    statusEl.textContent = 'Submitted. Watch your email for which gate your song lands in.';
+                }).catch(function () {
+                    submitBtn.disabled = false;
+                    statusEl.textContent = 'Something glitched. Try again in a moment.';
+                });
+            });
+        })();
+    </script>
 </body>
 
 </html>
