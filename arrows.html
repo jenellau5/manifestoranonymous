@@ -1441,22 +1441,27 @@
         }
 
         async function saveEmailToGoogleSheet(email) {
-            const formData = new URLSearchParams();
+            const formData = new FormData();
             formData.append("email", email);
-            formData.append("source", "arrows scanner");
-            formData.append("page", "arrows-scanner");
+            formData.append("source", "arrows_scanner");
+            formData.append("page", "arrows-room");
+            formData.append("formType", "arrows_snapshot");
+            formData.append("tag", "arrows-room-email");
+            formData.append("resultKey", "");
+            formData.append("resultTitle", "");
+            formData.append("resultBody", "");
+            formData.append("name", "");
+            formData.append("song_title", "");
+            formData.append("song_artist", "");
+            formData.append("why_track_hits", "");
 
-            const response = await fetch(SCRIPTURL, {
+            await fetch(SCRIPTURL, {
                 method: "POST",
+                mode: "no-cors",
                 body: formData
             });
 
-            const text = await response.text();
-            if (!response.ok || !text.toLowerCase().includes("success")) {
-                throw new Error(text || "Google Sheets save failed.");
-            }
-
-            return text;
+            return true;
         }
 
         emailBtn.addEventListener("click", async () => {
@@ -1470,6 +1475,7 @@
 
             emailError.style.display = "none";
             emailBtn.disabled = true;
+            emailBtn.textContent = "Unlocking...";
             setDisplay("yellow", "Saving your email and waking up the scanner...");
 
             try {
@@ -1477,13 +1483,17 @@
 
                 state.emailUnlocked = true;
                 state.savedEmail = val;
+
                 coin.classList.remove("disabled");
                 coin.classList.add("enabled");
+
+                emailInput.disabled = true;
                 setDisplay("green", "Scanner is awake. Tap the coin to start.");
             } catch (err) {
                 console.error(err);
                 setDisplay("red", "Something glitched. Try again in a minute.");
                 emailBtn.disabled = false;
+                emailBtn.textContent = "Unlock";
             }
         });
 
@@ -1512,6 +1522,7 @@
                 }
 
                 state[slot] = dir;
+
                 const rowEl = document.querySelector(`.arrow-row[data-row="${slot}"]`);
                 if (rowEl) rowEl.classList.add("active");
 
