@@ -1837,245 +1837,247 @@
     </footer>
 
     <script>
-        const STORAGE_KEY = "blackMarketTooMuchRoomV3";
-
-        const saveFields = document.querySelectorAll("[data-save]");
-        const checkFields = document.querySelectorAll("[data-check]");
-        const progressFill = document.getElementById("progressFill");
-        const progressCopy = document.getElementById("progressCopy");
-        const roomStatus = document.getElementById("roomStatus");
-        const closeRoomBtn = document.getElementById("closeRoomBtn");
-        const downloadRoomNotesBtn = document.getElementById("downloadRoomNotesBtn");
-        const closeRoomBanner = document.getElementById("closeRoomBanner");
-
-        const stageButtons = document.querySelectorAll(".stage-next");
-        const sectionCards = document.querySelectorAll(".section-card[data-stage]");
-        const flipCards = document.querySelectorAll(".flip-card");
-
-        const generateTerminationBtn = document.getElementById("generateTerminationBtn");
-        const generateAgreementBtn = document.getElementById("generateAgreementBtn");
-        const printTerminationBtn = document.getElementById("printTerminationBtn");
-        const printAgreementBtn = document.getElementById("printAgreementBtn");
-
-        function getState() {
+        window.addEventListener("DOMContentLoaded", () => {
             try {
-                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-            } catch {
-                return {};
-            }
-        }
+                const STORAGE_KEY = "blackMarketTooMuchRoomV3";
 
-        function setState(nextState) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(nextState));
-        }
+                const saveFields = document.querySelectorAll("[data-save]");
+                const checkFields = document.querySelectorAll("[data-check]");
+                const progressFill = document.getElementById("progressFill");
+                const progressCopy = document.getElementById("progressCopy");
+                const roomStatus = document.getElementById("roomStatus");
+                const closeRoomBtn = document.getElementById("closeRoomBtn");
+                const downloadRoomNotesBtn = document.getElementById("downloadRoomNotesBtn");
+                const closeRoomBanner = document.getElementById("closeRoomBanner");
 
-        function getUnlockedStage() {
-            // Locking is disabled; all sections should remain unlocked.
-            return 1;
-        }
+                const stageButtons = document.querySelectorAll(".stage-next");
+                const sectionCards = document.querySelectorAll(".section-card[data-stage]");
+                const flipCards = document.querySelectorAll(".flip-card");
 
-        function setUnlockedStage(stageNumber) {
-            // No-op: we don't need to track unlocked stages in storage anymore.
-        }
+                const generateTerminationBtn = document.getElementById("generateTerminationBtn");
+                const generateAgreementBtn = document.getElementById("generateAgreementBtn");
+                const printTerminationBtn = document.getElementById("printTerminationBtn");
+                const printAgreementBtn = document.getElementById("printAgreementBtn");
 
-        function renderUnlockedStages() {
-            // Ensure every section is accessible.
-            sectionCards.forEach(section => {
-                section.classList.remove("locked");
-                section.classList.add("active");
-            });
-        }
-
-        function saveCurrentState() {
-            const state = getState();
-
-            saveFields.forEach(field => {
-                state[field.id] = field.value;
-            });
-
-            checkFields.forEach(field => {
-                state[field.id] = field.checked;
-            });
-
-            flipCards.forEach(card => {
-                const key = card.dataset.flip;
-                state[key + "_flipped"] = card.classList.contains("flipped");
-                const activeReaction = card.querySelector(".reaction-btn.active");
-                state[key + "_reaction"] = activeReaction ? activeReaction.textContent.trim() : "";
-            });
-
-            setState(state);
-            updateProgress();
-        }
-
-        function loadState() {
-            const state = getState();
-
-            saveFields.forEach(field => {
-                if (typeof state[field.id] === "string") {
-                    field.value = state[field.id];
+                function getState() {
+                    try {
+                        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+                    } catch {
+                        return {};
+                    }
                 }
-            });
 
-            checkFields.forEach(field => {
-                field.checked = !!state[field.id];
-            });
-
-            flipCards.forEach(card => {
-                const key = card.dataset.flip;
-                if (state[key + "_flipped"]) {
-                    card.classList.add("flipped");
+                function setState(nextState) {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(nextState));
                 }
-                const savedReaction = state[key + "_reaction"];
-                if (savedReaction) {
-                    const btns = card.querySelectorAll(".reaction-btn");
-                    btns.forEach(btn => {
-                        if (btn.textContent.trim() === savedReaction) {
-                            btn.classList.add("active");
-                        }
+
+                function getUnlockedStage() {
+                    // Locking is disabled; all sections should remain unlocked.
+                    return 1;
+                }
+
+                function setUnlockedStage(stageNumber) {
+                    // No-op: we don't need to track unlocked stages in storage anymore.
+                }
+
+                function renderUnlockedStages() {
+                    // Ensure every section is accessible.
+                    sectionCards.forEach(section => {
+                        section.classList.remove("locked");
+                        section.classList.add("active");
                     });
                 }
-            });
 
-            renderUnlockedStages();
-            updateProgress();
+                function saveCurrentState() {
+                    const state = getState();
 
-            if (state.roomComplete) {
-                closeRoomBanner.classList.add("show");
-                roomStatus.textContent = "Room closed · marked complete locally";
-            }
-        }
+                    saveFields.forEach(field => {
+                        state[field.id] = field.value;
+                    });
 
-        function updateProgress() {
-            const state = getState();
+                    checkFields.forEach(field => {
+                        state[field.id] = field.checked;
+                    });
 
-            const completionItems = [
-                "diag1", "diag2", "diag3", "diag4", "diag5", "diag6", "diag7",
-                "powerBeneficiaries", "generatorBehavior", "reroutePower",
-                "chosenMove", "fullName", "oldClause", "costStatement",
-                "terminationAddendum", "newClause1", "newClause2", "newClause3",
-                "immediateAction", "destroyMethod",
-                "move1", "move2", "move3", "move4", "move5", "move6", "move7",
-                "complete1", "complete2", "complete3", "complete4", "complete5", "complete6",
-                "destroyedOldContract", "signedNewAgreement",
-                "final1", "final2", "final3", "final4", "final5", "final6"
-            ];
+                    flipCards.forEach(card => {
+                        const key = card.dataset.flip;
+                        state[key + "_flipped"] = card.classList.contains("flipped");
+                        const activeReaction = card.querySelector(".reaction-btn.active");
+                        state[key + "_reaction"] = activeReaction ? activeReaction.textContent.trim() : "";
+                    });
 
-            let done = 0;
-            const total = completionItems.length;
-
-            completionItems.forEach(id => {
-                const value = state[id];
-                if (typeof value === "boolean" && value) done++;
-                if (typeof value === "string" && value.trim().length > 0) done++;
-            });
-
-            const pct = Math.round((done / total) * 100);
-            progressFill.style.width = pct + "%";
-            progressCopy.textContent = `${pct}% complete · ${done} of ${total} markers complete`;
-
-            if (state.roomComplete) {
-                roomStatus.textContent = "Room closed · marked complete locally";
-            } else {
-                roomStatus.textContent = "Room open · progress tracked locally";
-            }
-        }
-
-        stageButtons.forEach(button => {
-            button.addEventListener("click", () => {
-                const next = parseInt(button.dataset.next, 10);
-                const target = document.getElementById("section" + next);
-                if (target) {
-                    // Make sure it looks active even before JS runs fully.
-                    target.classList.remove("locked");
-                    target.classList.add("active");
-
-                    setTimeout(() => {
-                        target.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }, 80);
+                    setState(state);
+                    updateProgress();
                 }
-            });
-        });
 
-        saveFields.forEach(field => {
-            field.addEventListener("input", saveCurrentState);
-        });
+                function loadState() {
+                    const state = getState();
 
-        checkFields.forEach(field => {
-            field.addEventListener("change", saveCurrentState);
-        });
+                    saveFields.forEach(field => {
+                        if (typeof state[field.id] === "string") {
+                            field.value = state[field.id];
+                        }
+                    });
 
-        flipCards.forEach(card => {
-            const flipTrigger = card.querySelector(".flip-trigger");
-            const reactionBtns = card.querySelectorAll(".reaction-btn");
+                    checkFields.forEach(field => {
+                        field.checked = !!state[field.id];
+                    });
 
-            flipTrigger.addEventListener("click", () => {
-                card.classList.toggle("flipped");
-                saveCurrentState();
-            });
+                    flipCards.forEach(card => {
+                        const key = card.dataset.flip;
+                        if (state[key + "_flipped"]) {
+                            card.classList.add("flipped");
+                        }
+                        const savedReaction = state[key + "_reaction"];
+                        if (savedReaction) {
+                            const btns = card.querySelectorAll(".reaction-btn");
+                            btns.forEach(btn => {
+                                if (btn.textContent.trim() === savedReaction) {
+                                    btn.classList.add("active");
+                                }
+                            });
+                        }
+                    });
 
-            reactionBtns.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    reactionBtns.forEach(b => b.classList.remove("active"));
-                    btn.classList.add("active");
-                    saveCurrentState();
+                    renderUnlockedStages();
+                    updateProgress();
+
+                    if (state.roomComplete) {
+                        closeRoomBanner.classList.add("show");
+                        roomStatus.textContent = "Room closed · marked complete locally";
+                    }
+                }
+
+                function updateProgress() {
+                    const state = getState();
+
+                    const completionItems = [
+                        "diag1", "diag2", "diag3", "diag4", "diag5", "diag6", "diag7",
+                        "powerBeneficiaries", "generatorBehavior", "reroutePower",
+                        "chosenMove", "fullName", "oldClause", "costStatement",
+                        "terminationAddendum", "newClause1", "newClause2", "newClause3",
+                        "immediateAction", "destroyMethod",
+                        "move1", "move2", "move3", "move4", "move5", "move6", "move7",
+                        "complete1", "complete2", "complete3", "complete4", "complete5", "complete6",
+                        "destroyedOldContract", "signedNewAgreement",
+                        "final1", "final2", "final3", "final4", "final5", "final6"
+                    ];
+
+                    let done = 0;
+                    const total = completionItems.length;
+
+                    completionItems.forEach(id => {
+                        const value = state[id];
+                        if (typeof value === "boolean" && value) done++;
+                        if (typeof value === "string" && value.trim().length > 0) done++;
+                    });
+
+                    const pct = Math.round((done / total) * 100);
+                    progressFill.style.width = pct + "%";
+                    progressCopy.textContent = `${pct}% complete · ${done} of ${total} markers complete`;
+
+                    if (state.roomComplete) {
+                        roomStatus.textContent = "Room closed · marked complete locally";
+                    } else {
+                        roomStatus.textContent = "Room open · progress tracked locally";
+                    }
+                }
+
+                stageButtons.forEach(button => {
+                    button.addEventListener("click", () => {
+                        const next = parseInt(button.dataset.next, 10);
+                        const target = document.getElementById("section" + next);
+                        if (target) {
+                            // Make sure it looks active even before JS runs fully.
+                            target.classList.remove("locked");
+                            target.classList.add("active");
+
+                            setTimeout(() => {
+                                target.scrollIntoView({ behavior: "smooth", block: "start" });
+                            }, 80);
+                        }
+                    });
                 });
-            });
-        });
 
-        function todayFallback() {
-            const d = new Date();
-            return d.toISOString().slice(0, 10);
-        }
+                saveFields.forEach(field => {
+                    field.addEventListener("input", saveCurrentState);
+                });
 
-        function buildTerminationPreview() {
-            const name = document.getElementById("fullName").value.trim() || "____________________________";
-            const date = document.getElementById("terminationDate").value || todayFallback();
-            const oldClause = document.getElementById("oldClause").value.trim() || "____________________________";
-            const cost = document.getElementById("costStatement").value.trim() || "____________________________";
-            const addendum = document.getElementById("terminationAddendum").value.trim() ||
-                "The undersigned no longer recognizes this agreement as protective, necessary, or binding.";
+                checkFields.forEach(field => {
+                    field.addEventListener("change", saveCurrentState);
+                });
 
-            document.getElementById("termNameDisplay").textContent = name;
-            document.getElementById("termOldClauseDisplay").textContent = oldClause;
-            document.getElementById("termCostDisplay").textContent = cost;
-            document.getElementById("termAddendumDisplay").textContent = addendum;
-            document.getElementById("termDateDisplay").textContent = date;
+                flipCards.forEach(card => {
+                    const flipTrigger = card.querySelector(".flip-trigger");
+                    const reactionBtns = card.querySelectorAll(".reaction-btn");
 
-            saveCurrentState();
-        }
+                    flipTrigger.addEventListener("click", () => {
+                        card.classList.toggle("flipped");
+                        saveCurrentState();
+                    });
 
-        function buildAgreementPreview() {
-            const name = document.getElementById("fullName").value.trim() || "____________________________";
-            const date = document.getElementById("terminationDate").value || todayFallback();
+                    reactionBtns.forEach(btn => {
+                        btn.addEventListener("click", () => {
+                            reactionBtns.forEach(b => b.classList.remove("active"));
+                            btn.classList.add("active");
+                            saveCurrentState();
+                        });
+                    });
+                });
 
-            const clauses = [
-                document.getElementById("newClause1").value.trim(),
-                document.getElementById("newClause2").value.trim(),
-                document.getElementById("newClause3").value.trim(),
-                document.getElementById("newClause4").value.trim(),
-                document.getElementById("newClause5").value.trim()
-            ].filter(Boolean);
+                function todayFallback() {
+                    const d = new Date();
+                    return d.toISOString().slice(0, 10);
+                }
 
-            const action = document.getElementById("immediateAction").value.trim() || "____________________________";
+                function buildTerminationPreview() {
+                    const name = document.getElementById("fullName").value.trim() || "____________________________";
+                    const date = document.getElementById("terminationDate").value || todayFallback();
+                    const oldClause = document.getElementById("oldClause").value.trim() || "____________________________";
+                    const cost = document.getElementById("costStatement").value.trim() || "____________________________";
+                    const addendum = document.getElementById("terminationAddendum").value.trim() ||
+                        "The undersigned no longer recognizes this agreement as protective, necessary, or binding.";
 
-            document.getElementById("agreeNameDisplay").textContent = name;
-            document.getElementById("agreeDateDisplay").textContent = date;
-            document.getElementById("agreeClausesDisplay").innerHTML = clauses.length
-                ? clauses.map((c, i) => `${i + 1}. ${c}`).join("<br />")
-                : "____________________________";
-            document.getElementById("agreeActionDisplay").textContent = action;
+                    document.getElementById("termNameDisplay").textContent = name;
+                    document.getElementById("termOldClauseDisplay").textContent = oldClause;
+                    document.getElementById("termCostDisplay").textContent = cost;
+                    document.getElementById("termAddendumDisplay").textContent = addendum;
+                    document.getElementById("termDateDisplay").textContent = date;
 
-            saveCurrentState();
-        }
+                    saveCurrentState();
+                }
 
-        generateTerminationBtn.addEventListener("click", buildTerminationPreview);
-        generateAgreementBtn.addEventListener("click", buildAgreementPreview);
+                function buildAgreementPreview() {
+                    const name = document.getElementById("fullName").value.trim() || "____________________________";
+                    const date = document.getElementById("terminationDate").value || todayFallback();
 
-        function printElement(elementId) {
-            const target = document.getElementById(elementId);
-            const originalBody = document.body.innerHTML;
-            const printContents = `
+                    const clauses = [
+                        document.getElementById("newClause1").value.trim(),
+                        document.getElementById("newClause2").value.trim(),
+                        document.getElementById("newClause3").value.trim(),
+                        document.getElementById("newClause4").value.trim(),
+                        document.getElementById("newClause5").value.trim()
+                    ].filter(Boolean);
+
+                    const action = document.getElementById("immediateAction").value.trim() || "____________________________";
+
+                    document.getElementById("agreeNameDisplay").textContent = name;
+                    document.getElementById("agreeDateDisplay").textContent = date;
+                    document.getElementById("agreeClausesDisplay").innerHTML = clauses.length
+                        ? clauses.map((c, i) => `${i + 1}. ${c}`).join("<br />")
+                        : "____________________________";
+                    document.getElementById("agreeActionDisplay").textContent = action;
+
+                    saveCurrentState();
+                }
+
+                generateTerminationBtn.addEventListener("click", buildTerminationPreview);
+                generateAgreementBtn.addEventListener("click", buildAgreementPreview);
+
+                function printElement(elementId) {
+                    const target = document.getElementById(elementId);
+                    const originalBody = document.body.innerHTML;
+                    const printContents = `
                 <html>
                 <head>
                     <title>Print Document</title>
@@ -2141,94 +2143,102 @@
                 <body>${target.innerHTML}</body>
                 </html>
             `;
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalBody;
-            window.location.reload();
-        }
+                    document.body.innerHTML = printContents;
+                    window.print();
+                    document.body.innerHTML = originalBody;
+                    window.location.reload();
+                }
 
-        printTerminationBtn.addEventListener("click", () => {
-            buildTerminationPreview();
-            printElement("terminationPrintTarget");
+                printTerminationBtn.addEventListener("click", () => {
+                    buildTerminationPreview();
+                    printElement("terminationPrintTarget");
+                });
+
+                printAgreementBtn.addEventListener("click", () => {
+                    buildAgreementPreview();
+                    printElement("agreementPrintTarget");
+                });
+
+                closeRoomBtn.addEventListener("click", () => {
+                    const state = getState();
+                    state.roomComplete = true;
+                    setState(state);
+                    closeRoomBanner.classList.add("show");
+                    updateProgress();
+                    saveCurrentState();
+                });
+
+                downloadRoomNotesBtn.addEventListener("click", () => {
+                    const state = getState();
+
+                    const content = [
+                        "BLACK MARKET · TOO MUCH ROOM",
+                        "",
+                        "FULL NAME:",
+                        state.fullName || "",
+                        "",
+                        "DIAGNOSTICS:",
+                        state.diag1 || "",
+                        state.diag2 || "",
+                        state.diag3 || "",
+                        state.diag4 || "",
+                        state.diag5 || "",
+                        state.diag6 || "",
+                        state.diag7 || "",
+                        "",
+                        "POWER REDISTRIBUTION:",
+                        state.powerBeneficiaries || "",
+                        state.generatorBehavior || "",
+                        state.reroutePower || "",
+                        "",
+                        "CHOSEN MOVE:",
+                        state.chosenMove || "",
+                        "",
+                        "OLD CLAUSE:",
+                        state.oldClause || "",
+                        "",
+                        "COST STATEMENT:",
+                        state.costStatement || "",
+                        "",
+                        "TERMINATION ADDENDUM:",
+                        state.terminationAddendum || "",
+                        "",
+                        "NEW CLAUSES:",
+                        state.newClause1 || "",
+                        state.newClause2 || "",
+                        state.newClause3 || "",
+                        state.newClause4 || "",
+                        state.newClause5 || "",
+                        "",
+                        "IMMEDIATE ACTION:",
+                        state.immediateAction || "",
+                        "",
+                        "DESTROY METHOD:",
+                        state.destroyMethod || ""
+                    ].join("\n");
+
+                    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = "black-market-too-much-room-file.txt";
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                });
+
+                loadState();
+                buildTerminationPreview();
+                buildAgreementPreview();
+            } catch (err) {
+                console.error("Room script error:", err);
+                const statusElem = document.getElementById("roomStatus");
+                if (statusElem) {
+                    statusElem.textContent = "Room script failed to initialize (check console).";
+                }
+            }
         });
-
-        printAgreementBtn.addEventListener("click", () => {
-            buildAgreementPreview();
-            printElement("agreementPrintTarget");
-        });
-
-        closeRoomBtn.addEventListener("click", () => {
-            const state = getState();
-            state.roomComplete = true;
-            setState(state);
-            closeRoomBanner.classList.add("show");
-            updateProgress();
-            saveCurrentState();
-        });
-
-        downloadRoomNotesBtn.addEventListener("click", () => {
-            const state = getState();
-
-            const content = [
-                "BLACK MARKET · TOO MUCH ROOM",
-                "",
-                "FULL NAME:",
-                state.fullName || "",
-                "",
-                "DIAGNOSTICS:",
-                state.diag1 || "",
-                state.diag2 || "",
-                state.diag3 || "",
-                state.diag4 || "",
-                state.diag5 || "",
-                state.diag6 || "",
-                state.diag7 || "",
-                "",
-                "POWER REDISTRIBUTION:",
-                state.powerBeneficiaries || "",
-                state.generatorBehavior || "",
-                state.reroutePower || "",
-                "",
-                "CHOSEN MOVE:",
-                state.chosenMove || "",
-                "",
-                "OLD CLAUSE:",
-                state.oldClause || "",
-                "",
-                "COST STATEMENT:",
-                state.costStatement || "",
-                "",
-                "TERMINATION ADDENDUM:",
-                state.terminationAddendum || "",
-                "",
-                "NEW CLAUSES:",
-                state.newClause1 || "",
-                state.newClause2 || "",
-                state.newClause3 || "",
-                state.newClause4 || "",
-                state.newClause5 || "",
-                "",
-                "IMMEDIATE ACTION:",
-                state.immediateAction || "",
-                "",
-                "DESTROY METHOD:",
-                state.destroyMethod || ""
-            ].join("\n");
-
-            const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "black-market-too-much-room-file.txt";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        });
-
-        loadState();
-        buildTerminationPreview();
-        buildAgreementPreview();
     </script>
 </body>
 
