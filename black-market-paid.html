@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Black Market System • Manifestor Anonymous</title>
+    <meta name="description"
+        content="Black Market is the Shadow Ledger System for Manifestors. Start with your flagged room, expose the contract, rewrite it, and move through all four rooms on your own terms." />
+
+    <style>
+        :root {
+            --bg: #020308;
+            --bg-soft: #060912;
+            --panel: rgba(255, 255, 255, 0.045);
+            --line: rgba(255, 255, 255, 0.11);
+            --line-strong: rgba(255, 255, 255, 0.20);
+            --text: #f5f7fb;
+            --muted: rgba(245, 247, 251, 0.68);
+            --dim: rgba(245, 247, 251, 0.42);
+            --accent: #ffffff;
+            --accent-glow: rgba(255, 255, 255, 0.85);
+            --radius: 26px;
+            --shadow: 0 22px 70px rgba(0, 0, 0, 0.75);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at 10% -10%, rgba(255, 255, 255, 0.10), transparent 20%),
+                radial-gradient(circle at 85% 110%, rgba(255, 255, 255, 0.05), transparent 30%),
+                #020308;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.06;
+            background-image:
+                linear-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.18) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 88%);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            text-shadow: 0 0 6px var(--accent-glow);
+        }
+
+        a:hover {
+            text-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .container {
+            width: min(1200px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            backdrop-filter: blur(14px);
+            background: rgba(3, 7, 18, 0.88);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.45);
+        }
+
+        .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            padding: 14px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--line-strong);
+            overflow: hidden;
+            box-shadow: 0 0 22px rgba(255, 255, 255, 0.35);
+            background: #08090d;
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand-copy small,
+        .section-label,
+        .room-label,
+        .tiny {
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.26em;
+            font-size: 10px;
+            color: var(--dim);
+        }
+
+        .brand-copy strong {
+            display: block;
+            margin-top: 2px;
+            font-size: 14px;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+        }
+
+        .topbar-tagline {
+            margin-top: 4px;
+            font-size: 9px;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: rgba(209, 213, 219, 0.9);
+        }
+
+        .top-links {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .btn,
+        .btn-small,
+        .inline-btn {
+            border: 0;
+            border-radius: 18px;
+            padding: 14px 22px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition:
+                transform 0.18s ease,
+                box-shadow 0.18s ease,
+                border-color 0.18s ease,
+                background 0.18s ease,
+                opacity 0.18s ease;
+        }
+
+        .btn:hover,
+        .btn-small:hover,
+        .inline-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary,
+        .btn-small {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: 1px solid var(--line-strong);
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.18);
+        }
+
+        .btn-primary,
+        .inline-btn {
+            background: #ffffff;
+            color: #050608;
+            box-shadow: 0 0 28px rgba(255, 255, 255, 0.55);
+        }
+
+        .btn-small {
+            padding: 10px 16px;
+            font-size: 10px;
+            border-radius: 999px;
+        }
+
+        main {
+            padding: 30px 0 48px;
+        }
+
+        .hero-grid,
+        .overview-grid,
+        .flow-grid,
+        .rooms-grid,
+        .included-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .hero-grid {
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.85fr);
+            align-items: start;
+        }
+
+        .overview-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .flow-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .rooms-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .included-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .panel,
+        .side-card,
+        .section-card,
+        .flow-card,
+        .room-card,
+        .included-card,
+        .cta-card {
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), rgba(7, 9, 16, 0.98));
+            box-shadow: var(--shadow);
+        }
+
+        .panel,
+        .side-card,
+        .section-card,
+        .cta-card {
+            padding: 22px;
+        }
+
+        .flow-card,
+        .room-card,
+        .included-card {
+            padding: 18px;
+        }
+
+        .signal-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.07);
+            color: #fefefe;
+            box-shadow: 0 0 26px rgba(255, 255, 255, 0.25);
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .signal-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 16px rgba(255, 255, 255, 0.9);
+        }
+
+        h1 {
+            margin: 18px 0 0;
+            font-size: clamp(38px, 6vw, 54px);
+            letter-spacing: -0.06em;
+            line-height: 0.95;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: -0.04em;
+        }
+
+        h3 {
+            margin: 0 0 8px;
+            font-size: 16px;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-sub {
+            margin-top: 8px;
+            font-size: 15px;
+            color: rgba(245, 247, 251, 0.86);
+        }
+
+        .intro,
+        .panel p,
+        .side-card p,
+        .section-card p,
+        .flow-card p,
+        .room-card p,
+        .included-card p,
+        .cta-card p {
+            margin-top: 12px;
+            font-size: 14px;
+            line-height: 1.85;
+            color: var(--muted);
+        }
+
+        .intro strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .hero-chip {
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 14px;
+            font-size: 12px;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+
+        .hero-chip strong {
+            display: block;
+            color: var(--text);
+            margin-bottom: 5px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+        }
+
+        .flag-box,
+        .instruction-box {
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 14px;
+            margin-top: 14px;
+        }
+
+        .flag-box strong,
+        .instruction-box strong {
+            display: block;
+            color: var(--text);
+            margin-bottom: 6px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+        }
+
+        .section-card {
+            margin-top: 24px;
+        }
+
+        .room-card .room-label {
+            margin-bottom: 8px;
+        }
+
+        .room-contract {
+            color: #fff;
+            font-size: 13px;
+            line-height: 1.7;
+            margin-top: 10px;
+        }
+
+        .room-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        ul.clean {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 0;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        ul.clean li {
+            position: relative;
+            padding-left: 14px;
+            margin-top: 8px;
+            line-height: 1.7;
+        }
+
+        ul.clean li::before {
+            content: "";
+            position: absolute;
+            left: 2px;
+            top: 9px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-note {
+            margin-top: 14px;
+            font-size: 11px;
+            color: var(--dim);
+            line-height: 1.7;
+        }
+
+        footer {
+            border-top: 1px solid var(--line);
+            margin-top: 34px;
+            padding: 16px 0 24px;
+            font-size: 11px;
+            color: var(--dim);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 980px) {
+
+            .hero-grid,
+            .overview-grid,
+            .flow-grid,
+            .rooms-grid,
+            .included-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .topbar-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .topbar-tagline {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="brand">
+                <div class="brand-icon">
+                    <img src="images/logocircle.png" alt="Manifestor Anonymous icon" />
+                </div>
+                <div class="brand-copy">
+                    <small>Manifestor Anonymous</small>
+                    <strong>Black Market System</strong>
+                    <div class="topbar-tagline">Shadow Ledger System · Start with your flagged room</div>
+                </div>
+            </div>
+            <nav class="top-links">
+                <a href="index.html" class="btn btn-secondary">Back to terminal</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="container hero-grid">
+            <section class="panel">
+                <div class="signal-chip">
+                    <span class="signal-dot"></span>
+                    <span>Paid Access · Shadow Ledger System</span>
+                </div>
+
+                <h1>Black Market.</h1>
+                <p class="hero-sub">Start with your flagged room. Then move through the others on your own terms.</p>
+
+                <p class="intro">
+                    You already ran the scan. So now you know where your Manifestor power is going off-ledger.
+                    This is the full system. Not just the flag. Not just the symptom. The actual room.
+                </p>
+
+                <p class="intro">
+                    Inside, you get all four rooms unlocked at once. But you do not start everywhere.
+                    You start with the room your scan flagged first. You run that room all the way through.
+                    Then you come back and move through the others when you are ready.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#rooms" class="btn btn-primary">Enter the rooms</a>
+                    <a href="#included" class="btn btn-secondary">What is included</a>
+                </div>
+            </section>
+
+            <aside class="side-card">
+                <span class="section-label">Start here</span>
+                <h2>Your first move is not random.</h2>
+                <p>
+                    The scan flagged the room where your power is currently being redirected, hidden, over-managed, or
+                    burned off.
+                    Start there first.
+                </p>
+
+                <div class="flag-box">
+                    <strong>Flagged room</strong>
+                    <p id="flaggedRoomText">Too Much Room</p>
+                </div>
+
+                <div class="instruction-box">
+                    <strong>How to use this</strong>
+                    <p>
+                        Run the briefing. Do the diagnostics. Rewrite the contract. Take the move.
+                        Then come back and choose the next room.
+                    </p>
+                </div>
+
+                <div class="footer-note">
+                    This system is for Manifestors who are done trying to fix their shadows from the surface.
+                </div>
+            </aside>
+        </section>
+
+        <section class="container section-card">
+            <span class="section-label">What this system is</span>
+            <h2>Not a learn Human Design course. A contract rewrite system.</h2>
+
+            <div class="overview-grid">
+                <div class="hero-chip">
+                    <strong>What it does</strong>
+                    Exposes the contract under the pattern so you can stop calling self-betrayal maturity.
+                </div>
+                <div class="hero-chip">
+                    <strong>What it includes</strong>
+                    Briefing audios, diagnostics, rewrite prompts, practical moves, case files, and completion markers.
+                </div>
+                <div class="hero-chip">
+                    <strong>What happens after</strong>
+                    You terminate the old contract, sign the new one, and stop pretending your power belongs off-ledger.
+                </div>
+            </div>
+        </section>
+
+        <section class="container section-card">
+            <span class="section-label">How it works</span>
+            <h2>Run the flagged room first. Then keep going.</h2>
+
+            <div class="flow-grid">
+                <article class="flow-card">
+                    <div class="tiny">Step 01</div>
+                    <h3>Open the flagged room</h3>
+                    <p>
+                        Start with the room your intake scan flagged. Do not bounce around just because you can.
+                    </p>
+                </article>
+
+                <article class="flow-card">
+                    <div class="tiny">Step 02</div>
+                    <h3>Work the room in order</h3>
+                    <p>
+                        Listen to the briefing, run the diagnostics, rewrite the contract, and take at least one move.
+                    </p>
+                </article>
+
+                <article class="flow-card">
+                    <div class="tiny">Step 03</div>
+                    <h3>Close the room</h3>
+                    <p>
+                        When the room is done, you mark it complete, destroy the old contract, and sign the new one.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="container section-card" id="rooms">
+            <span class="section-label">The four rooms</span>
+            <h2>Every room tracks a specific Manifestor shadow contract.</h2>
+
+            <div class="rooms-grid">
+                <article class="room-card">
+                    <div class="room-label">Room 01</div>
+                    <h3>Too Much Room</h3>
+                    <p class="room-contract">“I will stay smaller, softer, and slower so nobody feels threatened by my
+                        power.”</p>
+                    <p>
+                        This room tracks shrinking, over-explaining, over-apologizing, endless compromise,
+                        and using your energy to manage other people instead of initiate.
+                    </p>
+                    <div class="room-actions">
+                        <a href="black-market-too-much-room.html" class="btn-small">Enter room</a>
+                    </div>
+                </article>
+
+                <article class="room-card">
+                    <div class="room-label">Room 02</div>
+                    <h3>Confiscated Voice</h3>
+                    <p class="room-contract">“My voice is dangerous, so I will edit, delay, or sweeten everything I
+                        say.”</p>
+                    <p>
+                        This room tracks self-censorship, unsent posts, delayed truth, softened boundaries,
+                        and the habit of making your voice safer than it really is.
+                    </p>
+                    <div class="room-actions">
+                        <a href="black-market-confiscated-voice.html" class="btn-small">Enter room</a>
+                    </div>
+                </article>
+
+                <article class="room-card">
+                    <div class="room-label">Room 03</div>
+                    <h3>Stolen Cycles</h3>
+                    <p class="room-contract">“My value comes from producing constantly. Rest is lazy unless I earn it.”
+                    </p>
+                    <p>
+                        This room tracks Generator conditioning, burnout, overriding your rest cycles,
+                        ignoring your body, and trying to maintain output your system was never built for.
+                    </p>
+                    <div class="room-actions">
+                        <a href="black-market-stolen-cycles.html" class="btn-small">Enter room</a>
+                    </div>
+                </article>
+
+                <article class="room-card">
+                    <div class="room-label">Room 04</div>
+                    <h3>Off-the-Books Power</h3>
+                    <p class="room-contract">“I will keep my real power and desire off-ledger so life stays reasonable
+                        on paper.”</p>
+                    <p>
+                        This room tracks hidden ambition, buried standards, safe-looking choices,
+                        and the split between your official life and your real power.
+                    </p>
+                    <div class="room-actions">
+                        <a href="black-market-off-the-books-power.html" class="btn-small">Enter room</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="container section-card" id="included">
+            <span class="section-label">What is included</span>
+            <h2>Each room gives you the breakdown and the exit route.</h2>
+
+            <div class="included-grid">
+                <article class="included-card">
+                    <h3>Briefing audio</h3>
+                    <p>
+                        A 20 to 30 minute room breakdown tying the pattern to aura, anger, authority, and creative or
+                        rest cycles.
+                    </p>
+                </article>
+
+                <article class="included-card">
+                    <h3>Contract rewrite</h3>
+                    <p>
+                        Diagnostics prompts, rewrite pages, and direct language for identifying the old clauses and
+                        writing the new ones.
+                    </p>
+                </article>
+
+                <article class="included-card">
+                    <h3>Practical moves</h3>
+                    <p>
+                        Concrete actions, case files, and a completion marker so the room becomes lived change instead
+                        of another insight binge.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="container section-card">
+            <span class="section-label">Final instruction</span>
+            <h2>Do not start all four at once.</h2>
+            <p>
+                Start with your flagged room. Finish it honestly. Then come back and choose the next one.
+                This is not about speed. It is about stopping the contract that has been draining your power.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <div>© Manifestor Anonymous · Black Market System</div>
+            <div>Built for Manifestors who are done keeping their power off-ledger.</div>
+        </div>
+    </footer>
+
+    <script>
+        const flaggedRoomText = document.getElementById("flaggedRoomText");
+        const params = new URLSearchParams(window.location.search);
+        const flagged = params.get("room");
+
+        const roomMap = {
+            "too-much": "Too Much Room",
+            "voice": "Confiscated Voice",
+            "cycles": "Stolen Cycles",
+            "power": "Off-the-Books Power"
+        };
+
+        if (flagged && roomMap[flagged]) {
+            flaggedRoomText.textContent = roomMap[flagged];
+        }
+    </script>
+</body>
+
+</html>

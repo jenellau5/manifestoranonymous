@@ -1,0 +1,2235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Too Much Room • Black Market • Manifestor Anonymous</title>
+    <meta name="description"
+        content="Too Much Room inside Black Market. Expose the contract that made you shrink your Manifestor power, terminate it, and sign a new power agreement." />
+
+    <style>
+        :root {
+            --bg: #020308;
+            --bg-soft: #060912;
+            --panel: rgba(255, 255, 255, 0.045);
+            --line: rgba(255, 255, 255, 0.11);
+            --line-strong: rgba(255, 255, 255, 0.20);
+            --text: #f5f7fb;
+            --muted: rgba(245, 247, 251, 0.68);
+            --dim: rgba(245, 247, 251, 0.42);
+            --accent: #ffffff;
+            --accent-glow: rgba(255, 255, 255, 0.85);
+            --danger: #ff667e;
+            --success: #7dffbf;
+            --warn: #ffd88c;
+            --radius: 26px;
+            --radius-sm: 18px;
+            --shadow: 0 22px 70px rgba(0, 0, 0, 0.75);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at 10% -10%, rgba(255, 255, 255, 0.10), transparent 20%),
+                radial-gradient(circle at 85% 110%, rgba(255, 255, 255, 0.05), transparent 30%),
+                #020308;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.06;
+            background-image:
+                linear-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.18) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 88%);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            text-shadow: 0 0 6px var(--accent-glow);
+        }
+
+        a:hover {
+            text-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        button,
+        textarea,
+        input {
+            font: inherit;
+        }
+
+        .container {
+            width: min(1260px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 60;
+            backdrop-filter: blur(14px);
+            background: rgba(3, 7, 18, 0.88);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.45);
+        }
+
+        .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            padding: 14px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--line-strong);
+            overflow: hidden;
+            box-shadow: 0 0 22px rgba(255, 255, 255, 0.35);
+            background: #08090d;
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand-copy small,
+        .section-label,
+        .tiny-label,
+        .step-num,
+        .room-label,
+        .side-chip,
+        .doc-subtitle {
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.24em;
+            font-size: 10px;
+            color: var(--dim);
+        }
+
+        .brand-copy strong {
+            display: block;
+            margin-top: 2px;
+            font-size: 14px;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+        }
+
+        .topbar-tagline {
+            margin-top: 4px;
+            font-size: 9px;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: rgba(209, 213, 219, 0.9);
+        }
+
+        .top-links {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .btn,
+        .btn-small,
+        .inline-btn,
+        .reaction-btn {
+            border: 0;
+            border-radius: 18px;
+            padding: 14px 22px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition:
+                transform 0.18s ease,
+                box-shadow 0.18s ease,
+                border-color 0.18s ease,
+                background 0.18s ease,
+                opacity 0.18s ease;
+        }
+
+        .btn:hover,
+        .btn-small:hover,
+        .inline-btn:hover,
+        .reaction-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary,
+        .btn-small,
+        .reaction-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: 1px solid var(--line-strong);
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.18);
+        }
+
+        .btn-primary,
+        .inline-btn {
+            background: #ffffff;
+            color: #050608;
+            box-shadow: 0 0 28px rgba(255, 255, 255, 0.55);
+        }
+
+        .btn-small,
+        .reaction-btn {
+            padding: 10px 16px;
+            font-size: 10px;
+            border-radius: 999px;
+        }
+
+        .reaction-btn.active {
+            background: #fff;
+            color: #050608;
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.45);
+        }
+
+        main {
+            padding: 30px 0 56px;
+        }
+
+        .hero-grid,
+        .main-grid,
+        .cards-grid,
+        .steps-grid,
+        .case-grid,
+        .moves-grid,
+        .completion-grid,
+        .doc-grid,
+        .ritual-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .hero-grid {
+            grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+            align-items: start;
+            margin-bottom: 24px;
+        }
+
+        .main-grid {
+            grid-template-columns: minmax(0, 1fr) 330px;
+            align-items: start;
+        }
+
+        .cards-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .steps-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .case-grid,
+        .moves-grid,
+        .completion-grid,
+        .doc-grid,
+        .ritual-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .panel,
+        .side-card,
+        .section-card,
+        .card,
+        .step-card,
+        .case-card,
+        .move-card,
+        .completion-card,
+        .contract-box,
+        .alert-box,
+        .doc-card {
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), rgba(7, 9, 16, 0.98));
+            box-shadow: var(--shadow);
+        }
+
+        .panel,
+        .side-card,
+        .section-card,
+        .contract-box,
+        .alert-box {
+            padding: 22px;
+        }
+
+        .card,
+        .step-card,
+        .case-card,
+        .move-card,
+        .completion-card,
+        .doc-card {
+            padding: 18px;
+            border-radius: var(--radius-sm);
+        }
+
+        .signal-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.07);
+            color: #fefefe;
+            box-shadow: 0 0 26px rgba(255, 255, 255, 0.25);
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .signal-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 16px rgba(255, 255, 255, 0.9);
+        }
+
+        h1 {
+            margin: 18px 0 0;
+            font-size: clamp(38px, 6vw, 54px);
+            letter-spacing: -0.06em;
+            line-height: 0.95;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: -0.04em;
+        }
+
+        h3 {
+            margin: 0 0 8px;
+            font-size: 17px;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-sub {
+            margin-top: 8px;
+            font-size: 15px;
+            color: rgba(245, 247, 251, 0.86);
+        }
+
+        .intro,
+        .panel p,
+        .side-card p,
+        .section-card p,
+        .card p,
+        .step-card p,
+        .case-card p,
+        .move-card p,
+        .completion-card p,
+        .contract-box p,
+        .alert-box p,
+        .doc-card p {
+            margin-top: 12px;
+            font-size: 14px;
+            line-height: 1.85;
+            color: var(--muted);
+        }
+
+        .intro strong,
+        .section-card strong,
+        .case-card strong,
+        .contract-box strong,
+        .alert-box strong,
+        .doc-card strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .hero-actions,
+        .room-actions,
+        .contract-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .hero-chip,
+        .meta-box,
+        .check-row,
+        .contract-line,
+        .save-notice {
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 14px;
+        }
+
+        .hero-chip {
+            font-size: 12px;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+
+        .hero-chip strong {
+            display: block;
+            color: var(--text);
+            margin-bottom: 5px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+        }
+
+        .side-stack {
+            display: grid;
+            gap: 14px;
+        }
+
+        .meta-box strong,
+        .alert-box strong,
+        .save-notice strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--warn), #fff);
+            box-shadow: 0 0 16px rgba(255, 255, 255, 0.25);
+            transition: width 0.25s ease;
+        }
+
+        .progress-copy {
+            margin-top: 10px;
+            font-size: 11px;
+            color: var(--dim);
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+        }
+
+        .section-card {
+            margin-bottom: 22px;
+        }
+
+        /* Locking is disabled: all sections are accessible. */
+        .locked {
+            opacity: 1;
+            filter: none;
+        }
+
+        .section-card.active {
+            opacity: 1;
+            filter: none;
+        }
+
+        ul.clean {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 0;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        ul.clean li {
+            position: relative;
+            padding-left: 14px;
+            margin-top: 8px;
+            line-height: 1.7;
+        }
+
+        ul.clean li::before {
+            content: "";
+            position: absolute;
+            left: 2px;
+            top: 9px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        }
+
+        .step-num,
+        .room-label {
+            margin-bottom: 8px;
+        }
+
+        .room-contract {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(255, 255, 255, 0.04);
+            font-size: 15px;
+            line-height: 1.8;
+            color: #fff;
+        }
+
+        .split-list {
+            display: grid;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .check-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .check-row input[type="checkbox"] {
+            margin-top: 4px;
+            accent-color: #fff;
+        }
+
+        .check-row label {
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        textarea,
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--line-strong);
+            background: rgba(3, 4, 6, 0.96);
+            color: var(--text);
+            padding: 14px;
+            font-size: 14px;
+            outline: none;
+            resize: vertical;
+        }
+
+        textarea:focus,
+        input[type="text"]:focus,
+        input[type="date"]:focus {
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7);
+        }
+
+        textarea {
+            min-height: 120px;
+        }
+
+        .field-group {
+            margin-top: 16px;
+        }
+
+        .field-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--dim);
+        }
+
+        .contract-line {
+            margin-top: 12px;
+        }
+
+        .contract-line strong {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            margin-bottom: 6px;
+        }
+
+        .status-line {
+            margin-top: 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--dim);
+            min-height: 18px;
+        }
+
+        .video-placeholder,
+        .audio-placeholder {
+            border-radius: 20px;
+            border: 1px dashed rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 18px;
+            margin-top: 16px;
+        }
+
+        .video-placeholder strong,
+        .audio-placeholder strong {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            margin-bottom: 8px;
+        }
+
+        .flip-card {
+            perspective: 1000px;
+            min-height: 190px;
+        }
+
+        .flip-inner {
+            position: relative;
+            width: 100%;
+            min-height: 190px;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-front,
+        .flip-back {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .flip-back {
+            transform: rotateY(180deg);
+        }
+
+        .flip-front strong,
+        .flip-back strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .flip-front p,
+        .flip-back p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+
+        .flip-actions,
+        .reaction-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .flip-trigger {
+            margin-top: 14px;
+        }
+
+        .doc-preview {
+            background: #f7f2e8;
+            color: #111;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+            font-family: Georgia, "Times New Roman", serif;
+            line-height: 1.65;
+            border: 1px solid #d6cbb9;
+        }
+
+        .doc-preview h4 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: 0.02em;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .doc-preview .doc-subtitle {
+            display: block;
+            text-align: center;
+            color: #555;
+            margin-top: 6px;
+            margin-bottom: 22px;
+            letter-spacing: 0.18em;
+        }
+
+        .doc-preview .doc-block {
+            margin-top: 16px;
+        }
+
+        .doc-preview .doc-block strong {
+            display: block;
+            font-size: 12px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .doc-preview .doc-line {
+            border-bottom: 1px solid #333;
+            min-height: 26px;
+            margin-top: 8px;
+            padding-bottom: 3px;
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-top: 28px;
+        }
+
+        .signature-box {
+            margin-top: 20px;
+        }
+
+        .signature-box .doc-line {
+            min-height: 34px;
+        }
+
+        .doc-print-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .ritual-option {
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 16px;
+        }
+
+        .ritual-option strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+
+        .close-room-banner {
+            margin-top: 18px;
+            padding: 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(125, 255, 191, 0.24);
+            background: rgba(125, 255, 191, 0.06);
+            color: #eafff4;
+            display: none;
+        }
+
+        .close-room-banner.show {
+            display: block;
+        }
+
+        @media (max-width: 1080px) {
+
+            .hero-grid,
+            .main-grid,
+            .cards-grid,
+            .steps-grid,
+            .case-grid,
+            .moves-grid,
+            .completion-grid,
+            .doc-grid,
+            .ritual-grid,
+            .signature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .topbar-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .topbar-tagline {
+                display: none;
+            }
+        }
+
+        @media print {
+
+            .topbar,
+            .hero-grid,
+            .side-card,
+            .section-card:not(.print-target),
+            footer {
+                display: none !important;
+            }
+
+            body {
+                background: #fff !important;
+                color: #111 !important;
+            }
+
+            body::before {
+                display: none !important;
+            }
+
+            .container {
+                width: 100% !important;
+                margin: 0 !important;
+            }
+
+            .print-target {
+                display: block !important;
+                border: 0 !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .doc-preview {
+                box-shadow: none !important;
+                border: 0 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="brand">
+                <div class="brand-icon">
+                    <img src="images/logocircle.png" alt="Manifestor Anonymous icon" />
+                </div>
+                <div class="brand-copy">
+                    <small>Manifestor Anonymous</small>
+                    <strong>Too Much Room</strong>
+                    <div class="topbar-tagline">Black Market · Room 01 · Shadow Ledger System</div>
+                </div>
+            </div>
+            <nav class="top-links">
+                <a href="black-market-paid.html" class="btn btn-secondary">Back to Black Market</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="container hero-grid">
+            <section class="panel">
+                <div class="signal-chip">
+                    <span class="signal-dot"></span>
+                    <span>Room 01 · Classified Contract File</span>
+                </div>
+
+                <h1>Too Much Room.</h1>
+                <p class="hero-sub">The contract that taught you to become smaller than your actual power.</p>
+
+                <p class="intro">
+                    This is the room where Manifestors learn that their directness, pace, scale, aura, standards, or
+                    certainty
+                    need to be toned down to stay acceptable.
+                </p>
+
+                <p class="intro">
+                    The contract in this room sounds like this:
+                    <strong>I will stay smaller, softer, slower, and easier to handle so nobody feels threatened by my
+                        power.</strong>
+                </p>
+
+                <div class="room-contract">
+                    Your job in this room is not to become louder for performance.
+                    Your job is to expose the contract, revoke it, replace it, and stop paying for other people’s
+                    comfort with your energy.
+                </div>
+
+                <div class="hero-actions">
+                    <a href="#section1" class="btn btn-primary">Enter room</a>
+                    <a href="#section10" class="btn btn-secondary">Jump to contracts</a>
+                </div>
+
+                <div class="save-notice" style="margin-top:18px;">
+                    <strong>Progress notice</strong>
+                    This room is designed to be completed in one focused session.
+                    Your progress is stored locally in this browser.
+                    If you switch devices or browsers, it may not follow you.
+                    These rooms work best when you give them your full attention.
+                </div>
+            </section>
+
+            <aside class="side-card">
+                <span class="section-label">Room status</span>
+                <h2>Go in order. Then close the room properly.</h2>
+
+                <div class="side-stack">
+                    <div class="meta-box">
+                        <strong>What this room does</strong>
+                        <p>
+                            Awareness. Exposure. Rewrite. Action. Termination. Agreement. Completion.
+                        </p>
+                    </div>
+
+                    <div class="meta-box">
+                        <strong>Your progress</strong>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-copy" id="progressCopy">0% complete · room open</div>
+                    </div>
+
+                    <div class="meta-box">
+                        <strong>Anger signal in this room</strong>
+                        <p>
+                            Anger here usually means your system has realized it is working too hard to make itself
+                            easier to digest.
+                        </p>
+                    </div>
+
+                    <div class="alert-box">
+                        <strong>Confidential room</strong>
+                        <p>
+                            Nothing you type here is stored on our servers.
+                            The work happens between you and yourself.
+                        </p>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="container main-grid">
+            <div>
+
+                <section class="section-card active" id="section1" data-stage="1">
+                    <span class="section-label">Section 01</span>
+                    <h2>The pattern</h2>
+                    <p>
+                        Start with one video. This is where you explain what Too Much Room actually is.
+                    </p>
+
+                    <div class="video-placeholder">
+                        <strong>Video placeholder</strong>
+                        Drop your room teaching video here. Recommended length: 6 to 10 minutes.
+                        Talk about the aura being misread, how people react to Manifestor intensity,
+                        how shrinking becomes a survival strategy, and how it leaks into money, voice, relationships,
+                        and rest.
+                    </div>
+
+                    <div class="steps-grid">
+                        <article class="step-card">
+                            <div class="step-num">What it is</div>
+                            <h3>The contract of containment</h3>
+                            <p>
+                                This room is about learning to stay smaller so everybody else gets to relax.
+                            </p>
+                        </article>
+
+                        <article class="step-card">
+                            <div class="step-num">What it causes</div>
+                            <h3>Power leakage</h3>
+                            <p>
+                                Instead of initiating, your energy gets used managing reactions, explaining yourself,
+                                and cushioning impact.
+                            </p>
+                        </article>
+
+                        <article class="step-card">
+                            <div class="step-num">What it costs</div>
+                            <h3>Money, rest, standards</h3>
+                            <p>
+                                This room tends to show up in underpricing, over-apologizing, endless compromise, and
+                                resentment.
+                            </p>
+                        </article>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a class="inline-btn" href="#section2">Continue to recognition</a>
+                    </div>
+                </section>
+
+                <section class="section-card locked" id="section2" data-stage="2">
+                    <span class="section-label">Section 02</span>
+                    <h2>Recognition</h2>
+                    <p>
+                        Flip the cards. Let them hit. This is where people usually go, “oh damn, that’s me.”
+                    </p>
+
+                    <div class="cards-grid">
+                        <article class="flip-card" data-flip="flip1">
+                            <div class="flip-inner">
+                                <div class="flip-front">
+                                    <div>
+                                        <strong>You soften everything you say</strong>
+                                        <p>You add padding, disclaimers, and emotional cleanup so your clarity does not
+                                            land too hard.</p>
+                                    </div>
+                                    <div class="flip-actions">
+                                        <button class="btn-small flip-trigger" type="button">Flip card</button>
+                                    </div>
+                                </div>
+                                <div class="flip-back">
+                                    <div>
+                                        <strong>What is really happening</strong>
+                                        <p>You are not communicating. You are pre-managing other people’s discomfort
+                                            before it even arrives.</p>
+                                    </div>
+                                    <div class="reaction-row">
+                                        <button class="reaction-btn" type="button">Yes, this hit</button>
+                                        <button class="reaction-btn" type="button">Not really</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="flip-card" data-flip="flip2">
+                            <div class="flip-inner">
+                                <div class="flip-front">
+                                    <div>
+                                        <strong>You lower your prices before anyone asks</strong>
+                                        <p>You shrink the offer before anybody can accuse you of being too much, too
+                                            bold, or too expensive.</p>
+                                    </div>
+                                    <div class="flip-actions">
+                                        <button class="btn-small flip-trigger" type="button">Flip card</button>
+                                    </div>
+                                </div>
+                                <div class="flip-back">
+                                    <div>
+                                        <strong>What is really happening</strong>
+                                        <p>You are pre-emptively choosing smaller money because other people’s comfort
+                                            still outranks your own standard.</p>
+                                    </div>
+                                    <div class="reaction-row">
+                                        <button class="reaction-btn" type="button">Yes, this hit</button>
+                                        <button class="reaction-btn" type="button">Not really</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="flip-card" data-flip="flip3">
+                            <div class="flip-inner">
+                                <div class="flip-front">
+                                    <div>
+                                        <strong>You explain your decisions to death</strong>
+                                        <p>Instead of informing once, you keep talking until everybody looks settled.
+                                        </p>
+                                    </div>
+                                    <div class="flip-actions">
+                                        <button class="btn-small flip-trigger" type="button">Flip card</button>
+                                    </div>
+                                </div>
+                                <div class="flip-back">
+                                    <div>
+                                        <strong>What is really happening</strong>
+                                        <p>Explanation has quietly become permission-seeking.</p>
+                                    </div>
+                                    <div class="reaction-row">
+                                        <button class="reaction-btn" type="button">Yes, this hit</button>
+                                        <button class="reaction-btn" type="button">Not really</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="flip-card" data-flip="flip4">
+                            <div class="flip-inner">
+                                <div class="flip-front">
+                                    <div>
+                                        <strong>You manage other people’s emotions</strong>
+                                        <p>You feel responsible for how your power lands, so you keep making yourself
+                                            easier to absorb.</p>
+                                    </div>
+                                    <div class="flip-actions">
+                                        <button class="btn-small flip-trigger" type="button">Flip card</button>
+                                    </div>
+                                </div>
+                                <div class="flip-back">
+                                    <div>
+                                        <strong>What is really happening</strong>
+                                        <p>Your energy is being used to stabilize the room instead of initiate your
+                                            direction.</p>
+                                    </div>
+                                    <div class="reaction-row">
+                                        <button class="reaction-btn" type="button">Yes, this hit</button>
+                                        <button class="reaction-btn" type="button">Not really</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="flip-card" data-flip="flip5">
+                            <div class="flip-inner">
+                                <div class="flip-front">
+                                    <div>
+                                        <strong>You delay the thing you actually want to do</strong>
+                                        <p>You wait for the fantasy moment where nobody will react badly.</p>
+                                    </div>
+                                    <div class="flip-actions">
+                                        <button class="btn-small flip-trigger" type="button">Flip card</button>
+                                    </div>
+                                </div>
+                                <div class="flip-back">
+                                    <div>
+                                        <strong>What is really happening</strong>
+                                        <p>You are waiting for initiation without friction, which usually means you are
+                                            waiting forever.</p>
+                                    </div>
+                                    <div class="reaction-row">
+                                        <button class="reaction-btn" type="button">Yes, this hit</button>
+                                        <button class="reaction-btn" type="button">Not really</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="flip-card" data-flip="flip6">
+                            <div class="flip-inner">
+                                <div class="flip-front">
+                                    <div>
+                                        <strong>You are called intense, blunt, or intimidating</strong>
+                                        <p>So you compensate by becoming nicer, quieter, slower, or less direct than you
+                                            really are.</p>
+                                    </div>
+                                    <div class="flip-actions">
+                                        <button class="btn-small flip-trigger" type="button">Flip card</button>
+                                    </div>
+                                </div>
+                                <div class="flip-back">
+                                    <div>
+                                        <strong>What is really happening</strong>
+                                        <p>You started editing your size instead of trusting your design.</p>
+                                    </div>
+                                    <div class="reaction-row">
+                                        <button class="reaction-btn" type="button">Yes, this hit</button>
+                                        <button class="reaction-btn" type="button">Not really</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a class="inline-btn" href="#section3">Continue to diagnostics</a>
+                    </div>
+                </section>
+
+                <section class="section-card locked" id="section3" data-stage="3">
+                    <span class="section-label">Section 03</span>
+                    <h2>Find the contract</h2>
+                    <p>
+                        Answer like the version still living the pattern, not the version trying to sound evolved.
+                    </p>
+
+                    <div class="field-group">
+                        <label for="diag1">Where do you soften your opinions so people do not react to you?</label>
+                        <textarea id="diag1" data-save="diag1"></textarea>
+                    </div>
+                    <div class="field-group">
+                        <label for="diag2">Where are you over-explaining decisions you already know are correct?</label>
+                        <textarea id="diag2" data-save="diag2"></textarea>
+                    </div>
+                    <div class="field-group">
+                        <label for="diag3">Where are you underpricing your work, time, or standards?</label>
+                        <textarea id="diag3" data-save="diag3"></textarea>
+                    </div>
+                    <div class="field-group">
+                        <label for="diag4">Who currently benefits from you staying small?</label>
+                        <textarea id="diag4" data-save="diag4"></textarea>
+                    </div>
+                    <div class="field-group">
+                        <label for="diag5">What situations consistently trigger anger or resentment?</label>
+                        <textarea id="diag5" data-save="diag5"></textarea>
+                    </div>
+                    <div class="field-group">
+                        <label for="diag6">Where are you saying yes when your Authority said no?</label>
+                        <textarea id="diag6" data-save="diag6"></textarea>
+                    </div>
+                    <div class="field-group">
+                        <label for="diag7">Where are you trying to make everyone comfortable instead of initiating what
+                            you want?</label>
+                        <textarea id="diag7" data-save="diag7"></textarea>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a class="inline-btn" href="#section4">Map the power flow</a>
+                    </div>
+                </section>
+
+                <section class="section-card locked" id="section4" data-stage="4">
+                    <span class="section-label">Section 04</span>
+                    <h2>Power redistribution map</h2>
+                    <p>
+                        This is where you stop saying “I’m overwhelmed” in the abstract and start naming exactly where
+                        your power is going.
+                    </p>
+
+                    <div class="field-group">
+                        <label for="powerBeneficiaries">Who is currently receiving the benefit of your power?</label>
+                        <textarea id="powerBeneficiaries" data-save="powerBeneficiaries"
+                            placeholder="Boss, clients, partner, family, friends, audience, team, children, internet strangers."></textarea>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="generatorBehavior">Where are you behaving like a Generator?</label>
+                        <textarea id="generatorBehavior" data-save="generatorBehavior"
+                            placeholder="Constant availability, immediate replies, overwork, maintenance work, staying too long, proving consistency."></textarea>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="reroutePower">Where should that power go instead?</label>
+                        <textarea id="reroutePower" data-save="reroutePower"
+                            placeholder="My pricing. My rest. My standards. My creative direction. My body. My boundaries."></textarea>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a class="inline-btn" href="#section5">Continue to mirror</a>
+                    </div>
+                </section>
+
+                <section class="section-card locked" id="section5" data-stage="5">
+                    <span class="section-label">Section 05</span>
+                    <h2>Manifestor mirror</h2>
+                    <p>
+                        This is the emotional validation point. A short voice note here will hit hard.
+                    </p>
+
+                    <div class="audio-placeholder">
+                        <strong>Voice note placeholder · 3 to 4 minutes</strong>
+                        Say something like:
+                        “Most Manifestors have been called too much their entire lives.
+                        Too intense. Too direct. Too fast. Too decisive.
+                        So the survival strategy became simple.
+                        Make yourself easier to handle.
+                        This room is where that strategy ends.”
+                    </div>
+
+                    <div class="hero-actions">
+                        <a class="inline-btn" href="#section6">Terminate the contract</a>
+                    </div>
+                </section>
+
+                <section class="section-card locked" id="section6" data-stage="6">
+                    <span class="section-label">Section 06</span>
+                    <h2>Fuck this contract</h2>
+                    <p>
+                        This is the break point. One short voice note here should revoke the pattern before they write
+                        anything new.
+                    </p>
+
+                    <div class="audio-placeholder">
+                        <strong>Voice note placeholder · 5 to 7 minutes</strong>
+                        Cover:
+                        old contract,
+                        what it cost,
+                        why it is no longer valid,
+                        and the first opening toward new clauses.
+                    </div>
+
+                    <div class="alert-box">
+                        <strong>Core line</strong>
+                        You are no longer required to become smaller so other people can stay emotionally unchallenged.
+                    </div>
+
+                    <div class="hero-actions">
+                        <a class="inline-btn" href="#section7">Choose your moves</a>
+                    </div>
+                </section>
+
+                <section class="section-card locked" id="section7" data-stage="7">
+                    <span class="section-label">Section 07</span>
+                    <h2>Implementation moves</h2>
+                    <p>
+                        Pick something real. Not theoretical. This is what stops the room from becoming another insight
+                        binge.
+                    </p>
+
+                    <div class="moves-grid">
+                        <article class="move-card">
+                            <h3>Money / business</h3>
+                            <div class="split-list">
+                                <div class="check-row">
+                                    <input type="checkbox" id="move1" data-check />
+                                    <label for="move1">Raise one price or standard instead of making the offer easier to
+                                        digest.</label>
+                                </div>
+                                <div class="check-row">
+                                    <input type="checkbox" id="move2" data-check />
+                                    <label for="move2">Remove one over-explanation from your sales copy, message, or
+                                        offer.</label>
+                                </div>
+                                <div class="check-row">
+                                    <input type="checkbox" id="move3" data-check />
+                                    <label for="move3">Post, announce, or initiate something without pre-softening
+                                        it.</label>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="move-card">
+                            <h3>Body / energy</h3>
+                            <div class="split-list">
+                                <div class="check-row">
+                                    <input type="checkbox" id="move4" data-check />
+                                    <label for="move4">Take one block of time where you stop responding and let other
+                                        people manage themselves.</label>
+                                </div>
+                                <div class="check-row">
+                                    <input type="checkbox" id="move5" data-check />
+                                    <label for="move5">End one work block when your energy drops instead of proving you
+                                        can keep going.</label>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="move-card">
+                            <h3>Relationships / voice</h3>
+                            <div class="split-list">
+                                <div class="check-row">
+                                    <input type="checkbox" id="move6" data-check />
+                                    <label for="move6">State one opinion you normally soften.</label>
+                                </div>
+                                <div class="check-row">
+                                    <input type="checkbox" id="move7" data-check />
+                                    <label for="move7">Stop negotiating one decision that is already made in your
+                                        body.</label>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="move-card">
+                            <h3>Your chosen move</h3>
+                            <div class="field-group">
+                                <label for="chosenMove">What move are you taking first?</label>
+                                <textarea id="chosenMove" data-save="chosenMove"></textarea>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a class="inline-btn" href="#section8">Continue to case files</a>
+                    </div>
+                </section>
+
+                <section class="section-card locked" id="section8" data-stage="8">
+                    <span class="section-label">Section 08</span>
+                    <h2>Case files</h2>
+                    <p>
+                        Use these to prove the room is real, not just resonant.
+                    </p>
+
+                    <div class="case-grid">
+                        <article class="case-card">
+                            <div class="room-label">Case file 01</div>
+                            <h3>Underpricing to stay likable</h3>
+                            <p><strong>Before:</strong> A Manifestor coach priced far below her actual standard because
+                                she did not want to sound arrogant.</p>
+                            <p><strong>Turning point:</strong> She realized resentment hit every time someone happily
+                                paid the rate she had already shrunk.</p>
+                            <p><strong>After:</strong> She doubled her prices and reduced access.</p>
+                        </article>
+
+                        <article class="case-card">
+                            <div class="room-label">Case file 02</div>
+                            <h3>Explaining until it became permission</h3>
+                            <p><strong>Before:</strong> A Manifestor leader explained every decision until the room
+                                calmed down.</p>
+                            <p><strong>Turning point:</strong> They realized explanation had become emotional labor for
+                                everyone else.</p>
+                            <p><strong>After:</strong> They informed once and stopped handling the reaction for the
+                                group.</p>
+                        </article>
+
+                        <article class="case-card">
+                            <div class="room-label">Case file 03</div>
+                            <h3>Editing the sharpness out</h3>
+                            <p><strong>Before:</strong> A creator rewrote every post so it would not sound too intense.
+                            </p>
+                            <p><strong>Turning point:</strong> Anger kept hitting every time the real message
+                                disappeared.</p>
+                            <p><strong>After:</strong> They posted the first real version and started attracting the
+                                right audience instead of the safest one.</p>
+                        </article>
+
+                        <article class="case-card">
+                            <div class="room-label">Case file 04</div>
+                            <h3>Carrying the emotional room</h3>
+                            <p><strong>Before:</strong> A Manifestor partner constantly managed everyone else’s
+                                emotional state.</p>
+                            <p><strong>Turning point:</strong> Their body was exhausted from cushioning every truth.</p>
+                            <p><strong>After:</strong> They let the relationship meet their actual size.</p>
+                        </article>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a class="inline-btn" href="#section9">Continue to completion markers</a>
+                    </div>
+                </section>
+
+                <section class="section-card locked" id="section9" data-stage="9">
+                    <span class="section-label">Section 09</span>
+                    <h2>Completion markers before contracts</h2>
+                    <p>
+                        Check what is already true before you generate the documents.
+                    </p>
+
+                    <div class="completion-grid">
+                        <article class="completion-card">
+                            <div class="split-list">
+                                <div class="check-row">
+                                    <input type="checkbox" id="complete1" data-check />
+                                    <label for="complete1">I identified the contract that keeps me small.</label>
+                                </div>
+                                <div class="check-row">
+                                    <input type="checkbox" id="complete2" data-check />
+                                    <label for="complete2">I can name where anger signals I am shrinking.</label>
+                                </div>
+                                <div class="check-row">
+                                    <input type="checkbox" id="complete3" data-check />
+                                    <label for="complete3">I identified where my Authority was overridden.</label>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="completion-card">
+                            <div class="split-list">
+                                <div class="check-row">
+                                    <input type="checkbox" id="complete4" data-check />
+                                    <label for="complete4">I identified where my energy is being redirected to
+                                        others.</label>
+                                </div>
+                                <div class="check-row">
+                                    <input type="checkbox" id="complete5" data-check />
+                                    <label for="complete5">I chose at least one real-world move.</label>
+                                </div>
+                                <div class="check-row">
+                                    <input type="checkbox" id="complete6" data-check />
+                                    <label for="complete6">I am ready to revoke the old contract and replace it.</label>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a class="inline-btn" href="#section10">Generate the old contract</a>
+                    </div>
+                </section>
+
+                <section class="section-card locked" id="section10" data-stage="10">
+                    <span class="section-label">Section 10</span>
+                    <h2>Termination of prior agreement</h2>
+                    <p>
+                        This comes first. Release before replacement.
+                    </p>
+
+                    <div class="contract-box">
+                        <div class="field-group">
+                            <label for="fullName">Full name</label>
+                            <input type="text" id="fullName" data-save="fullName" placeholder="Your full name" />
+                        </div>
+
+                        <div class="field-group">
+                            <label for="terminationDate">Date of termination</label>
+                            <input type="date" id="terminationDate" data-save="terminationDate" />
+                        </div>
+
+                        <div class="field-group">
+                            <label for="oldClause">Primary old clause</label>
+                            <textarea id="oldClause" data-save="oldClause"
+                                placeholder="Example: I must become smaller, softer, and easier to handle so other people stay comfortable around me."></textarea>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="costStatement">What this contract has cost you</label>
+                            <textarea id="costStatement" data-save="costStatement"
+                                placeholder="Example: It cost me money, standards, rest, clean decisions, and relationships that could actually hold my real size."></textarea>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="terminationAddendum">Final termination statement</label>
+                            <textarea id="terminationAddendum" data-save="terminationAddendum"
+                                placeholder="Example: I no longer recognize this contract as protective, necessary, or binding."></textarea>
+                        </div>
+
+                        <div class="contract-actions">
+                            <button class="inline-btn" type="button" id="generateTerminationBtn">Generate termination
+                                document</button>
+                        </div>
+                    </div>
+
+                    <div class="doc-grid">
+                        <div class="doc-card print-target" id="terminationPrintTarget">
+                            <div class="doc-preview" id="terminationPreview">
+                                <h4>Termination of Prior Agreement</h4>
+                                <span class="doc-subtitle">Too Much Room · Shadow Ledger Revocation</span>
+
+                                <div class="doc-block">
+                                    <strong>Party executing revocation</strong>
+                                    <div id="termNameDisplay">____________________________</div>
+                                </div>
+
+                                <div class="doc-block">
+                                    <strong>Declaration</strong>
+                                    <div id="termDeclarationDisplay">
+                                        This document records the formal termination of a prior self-imposed
+                                        power-limiting agreement under which the undersigned reduced size, pace,
+                                        standards, clarity, voice, or direction in order to maintain comfort, approval,
+                                        or emotional stability for others.
+                                    </div>
+                                </div>
+
+                                <div class="doc-block">
+                                    <strong>Primary clause being revoked</strong>
+                                    <div id="termOldClauseDisplay">____________________________</div>
+                                </div>
+
+                                <div class="doc-block">
+                                    <strong>Recorded costs of said agreement</strong>
+                                    <div id="termCostDisplay">____________________________</div>
+                                </div>
+
+                                <div class="doc-block">
+                                    <strong>Revocation language</strong>
+                                    <div id="termRevocationDisplay">
+                                        The undersigned hereby revokes and terminates the above agreement in full. Said
+                                        agreement is no longer recognized as protective, necessary, valid, binding, or
+                                        enforceable. Any pattern of shrinking, softening, over-explaining, underpricing,
+                                        or emotional self-reduction previously carried out under its terms is hereby
+                                        withdrawn from active use.
+                                    </div>
+                                </div>
+
+                                <div class="doc-block">
+                                    <strong>Additional termination statement</strong>
+                                    <div id="termAddendumDisplay">____________________________</div>
+                                </div>
+
+                                <div class="doc-block">
+                                    <strong>Execution instruction</strong>
+                                    Upon printing, this terminated agreement may be ripped, shredded, burned, flushed,
+                                    cut, crossed out, or otherwise physically destroyed. The method does not matter. The
+                                    signal does.
+                                </div>
+
+                                <div class="signature-grid">
+                                    <div class="signature-box">
+                                        <strong>Signature</strong>
+                                        <div class="doc-line"></div>
+                                    </div>
+                                    <div class="signature-box">
+                                        <strong>Date</strong>
+                                        <div class="doc-line" id="termDateDisplay">____________________________</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="doc-print-actions">
+                                <button class="btn-small" type="button" id="printTerminationBtn">Print
+                                    termination</button>
+                            </div>
+                        </div>
+
+                        <div class="doc-card">
+                            <h3>Destroy the old contract</h3>
+                            <p>
+                                Print the document and choose the method that signals finality for you.
+                            </p>
+
+                            <div class="ritual-grid">
+                                <div class="ritual-option"><strong>Rip</strong> Tear it apart by hand.</div>
+                                <div class="ritual-option"><strong>Burn</strong> Burn it safely if that is your thing.
+                                </div>
+                                <div class="ritual-option"><strong>Shred</strong> Put it through a shredder.</div>
+                                <div class="ritual-option"><strong>Flush</strong> Tear it up and flush it if you want
+                                    the drama.</div>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="destroyMethod">What method are you using?</label>
+                                <input type="text" id="destroyMethod" data-save="destroyMethod"
+                                    placeholder="Rip, burn, shred, flush, cut, cross out..." />
+                            </div>
+
+                            <div class="check-row" style="margin-top:16px;">
+                                <input type="checkbox" id="destroyedOldContract" data-check />
+                                <label for="destroyedOldContract">I have destroyed the old contract or I am ready to do
+                                    so immediately after printing.</label>
+                            </div>
+
+                            <div class="hero-actions">
+                                <a class="inline-btn" href="#section11">Create the new agreement</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-card locked" id="section11" data-stage="11">
+                    <span class="section-label">Section 11</span>
+                    <h2>New power agreement</h2>
+                    <p>
+                        Now replacement. This agreement is formal on purpose.
+                    </p>
+
+                    <div class="contract-box">
+                        <div class="field-group">
+                            <label for="newClause1">Personal clause 01</label>
+                            <input type="text" id="newClause1" data-save="newClause1"
+                                placeholder="I do not shrink my power to manage the comfort of others." />
+                        </div>
+
+                        <div class="field-group">
+                            <label for="newClause2">Personal clause 02</label>
+                            <input type="text" id="newClause2" data-save="newClause2"
+                                placeholder="My voice is allowed to be direct." />
+                        </div>
+
+                        <div class="field-group">
+                            <label for="newClause3">Personal clause 03</label>
+                            <input type="text" id="newClause3" data-save="newClause3"
+                                placeholder="My decisions are guided by my Authority, not social approval." />
+                        </div>
+
+                        <div class="field-group">
+                            <label for="newClause4">Personal clause 04</label>
+                            <input type="text" id="newClause4" data-save="newClause4"
+                                placeholder="My energy belongs to me first." />
+                        </div>
+
+                        <div class="field-group">
+                            <label for="newClause5">Personal clause 05</label>
+                            <input type="text" id="newClause5" data-save="newClause5"
+                                placeholder="I initiate what I want without asking permission to be less." />
+                        </div>
+
+                        <div class="field-group">
+                            <label for="immediateAction">Immediate implementation action</label>
+                            <textarea id="immediateAction" data-save="immediateAction"
+                                placeholder="Example: I will raise one price this week and stop over-explaining why."></textarea>
+                        </div>
+
+                        <div class="contract-actions">
+                            <button class="inline-btn" type="button" id="generateAgreementBtn">Generate new
+                                agreement</button>
+                        </div>
+                    </div>
+
+                    <div class="doc-grid">
+                        <div class="doc-card print-target" id="agreementPrintTarget">
+                            <div class="doc-preview" id="agreementPreview">
+                                <h4>Self-Executed Power Agreement</h4>
+                                <span class="doc-subtitle">Too Much Room · Authority Restoration Terms</span>
+
+                                <div class="doc-block">
+                                    <strong>Party entering agreement</strong>
+                                    <div id="agreeNameDisplay">____________________________</div>
+                                </div>
+
+                                <div class="doc-block">
+                                    <strong>Declaration of authority</strong>
+                                    <div>
+                                        I enter into this agreement with myself as the primary authority over my energy,
+                                        voice, pace, standards, direction, rest, and terms of participation. I no longer
+                                        agree to reduce my power for the emotional convenience, interpretive comfort, or
+                                        approval of others.
+                                    </div>
+                                </div>
+
+                                <div class="doc-block">
+                                    <strong>Standing clauses</strong>
+                                    <div>
+                                        1. I do not agree to become smaller in order to remain acceptable.<br />
+                                        2. I do not agree to over-explain decisions that are already correct in my
+                                        body.<br />
+                                        3. I do not agree to use my energy primarily to regulate the emotions of
+                                        others.<br />
+                                        4. I do agree to let anger function as a signal of misalignment rather than
+                                        evidence of wrongness.<br />
+                                        5. I do agree to honor my Authority above social approval.
+                                    </div>
+                                </div>
+
+                                <div class="doc-block">
+                                    <strong>Additional custom clauses</strong>
+                                    <div id="agreeClausesDisplay">
+                                        ____________________________
+                                    </div>
+                                </div>
+
+                                <div class="doc-block">
+                                    <strong>Immediate implementation term</strong>
+                                    <div id="agreeActionDisplay">____________________________</div>
+                                </div>
+
+                                <div class="doc-block">
+                                    <strong>Enforcement clause</strong>
+                                    <div>
+                                        This agreement shall remain active upon signature. Any future pattern of
+                                        shrinking, softening, underpricing, self-reduction, or approval-seeking shall be
+                                        recognized as a breach of alignment and addressed through conscious correction
+                                        rather than self-abandonment.
+                                    </div>
+                                </div>
+
+                                <div class="signature-grid">
+                                    <div class="signature-box">
+                                        <strong>Signature</strong>
+                                        <div class="doc-line"></div>
+                                    </div>
+                                    <div class="signature-box">
+                                        <strong>Date</strong>
+                                        <div class="doc-line" id="agreeDateDisplay">____________________________</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="doc-print-actions">
+                                <button class="btn-small" type="button" id="printAgreementBtn">Print agreement</button>
+                            </div>
+                        </div>
+
+                        <div class="doc-card">
+                            <h3>Anchor it physically</h3>
+                            <p>
+                                Before you mark the room complete, say this out loud once:
+                            </p>
+
+                            <div class="alert-box" style="margin-top:16px;">
+                                <strong>I do not shrink anymore.</strong>
+                            </div>
+
+                            <div class="check-row" style="margin-top:16px;">
+                                <input type="checkbox" id="signedNewAgreement" data-check />
+                                <label for="signedNewAgreement">I have printed or signed the new agreement, or I am
+                                    ready to do it immediately after this session.</label>
+                            </div>
+
+                            <div class="hero-actions">
+                                <a class="inline-btn" href="#section12">Complete the room</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-card locked" id="section12" data-stage="12">
+                    <span class="section-label">Section 12</span>
+                    <h2>Completion ritual</h2>
+                    <p>
+                        This is the close. Do not skip it.
+                    </p>
+
+                    <div class="completion-grid">
+                        <article class="completion-card">
+                            <div class="split-list">
+                                <div class="check-row">
+                                    <input type="checkbox" id="final1" data-check />
+                                    <label for="final1">I identified the old contract.</label>
+                                </div>
+                                <div class="check-row">
+                                    <input type="checkbox" id="final2" data-check />
+                                    <label for="final2">I generated and printed the termination document.</label>
+                                </div>
+                                <div class="check-row">
+                                    <input type="checkbox" id="final3" data-check />
+                                    <label for="final3">I destroyed or am immediately destroying the old
+                                        contract.</label>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="completion-card">
+                            <div class="split-list">
+                                <div class="check-row">
+                                    <input type="checkbox" id="final4" data-check />
+                                    <label for="final4">I generated and signed the new agreement.</label>
+                                </div>
+                                <div class="check-row">
+                                    <input type="checkbox" id="final5" data-check />
+                                    <label for="final5">I took at least one real-world action.</label>
+                                </div>
+                                <div class="check-row">
+                                    <input type="checkbox" id="final6" data-check />
+                                    <label for="final6">I am done treating shrinking as maturity.</label>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="contract-actions">
+                        <button class="inline-btn" type="button" id="closeRoomBtn">Close room</button>
+                        <button class="btn-small" type="button" id="downloadRoomNotesBtn">Download room file</button>
+                    </div>
+
+                    <div class="status-line" id="roomStatus">Room open · progress tracked locally</div>
+
+                    <div class="close-room-banner" id="closeRoomBanner">
+                        <strong>Room Closed</strong><br />
+                        The contract that required you to shrink is no longer active.<br />
+                        Return to the Black Market hub when you are ready to choose your next room.
+                    </div>
+                </section>
+            </div>
+
+            <aside>
+                <section class="side-card">
+                    <span class="section-label">Quick room markers</span>
+                    <ul class="clean">
+                        <li>Over-explaining instead of informing</li>
+                        <li>Underpricing to avoid intimidating people</li>
+                        <li>Managing emotional reactions for the room</li>
+                        <li>Saying yes when Authority said no</li>
+                        <li>Using your energy to stay digestible</li>
+                    </ul>
+                </section>
+
+                <section class="side-card" style="margin-top:20px;">
+                    <span class="section-label">Reality check</span>
+                    <p>
+                        You are not here to become a well-behaved disappointment to your own power.
+                    </p>
+                </section>
+            </aside>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <div>© Manifestor Anonymous · Black Market · Too Much Room</div>
+            <div>Built for Manifestors who are done shrinking to be digestible.</div>
+        </div>
+    </footer>
+
+    <script>
+        const STORAGE_KEY = "blackMarketTooMuchRoomV3";
+
+        const saveFields = document.querySelectorAll("[data-save]");
+        const checkFields = document.querySelectorAll("[data-check]");
+        const progressFill = document.getElementById("progressFill");
+        const progressCopy = document.getElementById("progressCopy");
+        const roomStatus = document.getElementById("roomStatus");
+        const closeRoomBtn = document.getElementById("closeRoomBtn");
+        const downloadRoomNotesBtn = document.getElementById("downloadRoomNotesBtn");
+        const closeRoomBanner = document.getElementById("closeRoomBanner");
+
+        const stageButtons = document.querySelectorAll(".stage-next");
+        const sectionCards = document.querySelectorAll(".section-card[data-stage]");
+        const flipCards = document.querySelectorAll(".flip-card");
+
+        const generateTerminationBtn = document.getElementById("generateTerminationBtn");
+        const generateAgreementBtn = document.getElementById("generateAgreementBtn");
+        const printTerminationBtn = document.getElementById("printTerminationBtn");
+        const printAgreementBtn = document.getElementById("printAgreementBtn");
+
+        function getState() {
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+            } catch {
+                return {};
+            }
+        }
+
+        function setState(nextState) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(nextState));
+        }
+
+        function getUnlockedStage() {
+            // Locking is disabled; all sections should remain unlocked.
+            return 1;
+        }
+
+        function setUnlockedStage(stageNumber) {
+            // No-op: we don't need to track unlocked stages in storage anymore.
+        }
+
+        function renderUnlockedStages() {
+            // Ensure every section is accessible.
+            sectionCards.forEach(section => {
+                section.classList.remove("locked");
+                section.classList.add("active");
+            });
+        }
+
+        function saveCurrentState() {
+            const state = getState();
+
+            saveFields.forEach(field => {
+                state[field.id] = field.value;
+            });
+
+            checkFields.forEach(field => {
+                state[field.id] = field.checked;
+            });
+
+            flipCards.forEach(card => {
+                const key = card.dataset.flip;
+                state[key + "_flipped"] = card.classList.contains("flipped");
+                const activeReaction = card.querySelector(".reaction-btn.active");
+                state[key + "_reaction"] = activeReaction ? activeReaction.textContent.trim() : "";
+            });
+
+            setState(state);
+            updateProgress();
+        }
+
+        function loadState() {
+            const state = getState();
+
+            saveFields.forEach(field => {
+                if (typeof state[field.id] === "string") {
+                    field.value = state[field.id];
+                }
+            });
+
+            checkFields.forEach(field => {
+                field.checked = !!state[field.id];
+            });
+
+            flipCards.forEach(card => {
+                const key = card.dataset.flip;
+                if (state[key + "_flipped"]) {
+                    card.classList.add("flipped");
+                }
+                const savedReaction = state[key + "_reaction"];
+                if (savedReaction) {
+                    const btns = card.querySelectorAll(".reaction-btn");
+                    btns.forEach(btn => {
+                        if (btn.textContent.trim() === savedReaction) {
+                            btn.classList.add("active");
+                        }
+                    });
+                }
+            });
+
+            renderUnlockedStages();
+            updateProgress();
+
+            if (state.roomComplete) {
+                closeRoomBanner.classList.add("show");
+                roomStatus.textContent = "Room closed · marked complete locally";
+            }
+        }
+
+        function updateProgress() {
+            const state = getState();
+
+            const completionItems = [
+                "diag1", "diag2", "diag3", "diag4", "diag5", "diag6", "diag7",
+                "powerBeneficiaries", "generatorBehavior", "reroutePower",
+                "chosenMove", "fullName", "oldClause", "costStatement",
+                "terminationAddendum", "newClause1", "newClause2", "newClause3",
+                "immediateAction", "destroyMethod",
+                "move1", "move2", "move3", "move4", "move5", "move6", "move7",
+                "complete1", "complete2", "complete3", "complete4", "complete5", "complete6",
+                "destroyedOldContract", "signedNewAgreement",
+                "final1", "final2", "final3", "final4", "final5", "final6"
+            ];
+
+            let done = 0;
+            const total = completionItems.length;
+
+            completionItems.forEach(id => {
+                const value = state[id];
+                if (typeof value === "boolean" && value) done++;
+                if (typeof value === "string" && value.trim().length > 0) done++;
+            });
+
+            const pct = Math.round((done / total) * 100);
+            progressFill.style.width = pct + "%";
+            progressCopy.textContent = `${pct}% complete · ${done} of ${total} markers complete`;
+
+            if (state.roomComplete) {
+                roomStatus.textContent = "Room closed · marked complete locally";
+            } else {
+                roomStatus.textContent = "Room open · progress tracked locally";
+            }
+        }
+
+        stageButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const next = parseInt(button.dataset.next, 10);
+                const target = document.getElementById("section" + next);
+                if (target) {
+                    // Make sure it looks active even before JS runs fully.
+                    target.classList.remove("locked");
+                    target.classList.add("active");
+
+                    setTimeout(() => {
+                        target.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }, 80);
+                }
+            });
+        });
+
+        saveFields.forEach(field => {
+            field.addEventListener("input", saveCurrentState);
+        });
+
+        checkFields.forEach(field => {
+            field.addEventListener("change", saveCurrentState);
+        });
+
+        flipCards.forEach(card => {
+            const flipTrigger = card.querySelector(".flip-trigger");
+            const reactionBtns = card.querySelectorAll(".reaction-btn");
+
+            flipTrigger.addEventListener("click", () => {
+                card.classList.toggle("flipped");
+                saveCurrentState();
+            });
+
+            reactionBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    reactionBtns.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    saveCurrentState();
+                });
+            });
+        });
+
+        function todayFallback() {
+            const d = new Date();
+            return d.toISOString().slice(0, 10);
+        }
+
+        function buildTerminationPreview() {
+            const name = document.getElementById("fullName").value.trim() || "____________________________";
+            const date = document.getElementById("terminationDate").value || todayFallback();
+            const oldClause = document.getElementById("oldClause").value.trim() || "____________________________";
+            const cost = document.getElementById("costStatement").value.trim() || "____________________________";
+            const addendum = document.getElementById("terminationAddendum").value.trim() ||
+                "The undersigned no longer recognizes this agreement as protective, necessary, or binding.";
+
+            document.getElementById("termNameDisplay").textContent = name;
+            document.getElementById("termOldClauseDisplay").textContent = oldClause;
+            document.getElementById("termCostDisplay").textContent = cost;
+            document.getElementById("termAddendumDisplay").textContent = addendum;
+            document.getElementById("termDateDisplay").textContent = date;
+
+            saveCurrentState();
+        }
+
+        function buildAgreementPreview() {
+            const name = document.getElementById("fullName").value.trim() || "____________________________";
+            const date = document.getElementById("terminationDate").value || todayFallback();
+
+            const clauses = [
+                document.getElementById("newClause1").value.trim(),
+                document.getElementById("newClause2").value.trim(),
+                document.getElementById("newClause3").value.trim(),
+                document.getElementById("newClause4").value.trim(),
+                document.getElementById("newClause5").value.trim()
+            ].filter(Boolean);
+
+            const action = document.getElementById("immediateAction").value.trim() || "____________________________";
+
+            document.getElementById("agreeNameDisplay").textContent = name;
+            document.getElementById("agreeDateDisplay").textContent = date;
+            document.getElementById("agreeClausesDisplay").innerHTML = clauses.length
+                ? clauses.map((c, i) => `${i + 1}. ${c}`).join("<br />")
+                : "____________________________";
+            document.getElementById("agreeActionDisplay").textContent = action;
+
+            saveCurrentState();
+        }
+
+        generateTerminationBtn.addEventListener("click", buildTerminationPreview);
+        generateAgreementBtn.addEventListener("click", buildAgreementPreview);
+
+        function printElement(elementId) {
+            const target = document.getElementById(elementId);
+            const originalBody = document.body.innerHTML;
+            const printContents = `
+                <html>
+                <head>
+                    <title>Print Document</title>
+                    <style>
+                        body {
+                            margin: 0;
+                            padding: 24px;
+                            background: #fff;
+                            font-family: Georgia, "Times New Roman", serif;
+                        }
+                        .doc-preview {
+                            background: #f7f2e8;
+                            color: #111;
+                            border-radius: 12px;
+                            padding: 28px;
+                            font-family: Georgia, "Times New Roman", serif;
+                            line-height: 1.65;
+                            border: 1px solid #d6cbb9;
+                        }
+                        .doc-preview h4 {
+                            margin: 0;
+                            font-size: 24px;
+                            letter-spacing: 0.02em;
+                            text-align: center;
+                            text-transform: uppercase;
+                        }
+                        .doc-subtitle {
+                            display: block;
+                            text-align: center;
+                            color: #555;
+                            margin-top: 6px;
+                            margin-bottom: 22px;
+                            font-size: 10px;
+                            letter-spacing: 0.18em;
+                            text-transform: uppercase;
+                        }
+                        .doc-block {
+                            margin-top: 16px;
+                        }
+                        .doc-block strong {
+                            display: block;
+                            font-size: 12px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            margin-bottom: 8px;
+                            color: #333;
+                        }
+                        .signature-grid {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 18px;
+                            margin-top: 28px;
+                        }
+                        .signature-box {
+                            margin-top: 20px;
+                        }
+                        .doc-line {
+                            border-bottom: 1px solid #333;
+                            min-height: 34px;
+                        }
+                    </style>
+                </head>
+                <body>${target.innerHTML}</body>
+                </html>
+            `;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalBody;
+            window.location.reload();
+        }
+
+        printTerminationBtn.addEventListener("click", () => {
+            buildTerminationPreview();
+            printElement("terminationPrintTarget");
+        });
+
+        printAgreementBtn.addEventListener("click", () => {
+            buildAgreementPreview();
+            printElement("agreementPrintTarget");
+        });
+
+        closeRoomBtn.addEventListener("click", () => {
+            const state = getState();
+            state.roomComplete = true;
+            setState(state);
+            closeRoomBanner.classList.add("show");
+            updateProgress();
+            saveCurrentState();
+        });
+
+        downloadRoomNotesBtn.addEventListener("click", () => {
+            const state = getState();
+
+            const content = [
+                "BLACK MARKET · TOO MUCH ROOM",
+                "",
+                "FULL NAME:",
+                state.fullName || "",
+                "",
+                "DIAGNOSTICS:",
+                state.diag1 || "",
+                state.diag2 || "",
+                state.diag3 || "",
+                state.diag4 || "",
+                state.diag5 || "",
+                state.diag6 || "",
+                state.diag7 || "",
+                "",
+                "POWER REDISTRIBUTION:",
+                state.powerBeneficiaries || "",
+                state.generatorBehavior || "",
+                state.reroutePower || "",
+                "",
+                "CHOSEN MOVE:",
+                state.chosenMove || "",
+                "",
+                "OLD CLAUSE:",
+                state.oldClause || "",
+                "",
+                "COST STATEMENT:",
+                state.costStatement || "",
+                "",
+                "TERMINATION ADDENDUM:",
+                state.terminationAddendum || "",
+                "",
+                "NEW CLAUSES:",
+                state.newClause1 || "",
+                state.newClause2 || "",
+                state.newClause3 || "",
+                state.newClause4 || "",
+                state.newClause5 || "",
+                "",
+                "IMMEDIATE ACTION:",
+                state.immediateAction || "",
+                "",
+                "DESTROY METHOD:",
+                state.destroyMethod || ""
+            ].join("\n");
+
+            const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "black-market-too-much-room-file.txt";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        loadState();
+        buildTerminationPreview();
+        buildAgreementPreview();
+    </script>
+</body>
+
+</html>
