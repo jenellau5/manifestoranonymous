@@ -605,14 +605,48 @@
         .flip-card {
             perspective: 1000px;
             min-height: 190px;
+            position: relative;
+            cursor: pointer;
+            transition: border-color 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .flip-card.flipped {
+            border-color: rgba(255, 255, 255, 0.55);
         }
 
         .flip-inner {
             position: relative;
             width: 100%;
             min-height: 190px;
-            transition: transform 0.6s;
+            transition: transform 0.6s ease;
             transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .flip-front {
+            z-index: 2;
+        }
+
+        .flip-back {
+            z-index: 1;
+            transform: rotateY(180deg);
+        }
+
+        .flip-front,
+        .flip-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        /* Fallback for environments where 3D transform isn’t rendering */
+        .flip-card:not(.flipped) .flip-back {
+            display: none;
+        }
+
+        .flip-card.flipped .flip-front {
+            display: none;
         }
 
         .flip-card.flipped .flip-inner {
@@ -1838,6 +1872,7 @@
 
     <script>
         window.addEventListener("DOMContentLoaded", () => {
+            console.debug("[Room] DOMContentLoaded fired");
             try {
                 const STORAGE_KEY = "blackMarketTooMuchRoomV3";
 
@@ -1853,22 +1888,43 @@
                 const stageButtons = document.querySelectorAll(".stage-next");
                 const sectionCards = document.querySelectorAll(".section-card[data-stage]");
                 const flipCards = document.querySelectorAll(".flip-card");
+                console.debug("[Room] flipCards found:", flipCards.length);
 
                 const generateTerminationBtn = document.getElementById("generateTerminationBtn");
                 const generateAgreementBtn = document.getElementById("generateAgreementBtn");
                 const printTerminationBtn = document.getElementById("printTerminationBtn");
                 const printAgreementBtn = document.getElementById("printAgreementBtn");
 
+                let _inMemoryState = {};
+                let _storageAvailable = true;
+
                 function getState() {
+                    if (!_storageAvailable) {
+                        return _inMemoryState;
+                    }
+
                     try {
                         return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-                    } catch {
-                        return {};
+                    } catch (err) {
+                        console.warn("LocalStorage unavailable, falling back to memory state.", err);
+                        _storageAvailable = false;
+                        return _inMemoryState;
                     }
                 }
 
                 function setState(nextState) {
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(nextState));
+                    if (!_storageAvailable) {
+                        _inMemoryState = nextState;
+                        return;
+                    }
+
+                    try {
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(nextState));
+                    } catch (err) {
+                        console.warn("Failed to save state to localStorage, switching to memory state.", err);
+                        _storageAvailable = false;
+                        _inMemoryState = nextState;
+                    }
                 }
 
                 function getUnlockedStage() {
@@ -2007,22 +2063,43 @@
                     field.addEventListener("change", saveCurrentState);
                 });
 
-                flipCards.forEach(card => {
-                    const flipTrigger = card.querySelector(".flip-trigger");
-                    const reactionBtns = card.querySelectorAll(".reaction-btn");
+                // Flip card interaction: toggles the .flipped class on the closest `.flip-card`.
+                function flipCard(card) {
+                    if (!card) return;
+                    card.classList.toggle("flipped");
+                    saveCurrentState();
+                }
 
-                    flipTrigger.addEventListener("click", () => {
-                        card.classList.toggle("flipped");
+                // Use delegation so the click works even if cards are added/altered.
+                document.addEventListener("click", event => {
+                    const trigger = event.target.closest(".flip-trigger");
+                    if (trigger) {
+                        const card = trigger.closest(".flip-card");
+                        if (card) {
+                            console.debug("[Room] flip trigger clicked", card);
+                            flipCard(card);
+                        }
+                        return;
+                    }
+
+                    const reactionBtn = event.target.closest(".reaction-btn");
+                    if (reactionBtn) {
+                        const card = reactionBtn.closest(".flip-card");
+                        if (!card) return;
+
+                        event.stopPropagation();
+                        const btns = card.querySelectorAll(".reaction-btn");
+                        btns.forEach(btn => btn.classList.remove("active"));
+                        reactionBtn.classList.add("active");
                         saveCurrentState();
-                    });
+                        return;
+                    }
 
-                    reactionBtns.forEach(btn => {
-                        btn.addEventListener("click", () => {
-                            reactionBtns.forEach(b => b.classList.remove("active"));
-                            btn.classList.add("active");
-                            saveCurrentState();
-                        });
-                    });
+                    const card = event.target.closest(".flip-card");
+                    if (card) {
+                        console.debug("[Room] flip card clicked", card);
+                        flipCard(card);
+                    }
                 });
 
                 function todayFallback() {
@@ -2047,32 +2124,61 @@
                     saveCurrentState();
                 }
 
+                function getFieldValue(id) {
+                    const el = document.getElementById(id);
+                    if (!el) {
+                        console.warn("Missing field for agreement generation:", id);
+                        return "";
+                    }
+                    return (el.value || "").trim();
+                }
+
                 function buildAgreementPreview() {
-                    const name = document.getElementById("fullName").value.trim() || "____________________________";
-                    const date = document.getElementById("terminationDate").value || todayFallback();
+                    const name = getFieldValue("fullName") || "____________________________";
+                    const date = getFieldValue("terminationDate") || todayFallback();
 
                     const clauses = [
-                        document.getElementById("newClause1").value.trim(),
-                        document.getElementById("newClause2").value.trim(),
-                        document.getElementById("newClause3").value.trim(),
-                        document.getElementById("newClause4").value.trim(),
-                        document.getElementById("newClause5").value.trim()
+                        getFieldValue("newClause1"),
+                        getFieldValue("newClause2"),
+                        getFieldValue("newClause3"),
+                        getFieldValue("newClause4"),
+                        getFieldValue("newClause5")
                     ].filter(Boolean);
 
-                    const action = document.getElementById("immediateAction").value.trim() || "____________________________";
+                    const action = getFieldValue("immediateAction") || "____________________________";
 
-                    document.getElementById("agreeNameDisplay").textContent = name;
-                    document.getElementById("agreeDateDisplay").textContent = date;
-                    document.getElementById("agreeClausesDisplay").innerHTML = clauses.length
-                        ? clauses.map((c, i) => `${i + 1}. ${c}`).join("<br />")
-                        : "____________________________";
-                    document.getElementById("agreeActionDisplay").textContent = action;
+                    const nameDisplay = document.getElementById("agreeNameDisplay");
+                    const dateDisplay = document.getElementById("agreeDateDisplay");
+                    const clausesDisplay = document.getElementById("agreeClausesDisplay");
+                    const actionDisplay = document.getElementById("agreeActionDisplay");
+
+                    if (nameDisplay) nameDisplay.textContent = name;
+                    if (dateDisplay) dateDisplay.textContent = date;
+                    if (clausesDisplay) {
+                        clausesDisplay.innerHTML = clauses.length
+                            ? clauses.map((c, i) => `${i + 1}. ${c}`).join("<br />")
+                            : "____________________________";
+                    }
+                    if (actionDisplay) actionDisplay.textContent = action;
 
                     saveCurrentState();
                 }
 
                 generateTerminationBtn.addEventListener("click", buildTerminationPreview);
-                generateAgreementBtn.addEventListener("click", buildAgreementPreview);
+                if (generateAgreementBtn) {
+                    generateAgreementBtn.addEventListener("click", () => {
+                        buildAgreementPreview();
+                        generateAgreementBtn.textContent = "Generated!";
+                        setTimeout(() => {
+                            generateAgreementBtn.textContent = "Generate new agreement";
+                        }, 1200);
+
+                        const preview = document.getElementById("agreementPreview");
+                        if (preview) {
+                            preview.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }
+                    });
+                }
 
                 function printElement(elementId) {
                     const target = document.getElementById(elementId);

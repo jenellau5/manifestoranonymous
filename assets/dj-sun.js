@@ -12,7 +12,7 @@ const DJ_SUN = {
     tags: "Emotional storm · Unknown · Initiation · Compassion",
 
     // metadata for index.html
-    dates: "March 13th–18th",
+    dates: "March 18–23",
     setId: "SET 036",
     artist: "Collective – Sensing Circuit",
 
