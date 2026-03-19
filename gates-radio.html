@@ -391,7 +391,7 @@
                         Back to Gates Radio page
                     </a>
                     <!-- TODO: replace # with checkout URL -->
-                    <a href="#" class="btn btn-primary">
+                    <a href="https://payhip.com/b/eGAgT" class="btn btn-primary">
                         Gates Living Library · $64
                     </a>
                 </div>
@@ -409,7 +409,8 @@
                     <div class="chart-header">
                         <div>
                             <h2>Top 64 Gates · Station chart</h2>
-                            <div class="chart-sub">Gate stations · Online & in progress</div>
+                            <div class="chart-sub" id="chartSubText">Online gates · Free playlists</div>
+                            <div class="chart-sub" id="onlineGatesSummary">Loading online gates…</div>
                         </div>
                     </div>
 
@@ -509,9 +510,12 @@
                                 </td>
                                 <td><span class="micro">Playlist coming soon.</span></td>
                             </tr>
-                            <tr>
+                            <tr data-gate="12">
                                 <td>12</td>
-                                <td>Gate 12 · Caution</td>
+                                <td class="chart-gate">
+                                    <strong>Gate 12 · Caution</strong>
+                                    <span>Timing · Emotional voice · Shy-bold</span>
+                                </td>
                                 <td>
                                     <span class="badge-status badge-online">
                                         <span class="badge-dot"></span> Online
@@ -556,9 +560,12 @@
                                         progress</span></td>
                                 <td><span class="micro">Station not online yet.</span></td>
                             </tr>
-                            <tr>
+                            <tr data-gate="17">
                                 <td>17</td>
-                                <td>Gate 17 · Opinions</td>
+                                <td class="chart-gate">
+                                    <strong>Gate 17 · Opinions</strong>
+                                    <span>Beliefs · Perspective · Rightness</span>
+                                </td>
                                 <td>
                                     <span class="badge-status badge-online">
                                         <span class="badge-dot"></span> Online
@@ -598,9 +605,12 @@
                                         progress</span></td>
                                 <td><span class="micro">Station not online yet.</span></td>
                             </tr>
-                            <tr>
+                            <tr data-gate="21">
                                 <td>21</td>
-                                <td>Gate 21 · Control</td>
+                                <td class="chart-gate">
+                                    <strong>Gate 21 · Control</strong>
+                                    <span>Authority · Resources · Order</span>
+                                </td>
                                 <td>
                                     <span class="badge-status badge-online">
                                         <span class="badge-dot"></span> Online
@@ -617,9 +627,12 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr data-gate="22">
                                 <td>22</td>
-                                <td>Gate 22 · Grace</td>
+                                <td class="chart-gate">
+                                    <strong>Gate 22 · Grace</strong>
+                                    <span>Mood · Presence · Emotional influence</span>
+                                </td>
                                 <td>
                                     <span class="badge-status badge-online">
                                         <span class="badge-dot"></span> Online
@@ -650,9 +663,12 @@
                                         progress</span></td>
                                 <td><span class="micro">Station not online yet.</span></td>
                             </tr>
-                            <tr>
+                            <tr data-gate="25">
                                 <td>25</td>
-                                <td>Gate 25 · Spirit of the Self</td>
+                                <td class="chart-gate">
+                                    <strong>Gate 25 · Spirit of the Self</strong>
+                                    <span>Innocence · Universal love · Open heart</span>
+                                </td>
                                 <td>
                                     <span class="badge-status badge-online">
                                         <span class="badge-dot"></span> Online
@@ -744,9 +760,12 @@
                                         progress</span></td>
                                 <td><span class="micro">Station not online yet.</span></td>
                             </tr>
-                            <tr>
+                            <tr data-gate="36">
                                 <td>36</td>
-                                <td>Gate 36 · Crisis</td>
+                                <td class="chart-gate">
+                                    <strong>Gate 36 · Crisis</strong>
+                                    <span>Transition · Experience · Emotional intensity</span>
+                                </td>
                                 <td>
                                     <span class="badge-status badge-online">
                                         <span class="badge-dot"></span> Online
@@ -773,9 +792,12 @@
                                 </td>
                                 <td><span class="micro">Station not online yet.</span></td>
                             </tr>
-                            <tr>
+                            <tr data-gate="38">
                                 <td>38</td>
-                                <td>Gate 38 · Struggle</td>
+                                <td class="chart-gate">
+                                    <strong>Gate 38 · Struggle</strong>
+                                    <span>Purpose · Resistance · The right fight</span>
+                                </td>
                                 <td>
                                     <span class="badge-status badge-online">
                                         <span class="badge-dot"></span> Online
@@ -1011,7 +1033,7 @@
                     </p>
                     <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:10px;">
                         <!-- TODO: replace # with checkout URL -->
-                        <a href="#" class="btn btn-primary">Get the Gates Living Library</a>
+                        <a href="https://payhip.com/b/eGAgT" class="btn btn-primary">Get the Gates Living Library</a>
                     </div>
                 </article>
             </div>

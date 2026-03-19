@@ -783,7 +783,8 @@
                     </div>
 
                     <p class="hero-note">
-                        Current online gates: 22 · 36 · 12 · 38 · More in progress: 11 · 10 · 28
+                        <span id="currentOnlineGates">Current online gates: 22 · 36 · 12 · 38</span>
+                        · More in progress: 11 · 10 · 28
                     </p>
                 </article>
 
@@ -875,127 +876,9 @@
                                     <th>Playlist</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="topStationsPreview">
                                 <tr>
-                                    <td class="chart-rank">22</td>
-                                    <td class="chart-gate">
-                                        <strong>Gate 22 · Grace</strong>
-                                        <span>Mood · Presence · Emotional influence</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge-status badge-online">
-                                            <span class="badge-dot"></span> Online
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <a href="https://open.spotify.com/playlist/4dRtSluSyPUpDwhcJE0r8D?si=DIvyJYSxTe22yfONcGSUPQ"
-                                            target="_blank" rel="noopener noreferrer" class="btn btn-tertiary"
-                                            style="padding:6px 10px;font-size:10px;">
-                                            Open playlist
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="chart-rank">36</td>
-                                    <td class="chart-gate">
-                                        <strong>Gate 36 · Crisis</strong>
-                                        <span>Transition · Experience · Emotional intensity</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge-status badge-online">
-                                            <span class="badge-dot"></span> Online
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <a href="YOUR_GATE_36_PLAYLIST_URL_HERE" target="_blank"
-                                            rel="noopener noreferrer" class="btn btn-tertiary"
-                                            style="padding:6px 10px;font-size:10px;">
-                                            Open playlist
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="chart-rank">12</td>
-                                    <td class="chart-gate">
-                                        <strong>Gate 12 · Caution</strong>
-                                        <span>Timing · Emotional voice · Shy-bold</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge-status badge-online">
-                                            <span class="badge-dot"></span> Online
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <a href="https://open.spotify.com/playlist/5JiFAS4gmNyzNQfzadFjjd?si=4e_LNCaASx-QLtSNkz2sAg"
-                                            target="_blank" rel="noopener noreferrer" class="btn btn-tertiary"
-                                            style="padding:6px 10px;font-size:10px;">
-                                            Open playlist
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="chart-rank">38</td>
-                                    <td class="chart-gate">
-                                        <strong>Gate 38 · Struggle</strong>
-                                        <span>Purpose · Resistance · The right fight</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge-status badge-online">
-                                            <span class="badge-dot"></span> Online
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <a href="YOUR_GATE_38_PLAYLIST_URL_HERE" target="_blank"
-                                            rel="noopener noreferrer" class="btn btn-tertiary"
-                                            style="padding:6px 10px;font-size:10px;">
-                                            Open playlist
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="chart-rank">11</td>
-                                    <td class="chart-gate">
-                                        <strong>Gate 11 · Ideas</strong>
-                                        <span>Storytelling · Imagination · Meaning-making</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge-status badge-offline">
-                                            <span class="badge-dot"></span> In progress
-                                        </span>
-                                    </td>
-                                    <td><span class="micro">Coming soon</span></td>
-                                </tr>
-
-                                <tr>
-                                    <td class="chart-rank">10</td>
-                                    <td class="chart-gate">
-                                        <strong>Gate 10 · Behaviour of the Self</strong>
-                                        <span>Authenticity · Self-love · Empowerment</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge-status badge-offline">
-                                            <span class="badge-dot"></span> In progress
-                                        </span>
-                                    </td>
-                                    <td><span class="micro">Coming soon</span></td>
-                                </tr>
-
-                                <tr>
-                                    <td class="chart-rank">28</td>
-                                    <td class="chart-gate">
-                                        <strong>Gate 28 · Struggle for Purpose</strong>
-                                        <span>Risk · Meaning · Worth the fight</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge-status badge-offline">
-                                            <span class="badge-dot"></span> In progress
-                                        </span>
-                                    </td>
-                                    <td><span class="micro">Coming soon</span></td>
+                                    <td colspan="4" class="micro" style="opacity:0.7;">Loading stations…</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1193,8 +1076,40 @@
         </div>
     </footer>
 
+    <script src="assets/gate-stations.js"></script>
     <script>
         (function () {
+            if (window.getOnlineGates && window.updateOnlineGateSummary) {
+                updateOnlineGateSummary('#currentOnlineGates');
+
+                const preview = document.getElementById('topStationsPreview');
+                if (preview) {
+                    const featured = getOnlineGates().slice(0, 4);
+                    preview.innerHTML = featured
+                        .map((station) => `
+                            <tr>
+                                <td class="chart-rank">${station.gate}</td>
+                                <td class="chart-gate">
+                                    <strong>Gate ${station.gate} · ${station.title}</strong>
+                                    <span>${station.tagline}</span>
+                                </td>
+                                <td>
+                                    <span class="badge-status badge-online">
+                                        <span class="badge-dot"></span> Online
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="${station.playlist}" target="_blank" rel="noopener noreferrer"
+                                        class="btn btn-tertiary" style="padding:6px 10px;font-size:10px;">
+                                        Open playlist
+                                    </a>
+                                </td>
+                            </tr>
+                        `)
+                        .join('');
+                }
+            }
+
             const form = document.getElementById('dj-request-form');
             const endpoint = 'https://script.google.com/macros/s/AKfycby_QG1g9pGGSLetpLtHy1kjIlVgbjKVhtGi4rGCP9hnq2M2XaXrQz1e717xbfYkdA37/exec';
             if (!form) return;
