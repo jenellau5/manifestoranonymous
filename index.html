@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Manifestor Anonymous • Underground Terminal</title>
+    <title>Manifestor Anonymous</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
-
     <meta name="description"
-        content="Manifestor Anonymous Underground Terminal. DJ sun, Gates Radio, and machines built for Manifestors." />
+        content="Manifestor Anonymous helps Manifestors understand their Human Design through practical tools like Gates Radio, the Arrows Machine, and the Rage Room." />
 
     <style>
         :root {
@@ -64,7 +63,6 @@
             max-width: 100%;
         }
 
-        /* ensure header logo fits its circular container without distortion */
         .brand-icon img {
             width: 100%;
             height: 100%;
@@ -84,8 +82,6 @@
             width: min(1240px, calc(100% - 32px));
             margin: 0 auto;
         }
-
-        /* TOPBAR */
 
         .topbar {
             position: sticky;
@@ -155,8 +151,6 @@
             font-size: 14px;
         }
 
-        /* HERO */
-
         .hero {
             padding: 48px 0 28px;
         }
@@ -171,10 +165,7 @@
         .hero-copy,
         .hero-visual-card,
         .module-card,
-        .signal-card,
-        .statement-card,
-        .status-card,
-        .feature-card {
+        .statement-card {
             border: 1px solid var(--line);
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
             border-radius: var(--radius);
@@ -217,6 +208,7 @@
             display: block;
             color: rgba(245, 247, 251, 0.8);
             margin-top: 10px;
+            font-size: 15px;
         }
 
         .hero-body {
@@ -301,39 +293,6 @@
             margin-bottom: 14px;
         }
 
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            border-radius: 999px;
-            border: 1px solid rgba(57, 255, 136, 0.22);
-            background: rgba(57, 255, 136, 0.08);
-            font-size: 10px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: #bbffda;
-            white-space: nowrap;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .status-badge.live {
-            box-shadow: 0 0 40px rgba(57, 255, 136, 0.4), 0 0 80px rgba(57, 255, 136, 0.2);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                box-shadow: 0 0 40px rgba(57, 255, 136, 0.4), 0 0 80px rgba(57, 255, 136, 0.2);
-            }
-
-            50% {
-                box-shadow: 0 0 60px rgba(57, 255, 136, 0.6), 0 0 120px rgba(57, 255, 136, 0.3);
-            }
-        }
-
         .hero-image-box {
             position: relative;
             overflow: hidden;
@@ -375,9 +334,8 @@
             font-size: 14px;
         }
 
-        /* SECTIONS */
-
-        .section {
+        .section,
+        .dj-section {
             padding: 28px 0 0;
         }
 
@@ -393,14 +351,12 @@
         }
 
         .section-head p {
-            max-width: 520px;
+            max-width: 620px;
             margin: 0;
             color: var(--muted);
             line-height: 1.8;
             font-size: 14px;
         }
-
-        /* MACHINES */
 
         .module-grid {
             display: grid;
@@ -410,12 +366,8 @@
 
         .module-card {
             padding: 20px 20px 76px;
-            border-radius: var(--radius);
-            border: 1px solid var(--line);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
-            box-shadow: var(--shadow);
             position: relative;
-            min-height: 240px;
+            min-height: 250px;
         }
 
         .module-top {
@@ -475,7 +427,7 @@
             color: var(--muted);
             line-height: 1.8;
             font-size: 14px;
-            max-width: 32ch;
+            max-width: 34ch;
         }
 
         .module-btn {
@@ -493,12 +445,6 @@
             border: 0;
         }
 
-        /* DJ SUN DECK */
-
-        .dj-section {
-            padding: 28px 0 0;
-        }
-
         .dj-card {
             border-radius: var(--radius);
             border: 1px solid var(--line-strong);
@@ -513,6 +459,21 @@
             grid-template-columns: 1.15fr 0.85fr;
             gap: 18px;
             align-items: stretch;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(57, 255, 136, 0.22);
+            background: rgba(57, 255, 136, 0.08);
+            font-size: 10px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #bbffda;
+            white-space: nowrap;
         }
 
         .dj-left-header {
@@ -542,15 +503,6 @@
             line-height: 1.8;
             font-size: 15px;
             max-width: 56ch;
-        }
-
-        .dj-meta-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px 16px;
-            margin-top: 16px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.86);
         }
 
         .dj-meta-label {
@@ -600,7 +552,7 @@
             border-radius: 22px;
             border: 1px solid rgba(255, 255, 255, 0.42);
             background: rgba(1, 3, 5, 0.82);
-            padding: 18px 18px 18px;
+            padding: 18px;
             display: flex;
             flex-direction: column;
             gap: 14px;
@@ -613,31 +565,12 @@
             color: rgba(245, 247, 251, 0.86);
         }
 
-        .dj-track-reason {
+        .dj-track-reason,
+        .dj-track-link {
             font-size: 13px;
             line-height: 1.8;
             color: rgba(245, 247, 251, 0.9);
         }
-
-        .dj-track-embed iframe {
-            width: 100%;
-            height: 90px;
-            border: none;
-            border-radius: 12px;
-        }
-
-        .dj-track-link {
-            font-size: 13px;
-            color: var(--green);
-        }
-
-        .dj-track-link a {
-            color: var(--green);
-            font-weight: 600;
-            text-decoration: underline;
-        }
-
-        /* SYSTEM / ABOUT */
 
         .statement-grid {
             display: grid;
@@ -648,10 +581,6 @@
 
         .statement-card {
             padding: 22px;
-            border-radius: var(--radius);
-            border: 1px solid var(--line);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
-            box-shadow: var(--shadow);
         }
 
         .statement-card p {
@@ -660,8 +589,6 @@
             line-height: 1.8;
             font-size: 15px;
         }
-
-        /* FOOTER */
 
         footer {
             border-top: 1px solid var(--line);
@@ -751,46 +678,51 @@
                 </div>
                 <div class="brand-copy">
                     <small>Manifestor Anonymous</small>
-                    <strong>Underground Terminal</strong>
-                    <div class="topbar-tagline">DJ sun. Gates as tracks. For Manifestors only.</div>
+                    <strong>Manifestor tools that actually make sense</strong>
+                    <div class="topbar-tagline">Gates Radio · Arrows Machine · Rage Room</div>
                 </div>
             </div>
             <nav class="top-links">
-                <a href="#machines">Machines</a>
+                <a href="#machines">Tools</a>
                 <span>/</span>
-                <a href="#dj-sun">DJ sun</a>
+                <a href="#dj-sun">DJ Sun</a>
                 <span>/</span>
-                <a href="#system">System</a>
+                <a href="#system">About</a>
             </nav>
         </div>
     </header>
 
     <main>
-        <!-- HERO -->
         <section class="hero">
             <div class="container hero-grid">
                 <div class="hero-copy">
                     <div class="signal-chip">
                         <span class="signal-dot"></span>
-                        <span class="eyebrow">Transmission active</span>
+                        <span class="eyebrow">For Manifestors</span>
                     </div>
 
-                    <h1>A terminal for Manifestors.</h1>
-                    <span class="hero-sub">Underground Manifestor experiences.</span>
+                    <h1>Understand your Human Design without overthinking it.</h1>
+                    <span class="hero-sub">Tools for Manifestors who are tired of trying to figure themselves out
+                        mentally.</span>
 
                     <p class="hero-body">
-                        Manifestor Anonymous is a <strong>hidden terminal</strong> for people who have always been
-                        called too much.
-                        This is where you stop getting explained and finally see your signal reflected back to you.
+                        Most Human Design content gives you more information, more words, and more things to memorize.
+                        <strong>Manifestor Anonymous gives you tools that help you actually recognize your design in
+                            real life.</strong>
+                    </p>
+
+                    <p class="hero-body">
+                        Start with playlists, scans, and direct tools that make your chart easier to understand, easier
+                        to use, and a lot harder to forget.
                     </p>
 
                     <p class="hero-tagline">
-                        Not a coaching website. A system interface.
+                        Clear tools. Real pattern recognition. No vague spiritual fluff.
                     </p>
 
                     <div class="cta-row">
-                        <a class="btn btn-primary" href="#machines">Enter the terminal</a>
-                        <a class="btn btn-secondary" href="#dj-sun">Listen to DJ sun</a>
+                        <a class="btn btn-primary" href="#machines">Explore the tools</a>
+                        <a class="btn btn-secondary" href="gates.html">Start with Gates Radio</a>
                     </div>
                 </div>
 
@@ -798,7 +730,7 @@
                     <div class="hero-visual-card">
                         <div class="visual-meta">
                             <div>
-                                <span class="micro">Transmission visual</span>
+                                <span class="micro">Manifestor Anonymous</span>
                             </div>
                         </div>
 
@@ -806,11 +738,11 @@
                             <img src="images/logofull.png"
                                 alt="Manifestor Anonymous hooded figure with glowing throat" />
                             <div class="hero-overlay">
-                                <span class="micro">Core line</span>
-                                <h2>Initiate. Inform. Move.</h2>
+                                <span class="micro">What this is</span>
+                                <h2>Not more chart facts. Better ways to recognize yourself.</h2>
                                 <p>
-                                    The glow is the throat. This is a transmission room, not a storefront. The identity
-                                    stays hidden. The signal does not.
+                                    This site is built to help Manifestors understand their chart through experience,
+                                    not just explanation.
                                 </p>
                             </div>
                         </div>
@@ -818,62 +750,51 @@
                 </div>
             </div>
         </section>
+
         <section class="dj-section" id="dj-sun">
             <div class="container">
                 <article class="dj-card">
-                    <!-- LEFT: GATE + COPY -->
                     <div>
                         <div class="dj-left-header" style="align-items:center;gap:8px;">
-                            <span class="status-badge live" style="font-size:11px;padding:3px 8px;">
+                            <span class="status-badge" style="font-size:11px;padding:3px 8px;">
                                 NOW PLAYING
                             </span>
                             <span class="dj-label"
                                 style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;">
-                                DJ sun • weekly main broadcast
+                                DJ Sun • weekly gate playlist
                             </span>
                         </div>
 
-                        <!-- PROMINENT TRANSIT TRACK LINE -->
                         <div
                             style="margin-top:10px;font-size:13px;text-transform:uppercase;letter-spacing:0.18em;color:rgba(255,255,255,0.9);">
-                            DJ sun transit track:
+                            This week’s gate playlist:
                             <span id="djTrackTitle"
                                 style="font-weight:700;letter-spacing:0.12em;font-size:13px;text-transform:uppercase;">
                                 OPINION RADIO
                             </span>
                         </div>
 
-                        <h2 class="dj-heading" style="margin-top:16px;">One gate. One set. Per week.</h2>
+                        <h2 class="dj-heading" style="margin-top:16px;">One gate playlist, updated every week</h2>
                         <p class="dj-subcopy">
-                            The Sun moves through the gates. The deck updates with it.
-                            Use this as background frequency. If this is your Sun gate, read it as a mirror.
+                            DJ Sun highlights one live transit gate at a time so you can listen to the energy that is
+                            active right now.
                         </p>
 
-                        <!-- GATE + KEYWORDS -->
                         <div class="dj-gate-value" id="djGate" style="margin-top:18px;">Gate 17 · Opinions</div>
                         <div class="dj-tags" id="djTags">Logic • Pattern recognition • Mental pressure • Organizing
                             ideas</div>
 
-                        <!-- STACKED META -->
                         <div style="margin-top:14px;font-size:11px;color:rgba(245,247,251,0.9);line-height:1.9;">
                             <div>
                                 <span class="dj-meta-label" style="margin-right:6px;">Gate window</span>
-                                <span id="djDates" style="letter-spacing:0.04em;">
-                                    March 24–29
-                                </span>
+                                <span id="djDates" style="letter-spacing:0.04em;">March 24–29</span>
                             </div>
                             <div>
                                 <span class="dj-meta-label" style="margin-right:6px;">Set ID</span>
                                 <span id="djSetId" style="letter-spacing:0.06em;">SET 017</span>
                             </div>
-                            <div>
-                                <span class="dj-meta-label" style="margin-right:6px;">Artist</span>
-                                <span id="djArtist" style="letter-spacing:0.06em;">Collective – Understanding
-                                    Circuit</span>
-                            </div>
                         </div>
 
-                        <!-- SPOTIFY PLAYER UNDER META -->
                         <div style="margin-top:12px;">
                             <iframe data-testid="embed-iframe" style="border-radius:12px"
                                 src="https://open.spotify.com/embed/playlist/1q09fpTML4NDVLWIKlOvBi?utm_source=generator&theme=0"
@@ -883,185 +804,160 @@
                         </div>
                     </div>
 
-                    <!-- RIGHT: TRACK PANEL -->
                     <div class="dj-right">
-                        <div class="dj-right-title">Current track</div>
+                        <div class="dj-right-title">What DJ Sun is</div>
 
                         <div class="dj-track-reason" id="djReason">
-                            Gate 17 carries Opinions — logical insight, pattern recognition, and the pressure to
-                            organize ideas
-                            into something that makes sense. This set feels like scanning the bigger picture, spotting
-                            what is
-                            off, and forming a sharper perspective on what could work better.
+                            DJ Sun is the weekly front door into Gates Radio. It gives you one gate to listen to so you
+                            can start hearing your Human Design instead of just reading about it.
                         </div>
 
                         <div class="dj-track-link" style="margin-top:10px;">
-                            Tracks in this week’s set:
-                            <ul style="margin:6px 0 0;padding-left:16px;font-size:11px;line-height:1.6;">
-                                <li><strong>Michael Jackson – Man in the Mirror</strong> · turning opinion into a clear
-                                    roadmap for change.</li>
-                                <li><strong>Black Eyed Peas – Where Is The Love?</strong> · scanning broken systems
-                                    through questions, critique, and pattern-spotting.</li>
-                                <li><strong>John Mayer – Waiting on the World to Change</strong> · seeing what is wrong
-                                    and feeling the tension of stalled change.</li>
-                                <li><strong>Lorde – Royals</strong> · critiquing status, hype, and cultural conditioning
-                                    with a cleaner perspective.</li>
-                                <li><strong>Foster the People – Pumped Up Kicks</strong> · noticing disturbing patterns
-                                    before others want to face them.</li>
-                                <li><strong>Florence + The Machine – Shake It Out</strong> · sorting mental clutter into
-                                    clarity and release.</li>
-                            </ul>
+                            Use this when you want a simple entry point, a current transit mirror, or a new gate
+                            playlist to start with.
                         </div>
 
                         <div class="dj-description-box" id="djDescription" style="margin-top:14px;">
-                            <strong>Station 17 broadcast note</strong>
-                            Your opinion is not the truth. It is a pattern check. When you stop forcing certainty and
-                            let your
-                            insight stay sharp but open, your Manifestor mind becomes a cleaner signal instead of a
-                            pressure
-                            chamber.
+                            <strong>Why this matters</strong>
+                            It is easier to remember your design when you can hear it, feel it, and recognize it in
+                            something you already connect to.
                         </div>
                     </div>
                 </article>
             </div>
         </section>
 
-
-        </section>
-
-
-        <!-- MACHINES -->
         <section class="section" id="machines">
             <div class="container">
                 <div class="section-head">
-                    <span class="section-label">Terminal machines</span>
-                    <h2>Pick your door.</h2>
+                    <span class="section-label">Start here</span>
+                    <h2>Pick the tool you need.</h2>
                     <p>
-                        This place runs on machines, not services. Each machine is an experience you step into. Some
-                        doors are open now. Others stay dark until they are ready.
+                        These are direct tools built to help you understand different parts of your design without
+                        getting lost in information.
                     </p>
-
-                    <div class="module-grid">
-                        <article class="module-card">
-                            <div class="module-top">
-                                <span class="module-label">Module 01</span>
-                                <span class="module-status live">Live</span>
-                            </div>
-                            <div class="module-path">Path: Cognition</div>
-                            <h3>Arrows Machine</h3>
-                            <p>
-                                Four arrows. One snapshot. See how your mind, body, and environment actually process
-                                life so you can stop forcing the wrong way of operating.
-                            </p>
-                            <a class="module-btn live" href="arrows.html">Enter machine</a>
-                        </article>
-
-                        <article class="module-card">
-                            <div class="module-top">
-                                <span class="module-label">Module 02</span>
-                                <span class="module-status live">Live</span>
-                            </div>
-                            <div class="module-path">Path: Anger</div>
-                            <h3>Rage Room</h3>
-                            <p>
-                                Type what you never say out loud. Empty the pressure. Then see what your anger is really
-                                pointing at instead of turning it against yourself.
-                            </p>
-                            <a class="module-btn live" href="rage.html">Open room</a>
-                        </article>
-
-                        <article class="module-card">
-                            <div class="module-top">
-                                <span class="module-label">Module 03</span>
-                                <span class="module-status live">Live</span>
-                            </div>
-                            <div class="module-path">Path: Frequency</div>
-                            <h3>Gates Radio</h3>
-                            <p>
-                                Live gate transmissions and playlists that turn Human Design into something you can
-                                feel, not just learn.
-                            </p>
-                            <a class="module-btn live" href="gates.html">Open room</a>
-                        </article>
-
-                        <article class="module-card">
-                            <div class="module-top">
-                                <span class="module-label">Module 04</span>
-                                <span class="module-status standby">Stand by</span>
-                            </div>
-                            <div class="module-path">Path: Shadow</div>
-                            <h3>Black Market</h3>
-                            <p>
-                                The traits they called too intense, too direct, too much. Meet the shadow, name the
-                                conditioning, and reclaim the power underneath it.
-                            </p>
-                            <button class="module-btn" type="button">Locked</button>
-                        </article>
-
-                        <article class="module-card">
-                            <div class="module-top">
-                                <span class="module-label">Module 05</span>
-                                <span class="module-status standby">Stand by</span>
-                            </div>
-                            <div class="module-path">Path: Urge</div>
-                            <h3>Initiation Exchange</h3>
-                            <p>
-                                The urges and ideas you never ran don’t go to waste here. Drop one in. Pull one out. Let
-                                initiation move instead of dying in your notes app.
-                            </p>
-                            <button class="module-btn" type="button">Locked</button>
-                        </article>
-
-                        <article class="module-card">
-                            <div class="module-top">
-                                <span class="module-label">Module 06</span>
-                                <span class="module-status standby">Stand by</span>
-                            </div>
-                            <div class="module-path">Path: Recovery</div>
-                            <h3>MA Meetings</h3>
-                            <p>
-                                Anonymous Manifestor rooms for anger, failed initiations, informing disasters, and
-                                burnout. No masterminds. No performance.
-                            </p>
-                            <button class="module-btn" type="button">Locked</button>
-                        </article>
-                    </div>
                 </div>
+
+                <div class="module-grid">
+                    <article class="module-card">
+                        <div class="module-top">
+                            <span class="module-label">Module 01</span>
+                            <span class="module-status live">Live</span>
+                        </div>
+                        <div class="module-path">How your system processes life</div>
+                        <h3>Arrows Machine</h3>
+                        <p>
+                            Understand how your mind, body, and environment actually work so you stop forcing methods
+                            that are wrong for you.
+                        </p>
+                        <a class="module-btn live" href="arrows.html">Open tool</a>
+                    </article>
+
+                    <article class="module-card">
+                        <div class="module-top">
+                            <span class="module-label">Module 02</span>
+                            <span class="module-status live">Live</span>
+                        </div>
+                        <div class="module-path">Understand your anger</div>
+                        <h3>Rage Room</h3>
+                        <p>
+                            Empty the pressure and see what your anger is actually pointing to instead of stuffing it
+                            down or turning it on yourself.
+                        </p>
+                        <a class="module-btn live" href="rage.html">Open tool</a>
+                    </article>
+
+                    <article class="module-card">
+                        <div class="module-top">
+                            <span class="module-label">Module 03</span>
+                            <span class="module-status live">Live</span>
+                        </div>
+                        <div class="module-path">Turn your chart into a playlist</div>
+                        <h3>Gates Radio</h3>
+                        <p>
+                            Listen to gate playlists that help you recognize your Human Design through music instead of
+                            trying to memorize it.
+                        </p>
+                        <a class="module-btn live" href="gates.html">Open tool</a>
+                    </article>
+
+                    <article class="module-card">
+                        <div class="module-top">
+                            <span class="module-label">Module 04</span>
+                            <span class="module-status standby">Stand by</span>
+                        </div>
+                        <div class="module-path">Shadow and conditioning</div>
+                        <h3>Black Market</h3>
+                        <p>
+                            Look at the parts of yourself you were taught to hide, reject, or tone down and see what is
+                            actually conditioning versus what is power.
+                        </p>
+                        <button class="module-btn" type="button">Locked</button>
+                    </article>
+
+                    <article class="module-card">
+                        <div class="module-top">
+                            <span class="module-label">Module 05</span>
+                            <span class="module-status standby">Stand by</span>
+                        </div>
+                        <div class="module-path">Creative urges</div>
+                        <h3>Initiation Exchange</h3>
+                        <p>
+                            A place for unfinished urges, ideas, and initiations that still have energy in them and need
+                            somewhere to move.
+                        </p>
+                        <button class="module-btn" type="button">Locked</button>
+                    </article>
+
+                    <article class="module-card">
+                        <div class="module-top">
+                            <span class="module-label">Module 06</span>
+                            <span class="module-status standby">Stand by</span>
+                        </div>
+                        <div class="module-path">Burnout and recovery</div>
+                        <h3>MA Meetings</h3>
+                        <p>
+                            Future anonymous Manifestor rooms for burnout, anger, failed initiations, and the parts of
+                            this process people usually hide.
+                        </p>
+                        <button class="module-btn" type="button">Locked</button>
+                    </article>
+                </div>
+            </div>
         </section>
 
-        <!-- SYSTEM / ABOUT -->
         <section class="section" id="system">
             <div class="container">
                 <div class="section-head">
-                    <span class="section-label">System</span>
-                    <h2>What this place is.</h2>
+                    <span class="section-label">About</span>
+                    <h2>What Manifestor Anonymous actually does.</h2>
                     <p>
-                        Clean lines. Clear doors. No fluff. This is a Manifestor system, not a personal brand.
+                        This is not another site that dumps more Human Design information on you. It is built to make
+                        your design easier to understand and easier to use.
                     </p>
                 </div>
 
                 <div class="statement-grid">
                     <article class="statement-card">
-                        <span class="section-label">Language</span>
+                        <span class="section-label">Clearer learning</span>
                         <h2 style="margin:12px 0 0;font-size:28px;letter-spacing:-0.05em;">
-                            Not a clean spiritual brand.
+                            Less memorizing. More recognition.
                         </h2>
                         <p>
-                            This terminal is for people who were told to tone it down. The language is blunt.
-                            The visuals are dark. The structure is intentional. No forced softness. No teacher
-                            voice pretending to be mysterious.
+                            The goal is not to make you collect more chart facts. The goal is to help you recognize your
+                            own patterns faster and understand what your design actually looks like in real life.
                         </p>
                     </article>
 
                     <article class="statement-card">
-                        <span class="section-label">Depth</span>
+                        <span class="section-label">One connected system</span>
                         <h2 style="margin:12px 0 0;font-size:28px;letter-spacing:-0.05em;">
-                            Machines lead. Scans deepen.
+                            Different tools. Same mission.
                         </h2>
                         <p>
-                            You step into a machine first and feel your own pattern in real time. When you want more,
-                            Cognition, Anger, Frequency, and Terminal scans go deeper into the same pattern instead of
-                            selling you something random.
+                            Gates Radio, the Arrows Machine, and the Rage Room all do the same core job from different
+                            angles: they help Manifestors understand themselves more clearly without vague language or
+                            confusing offers.
                         </p>
                     </article>
                 </div>
@@ -1071,8 +967,8 @@
 
     <footer>
         <div class="container footer-inner">
-            <div>© Manifestor Anonymous. Underground Terminal.</div>
-            <div>Operator: Manifestor‑run. For Manifestors only.</div>
+            <div>© Manifestor Anonymous</div>
+            <div>Built for Manifestors who want clearer tools, not more confusion.</div>
             <div class="social-link" style="margin-top:4px;">
                 <a href="https://instagram.com/manifestor.anonymous" target="_blank" rel="noopener noreferrer">
                     @manifestor.anonymous
@@ -1081,7 +977,6 @@
         </div>
     </footer>
 
-    <!-- Shared DJ sun data: keeps current Sun gate info synced between index + gates pages -->
     <script src="assets/dj-sun.js" defer></script>
 </body>
 
