@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Arrows Room • Manifestor Anonymous</title>
+    <title>Arrows Machine • Manifestor Anonymous</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Arrows Room inside the Manifestor Anonymous Underground Terminal. Peek at your four arrows and get your Manifestor-specific snapshot, then plug into the Variables Vending Machine for the full read.">
+        content="Arrows Machine helps you understand how your mind, body, environment, and perspective work together through your four arrows, then points you to the deeper Variables Vending Machine." />
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <style>
         :root {
@@ -20,10 +20,7 @@
             --muted: rgba(245, 247, 251, 0.74);
             --dim: rgba(245, 247, 251, 0.48);
             --green: #39ff88;
-            --green-soft: rgba(57, 255, 136, 0.12);
             --danger: #ff4d6d;
-            --blue: #7ac7ff;
-            --yellow: #ffd56b;
             --radius: 26px;
             --radius-sm: 18px;
             --shadow: 0 22px 70px rgba(0, 0, 0, 0.7);
@@ -84,7 +81,6 @@
             margin: 0 auto;
         }
 
-        /* Topbar */
         .topbar {
             position: sticky;
             top: 0;
@@ -124,12 +120,18 @@
             object-fit: cover;
         }
 
-        .brand-copy small {
+        .brand-copy small,
+        .path-label,
+        .section-kicker,
+        .right-label,
+        .right-section-label,
+        .snapshot-title,
+        .snapshot-blend-label {
             display: inline-block;
             text-transform: uppercase;
-            letter-spacing: 0.24em;
-            font-size: 10px;
-            color: var(--dim);
+            letter-spacing: 0.16em;
+            font-size: 11px;
+            color: rgba(190, 198, 255, 0.75);
         }
 
         .brand-copy strong {
@@ -154,8 +156,9 @@
             gap: 12px;
         }
 
-        .btn {
-            border: 1px solid transparent;
+        .btn,
+        .offer-btn,
+        .offer-btn.secondary {
             border-radius: 16px;
             padding: 14px 22px;
             text-transform: uppercase;
@@ -166,23 +169,18 @@
             transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
         }
 
-        .btn:hover {
+        .btn:hover,
+        .offer-btn:hover,
+        .offer-btn.secondary:hover {
             transform: translateY(-2px);
         }
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.05);
             color: var(--text);
-            border-color: rgba(57, 255, 136, 0.32);
-            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+            border: 1px solid rgba(57, 255, 136, 0.32);
         }
 
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 18px rgba(57, 255, 136, 0.14);
-        }
-
-        /* Main Layout */
         .page-wrap {
             min-height: 100vh;
             padding: 30px 16px 54px;
@@ -219,7 +217,6 @@
             top: 88px;
         }
 
-        /* Module Pill */
         .module-pill {
             display: inline-flex;
             align-items: center;
@@ -236,21 +233,15 @@
             margin-bottom: 14px;
         }
 
-        .module-dot {
+        .module-dot,
+        .display-dot,
+        .bullet-dot,
+        .vend-led.on {
             width: 8px;
             height: 8px;
             border-radius: 50%;
             background: var(--green);
-            box-shadow: 0 0 12px rgba(57, 255, 136, 0.6);
-        }
-
-        .path-label,
-        .section-kicker {
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            font-size: 11px;
-            color: rgba(190, 198, 255, 0.66);
-            margin-bottom: 8px;
+            box-shadow: 0 0 8px rgba(57, 255, 136, 0.6);
         }
 
         .hero {
@@ -263,83 +254,76 @@
             margin: 0 0 10px;
         }
 
-        .subtitle {
-            max-width: 700px;
-            font-size: 1rem;
+        .subtitle,
+        .quick-card p,
+        .step-card span,
+        .machine-note,
+        .drop-body,
+        .right-intro,
+        .right-body,
+        .muted-foot,
+        .snapshot-blend-text,
+        .snapshot-list-item {
+            font-size: 14px;
             line-height: 1.65;
             color: var(--muted);
-            margin: 0;
         }
 
-        /* Quick Points */
-        .quick-points {
+        .subtitle {
+            max-width: 720px;
+            margin: 0 0 10px;
+        }
+
+        .quick-points,
+        .steps-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 12px;
             margin: 0 0 24px;
         }
 
-        .quick-card {
+        .quick-card,
+        .step-card,
+        .offer-card,
+        .snapshot-list-item,
+        details.info-drop {
             border-radius: 18px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+        }
+
+        .quick-card,
+        .step-card,
+        .offer-card {
             padding: 14px;
         }
 
-        .quick-card strong {
+        .quick-card strong,
+        .step-card strong {
             display: block;
             font-size: 13px;
             margin-bottom: 6px;
             color: #ffffff;
         }
 
-        .quick-card p {
-            margin: 0;
-            font-size: 13px;
-            line-height: 1.55;
-            color: var(--muted);
+        .step-num,
+        .machine-heading,
+        .machine-subheading,
+        .pill-small,
+        .row-tag,
+        .email-label,
+        .coin-slot-label,
+        .dj-meta-label {
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
         }
 
-        /* Steps */
-        .steps-wrap {
-            margin: 0 0 20px;
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 12px;
-        }
-
-        .step-card {
-            border-radius: 18px;
-            background: linear-gradient(180deg, rgba(8, 11, 20, 0.96), rgba(5, 7, 14, 0.98));
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 14px;
-        }
-
-        .step-num {
+        .step-num,
+        .pill-small {
             font-size: 10px;
             color: rgba(57, 255, 136, 0.82);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
         }
 
-        .step-card strong {
-            display: block;
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
-
-        .step-card span {
-            display: block;
-            font-size: 13px;
-            line-height: 1.5;
-            color: var(--muted);
-        }
-
-        /* Machine Shell */
         .machine-shell {
             width: 100%;
             border-radius: 22px;
@@ -361,10 +345,7 @@
         }
 
         .machine-shell.live {
-            box-shadow:
-                0 0 0 1px rgba(70, 230, 168, 0.22),
-                0 0 22px rgba(70, 230, 168, 0.22),
-                0 18px 40px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 0 1px rgba(70, 230, 168, 0.22), 0 0 22px rgba(70, 230, 168, 0.22), 0 18px 40px rgba(0, 0, 0, 0.8);
         }
 
         .machine-top {
@@ -378,43 +359,31 @@
 
         .machine-heading {
             font-size: 13px;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
             color: #ffffff;
         }
 
         .machine-subheading {
             font-size: 11px;
             color: #d0d7ff;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-        }
-
-        .machine-note {
-            max-width: 720px;
-            font-size: 13px;
-            line-height: 1.55;
-            color: #d5daf6;
         }
 
         .pill-small {
-            font-size: 10px;
-            text-transform: uppercase;
             padding: 5px 10px;
             border-radius: 999px;
             border: 1px solid rgba(255, 255, 255, 0.22);
             background: rgba(5, 7, 18, 0.95);
-            letter-spacing: 0.14em;
             align-self: flex-start;
-            color: rgba(255, 255, 255, 0.88);
         }
 
-        /* Control Panel */
-        .control-panel {
+        .control-panel,
+        .vend-row {
             display: grid;
             grid-template-columns: minmax(0, 1.7fr) auto;
             gap: 12px;
             align-items: center;
+        }
+
+        .control-panel {
             padding: 12px;
             border-radius: 16px;
             background: linear-gradient(180deg, #090c1b, #050614);
@@ -429,11 +398,10 @@
             gap: 6px;
         }
 
-        .email-label {
+        .email-label,
+        .coin-slot-label {
             font-size: 11px;
-            color: #d8deff;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
+            color: #cbd2ee;
         }
 
         .email-input-wrap {
@@ -488,10 +456,6 @@
         }
 
         .coin-slot-label {
-            font-size: 11px;
-            color: #cbd2ee;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
             max-width: 136px;
             line-height: 1.35;
         }
@@ -537,7 +501,6 @@
             transform: scale(0.96);
         }
 
-        /* Display Strip */
         .display-strip {
             margin-top: 10px;
             min-height: 48px;
@@ -567,16 +530,6 @@
             color: #d7ffea;
         }
 
-        .display-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: #0bff7e;
-            box-shadow: 0 0 8px rgba(11, 255, 126, 0.6);
-            flex: 0 0 auto;
-        }
-
-        /* Mid Panel - Arrows */
         .mid-panel {
             position: relative;
             margin: 14px 0;
@@ -608,9 +561,7 @@
         }
 
         .arrow-row.active {
-            box-shadow:
-                0 0 0 1px rgba(90, 192, 255, 0.22),
-                0 0 10px rgba(90, 192, 255, 0.14);
+            box-shadow: 0 0 0 1px rgba(90, 192, 255, 0.22), 0 0 10px rgba(90, 192, 255, 0.14);
         }
 
         .row-tag {
@@ -685,18 +636,7 @@
             box-shadow: 0 0 10px rgba(255, 223, 122, 0.28);
         }
 
-        /* Bottom Panel */
-        .bottom-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: stretch;
-        }
-
         .vend-row {
-            display: grid;
-            grid-template-columns: auto minmax(0, 1fr);
-            gap: 12px;
             align-items: center;
         }
 
@@ -711,7 +651,6 @@
             text-transform: uppercase;
             letter-spacing: 0.14em;
             cursor: default;
-            box-shadow: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -739,38 +678,18 @@
             box-shadow: none;
         }
 
-        .vend-led.on {
-            background: #46e6a8;
-            box-shadow: 0 0 8px rgba(70, 230, 168, 0.52);
-        }
-
         .tags-line {
             font-size: 13px;
             line-height: 1.5;
             color: #cfd5f2;
         }
 
-        /* Snapshot Panel */
         .snapshot-panel {
             border-radius: 20px;
             background: linear-gradient(145deg, #050713, #0b1020);
             border: 1px solid rgba(159, 171, 255, 0.34);
             box-shadow: 0 18px 38px rgba(0, 0, 0, 0.82);
             padding: 18px;
-        }
-
-        .snapshot-title,
-        .snapshot-blend-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: rgba(209, 217, 255, 0.9);
-            margin-bottom: 8px;
-        }
-
-        .snapshot-blend-label {
-            color: #b2b8e5;
-            margin-top: 6px;
         }
 
         .snapshot-list {
@@ -780,20 +699,7 @@
         }
 
         .snapshot-list-item {
-            font-size: 14px;
-            line-height: 1.55;
-            color: #eef1ff;
             padding: 12px 14px;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .snapshot-blend-text {
-            font-size: 14px;
-            line-height: 1.55;
-            color: #f1f3ff;
-            margin-bottom: 14px;
         }
 
         #downloadSnapshotBtn {
@@ -815,11 +721,7 @@
             background: rgba(10, 13, 30, 0.98);
         }
 
-        /* Info Drop */
         details.info-drop {
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.035);
-            border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 0;
             overflow: hidden;
             margin-top: 14px;
@@ -856,9 +758,6 @@
 
         .drop-body {
             padding: 0 16px 16px;
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.65;
         }
 
         .drop-body p {
@@ -886,41 +785,10 @@
             gap: 10px;
         }
 
-        .bullet-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #46e6a8;
-            box-shadow: 0 0 8px rgba(70, 230, 168, 0.44);
-            margin-top: 6px;
-            flex-shrink: 0;
-        }
-
-        /* Right Panel */
-        .right-label,
-        .right-section-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: rgba(190, 198, 255, 0.7);
-            margin-bottom: 8px;
-        }
-
-        .right-section-label {
-            color: rgba(184, 193, 255, 0.8);
-        }
-
         .right-title-main {
             font-size: 24px;
             line-height: 1.15;
             margin: 0 0 10px;
-        }
-
-        .right-intro {
-            font-size: 14px;
-            line-height: 1.65;
-            color: var(--muted);
-            margin: 0 0 18px;
         }
 
         .offer-stack {
@@ -928,25 +796,11 @@
             gap: 16px;
         }
 
-        .offer-card {
-            border-radius: 20px;
-            padding: 18px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
         .right-title {
             font-size: 19px;
             line-height: 1.2;
             font-weight: 700;
             margin: 0 0 10px;
-        }
-
-        .right-body {
-            color: #dde2ff;
-            line-height: 1.65;
-            font-size: 14px;
-            margin: 0 0 14px;
         }
 
         .offer-btn {
@@ -959,18 +813,6 @@
             color: #04140b;
             box-shadow: 0 0 18px rgba(57, 255, 136, 0.16);
             border: 1px solid transparent;
-            border-radius: 16px;
-            padding: 14px 22px;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            font-size: 12px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
-        }
-
-        .offer-btn:hover {
-            transform: translateY(-2px);
         }
 
         .offer-btn.secondary {
@@ -980,18 +822,6 @@
             box-shadow: none;
         }
 
-        .offer-btn.secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .muted-foot {
-            margin-top: 14px;
-            font-size: 12px;
-            line-height: 1.55;
-            color: var(--dim);
-        }
-
-        /* Responsive */
         @media (max-width: 1080px) {
             .main-grid {
                 grid-template-columns: 1fr;
@@ -1095,9 +925,9 @@
                 </div>
                 <div class="brand-copy">
                     <small>Manifestor Anonymous</small>
-                    <strong>Arrows Room</strong>
+                    <strong>Arrows Machine</strong>
                 </div>
-                <div class="topbar-tagline">Four arrows. One snapshot. Settings first, routines later.</div>
+                <div class="topbar-tagline">See how your system processes life</div>
             </div>
             <nav class="top-links">
                 <a href="index.html" class="btn btn-secondary">Back to terminal</a>
@@ -1109,41 +939,42 @@
         <div class="page-inner">
             <div class="main-grid">
 
-                <!-- LEFT PANEL -->
                 <section class="left-panel">
                     <div class="module-pill">
                         <div class="module-dot"></div>
-                        <span>Module 01 • Path Cognition</span>
+                        <span>Module 01 • Arrows Machine</span>
                     </div>
 
                     <div class="hero">
-                        <div class="path-label">Top left, bottom left, top right, bottom right.</div>
-                        <h1 class="title">Arrows Room.</h1>
+                        <div class="path-label">Determination • Environment • Motivation • Perspective</div>
+                        <h1 class="title">Arrows Machine</h1>
                         <p class="subtitle">
-                            This is where you stop treating your four arrows like random chart trivia and start seeing
-                            the pattern they make together. Not rules. Not routines. Just the settings your Manifestor
-                            system already came with.
+                            Understand how your mind, body, environment, and perspective actually work together.
+                        </p>
+                        <p class="subtitle">
+                            Your four arrows are not random chart trivia. They show how your system takes in life, where
+                            your body meets the least resistance, how your view works, and how your mind aims itself.
+                            This tool gives you the pattern clearly so you stop forcing what was never built for you.
                         </p>
                     </div>
 
                     <div class="quick-points">
                         <div class="quick-card">
-                            <strong>Why it matters</strong>
-                            <p>Your arrows say a lot about how your system takes in life, moves through space, sees, and
-                                aims your mind.</p>
+                            <strong>What this shows</strong>
+                            <p>Your four arrows as one system, not separate pieces.</p>
                         </div>
                         <div class="quick-card">
-                            <strong>What this gives you</strong>
-                            <p>A clean direction-only snapshot for all four arrows in plain Manifestor language.</p>
+                            <strong>What you get</strong>
+                            <p>A clearer snapshot with stronger explanations you can actually use in real life.</p>
                         </div>
                         <div class="quick-card">
                             <strong>What this is not</strong>
-                            <p>Not the full variables read. This is the top of the iceberg, not the whole machine.</p>
+                            <p>Not a full variables breakdown. This is your starting layer.</p>
                         </div>
                     </div>
 
                     <div class="steps-wrap">
-                        <div class="section-kicker">How to use this room</div>
+                        <div class="section-kicker">How to use this tool</div>
                         <div class="steps-grid">
                             <div class="step-card">
                                 <div class="step-num">Step 1</div>
@@ -1158,7 +989,7 @@
                             <div class="step-card">
                                 <div class="step-num">Step 3</div>
                                 <strong>Run the scan</strong>
-                                <span>Get a quick snapshot of how your settings move together.</span>
+                                <span>Get a richer snapshot of how your settings move together.</span>
                             </div>
                         </div>
                     </div>
@@ -1168,9 +999,8 @@
                             <div class="machine-heading">Arrows Scanner</div>
                             <div class="machine-subheading">Direction-only surface scan</div>
                             <div class="machine-note">
-                                This machine reads direction only: Left or Right for Determination, Environment,
-                                Motivation, and Perspective. It gives you the pattern. The deeper read lives in the
-                                Variables Vending Machine.
+                                This scanner reads your arrow directions and shows how they work together as one system.
+                                This is the starting layer. The full breakdown lives in the Variables Vending Machine.
                             </div>
                             <div class="pill-small">Manifestors</div>
                         </div>
@@ -1203,12 +1033,11 @@
                         <div class="mid-panel">
                             <div class="mid-grid">
 
-                                <!-- A: TOP LEFT - DETERMINATION -->
                                 <div class="arrow-row" data-row="topLeft">
                                     <div class="row-tag">A</div>
                                     <div class="row-text">
                                         <div class="row-label">Top Left • Determination</div>
-                                        <div class="row-sub">How your Manifestor brain takes in life.</div>
+                                        <div class="row-sub">How your brain digests life and takes in input.</div>
                                     </div>
                                     <button class="arrow-btn" type="button" data-slot="topLeft"
                                         data-dir="L">Left</button>
@@ -1217,12 +1046,11 @@
                                     <div class="coil-line"></div>
                                 </div>
 
-                                <!-- B: BOTTOM LEFT - ENVIRONMENT -->
                                 <div class="arrow-row" data-row="bottomLeft">
                                     <div class="row-tag">B</div>
                                     <div class="row-text">
                                         <div class="row-label">Bottom Left • Environment</div>
-                                        <div class="row-sub">How your body and spaces like to operate.</div>
+                                        <div class="row-sub">How your body meets the least resistance in space.</div>
                                     </div>
                                     <button class="arrow-btn" type="button" data-slot="bottomLeft"
                                         data-dir="L">Left</button>
@@ -1231,12 +1059,11 @@
                                     <div class="coil-line"></div>
                                 </div>
 
-                                <!-- C: TOP RIGHT - MOTIVATION (CORRECTED) -->
                                 <div class="arrow-row" data-row="topRight">
                                     <div class="row-tag">C</div>
                                     <div class="row-text">
                                         <div class="row-label">Top Right • Motivation</div>
-                                        <div class="row-sub">How your mind aims your message and impact.</div>
+                                        <div class="row-sub">How your mind aims itself and engages mentally.</div>
                                     </div>
                                     <button class="arrow-btn" type="button" data-slot="topRight"
                                         data-dir="L">Left</button>
@@ -1245,12 +1072,11 @@
                                     <div class="coil-line"></div>
                                 </div>
 
-                                <!-- D: BOTTOM RIGHT - PERSPECTIVE (CORRECTED) -->
                                 <div class="arrow-row" data-row="bottomRight">
                                     <div class="row-tag">D</div>
                                     <div class="row-text">
                                         <div class="row-label">Bottom Right • Perspective</div>
-                                        <div class="row-sub">How you see the world.</div>
+                                        <div class="row-sub">How you take in the field and see the world.</div>
                                     </div>
                                     <button class="arrow-btn" type="button" data-slot="bottomRight"
                                         data-dir="L">Left</button>
@@ -1274,40 +1100,40 @@
                     </div>
 
                     <div class="snapshot-panel" id="snapshotPanel">
-                        <div class="snapshot-title">Arrows Snapshot</div>
+                        <div class="snapshot-title">Your Arrows Snapshot</div>
 
                         <div id="snapshotList" class="snapshot-list">
                             <div class="snapshot-list-item">
-                                Press "Scan" once your arrows are set to read each arrow in plain Manifestor language.
+                                Press "Scan" once your arrows are set to read your pattern in plain Manifestor language.
                             </div>
                         </div>
 
                         <div class="snapshot-blend-label">How this moves together</div>
                         <div class="snapshot-blend-text" id="snapshotBlend">
-                            When you run the scan you'll see how your brain, body, view and motivation move as one
-                            Manifestor system instead of being managed for other people.
+                            When you run the scan, you’ll see how your brain, body, view, and mental style move as one
+                            system instead of feeling like separate problems you need to fix.
                         </div>
 
                         <button id="downloadSnapshotBtn" type="button">Download Snapshot Card</button>
                     </div>
 
                     <details class="info-drop">
-                        <summary>Why this room exists</summary>
+                        <summary>Why this tool exists</summary>
                         <div class="drop-body">
                             <p>
                                 Most people meet variables like homework. Eat like this. Work like this. Focus like
                                 this. That misses the point.
                             </p>
                             <p>
-                                This room exists so you can see your arrow direction as a pattern instead of turning
-                                yourself into a self-improvement project. It is here to show you what is already true
-                                about how your system works.
+                                This tool exists so you can see your arrow directions as a pattern instead of turning
+                                yourself into another self-improvement project. It is here to show you what is already
+                                true about how your system works.
                             </p>
                         </div>
                     </details>
 
                     <details class="info-drop">
-                        <summary>Use this room when</summary>
+                        <summary>Use this tool when</summary>
                         <div class="drop-body">
                             <ul class="bullet-list">
                                 <li>
@@ -1321,11 +1147,12 @@
                                 </li>
                                 <li>
                                     <div class="bullet-dot"></div>
-                                    <span>You want words for your arrows you can actually use when you inform.</span>
+                                    <span>You want language for your arrows that actually helps you explain
+                                        yourself.</span>
                                 </li>
                                 <li>
                                     <div class="bullet-dot"></div>
-                                    <span>You are tired of treating variables like another thing to fix.</span>
+                                    <span>You want a starting point before going deeper into variables.</span>
                                 </li>
                             </ul>
                         </div>
@@ -1333,14 +1160,12 @@
 
                 </section>
 
-                <!-- RIGHT PANEL -->
                 <aside class="right-panel">
-                    <div class="right-label">Next step • deeper than this room</div>
-                    <h2 class="right-title-main">You've got the pattern. Now choose whether you want the machine or one
-                        personal read.</h2>
+                    <div class="right-label">Next step • go deeper</div>
+                    <h2 class="right-title-main">You see the pattern. Now decide how deep you want to go.</h2>
                     <p class="right-intro">
-                        This room gives you the direction. The next step depends on whether you want unlimited
-                        self-serve access to your variables or one personalized scan read through your arrows for you.
+                        This tool gives you the pattern. Next step depends on whether you want unlimited self-serve
+                        access or one personal read.
                     </p>
 
                     <div class="offer-stack">
@@ -1348,19 +1173,18 @@
                             <div class="right-section-label">Offer 01</div>
                             <div class="right-title">Manifestor Variables Vending Machine</div>
                             <div class="right-body">
-                                This is the full self-serve tool. Load your arrows, run different focus areas, and come
-                                back anytime you want to read your variables through work, business, relationships,
-                                money, creativity, rest, or visibility.
+                                This is the full self-serve tool. Run your variables through different life areas
+                                whenever something gets loud.
                             </div>
                             <ul class="bullet-list" style="margin-bottom: 14px;">
                                 <li>
                                     <div class="bullet-dot"></div>
-                                    <span>Unlimited access to the Manifestor Variables Vending Machine.</span>
+                                    <span>Unlimited access to the Variables Vending Machine.</span>
                                 </li>
                                 <li>
                                     <div class="bullet-dot"></div>
-                                    <span>Run your variables through different focus areas whenever something new gets
-                                        loud.</span>
+                                    <span>Use it for work, business, relationships, money, creativity, rest, and
+                                        visibility.</span>
                                 </li>
                                 <li>
                                     <div class="bullet-dot"></div>
@@ -1377,9 +1201,8 @@
                             <div class="right-section-label">Offer 02</div>
                             <div class="right-title">Variables Scan • Personal Read</div>
                             <div class="right-body">
-                                This is the one-time personalized option. I run your variables through the machine for
-                                you, generate your report, and send you a short voice note walking you through your
-                                scan.
+                                This is the one-time personalized option. I run your variables for you, generate your
+                                report, and send a short voice note walking you through it.
                             </div>
                             <ul class="bullet-list" style="margin-bottom: 14px;">
                                 <li>
@@ -1388,11 +1211,11 @@
                                 </li>
                                 <li>
                                     <div class="bullet-dot"></div>
-                                    <span>A short voice note from me explaining your scan.</span>
+                                    <span>A short voice note explaining your scan.</span>
                                 </li>
                                 <li>
                                     <div class="bullet-dot"></div>
-                                    <span>One personalized read without needing full machine access.</span>
+                                    <span>One personal read without needing full machine access.</span>
                                 </li>
                             </ul>
                             <button disabled class="offer-btn secondary" aria-label="Coming soon">
@@ -1404,7 +1227,7 @@
 
                     <div class="muted-foot">
                         Use the Vending Machine if you want unlimited access and the journal. Use the Variables Scan if
-                        you want one personal report plus a short voice note from me.
+                        you want one personal report plus a short voice note.
                     </div>
                 </aside>
 
@@ -1440,6 +1263,49 @@
         const machineShell = document.getElementById('machineShell');
         const arrowButtons = document.querySelectorAll('.arrow-btn');
 
+        const snapshotCopy = {
+            topLeft: {
+                L: {
+                    short: 'Top Left • Determination: Left',
+                    long: 'Your brain digests life in a more active and focused way. Left determination is built for regular input, repetition, and clearer parameters. It tends to work best when you are not multitasking your life to death. Feeding your system in simple, consistent ways gives your mind more bandwidth for actual urges instead of wasting energy on constant decision fatigue.'
+                },
+                R: {
+                    short: 'Top Left • Determination: Right',
+                    long: 'Your brain digests life in a more receptive and passive way. Right determination takes in more of the field and usually works worse under pressure, rigid timing, or forced focus. You are designed to absorb, notice, and relax into input more than control every part of it. The less you force yourself to act like a hyper-structured brain, the easier it is for your own intelligence to come through.'
+                }
+            },
+            bottomLeft: {
+                L: {
+                    short: 'Bottom Left • Environment: Left',
+                    long: 'Your body tends to meet the least resistance in environments that energize activity. Left environment has an active quality to it. The right spaces usually make you want to do, move, participate, and engage. If a space deadens you, flattens you, or constantly asks you to collapse when your body wants movement, it is probably not supporting you well.'
+                },
+                R: {
+                    short: 'Bottom Left • Environment: Right',
+                    long: 'Your body tends to meet the least resistance in environments that let you relax and receive. Right environment is more passive, observational, and surrendered. The right places usually do more work on you than you do on them. When your environment is correct, you often do not need to push so hard because life and the right people start coming into your field more naturally.'
+                }
+            },
+            topRight: {
+                L: {
+                    short: 'Top Right • Motivation: Left',
+                    long: 'Your mental style has a more strategic and directed quality. Left here is narrower, more specific, and tends to want a cleaner line from thought to action. You often do better when you can name what matters, reduce noise, and point your mind somewhere on purpose. Used well, this can help you communicate your urges in a way other people can actually follow.'
+                },
+                R: {
+                    short: 'Top Right • Motivation: Right',
+                    long: 'Your mental style has a more open and fluid quality. Right here is broader, less forceful, and more receptive to what is already in the field. You are not designed to hammer your mind into one rigid line all the time. Your best insight often comes when you stop trying to control every thought and allow your mind to stay looser, wider, and more observant.'
+                }
+            },
+            bottomRight: {
+                L: {
+                    short: 'Bottom Right • Perspective: Left',
+                    long: 'Your view is more focused and specific. Left perspective tends to track patterns through concentration, narrowing in, and holding attention on something long enough to really see it. You are usually better served by choosing what deserves your attention instead of pretending everything matters equally.'
+                },
+                R: {
+                    short: 'Bottom Right • Perspective: Right',
+                    long: 'Your view is more peripheral and wide-angle. Right perspective takes in more of the field and is less about drilling down into one tiny point forever. You often notice context, atmosphere, and what sits around the edges. This works best when you stop shaming yourself for not seeing the world through a narrow lens all the time.'
+                }
+            }
+        };
+
         function setDisplay(mode, text) {
             displayText.textContent = text;
             displayStrip.classList.remove('red', 'yellow', 'green');
@@ -1457,9 +1323,9 @@
             const formData = new FormData();
             formData.append('email', email);
             formData.append('source', 'arrows-scanner');
-            formData.append('page', 'arrows-room');
+            formData.append('page', 'arrows-machine');
             formData.append('formType', 'arrows-snapshot');
-            formData.append('tag', 'arrows-room-email');
+            formData.append('tag', 'arrows-machine-email');
             formData.append('resultKey', '');
             formData.append('resultTitle', '');
             formData.append('resultBody', '');
@@ -1565,53 +1431,39 @@
             }
         }
 
+        function addLine(text) {
+            const div = document.createElement('div');
+            div.className = 'snapshot-list-item';
+            div.textContent = text;
+            snapshotList.appendChild(div);
+        }
+
         function renderSnapshot() {
             snapshotList.innerHTML = '';
 
-            function addLine(text) {
-                const div = document.createElement('div');
-                div.className = 'snapshot-list-item';
-                div.textContent = text;
-                snapshotList.appendChild(div);
+            if (state.topLeft) addLine(`${snapshotCopy.topLeft[state.topLeft].short} — ${snapshotCopy.topLeft[state.topLeft].long}`);
+            if (state.bottomLeft) addLine(`${snapshotCopy.bottomLeft[state.bottomLeft].short} — ${snapshotCopy.bottomLeft[state.bottomLeft].long}`);
+            if (state.topRight) addLine(`${snapshotCopy.topRight[state.topRight].short} — ${snapshotCopy.topRight[state.topRight].long}`);
+            if (state.bottomRight) addLine(`${snapshotCopy.bottomRight[state.bottomRight].short} — ${snapshotCopy.bottomRight[state.bottomRight].long}`);
+
+            const leftCount = [state.topLeft, state.bottomLeft, state.topRight, state.bottomRight].filter(v => v === 'L').length;
+            const rightCount = [state.topLeft, state.bottomLeft, state.topRight, state.bottomRight].filter(v => v === 'R').length;
+
+            let blend = '';
+
+            if (leftCount === 4) {
+                blend = 'You have an all-left pattern here. That usually means more activity, more structure, more specificity, and more strategic focus across the whole system. This can be powerful, but only when you stop using all that pressure against yourself and start using it to support what actually matters.';
+            } else if (rightCount === 4) {
+                blend = 'You have an all-right pattern here. That usually means more receptivity, more openness, more observation, and less benefit from rigid force. Your system often works best when you stop trying to act like a machine and let yourself take in more of the field.';
+            } else if (leftCount > rightCount) {
+                blend = 'Your pattern leans left. There is more active, strategic, and focused energy in your setup. Structure can help you, but only if it supports you instead of becoming another control system you resent.';
+            } else if (rightCount > leftCount) {
+                blend = 'Your pattern leans right. There is more receptive, relaxed, and observational energy in your setup. Looseness is not laziness for you. It is often the condition that lets your system work the way it is built to.';
+            } else {
+                blend = 'Your pattern is mixed. That usually means some parts of you need more structure while other parts need more openness. The point is not to choose one identity. It is to stop forcing every part of your life to run the same way.';
             }
 
-            // TOP LEFT: DETERMINATION
-            if (state.topLeft) {
-                if (state.topLeft === 'L') {
-                    addLine('Top Left • Determination: Left — Your Manifestor brain runs focused. It likes steady input, cleaner patterns, and less chaos so your urges actually land.');
-                } else {
-                    addLine('Top Left • Determination: Right — Your Manifestor brain is more open and relaxed. It learns better when you stop forcing a rigid system and let life come to you.');
-                }
-            }
-
-            // BOTTOM LEFT: ENVIRONMENT
-            if (state.bottomLeft) {
-                if (state.bottomLeft === 'L') {
-                    addLine('Bottom Left • Environment: Left — Your body likes active relationship with space. Choosing where you are and moving with some intention helps your system stay alive.');
-                } else {
-                    addLine('Bottom Left • Environment: Right — Your body is more receptive with space. You do not need to chase every environment. The right ones do more work on you when you let them.');
-                }
-            }
-
-            // TOP RIGHT: MOTIVATION (CORRECTED)
-            if (state.topRight) {
-                if (state.topRight === 'L') {
-                    addLine('Top Right • Motivation: Left — Your mind likes strategy and explanation. Frameworks can help you channel your urges into something other people can actually follow.');
-                } else {
-                    addLine('Top Right • Motivation: Right — Your mind is more fluid. Strict motivation stories can shut you down. Space, looseness, and natural timing matter more here.');
-                }
-            }
-
-            // BOTTOM RIGHT: PERSPECTIVE (CORRECTED)
-            if (state.bottomRight) {
-                if (state.bottomRight === 'L') {
-                    addLine('Bottom Right • Perspective: Left — Your view is focused. You are built to zero in, track something specific, and stay with it long enough to really see the pattern.');
-                } else {
-                    addLine('Bottom Right • Perspective: Right — Your view is wide-angle. You are here to take in more of the field, not pin yourself to one tiny detail forever.');
-                }
-            }
-
-            snapshotBlend.textContent = 'When these four line up, you stop trying to run your life for other people and start letting your Manifestor system move the way it is built to move.';
+            snapshotBlend.textContent = blend;
         }
 
         vendBtn.addEventListener('click', () => {
