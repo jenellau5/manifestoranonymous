@@ -52,3 +52,10 @@ if (document.readyState === "loading") {
 } else {
     syncDjSun();
 }
+// hero (gates.html)
+updateElementText("djTrackTitleHero", DJ_SUN.trackTitle);
+updateElementText("djGateHero", DJ_SUN.gate);
+updateElementText("djTagsHero", DJ_SUN.tags);
+updateElementText("djDatesHero", DJ_SUN.dates);
+updateElementText("djSetIdHero", DJ_SUN.setId);
+updateElementText("djReasonHero", DJ_SUN.reason);

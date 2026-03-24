@@ -7,7 +7,7 @@
     <title>Gates Radio • Manifestor Anonymous</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
     <meta name="description"
-        content="Gates Radio is the archive behind DJ Sun. Explore gate playlists, submit a DJ request, and access the full 64-gate Master Gates Radio Log." />
+        content="Gates Radio is the archive behind DJ Sun. Explore gate playlists, submit a DJ request, and access the full 64-gate Gates Radio Living Library." />
 
     <style>
         :root {
@@ -22,7 +22,6 @@
             --dim: rgba(148, 163, 184, 0.82);
             --accent: #38bdf8;
             --accent-soft: rgba(56, 189, 248, 0.14);
-            --accent-glow: rgba(56, 189, 248, 0.34);
             --green: #4ade80;
             --radius: 24px;
             --shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
@@ -298,37 +297,11 @@
             margin: 0 0 12px;
         }
 
-        .hero-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 16px 0 16px;
-        }
-
-        .hero-chips span {
-            padding: 6px 11px;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.3);
-            background: rgba(15, 23, 42, 0.98);
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
-            color: var(--dim);
-        }
-
         .hero-actions {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin-top: 14px;
-        }
-
-        .hero-note {
-            margin-top: 12px;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.22em;
-            color: var(--dim);
         }
 
         .status-badge {
@@ -659,18 +632,276 @@
             color: rgba(148, 163, 184, 0.7);
         }
 
-        .form-note {
-            margin-top: 8px;
-            font-size: 11px;
-            color: var(--dim);
-            line-height: 1.7;
-        }
-
         .form-status {
             margin-top: 10px;
             font-size: 11px;
             color: var(--muted);
             min-height: 18px;
+        }
+
+        .info-strip {
+            display: grid;
+            gap: 4px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .info-strip strong {
+            font-size: 13px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+
+        .info-strip span {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+
+        .turntable-shell {
+            position: relative;
+            min-height: 440px;
+            border-radius: 28px;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            background: linear-gradient(145deg, rgba(6, 10, 20, 0.98), rgba(16, 23, 37, 0.96));
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 20px 50px rgba(0, 0, 0, 0.45);
+            overflow: hidden;
+            padding: 24px;
+            display: grid;
+            place-items: center;
+        }
+
+        .turntable-shell::before {
+            content: "";
+            position: absolute;
+            inset: 16px;
+            border-radius: 22px;
+            border: 1px solid rgba(56, 189, 248, 0.08);
+            pointer-events: none;
+        }
+
+        .turntable-platter {
+            position: relative;
+            width: min(100%, 360px);
+            aspect-ratio: 1 / 1;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.06), transparent 18%),
+                radial-gradient(circle at center, #0f172a 0%, #05070b 62%, #020308 100%);
+            box-shadow: inset 0 0 0 10px rgba(255, 255, 255, 0.02),
+                inset 0 0 40px rgba(255, 255, 255, 0.02), 0 18px 45px rgba(0, 0, 0, 0.5);
+        }
+
+        .turntable-ring,
+        .vinyl-groove {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            pointer-events: none;
+        }
+
+        .turntable-ring.ring-1 {
+            inset: 18px;
+        }
+
+        .turntable-ring.ring-2 {
+            inset: 42px;
+        }
+
+        .turntable-ring.ring-3 {
+            inset: 70px;
+        }
+
+        .vinyl-record {
+            position: relative;
+            width: 82%;
+            height: 82%;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.08), transparent 14%),
+                radial-gradient(circle at center, #141821 0%, #090b10 58%, #030303 100%);
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.02),
+                inset 0 0 60px rgba(255, 255, 255, 0.03);
+        }
+
+        .vinyl-groove.groove-1 {
+            inset: 18px;
+        }
+
+        .vinyl-groove.groove-2 {
+            inset: 34px;
+        }
+
+        .vinyl-groove.groove-3 {
+            inset: 52px;
+        }
+
+        .vinyl-groove.groove-4 {
+            inset: 70px;
+        }
+
+        .record-label {
+            width: 42%;
+            height: 42%;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            text-align: center;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), transparent 22%),
+                linear-gradient(180deg, rgba(56, 189, 248, 0.22), rgba(8, 47, 73, 0.96));
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            box-shadow: 0 0 22px rgba(56, 189, 248, 0.16), inset 0 0 18px rgba(255, 255, 255, 0.04);
+            padding: 10px;
+        }
+
+        .record-label-top {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: rgba(226, 232, 240, 0.78);
+        }
+
+        #recordGateNumber {
+            font-size: 42px;
+            line-height: 0.9;
+            letter-spacing: -0.08em;
+            color: #f8fbff;
+        }
+
+        #recordGateName {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: rgba(226, 232, 240, 0.86);
+            max-width: 88px;
+        }
+
+        .tonearm-wrap {
+            position: absolute;
+            top: 48px;
+            right: 40px;
+            width: 160px;
+            height: 160px;
+            transform-origin: 24px 24px;
+            transition: transform 0.6s ease;
+        }
+
+        .tonearm-base {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #94a3b8, #475569);
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.18);
+        }
+
+        .tonearm-arm {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            width: 112px;
+            height: 10px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #cbd5e1, #64748b);
+            transform: rotate(35deg);
+            transform-origin: left center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.28);
+        }
+
+        .tonearm-head {
+            position: absolute;
+            top: 77px;
+            left: 104px;
+            width: 26px;
+            height: 16px;
+            border-radius: 6px;
+            background: linear-gradient(180deg, #e2e8f0, #64748b);
+            transform: rotate(35deg);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+        }
+
+        #turntableCard.is-playing .tonearm-wrap {
+            transform: rotate(-18deg);
+        }
+
+        #turntableCard.is-playing .vinyl-record {
+            animation: spinRecord 1.4s linear infinite;
+        }
+
+        @keyframes spinRecord {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .turntable-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 18px;
+        }
+
+        .turntable-result {
+            margin-top: 18px;
+            padding: 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(56, 189, 248, 0.20);
+            background: rgba(2, 7, 17, 0.50);
+            min-height: 150px;
+        }
+
+        .turntable-result h4 {
+            margin: 0 0 8px;
+            font-size: 20px;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+        }
+
+        .turntable-result p {
+            margin: 0 0 12px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.75;
+        }
+
+        .result-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .keyword-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            background: rgba(148, 163, 184, 0.08);
+            color: #e9f3ff;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .stacked-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         footer {
@@ -716,13 +947,21 @@
 
             .hero-actions .btn,
             .chart-actions .btn,
-            .label-actions .btn {
+            .label-actions .btn,
+            .stacked-actions .btn {
                 width: 100%;
             }
 
             .chart-table th,
             .chart-table td {
                 padding: 8px 4px;
+            }
+
+            .tonearm-wrap {
+                width: 120px;
+                height: 120px;
+                top: 24px;
+                right: 18px;
             }
         }
     </style>
@@ -757,35 +996,18 @@
                     </div>
 
                     <h1 class="hero-title">Gate stations for Manifestors.</h1>
-                    <p class="hero-sub">64 gates · 64 stations · one music archive</p>
+                    <p class="hero-sub">64 gates · 64 stations · one living archive</p>
 
                     <p class="hero-text">
-                        Gates Radio is the archive behind DJ Sun. Each gate gets its own station.
-                        You can tune into the free playlists, send in a DJ request, and step into the
-                        full Top 64 Gates chart where the paid Master Gates Radio Log lives.
+                        Gates Radio is the archive behind DJ Sun. Gate transmissions and playlists that turn Human
+                        Design into signal you can feel, not just concepts you study.
                     </p>
-
-                    <p class="hero-text">
-                        The point is simple: playlists first, explanation second. Let the frequency hit before the
-                        lecture does.
-                    </p>
-
-                    <div class="hero-chips">
-                        <span>Manifestor-run</span>
-                        <span>Free gate playlists</span>
-                        <span>64-station archive</span>
-                    </div>
 
                     <div class="hero-actions">
-                        <a href="#gate-stations" class="btn btn-primary">See gate stations</a>
-                        <a href="#dj-request" class="btn btn-secondary">Submit DJ request</a>
+                        <a href="#dj-sun-studio" class="btn btn-primary">Spin the gate</a>
+                        <a href="#gate-stations" class="btn btn-secondary">See gate stations</a>
                         <a href="#cross-playlists" class="btn btn-tertiary">Cross playlist scan</a>
                     </div>
-
-                    <p class="hero-note">
-                        <span id="currentOnlineGates">Current online gates: 22 · 36 · 12 · 38</span>
-                        · More in progress: 11 · 10 · 28
-                    </p>
                 </article>
 
                 <article class="panel hero-side" id="dj-sun">
@@ -800,34 +1022,30 @@
                     <div class="dj-kicker">
                         DJ Sun transit track:
                         <span id="djTrackTitleHero" style="font-weight:700;letter-spacing:0.14em;">
-                            CRISIS RADIO
+                            OPINION RADIO
                         </span>
                     </div>
 
                     <h2 class="dj-title">One gate. One set. Per week.</h2>
 
-                    <p class="dj-copy">
-                        The Sun moves through the gates. The main set updates with it.
-                        Use this as background frequency. If this is your Sun gate, read it as a mirror.
-                    </p>
-
-                    <div class="dj-gate" id="djGateHero">Gate 36 · Crisis</div>
-                    <div class="dj-tags" id="djTagsHero">Emotional storm · Unknown · Initiation · Compassion</div>
+                    <div class="dj-gate" id="djGateHero">Gate 17 · Opinions</div>
+                    <div class="dj-tags" id="djTagsHero">Logic · Pattern recognition · Mental pressure · Organizing
+                        ideas</div>
 
                     <div class="dj-meta">
                         <div class="dj-meta-row">
                             <span class="label">Gate window</span>
-                            <span id="djDatesHero">March 18–23</span>
+                            <span id="djDatesHero">March 24–29</span>
                         </div>
                         <div class="dj-meta-row">
                             <span class="label">Set ID</span>
-                            <span id="djSetIdHero">SET 036</span>
+                            <span id="djSetIdHero">SET 017</span>
                         </div>
                     </div>
 
                     <div style="margin-top:12px;">
                         <iframe style="border-radius:12px"
-                            src="https://open.spotify.com/embed/playlist/0PoKnHg6wjZjbVgNSd0SdK?utm_source=generator&theme=0"
+                            src="https://open.spotify.com/embed/playlist/1q09fpTML4NDVLWIKlOvBi?utm_source=generator&theme=0"
                             width="100%" height="132" frameborder="0"
                             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                             loading="lazy">
@@ -835,14 +1053,141 @@
                     </div>
 
                     <p class="dj-reason" id="djReasonHero">
-                        Station 36 holds the emotional storm — the dark hallway between who you were
-                        and who you’re about to become. Crisis is not failure. It’s the ignition point.
+                        Station 17 holds the mental field — pattern recognition, opinions, and the pressure to make
+                        things make sense.
                     </p>
-
-                    <div style="margin-top:12px;">
-                        <a href="gates-radio.html" class="btn btn-tertiary">Open full station chart</a>
-                    </div>
                 </article>
+            </div>
+        </section>
+
+        <section id="dj-sun-studio" class="section">
+            <div class="container">
+                <header class="section-head">
+                    <span class="section-label">DJ Sun studio</span>
+                    <h2>Spin the gate</h2>
+                </header>
+
+                <div class="split-grid">
+                    <article class="chart-card" id="turntableCard">
+                        <div class="chart-header">
+                            <div>
+                                <h3>Current live pull</h3>
+                                <div class="chart-sub">Transit gate on deck now</div>
+                            </div>
+                        </div>
+
+                        <div class="dj-gate" id="sunGateLabel" style="margin-top:0;">Gate 17 · Opinions</div>
+                        <div class="dj-tags" id="sunGateTags">Logic · Pattern recognition · Mental pressure · Organizing
+                            ideas</div>
+
+                        <div class="turntable-shell" style="margin-top:18px;">
+                            <div class="turntable-platter" aria-hidden="true">
+                                <div class="turntable-ring ring-1"></div>
+                                <div class="turntable-ring ring-2"></div>
+                                <div class="turntable-ring ring-3"></div>
+
+                                <div class="vinyl-record">
+                                    <div class="vinyl-groove groove-1"></div>
+                                    <div class="vinyl-groove groove-2"></div>
+                                    <div class="vinyl-groove groove-3"></div>
+                                    <div class="vinyl-groove groove-4"></div>
+
+                                    <div class="record-label">
+                                        <span class="record-label-top">DJ Sun</span>
+                                        <strong id="recordGateNumber">17</strong>
+                                        <span id="recordGateName">Opinions</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tonearm-wrap">
+                                <div class="tonearm-base"></div>
+                                <div class="tonearm-arm"></div>
+                                <div class="tonearm-head"></div>
+                            </div>
+                        </div>
+
+                        <div class="turntable-actions">
+                            <button type="button" class="btn btn-primary" id="spinBtn">Spin the gate</button>
+                        </div>
+
+                        <div class="turntable-result" id="jukeboxResult" aria-live="polite">
+                            <h4>Gate 17 · Opinions</h4>
+                            <p>Logic, pattern recognition, and organizing ideas into something that makes sense.</p>
+
+                            <div class="result-keywords" id="resultKeywords">
+                                <span class="keyword-chip">Logic</span>
+                                <span class="keyword-chip">Pattern recognition</span>
+                                <span class="keyword-chip">Organizing ideas</span>
+                            </div>
+
+                            <div class="stacked-actions">
+                                <a href="https://open.spotify.com/playlist/1q09fpTML4NDVLWIKlOvBi?si=6gsssL4dTHe66H_2VZ3fgA"
+                                    target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                                    Open gate playlist
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="label-card" id="dj-request">
+                        <h3>DJ Request Line</h3>
+
+                        <p>
+                            Send me a song and I’ll place it in a Human Design gate, add it to that gate’s playlist, and
+                            email you where it lands.
+                        </p>
+
+                        <form id="dj-request-form" method="POST"
+                            action="https://script.google.com/macros/s/AKfycby_QG1g9pGGSLetpLtHy1kjIlVgbjKVhtGi4rGCP9hnq2M2XaXrQz1e717xbfYkdA37/exec"
+                            style="margin-top:16px; display:grid; gap:14px;">
+
+                            <input type="hidden" name="source" value="gates_radio" />
+                            <input type="hidden" name="page" value="gates.html" />
+                            <input type="hidden" name="formType" value="dj_request" />
+                            <input type="hidden" name="tag" value="gates-radio-dj-request" />
+
+                            <div class="request-grid">
+                                <div class="form-block">
+                                    <label class="form-label" for="name">Name</label>
+                                    <input class="form-input" type="text" id="name" name="name" required
+                                        placeholder="Your name" />
+                                </div>
+
+                                <div class="form-block">
+                                    <label class="form-label" for="email">Email</label>
+                                    <input class="form-input" type="email" id="email" name="email" required
+                                        placeholder="you@email.com" />
+                                </div>
+                            </div>
+
+                            <div class="form-block">
+                                <label class="form-label" for="song_title">Song title</label>
+                                <input class="form-input" type="text" id="song_title" name="song_title" required
+                                    placeholder="Song title" />
+                            </div>
+
+                            <div class="form-block">
+                                <label class="form-label" for="song_artist">Artist</label>
+                                <input class="form-input" type="text" id="song_artist" name="song_artist" required
+                                    placeholder="Artist name" />
+                            </div>
+
+                            <div class="form-block">
+                                <label class="form-label" for="why_track_hits">Why this track hits you
+                                    (optional)</label>
+                                <textarea class="form-input" id="why_track_hits" name="why_track_hits" rows="4"
+                                    placeholder="Tell me why this one matters to you"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-secondary" id="dj-submit-btn">
+                                Submit DJ request
+                            </button>
+
+                            <p class="form-status" id="form-status"></p>
+                        </form>
+                    </article>
+                </div>
             </div>
         </section>
 
@@ -852,9 +1197,8 @@
                     <span class="section-label">Gate stations</span>
                     <h2>Top 64 Gates · Station chart</h2>
                     <p>
-                        The full chart lives on the Top 64 Gates page. This preview keeps the chart feel,
-                        shows what is already online, and sends people to the full station board where the paid Log is
-                        sold.
+                        The full chart lives on the Top 64 Gates page. This preview shows what is already online and
+                        sends people to the full station board where the Gates Radio Living Library lives.
                     </p>
                 </header>
 
@@ -891,79 +1235,81 @@
                     </div>
 
                     <p class="chart-footnote">
-                        Free: gate playlists · Paid on that page: Master Gates Radio Log
+                        Free: gate playlists · Paid on that page: Gates Radio Living Library
                     </p>
                 </article>
             </div>
         </section>
 
-        <section id="dj-request" class="section">
+        <section id="diy-method" class="section">
             <div class="container">
                 <header class="section-head">
-                    <span class="section-label">Free feature</span>
-                    <h2>DJ Request Line</h2>
+                    <span class="section-label">Self-serve offer</span>
+                    <h2>The DIY Cross Soundtrack Method</h2>
                     <p>
-                        Send me a song, I’ll place it in a Human Design gate, add it to that gate’s playlist,
-                        and email you which gate it lands in. This part is free. The full reasoning lives in the Log.
+                        Want to build your own soundtrack without waiting on a custom order? This gives you the method:
+                        how to use your incarnation cross gates, how to choose songs, and how to build a playlist that
+                        actually sounds like your design.
                     </p>
                 </header>
 
-                <article class="chart-card">
-                    <form id="dj-request-form" method="POST"
-                        action="https://script.google.com/macros/s/AKfycby_QG1g9pGGSLetpLtHy1kjIlVgbjKVhtGi4rGCP9hnq2M2XaXrQz1e717xbfYkdA37/exec">
-
-                        <input type="hidden" name="source" value="gates_radio" />
-                        <input type="hidden" name="page" value="gates.html" />
-                        <input type="hidden" name="formType" value="dj_request" />
-                        <input type="hidden" name="tag" value="gates-radio-dj-request" />
-                        <input type="hidden" name="resultKey" value="" />
-                        <input type="hidden" name="resultTitle" value="" />
-                        <input type="hidden" name="resultBody" value="" />
-
-                        <div class="request-grid">
-                            <div class="form-block">
-                                <label class="form-label" for="name">Name</label>
-                                <input class="form-input" type="text" id="name" name="name" required
-                                    placeholder="Your name" />
-                            </div>
-
-                            <div class="form-block">
-                                <label class="form-label" for="email">Email</label>
-                                <input class="form-input" type="email" id="email" name="email" required
-                                    placeholder="you@email.com" />
+                <div class="split-grid">
+                    <article class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <h3>What it gives you</h3>
+                                <div class="chart-sub">Self-guided soundtrack builder</div>
                             </div>
                         </div>
 
-                        <div class="form-block">
-                            <label class="form-label" for="song_title">Song title</label>
-                            <input class="form-input" type="text" id="song_title" name="song_title" required
-                                placeholder="Song title" />
-                        </div>
+                        <div style="display:grid;gap:12px;">
+                            <div class="info-strip">
+                                <strong>Cross gate breakdown</strong>
+                                <span>Use the four gates of your incarnation cross as the structure.</span>
+                            </div>
 
-                        <div class="form-block">
-                            <label class="form-label" for="song_artist">Artist</label>
-                            <input class="form-input" type="text" id="song_artist" name="song_artist" required
-                                placeholder="Artist name" />
-                        </div>
+                            <div class="info-strip">
+                                <strong>Song selection method</strong>
+                                <span>Learn how to match songs to gate themes without overthinking it.</span>
+                            </div>
 
-                        <div class="form-block">
-                            <label class="form-label" for="why_track_hits">Why this track hits you (optional)</label>
-                            <textarea class="form-input" id="why_track_hits" name="why_track_hits" rows="4"
-                                placeholder="Tell me why this one matters to you"></textarea>
-                        </div>
+                            <div class="info-strip">
+                                <strong>Theme prompts</strong>
+                                <span>Get guidance for mood, lyrics, artist energy, and why a track belongs.</span>
+                            </div>
 
-                        <p class="form-note">
-                            I’ll choose the gate, add your song to that station, and email you where it lands.
-                            Want the bigger backend map? That lives inside the full Top 64 Gates chart page.
+                            <div class="info-strip">
+                                <strong>Build your own playlist</strong>
+                                <span>Walk away with a soundtrack that feels personal, not generic.</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="label-card">
+                        <h3>DIY Method</h3>
+
+                        <p>
+                            This is for the person who wants the framework, not the full done-for-you service. You get
+                            the ebook and method that show you how to take your own songs, choose the right gates, and
+                            build a cross-based soundtrack yourself.
                         </p>
 
-                        <button type="submit" class="btn btn-secondary" id="dj-submit-btn">
-                            Submit DJ request
-                        </button>
+                        <p>
+                            It is part guide, part playlist method, part gate breakdown. You still get the structure.
+                            You just make the final calls.
+                        </p>
 
-                        <p class="form-status" id="form-status"></p>
-                    </form>
-                </article>
+                        <p class="label-price">
+                            Self-serve method · ebook + soundtrack framework
+                        </p>
+
+                        <div class="label-actions">
+                            <button type="button" class="btn btn-primary" disabled>
+                                Coming soon
+                            </button>
+                        </div>
+                    </article>
+                </div>
             </div>
         </section>
 
@@ -973,9 +1319,9 @@
                     <span class="section-label">Custom service</span>
                     <h2>Incarnation Cross Playlist Scan</h2>
                     <p>
-                        A personalized 25–30 song playlist built from artists and genres you actually like,
-                        mapped to the four gates of your incarnation cross, plus a PDF guide that breaks down
-                        your life theme and every track choice.
+                        A personalized 25–30 song playlist built from artists and genres you actually like, mapped to
+                        the four gates of your incarnation cross, plus a PDF guide that breaks down your life theme and
+                        every track choice.
                     </p>
                 </header>
 
@@ -1035,15 +1381,14 @@
                         <h3>Custom Incarnation Cross Playlist</h3>
 
                         <p>
-                            You pick the artists and genres your system actually likes.
-                            I take the four gates of your incarnation cross and build a 25–30 track Spotify playlist
-                            around them, using the sounds you chose so your life theme actually sounds like you.
+                            You pick the artists and genres your system actually likes. I take the four gates of your
+                            incarnation cross and build a 25–30 track Spotify playlist around them, using the sounds you
+                            chose so your life theme actually sounds like you.
                         </p>
 
                         <p>
-                            You also get a PDF guide: a plain-language reading of your cross,
-                            short write-ups for each of your four gates, and why every song was paired where it was.
-                            It is an incarnation cross scan scored through music, not just another PDF to forget.
+                            You also get a PDF guide: a plain-language reading of your cross, short write-ups for each
+                            of your four gates, and why every song was paired where it was.
                         </p>
 
                         <div style="margin-top:12px;font-size:14px;color:var(--muted);line-height:1.8;">
@@ -1081,10 +1426,66 @@
 
     <script src="assets/gate-stations.js"></script>
     <script>
-        (function () {
-            if (window.getOnlineGates && window.updateOnlineGateSummary) {
-                updateOnlineGateSummary('#currentOnlineGates');
+        function buildKeywordChips(tagline) {
+            return tagline
+                .split("·")
+                .map(item => item.trim())
+                .filter(Boolean)
+                .map(item => `<span class="keyword-chip">${item}</span>`)
+                .join("");
+        }
 
+        function setupTurntable() {
+            const spinBtn = document.getElementById("spinBtn");
+            const result = document.getElementById("jukeboxResult");
+            const gateNum = document.getElementById("recordGateNumber");
+            const gateName = document.getElementById("recordGateName");
+            const turntableCard = document.getElementById("turntableCard");
+
+            if (!spinBtn || !result || !gateNum || !gateName || !turntableCard) return;
+
+            let spinning = false;
+
+            spinBtn.addEventListener("click", function () {
+                if (spinning) return;
+
+                const gates = window.getOnlineGates ? getOnlineGates() : [];
+                if (!gates.length) return;
+
+                spinning = true;
+                spinBtn.disabled = true;
+                spinBtn.textContent = "Spinning...";
+                turntableCard.classList.add("is-playing");
+
+                const random = gates[Math.floor(Math.random() * gates.length)];
+
+                setTimeout(() => {
+                    gateNum.textContent = random.gate;
+                    gateName.textContent = random.title;
+
+                    result.innerHTML = `
+                        <h4>Gate ${random.gate} · ${random.title}</h4>
+                        <p>${random.tagline}</p>
+                        <div class="result-keywords">
+                            ${buildKeywordChips(random.tagline)}
+                        </div>
+                        <div class="stacked-actions">
+                            <a href="${random.playlist}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                                Open gate playlist
+                            </a>
+                        </div>
+                    `;
+
+                    turntableCard.classList.remove("is-playing");
+                    spinBtn.disabled = false;
+                    spinBtn.textContent = "Spin again";
+                    spinning = false;
+                }, 1400);
+            });
+        }
+
+        (function () {
+            if (window.getOnlineGates) {
                 const preview = document.getElementById('topStationsPreview');
                 if (preview) {
                     const featured = getOnlineGates().slice(0, 4);
@@ -1112,6 +1513,8 @@
                         .join('');
                 }
             }
+
+            setupTurntable();
 
             const form = document.getElementById('dj-request-form');
             const endpoint = 'https://script.google.com/macros/s/AKfycby_QG1g9pGGSLetpLtHy1kjIlVgbjKVhtGi4rGCP9hnq2M2XaXrQz1e717xbfYkdA37/exec';
