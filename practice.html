@@ -2,32 +2,33 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Arrows Room • Manifestor Anonymous</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gates Radio • Manifestor Anonymous</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
     <meta name="description"
-        content="Arrows Room inside the Manifestor Anonymous Underground Terminal. Peek at your four arrows and get your Manifestor-specific snapshot, then plug into the Variables Vending Machine for the full read.">
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+        content="Gates Radio is the archive behind DJ Sun. Spin a gate, explore live gate playlists, enter the Living Library, and preview what is coming next." />
+
     <style>
         :root {
-            --bg: #050608;
-            --bg-soft: #0b0e14;
-            --panel: rgba(255, 255, 255, 0.045);
-            --panel-strong: rgba(255, 255, 255, 0.075);
-            --line: rgba(255, 255, 255, 0.11);
-            --line-strong: rgba(255, 255, 255, 0.18);
-            --text: #f5f7fb;
-            --muted: rgba(245, 247, 251, 0.74);
-            --dim: rgba(245, 247, 251, 0.48);
-            --green: #39ff88;
-            --green-soft: rgba(57, 255, 136, 0.12);
-            --danger: #ff4d6d;
-            --blue: #7ac7ff;
-            --yellow: #ffd56b;
-            --radius: 26px;
-            --radius-sm: 18px;
-            --shadow: 0 22px 70px rgba(0, 0, 0, 0.7);
-            --max: 1200px;
+            --bg: #020711;
+            --bg-2: #071120;
+            --panel: rgba(17, 24, 39, 0.92);
+            --panel-soft: rgba(15, 23, 42, 0.95);
+            --line: rgba(148, 163, 184, 0.22);
+            --line-strong: rgba(148, 163, 184, 0.48);
+            --text: #edf4ff;
+            --muted: rgba(226, 232, 240, 0.78);
+            --dim: rgba(148, 163, 184, 0.82);
+            --accent: #38bdf8;
+            --accent-soft: rgba(56, 189, 248, 0.14);
+            --accent-glow: rgba(56, 189, 248, 0.26);
+            --green: #4ade80;
+            --warning: #f59e0b;
+            --radius: 24px;
+            --shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+            --shadow-soft: 0 14px 38px rgba(0, 0, 0, 0.35);
+            --max: 1160px;
         }
 
         * {
@@ -40,19 +41,19 @@
 
         body {
             margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background:
-                radial-gradient(circle at top, rgba(57, 255, 136, 0.14), transparent 18%),
-                radial-gradient(circle at 12% 82%, rgba(57, 255, 136, 0.08), transparent 24%),
-                radial-gradient(circle at 82% 8%, rgba(57, 255, 136, 0.1), transparent 28%),
-                var(--bg);
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             color: var(--text);
+            background:
+                radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 18%),
+                radial-gradient(circle at 15% 80%, rgba(56, 189, 248, 0.10), transparent 24%),
+                radial-gradient(circle at 85% 12%, rgba(56, 189, 248, 0.08), transparent 22%),
+                linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
 
         body::before {
-            content: '';
+            content: "";
             position: fixed;
             inset: 0;
             pointer-events: none;
@@ -60,8 +61,8 @@
             background-image:
                 linear-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(148, 163, 184, 0.18) 1px, transparent 1px);
-            background-size: 42px 42px;
-            mask-image: radial-gradient(circle at center, black 40%, transparent 88%);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
         }
 
         img {
@@ -75,7 +76,8 @@
         }
 
         button,
-        input {
+        input,
+        textarea {
             font: inherit;
         }
 
@@ -84,14 +86,13 @@
             margin: 0 auto;
         }
 
-        /* Topbar */
         .topbar {
             position: sticky;
             top: 0;
-            z-index: 40;
+            z-index: 100;
             backdrop-filter: blur(14px);
-            background: rgba(3, 7, 18, 0.82);
-            border-bottom: 1px solid rgba(57, 255, 136, 0.18);
+            background: rgba(2, 7, 17, 0.84);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.16);
         }
 
         .topbar-inner {
@@ -106,16 +107,18 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            min-width: 0;
         }
 
         .brand-icon {
-            width: 38px;
-            height: 38px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             border: 1px solid var(--line-strong);
             overflow: hidden;
-            box-shadow: 0 0 16px rgba(57, 255, 136, 0.18);
-            background: #08090d;
+            background: #020617;
+            box-shadow: 0 0 22px rgba(56, 189, 248, 0.22);
+            flex: 0 0 auto;
         }
 
         .brand-icon img {
@@ -124,18 +127,20 @@
             object-fit: cover;
         }
 
-        .brand-copy small {
+        .brand-copy small,
+        .section-label,
+        .micro {
             display: inline-block;
             text-transform: uppercase;
-            letter-spacing: 0.24em;
+            letter-spacing: 0.22em;
             font-size: 10px;
             color: var(--dim);
         }
 
         .brand-copy strong {
             display: block;
-            margin-top: 2px;
-            font-size: 14px;
+            margin-top: 3px;
+            font-size: 16px;
             letter-spacing: 0.06em;
             font-weight: 700;
         }
@@ -143,7 +148,7 @@
         .topbar-tagline {
             margin-top: 4px;
             font-size: 9px;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.24em;
             text-transform: uppercase;
             color: rgba(148, 163, 184, 0.88);
         }
@@ -152,1483 +157,1514 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-wrap: wrap;
         }
 
         .btn {
-            border: 1px solid transparent;
-            border-radius: 16px;
-            padding: 14px 22px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            border-radius: 999px;
+            border: 1px solid var(--line-strong);
+            padding: 11px 18px;
             text-transform: uppercase;
-            letter-spacing: 0.16em;
-            font-size: 12px;
-            font-weight: 800;
+            letter-spacing: 0.18em;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(15, 23, 42, 0.92);
+            color: var(--text);
             cursor: pointer;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+            text-align: center;
         }
 
         .btn:hover {
             transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #02121c;
+            border-color: rgba(56, 189, 248, 0.9);
+            box-shadow: 0 0 24px rgba(56, 189, 248, 0.28);
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text);
-            border-color: rgba(57, 255, 136, 0.32);
-            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+            background: rgba(15, 23, 42, 0.92);
+            border-color: rgba(56, 189, 248, 0.54);
+            box-shadow: 0 0 16px rgba(56, 189, 248, 0.12);
         }
 
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 18px rgba(57, 255, 136, 0.14);
+        .btn-tertiary {
+            background: transparent;
+            border: 1px dashed rgba(148, 163, 184, 0.58);
+            color: var(--muted);
         }
 
-        /* Main Layout */
-        .page-wrap {
-            min-height: 100vh;
-            padding: 30px 16px 54px;
+        .btn[disabled] {
+            opacity: 0.72;
+            cursor: not-allowed;
+            transform: none;
         }
 
-        .page-inner {
-            width: min(var(--max), 100%);
-            margin: 0 auto;
-        }
-
-        .main-grid {
-            display: grid;
-            grid-template-columns: minmax(0, 1.55fr) minmax(320px, 0.95fr);
-            gap: 24px;
-            align-items: start;
-        }
-
-        .left-panel,
-        .right-panel {
-            border-radius: var(--radius);
-            border: 1px solid rgba(115, 128, 170, 0.42);
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.72);
-        }
-
-        .left-panel {
-            background: radial-gradient(circle at top, #13151c 0%, #05060a 72%);
-            padding: 28px;
-        }
-
-        .right-panel {
-            background: radial-gradient(circle at top, #12151f 0%, #05060b 72%);
-            padding: 24px;
-            position: sticky;
-            top: 88px;
-        }
-
-        /* Module Pill */
-        .module-pill {
+        .status-line {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px 14px;
+            gap: 8px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--dim);
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
             border-radius: 999px;
-            font-size: 11px;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            border: 1px solid rgba(57, 255, 136, 0.45);
-            background: rgba(57, 255, 136, 0.1);
-            color: #c8ffe7;
-            box-shadow: 0 0 18px rgba(57, 255, 136, 0.14);
-            margin-bottom: 14px;
-        }
-
-        .module-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
             background: var(--green);
-            box-shadow: 0 0 12px rgba(57, 255, 136, 0.6);
+            box-shadow: 0 0 12px rgba(74, 222, 128, 0.5);
         }
 
-        .path-label,
-        .section-kicker {
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(56, 189, 248, 0.32);
+            background: rgba(56, 189, 248, 0.10);
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.16em;
-            font-size: 11px;
-            color: rgba(190, 198, 255, 0.66);
-            margin-bottom: 8px;
+            color: #e8f7ff;
+        }
+
+        .pill-soon {
+            border-color: rgba(245, 158, 11, 0.38);
+            background: rgba(245, 158, 11, 0.10);
+            color: #fff0c8;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+
+        .badge-online {
+            color: #d7ffe7;
+            background: rgba(34, 197, 94, 0.12);
+            border: 1px solid rgba(34, 197, 94, 0.24);
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: var(--green);
+            box-shadow: 0 0 12px rgba(74, 222, 128, 0.5);
+        }
+
+        main {
+            padding-bottom: 42px;
         }
 
         .hero {
-            margin-bottom: 24px;
+            padding: 28px 0 16px;
         }
 
-        .title {
-            font-size: clamp(2.1rem, 5vw, 3rem);
-            line-height: 1.02;
-            margin: 0 0 10px;
+        .hero-panel,
+        .panel {
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+            background: var(--panel);
+            box-shadow: var(--shadow);
+            overflow: hidden;
         }
 
-        .subtitle {
-            max-width: 700px;
-            font-size: 1rem;
-            line-height: 1.65;
-            color: var(--muted);
-            margin: 0;
+        .hero-panel {
+            padding: 30px;
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 30%),
+                linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.95));
         }
 
-        /* Quick Points */
-        .quick-points {
+        .hero-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: 1.08fr 0.92fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .hero-copy h1 {
+            margin: 12px 0 14px;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 0.94;
+            letter-spacing: -0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero-copy p {
+            margin: 0;
+            max-width: 640px;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .hero-actions {
+            display: flex;
             gap: 12px;
-            margin: 0 0 24px;
+            flex-wrap: wrap;
+            margin-top: 22px;
         }
 
-        .quick-card {
-            border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
-            padding: 14px;
+        .hero-stack {
+            display: grid;
+            gap: 14px;
         }
 
-        .quick-card strong {
+        .hero-note {
+            padding: 18px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.18);
+            background: rgba(2, 7, 17, 0.42);
+        }
+
+        .hero-note strong {
             display: block;
+            margin-bottom: 7px;
             font-size: 13px;
-            margin-bottom: 6px;
-            color: #ffffff;
-        }
-
-        .quick-card p {
-            margin: 0;
-            font-size: 13px;
-            line-height: 1.55;
-            color: var(--muted);
-        }
-
-        /* Steps */
-        .steps-wrap {
-            margin: 0 0 20px;
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 12px;
-        }
-
-        .step-card {
-            border-radius: 18px;
-            background: linear-gradient(180deg, rgba(8, 11, 20, 0.96), rgba(5, 7, 14, 0.98));
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 14px;
-        }
-
-        .step-num {
-            font-size: 10px;
-            color: rgba(57, 255, 136, 0.82);
-            margin-bottom: 6px;
             text-transform: uppercase;
             letter-spacing: 0.16em;
         }
 
-        .step-card strong {
+        .hero-note p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+
+        .section {
+            padding: 16px 0;
+        }
+
+        .section-head {
+            margin-bottom: 18px;
+        }
+
+        .section-head h2 {
+            margin: 10px 0 8px;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            line-height: 1;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+        .section-head p {
+            margin: 0;
+            max-width: 760px;
+            font-size: 14px;
+            line-height: 1.85;
+            color: var(--muted);
+        }
+
+        .panel-inner {
+            padding: 24px;
+        }
+
+        .studio-grid {
+            display: grid;
+            grid-template-columns: 1.08fr 0.92fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .studio-card {
+            padding: 24px;
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.10), transparent 28%),
+                linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.95));
+        }
+
+        .now-playing-panel {
+            padding: 18px 18px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.18);
+            background: rgba(2, 7, 17, 0.44);
+            margin-bottom: 18px;
+        }
+
+        .now-playing-panel h3 {
+            margin: 10px 0 8px;
+            font-size: 1.55rem;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+        }
+
+        .now-playing-panel p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .now-playing-meta {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .meta-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            background: rgba(148, 163, 184, 0.08);
+            color: #e9f3ff;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .turntable-shell {
+            position: relative;
+            min-height: 440px;
+            border-radius: 28px;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            background:
+                linear-gradient(145deg, rgba(6, 10, 20, 0.98), rgba(16, 23, 37, 0.96));
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.03),
+                0 20px 50px rgba(0, 0, 0, 0.45);
+            overflow: hidden;
+            padding: 24px;
+            display: grid;
+            place-items: center;
+        }
+
+        .turntable-shell::before {
+            content: "";
+            position: absolute;
+            inset: 16px;
+            border-radius: 22px;
+            border: 1px solid rgba(56, 189, 248, 0.08);
+            pointer-events: none;
+        }
+
+        .turntable-platter {
+            position: relative;
+            width: min(100%, 360px);
+            aspect-ratio: 1 / 1;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.06), transparent 18%),
+                radial-gradient(circle at center, #0f172a 0%, #05070b 62%, #020308 100%);
+            box-shadow:
+                inset 0 0 0 10px rgba(255, 255, 255, 0.02),
+                inset 0 0 40px rgba(255, 255, 255, 0.02),
+                0 18px 45px rgba(0, 0, 0, 0.5);
+        }
+
+        .turntable-ring,
+        .vinyl-groove {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            pointer-events: none;
+        }
+
+        .turntable-ring.ring-1 {
+            inset: 18px;
+        }
+
+        .turntable-ring.ring-2 {
+            inset: 42px;
+        }
+
+        .turntable-ring.ring-3 {
+            inset: 70px;
+        }
+
+        .vinyl-record {
+            position: relative;
+            width: 82%;
+            height: 82%;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background:
+                radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.08), transparent 14%),
+                radial-gradient(circle at center, #141821 0%, #090b10 58%, #030303 100%);
+            box-shadow:
+                inset 0 0 0 2px rgba(255, 255, 255, 0.02),
+                inset 0 0 60px rgba(255, 255, 255, 0.03);
+        }
+
+        .vinyl-groove.groove-1 {
+            inset: 18px;
+        }
+
+        .vinyl-groove.groove-2 {
+            inset: 34px;
+        }
+
+        .vinyl-groove.groove-3 {
+            inset: 52px;
+        }
+
+        .vinyl-groove.groove-4 {
+            inset: 70px;
+        }
+
+        .record-label {
+            width: 42%;
+            height: 42%;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            text-align: center;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), transparent 22%),
+                linear-gradient(180deg, rgba(56, 189, 248, 0.22), rgba(8, 47, 73, 0.96));
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            box-shadow:
+                0 0 22px rgba(56, 189, 248, 0.16),
+                inset 0 0 18px rgba(255, 255, 255, 0.04);
+            padding: 10px;
+        }
+
+        .record-label-top {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: rgba(226, 232, 240, 0.78);
+        }
+
+        #recordGateNumber {
+            font-size: 42px;
+            line-height: 0.9;
+            letter-spacing: -0.08em;
+            color: #f8fbff;
+        }
+
+        #recordGateName {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: rgba(226, 232, 240, 0.86);
+            max-width: 88px;
+        }
+
+        .tonearm-wrap {
+            position: absolute;
+            top: 48px;
+            right: 40px;
+            width: 160px;
+            height: 160px;
+            transform-origin: 24px 24px;
+            transition: transform 0.6s ease;
+        }
+
+        .tonearm-base {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #94a3b8, #475569);
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.18);
+        }
+
+        .tonearm-arm {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            width: 112px;
+            height: 10px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #cbd5e1, #64748b);
+            transform: rotate(35deg);
+            transform-origin: left center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.28);
+        }
+
+        .tonearm-head {
+            position: absolute;
+            top: 77px;
+            left: 104px;
+            width: 26px;
+            height: 16px;
+            border-radius: 6px;
+            background: linear-gradient(180deg, #e2e8f0, #64748b);
+            transform: rotate(35deg);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+        }
+
+        .studio-card.is-playing .tonearm-wrap {
+            transform: rotate(-18deg);
+        }
+
+        .studio-card.is-playing .vinyl-record {
+            animation: spinRecord 1.4s linear infinite;
+        }
+
+        @keyframes spinRecord {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .turntable-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 18px;
+        }
+
+        .turntable-result {
+            margin-top: 18px;
+            padding: 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(56, 189, 248, 0.20);
+            background: rgba(2, 7, 17, 0.50);
+            min-height: 150px;
+        }
+
+        .turntable-result h4 {
+            margin: 0 0 8px;
+            font-size: 20px;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+        }
+
+        .turntable-result p {
+            margin: 0 0 12px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.75;
+        }
+
+        .result-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .keyword-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            background: rgba(148, 163, 184, 0.08);
+            color: #e9f3ff;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .stacked-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .request-card {
+            padding: 24px;
+            background:
+                radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 24%),
+                rgba(15, 23, 42, 0.97);
+        }
+
+        .request-card h3 {
+            margin: 12px 0 8px;
+            font-size: 1.45rem;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+        }
+
+        .request-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .request-form {
+            margin-top: 18px;
+            display: grid;
+            gap: 14px;
+        }
+
+        .field-group {
+            display: grid;
+            gap: 8px;
+        }
+
+        .field-group label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--dim);
+        }
+
+        .field-group input,
+        .field-group textarea {
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            background: rgba(2, 7, 17, 0.58);
+            color: var(--text);
+            padding: 14px 15px;
+            outline: none;
+        }
+
+        .field-group textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .field-group input:focus,
+        .field-group textarea:focus {
+            border-color: rgba(56, 189, 248, 0.58);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.10);
+        }
+
+        .form-note {
+            font-size: 12px;
+            color: var(--dim);
+            line-height: 1.7;
+        }
+
+        .form-response {
+            min-height: 22px;
+            font-size: 13px;
+            color: #d9f4ff;
+        }
+
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .label-card,
+        .chart-card {
+            padding: 22px;
+            border-radius: 22px;
+            border: 1px solid var(--line);
+            background: var(--panel-soft);
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 14px;
+        }
+
+        .label-card h3,
+        .chart-card h3 {
+            margin: 0;
+            font-size: 1.3rem;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+        }
+
+        .label-card p,
+        .chart-card p,
+        .label-card li,
+        .chart-card li {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .bullet-list {
+            margin: 0;
+            padding-left: 18px;
+            display: grid;
+            gap: 5px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 12px;
+        }
+
+        .chart-sub {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--dim);
+            margin-top: 6px;
+        }
+
+        .label-price {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .label-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .library-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 18px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 18px;
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            background: rgba(2, 7, 17, 0.42);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 520px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 14px 14px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        th {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--dim);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .chart-rank {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
+
+        .chart-gate strong {
             display: block;
             font-size: 14px;
             margin-bottom: 4px;
         }
 
-        .step-card span {
-            display: block;
-            font-size: 13px;
-            line-height: 1.5;
+        .chart-gate span {
             color: var(--muted);
-        }
-
-        /* Machine Shell */
-        .machine-shell {
-            width: 100%;
-            border-radius: 22px;
-            background: linear-gradient(180deg, #181b2a, #0c0f1b 55%, #03040a 100%);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
-            border: 1px solid #02030a;
-            padding: 18px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 18px;
-        }
-
-        .machine-shell::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.11), transparent 50%);
-            pointer-events: none;
-        }
-
-        .machine-shell.live {
-            box-shadow:
-                0 0 0 1px rgba(70, 230, 168, 0.22),
-                0 0 22px rgba(70, 230, 168, 0.22),
-                0 18px 40px rgba(0, 0, 0, 0.8);
-        }
-
-        .machine-top {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 14px;
-            z-index: 1;
-        }
-
-        .machine-heading {
-            font-size: 13px;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            color: #ffffff;
-        }
-
-        .machine-subheading {
-            font-size: 11px;
-            color: #d0d7ff;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-        }
-
-        .machine-note {
-            max-width: 720px;
-            font-size: 13px;
-            line-height: 1.55;
-            color: #d5daf6;
-        }
-
-        .pill-small {
-            font-size: 10px;
-            text-transform: uppercase;
-            padding: 5px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            background: rgba(5, 7, 18, 0.95);
-            letter-spacing: 0.14em;
-            align-self: flex-start;
-            color: rgba(255, 255, 255, 0.88);
-        }
-
-        /* Control Panel */
-        .control-panel {
-            display: grid;
-            grid-template-columns: minmax(0, 1.7fr) auto;
-            gap: 12px;
-            align-items: center;
-            padding: 12px;
-            border-radius: 16px;
-            background: linear-gradient(180deg, #090c1b, #050614);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.8);
-            margin-top: 4px;
-        }
-
-        .email-row {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .email-label {
-            font-size: 11px;
-            color: #d8deff;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-        }
-
-        .email-input-wrap {
-            display: flex;
-            gap: 8px;
-        }
-
-        .email-input-wrap input {
-            flex: 1;
-            min-width: 0;
-            padding: 12px 14px;
-            border-radius: 10px;
-            border: 1px solid rgba(204, 214, 255, 0.44);
-            background: #050716;
-            color: #f9fbff;
-            font-size: 14px;
-        }
-
-        .email-input-wrap input:focus {
-            outline: 1px solid #46e6a8;
-            border-color: #46e6a8;
-        }
-
-        .email-input-wrap button {
-            padding: 12px 16px;
-            border-radius: 10px;
-            border: none;
-            background: #46e6a8;
-            color: #02120b;
             font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            cursor: pointer;
-            white-space: nowrap;
         }
 
-        .email-input-wrap button:disabled {
-            opacity: 0.65;
-            cursor: not-allowed;
-        }
-
-        .email-error {
-            font-size: 12px;
-            color: #ff9e9e;
-        }
-
-        .coin-block {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .coin-slot-label {
-            font-size: 11px;
-            color: #cbd2ee;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            max-width: 136px;
-            line-height: 1.35;
-        }
-
-        .coin {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 20%, #ffffff, #ffd76a 35%, #b3760b 65%, #5a3202 100%);
-            border: 2px solid #4d2b03;
-            box-shadow: 0 0 12px rgba(255, 215, 106, 0.45);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            font-weight: 800;
-            color: #3d2400;
-            cursor: pointer;
-            position: relative;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
-        }
-
-        .coin::after {
-            content: '';
-            position: absolute;
-            inset: 4px;
-            border-radius: 50%;
-            border: 1px solid rgba(0, 0, 0, 0.35);
-        }
-
-        .coin.disabled {
-            opacity: 0.35;
-            cursor: default;
-            box-shadow: none;
-        }
-
-        .coin.enabled:hover {
-            transform: scale(1.06);
-            box-shadow: 0 0 18px rgba(255, 215, 106, 0.72);
-        }
-
-        .coin.enabled:active {
-            transform: scale(0.96);
-        }
-
-        /* Display Strip */
-        .display-strip {
-            margin-top: 10px;
-            min-height: 48px;
-            border-radius: 14px;
-            border: 1px solid rgba(14, 31, 19, 0.6);
-            padding: 10px 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            font-size: 13px;
-            line-height: 1.4;
-        }
-
-        .display-strip.red {
-            background: linear-gradient(135deg, rgba(88, 14, 20, 0.94), rgba(26, 4, 8, 0.98));
-            color: #ffd8df;
-        }
-
-        .display-strip.yellow {
-            background: linear-gradient(135deg, rgba(90, 66, 12, 0.94), rgba(28, 18, 4, 0.98));
-            color: #fff1c8;
-        }
-
-        .display-strip.green {
-            background: linear-gradient(135deg, rgba(10, 55, 31, 0.94), rgba(4, 18, 11, 0.98));
-            color: #d7ffea;
-        }
-
-        .display-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: #0bff7e;
-            box-shadow: 0 0 8px rgba(11, 255, 126, 0.6);
-            flex: 0 0 auto;
-        }
-
-        /* Mid Panel - Arrows */
-        .mid-panel {
-            position: relative;
-            margin: 14px 0;
-            border-radius: 18px;
-            background: linear-gradient(180deg, rgba(8, 10, 26, 0.97), rgba(3, 4, 12, 0.98));
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.9);
-            padding: 12px;
-            z-index: 1;
-        }
-
-        .mid-grid {
+        .stations-grid {
             display: grid;
-            grid-template-rows: repeat(4, minmax(0, 1fr));
-            gap: 10px;
-        }
-
-        .arrow-row {
-            display: grid;
-            grid-template-columns: auto minmax(0, 1fr) auto auto;
-            gap: 10px;
-            align-items: center;
-            padding: 12px 12px 16px;
-            border-radius: 12px;
-            background: linear-gradient(90deg, rgba(15, 18, 40, 0.88), rgba(7, 9, 24, 0.9));
-            position: relative;
-            transition: box-shadow 0.2s ease, border-color 0.2s ease;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .arrow-row.active {
-            box-shadow:
-                0 0 0 1px rgba(90, 192, 255, 0.22),
-                0 0 10px rgba(90, 192, 255, 0.14);
-        }
-
-        .row-tag {
-            font-size: 11px;
-            background: rgba(1, 2, 8, 0.9);
-            padding: 4px 8px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            color: #c5ccff;
-        }
-
-        .row-text {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            min-width: 0;
-        }
-
-        .row-label {
-            font-size: 14px;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .row-sub {
-            font-size: 12px;
-            color: #b9c1e6;
-            line-height: 1.45;
-        }
-
-        .coil-line {
-            position: absolute;
-            left: 12px;
-            right: 12px;
-            bottom: 6px;
-            height: 3px;
-            background-image: radial-gradient(circle, #b9c3ff 2px, transparent 3px);
-            background-size: 18px 10px;
-            background-repeat: repeat-x;
-            opacity: 0.18;
-            pointer-events: none;
-        }
-
-        .arrow-btn {
-            min-width: 76px;
-            padding: 10px 12px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            background: rgba(5, 7, 18, 0.96);
-            color: #f9fbff;
-            font-size: 12px;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-
-        .arrow-btn.active-left {
-            background: linear-gradient(135deg, #36d1dc, #5b86e5);
-            border-color: rgba(0, 0, 0, 0.35);
-            color: #050711;
-            box-shadow: 0 0 10px rgba(90, 192, 255, 0.34);
-        }
-
-        .arrow-btn.active-right {
-            background: linear-gradient(135deg, #f7971e, #ffd200);
-            border-color: rgba(0, 0, 0, 0.35);
-            color: #201000;
-            box-shadow: 0 0 10px rgba(255, 223, 122, 0.28);
-        }
-
-        /* Bottom Panel */
-        .bottom-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: stretch;
-        }
-
-        .vend-row {
-            display: grid;
-            grid-template-columns: auto minmax(0, 1fr);
-            gap: 12px;
-            align-items: center;
-        }
-
-        .vend-btn {
-            padding: 12px 16px;
-            border-radius: 999px;
-            border: none;
-            background: #313842;
-            color: #9da4b2;
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            cursor: default;
-            box-shadow: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, transform 0.2s ease;
-        }
-
-        .vend-btn.ready {
-            background: #46e6a8;
-            color: #02120b;
-            cursor: pointer;
-            box-shadow: 0 0 14px rgba(70, 230, 168, 0.3);
-        }
-
-        .vend-btn.ready:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 0 16px rgba(70, 230, 168, 0.44);
-        }
-
-        .vend-led {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #262b32;
-            box-shadow: none;
-        }
-
-        .vend-led.on {
-            background: #46e6a8;
-            box-shadow: 0 0 8px rgba(70, 230, 168, 0.52);
-        }
-
-        .tags-line {
-            font-size: 13px;
-            line-height: 1.5;
-            color: #cfd5f2;
-        }
-
-        /* Snapshot Panel */
-        .snapshot-panel {
-            border-radius: 20px;
-            background: linear-gradient(145deg, #050713, #0b1020);
-            border: 1px solid rgba(159, 171, 255, 0.34);
-            box-shadow: 0 18px 38px rgba(0, 0, 0, 0.82);
-            padding: 18px;
-        }
-
-        .snapshot-title,
-        .snapshot-blend-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: rgba(209, 217, 255, 0.9);
-            margin-bottom: 8px;
-        }
-
-        .snapshot-blend-label {
-            color: #b2b8e5;
-            margin-top: 6px;
-        }
-
-        .snapshot-list {
-            display: grid;
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-
-        .snapshot-list-item {
-            font-size: 14px;
-            line-height: 1.55;
-            color: #eef1ff;
-            padding: 12px 14px;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .snapshot-blend-text {
-            font-size: 14px;
-            line-height: 1.55;
-            color: #f1f3ff;
-            margin-bottom: 14px;
-        }
-
-        #downloadSnapshotBtn {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 999px;
-            border: 1px solid rgba(159, 171, 255, 0.48);
-            background: rgba(5, 7, 20, 0.95);
-            color: #e5e8ff;
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            cursor: pointer;
-        }
-
-        #downloadSnapshotBtn:hover {
-            border-color: rgba(255, 255, 255, 0.7);
-            background: rgba(10, 13, 30, 0.98);
-        }
-
-        /* Info Drop */
-        details.info-drop {
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.035);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 0;
-            overflow: hidden;
-            margin-top: 14px;
-        }
-
-        details.info-drop summary {
-            list-style: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        details.info-drop summary::-webkit-details-marker {
-            display: none;
-        }
-
-        details.info-drop summary::after {
-            content: '+';
-            font-size: 18px;
-            line-height: 1;
-            color: var(--green);
-        }
-
-        details.info-drop[open] summary::after {
-            content: '−';
-        }
-
-        .drop-body {
-            padding: 0 16px 16px;
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.65;
-        }
-
-        .drop-body p {
-            margin: 0 0 12px;
-        }
-
-        .drop-body p:last-child,
-        .drop-body ul:last-child {
-            margin-bottom: 0;
-        }
-
-        .bullet-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            font-size: 14px;
-            color: #dde2ff;
-            display: grid;
-            gap: 10px;
-        }
-
-        .bullet-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .bullet-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #46e6a8;
-            box-shadow: 0 0 8px rgba(70, 230, 168, 0.44);
-            margin-top: 6px;
-            flex-shrink: 0;
-        }
-
-        /* Right Panel */
-        .right-label,
-        .right-section-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: rgba(190, 198, 255, 0.7);
-            margin-bottom: 8px;
-        }
-
-        .right-section-label {
-            color: rgba(184, 193, 255, 0.8);
-        }
-
-        .right-title-main {
-            font-size: 24px;
-            line-height: 1.15;
-            margin: 0 0 10px;
-        }
-
-        .right-intro {
-            font-size: 14px;
-            line-height: 1.65;
-            color: var(--muted);
-            margin: 0 0 18px;
-        }
-
-        .offer-stack {
-            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 16px;
         }
 
-        .offer-card {
-            border-radius: 20px;
-            padding: 18px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .station-card {
+            padding: 20px;
+            border-radius: 22px;
+            border: 1px solid var(--line);
+            background: var(--panel-soft);
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 14px;
         }
 
-        .right-title {
-            font-size: 19px;
-            line-height: 1.2;
-            font-weight: 700;
-            margin: 0 0 10px;
+        .station-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
         }
 
-        .right-body {
-            color: #dde2ff;
-            line-height: 1.65;
-            font-size: 14px;
-            margin: 0 0 14px;
+        .station-number {
+            font-size: 2.1rem;
+            line-height: 0.9;
+            letter-spacing: -0.08em;
         }
 
-        .offer-btn {
-            width: 100%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: var(--green);
-            color: #04140b;
-            box-shadow: 0 0 18px rgba(57, 255, 136, 0.16);
-            border: 1px solid transparent;
-            border-radius: 16px;
-            padding: 14px 22px;
+        .station-card h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            line-height: 1;
+            letter-spacing: -0.03em;
             text-transform: uppercase;
-            letter-spacing: 0.16em;
-            font-size: 12px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
         }
 
-        .offer-btn:hover {
-            transform: translateY(-2px);
+        .station-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.75;
         }
 
-        .offer-btn.secondary {
-            background: rgba(255, 255, 255, 0.06);
-            color: #f5f7fb;
-            border-color: rgba(255, 255, 255, 0.12);
-            box-shadow: none;
+        .footer {
+            padding: 14px 0 36px;
         }
 
-        .offer-btn.secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .muted-foot {
-            margin-top: 14px;
-            font-size: 12px;
-            line-height: 1.55;
+        .footer-note {
+            text-align: center;
             color: var(--dim);
+            font-size: 12px;
+            line-height: 1.8;
         }
 
-        /* Responsive */
-        @media (max-width: 1080px) {
-            .main-grid {
+        @media (max-width: 1024px) {
+
+            .hero-grid,
+            .studio-grid,
+            .split-grid,
+            .library-grid {
                 grid-template-columns: 1fr;
             }
 
-            .right-panel {
-                position: static;
-                top: auto;
+            .stations-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
-        @media (max-width: 820px) {
-
-            .quick-points,
-            .steps-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .control-panel,
-            .vend-row {
-                grid-template-columns: 1fr;
-                align-items: stretch;
-            }
-
-            .coin-block {
-                justify-content: space-between;
-            }
-        }
-
-        @media (max-width: 700px) {
-            .page-wrap {
-                padding: 18px 12px 34px;
-            }
-
-            .left-panel,
-            .right-panel {
-                padding: 18px;
-            }
-
-            .machine-shell {
-                padding: 14px;
-            }
-
-            .email-input-wrap {
-                flex-direction: column;
-            }
-
+        @media (max-width: 720px) {
             .topbar-inner {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 8px;
-                padding: 10px 0;
             }
 
-            .topbar-tagline {
-                display: none;
+            .hero-panel,
+            .studio-card,
+            .request-card,
+            .panel-inner,
+            .label-card,
+            .chart-card {
+                padding: 20px;
             }
 
-            .brand-icon {
-                width: 32px;
-                height: 32px;
+            .turntable-shell {
+                min-height: 340px;
+                padding: 14px;
             }
 
-            .arrow-row {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-                padding-bottom: 18px;
+            .turntable-platter {
+                width: min(100%, 270px);
             }
 
-            .row-tag {
-                justify-self: start;
+            .tonearm-wrap {
+                width: 120px;
+                height: 120px;
+                right: 8px;
+                top: 18px;
+                transform: scale(0.78);
+                transform-origin: top right;
             }
 
-            .row-text {
-                grid-column: 1 / -1;
+            .stations-grid {
+                grid-template-columns: 1fr;
             }
 
-            .arrow-btn {
-                min-width: 0;
-                width: 100%;
+            .hero-copy h1 {
+                font-size: clamp(2.1rem, 12vw, 3.1rem);
             }
 
-            .coin-block {
-                align-items: center;
-            }
-
-            .coin-slot-label {
-                max-width: none;
+            #recordGateNumber {
+                font-size: 34px;
             }
         }
     </style>
 </head>
 
 <body>
-
     <header class="topbar">
         <div class="container topbar-inner">
-            <div class="brand">
-                <div class="brand-icon">
-                    <img src="images/logo-circle.png" alt="Manifestor Anonymous icon">
-                </div>
-                <div class="brand-copy">
+            <a href="index.html" class="brand" aria-label="Manifestor Anonymous home">
+                <span class="brand-icon">
+                    <img src="images/manifestor-anonymous-logo.PNG" alt="Manifestor Anonymous logo" />
+                </span>
+                <span class="brand-copy">
                     <small>Manifestor Anonymous</small>
-                    <strong>Arrows Room</strong>
-                </div>
-                <div class="topbar-tagline">Four arrows. One snapshot. Settings first, routines later.</div>
-            </div>
-            <nav class="top-links">
-                <a href="index.html" class="btn btn-secondary">Back to terminal</a>
+                    <strong>Gates Radio</strong>
+                    <span class="topbar-tagline">DJ Sun · Gate stations · Living Library</span>
+                </span>
+            </a>
+
+            <nav class="top-links" aria-label="Primary">
+                <a href="#dj-sun-studio" class="btn btn-secondary">DJ Sun</a>
+                <a href="#living-library" class="btn btn-secondary">Living Library</a>
+                <a href="#gate-stations" class="btn btn-secondary">Gate stations</a>
             </nav>
         </div>
     </header>
 
-    <main class="page-wrap">
-        <div class="page-inner">
-            <div class="main-grid">
-
-                <!-- LEFT PANEL -->
-                <section class="left-panel">
-                    <div class="module-pill">
-                        <div class="module-dot"></div>
-                        <span>Module 01 • Path Cognition</span>
-                    </div>
-
-                    <div class="hero">
-                        <div class="path-label">Top left, bottom left, top right, bottom right.</div>
-                        <h1 class="title">Arrows Room.</h1>
-                        <p class="subtitle">
-                            This is where you stop treating your four arrows like random chart trivia and start seeing
-                            the pattern they make together. Not rules. Not routines. Just the settings your Manifestor
-                            system already came with.
-                        </p>
-                    </div>
-
-                    <div class="quick-points">
-                        <div class="quick-card">
-                            <strong>Why it matters</strong>
-                            <p>Your arrows say a lot about how your system takes in life, moves through space, sees, and
-                                aims your mind.</p>
-                        </div>
-                        <div class="quick-card">
-                            <strong>What this gives you</strong>
-                            <p>A clean direction-only snapshot for all four arrows in plain Manifestor language.</p>
-                        </div>
-                        <div class="quick-card">
-                            <strong>What this is not</strong>
-                            <p>Not the full variables read. This is the top of the iceberg, not the whole machine.</p>
-                        </div>
-                    </div>
-
-                    <div class="steps-wrap">
-                        <div class="section-kicker">How to use this room</div>
-                        <div class="steps-grid">
-                            <div class="step-card">
-                                <div class="step-num">Step 1</div>
-                                <strong>Unlock</strong>
-                                <span>Enter your email to wake up the scanner.</span>
-                            </div>
-                            <div class="step-card">
-                                <div class="step-num">Step 2</div>
-                                <strong>Set your arrows</strong>
-                                <span>Choose Left or Right for each of the four arrows.</span>
-                            </div>
-                            <div class="step-card">
-                                <div class="step-num">Step 3</div>
-                                <strong>Run the scan</strong>
-                                <span>Get a quick snapshot of how your settings move together.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="machine-shell" id="machineShell">
-                        <div class="machine-top">
-                            <div class="machine-heading">Arrows Scanner</div>
-                            <div class="machine-subheading">Direction-only surface scan</div>
-                            <div class="machine-note">
-                                This machine reads direction only: Left or Right for Determination, Environment,
-                                Motivation, and Perspective. It gives you the pattern. The deeper read lives in the
-                                Variables Vending Machine.
-                            </div>
-                            <div class="pill-small">Manifestors</div>
-                        </div>
-
-                        <div class="control-panel">
-                            <div class="email-row">
-                                <div class="email-label">Email to unlock the scan</div>
-                                <div class="email-input-wrap">
-                                    <input type="email" id="emailInput" placeholder="you@example.com">
-                                    <button id="emailBtn" type="button">Unlock</button>
-                                </div>
-                                <div class="email-error" id="emailError" style="display:none;">
-                                    Please enter a valid email address.
-                                </div>
-                            </div>
-
-                            <div class="coin-block">
-                                <div class="coin-slot-label">Tap the coin to start the scan</div>
-                                <div class="coin disabled" id="coin">
-                                    <span>M</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="display-strip red" id="displayStrip">
-                            <div id="displayText">Waiting for email to unlock the scan.</div>
-                            <div class="display-dot"></div>
-                        </div>
-
-                        <div class="mid-panel">
-                            <div class="mid-grid">
-
-                                <!-- A: TOP LEFT - DETERMINATION -->
-                                <div class="arrow-row" data-row="topLeft">
-                                    <div class="row-tag">A</div>
-                                    <div class="row-text">
-                                        <div class="row-label">Top Left • Determination</div>
-                                        <div class="row-sub">How your Manifestor brain takes in life.</div>
-                                    </div>
-                                    <button class="arrow-btn" type="button" data-slot="topLeft"
-                                        data-dir="L">Left</button>
-                                    <button class="arrow-btn" type="button" data-slot="topLeft"
-                                        data-dir="R">Right</button>
-                                    <div class="coil-line"></div>
-                                </div>
-
-                                <!-- B: BOTTOM LEFT - ENVIRONMENT -->
-                                <div class="arrow-row" data-row="bottomLeft">
-                                    <div class="row-tag">B</div>
-                                    <div class="row-text">
-                                        <div class="row-label">Bottom Left • Environment</div>
-                                        <div class="row-sub">How your body and spaces like to operate.</div>
-                                    </div>
-                                    <button class="arrow-btn" type="button" data-slot="bottomLeft"
-                                        data-dir="L">Left</button>
-                                    <button class="arrow-btn" type="button" data-slot="bottomLeft"
-                                        data-dir="R">Right</button>
-                                    <div class="coil-line"></div>
-                                </div>
-
-                                <!-- C: TOP RIGHT - MOTIVATION (CORRECTED) -->
-                                <div class="arrow-row" data-row="topRight">
-                                    <div class="row-tag">C</div>
-                                    <div class="row-text">
-                                        <div class="row-label">Top Right • Motivation</div>
-                                        <div class="row-sub">How your mind aims your message and impact.</div>
-                                    </div>
-                                    <button class="arrow-btn" type="button" data-slot="topRight"
-                                        data-dir="L">Left</button>
-                                    <button class="arrow-btn" type="button" data-slot="topRight"
-                                        data-dir="R">Right</button>
-                                    <div class="coil-line"></div>
-                                </div>
-
-                                <!-- D: BOTTOM RIGHT - PERSPECTIVE (CORRECTED) -->
-                                <div class="arrow-row" data-row="bottomRight">
-                                    <div class="row-tag">D</div>
-                                    <div class="row-text">
-                                        <div class="row-label">Bottom Right • Perspective</div>
-                                        <div class="row-sub">How you see the world.</div>
-                                    </div>
-                                    <button class="arrow-btn" type="button" data-slot="bottomRight"
-                                        data-dir="L">Left</button>
-                                    <button class="arrow-btn" type="button" data-slot="bottomRight"
-                                        data-dir="R">Right</button>
-                                    <div class="coil-line"></div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="bottom-panel">
-                            <div class="vend-row">
-                                <button class="vend-btn" id="vendBtn" type="button">
-                                    <div class="vend-led" id="vendLed"></div>
-                                    <span>Scan arrows</span>
-                                </button>
-                                <div class="tags-line" id="tagsLine">No arrows selected yet.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="snapshot-panel" id="snapshotPanel">
-                        <div class="snapshot-title">Arrows Snapshot</div>
-
-                        <div id="snapshotList" class="snapshot-list">
-                            <div class="snapshot-list-item">
-                                Press "Scan" once your arrows are set to read each arrow in plain Manifestor language.
-                            </div>
-                        </div>
-
-                        <div class="snapshot-blend-label">How this moves together</div>
-                        <div class="snapshot-blend-text" id="snapshotBlend">
-                            When you run the scan you'll see how your brain, body, view and motivation move as one
-                            Manifestor system instead of being managed for other people.
-                        </div>
-
-                        <button id="downloadSnapshotBtn" type="button">Download Snapshot Card</button>
-                    </div>
-
-                    <details class="info-drop">
-                        <summary>Why this room exists</summary>
-                        <div class="drop-body">
+    <main>
+        <section class="hero">
+            <div class="container">
+                <article class="hero-panel">
+                    <div class="hero-grid">
+                        <div class="hero-copy">
+                            <span class="pill">Gates Radio archive</span>
+                            <h1>Hear the gate.<br>Feel the station.</h1>
                             <p>
-                                Most people meet variables like homework. Eat like this. Work like this. Focus like
-                                this. That misses the point.
+                                Gates Radio is the sound side of Human Design. Spin a gate, open the live playlists,
+                                enter the Living Library, and see what is coming next.
                             </p>
-                            <p>
-                                This room exists so you can see your arrow direction as a pattern instead of turning
-                                yourself into a self-improvement project. It is here to show you what is already true
-                                about how your system works.
-                            </p>
-                        </div>
-                    </details>
 
-                    <details class="info-drop">
-                        <summary>Use this room when</summary>
-                        <div class="drop-body">
-                            <ul class="bullet-list">
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>Non-Manifestor routines never really stick for you.</span>
-                                </li>
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>You feel guilty for how inconsistent your focus, appetite, or schedule can
-                                        look.</span>
-                                </li>
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>You want words for your arrows you can actually use when you inform.</span>
-                                </li>
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>You are tired of treating variables like another thing to fix.</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </details>
-
-                </section>
-
-                <!-- RIGHT PANEL -->
-                <aside class="right-panel">
-                    <div class="right-label">Next step • deeper than this room</div>
-                    <h2 class="right-title-main">You've got the pattern. Now choose whether you want the machine or one
-                        personal read.</h2>
-                    <p class="right-intro">
-                        This room gives you the direction. The next step depends on whether you want unlimited
-                        self-serve access to your variables or one personalized scan read through your arrows for you.
-                    </p>
-
-                    <div class="offer-stack">
-                        <div class="offer-card">
-                            <div class="right-section-label">Offer 01</div>
-                            <div class="right-title">Manifestor Variables Vending Machine</div>
-                            <div class="right-body">
-                                This is the full self-serve tool. Load your arrows, run different focus areas, and come
-                                back anytime you want to read your variables through work, business, relationships,
-                                money, creativity, rest, or visibility.
+                            <div class="hero-actions">
+                                <a href="#dj-sun-studio" class="btn btn-primary">Spin DJ Sun</a>
+                                <a href="#living-library" class="btn btn-secondary">Enter Living Library</a>
+                                <a href="#gate-stations" class="btn btn-tertiary">Open stations</a>
                             </div>
-                            <ul class="bullet-list" style="margin-bottom: 14px;">
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>Unlimited access to the Manifestor Variables Vending Machine.</span>
-                                </li>
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>Run your variables through different focus areas whenever something new gets
-                                        loud.</span>
-                                </li>
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>Includes the Manifestor Variables Integration Journal.</span>
-                                </li>
-                            </ul>
-                            <button disabled class="offer-btn" aria-label="Coming soon">
-                                <span>→</span>
-                                <span>Coming soon</span>
-                            </button>
                         </div>
 
-                        <div class="offer-card">
-                            <div class="right-section-label">Offer 02</div>
-                            <div class="right-title">Variables Scan • Personal Read</div>
-                            <div class="right-body">
-                                This is the one-time personalized option. I run your variables through the machine for
-                                you, generate your report, and send you a short voice note walking you through your
-                                scan.
+                        <div class="hero-stack">
+                            <div class="hero-note">
+                                <span class="status-line">
+                                    <span class="status-dot"></span>
+                                    DJ Sun • Weekly Main Broadcast
+                                </span>
+                                <p id="heroCurrentBroadcast">
+                                    Gate 36 is holding the live main broadcast right now.
+                                </p>
                             </div>
-                            <ul class="bullet-list" style="margin-bottom: 14px;">
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>Your personal Variables Scan report.</span>
-                                </li>
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>A short voice note from me explaining your scan.</span>
-                                </li>
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>One personalized read without needing full machine access.</span>
-                                </li>
-                            </ul>
-                            <button disabled class="offer-btn secondary" aria-label="Coming soon">
-                                <span>→</span>
-                                <span>Coming soon</span>
-                            </button>
+
+                            <div class="hero-note">
+                                <strong>Only live offer right now</strong>
+                                <p>
+                                    The Living Library is the one live offer on this page right now. The Gates Radio
+                                    Method
+                                    and the Custom Cross Soundtrack are both still coming soon.
+                                </p>
+                            </div>
+
+                            <div class="hero-note">
+                                <strong>What this page does</strong>
+                                <p>
+                                    This page lets people hear a gate first, then go deeper. Spin the deck, browse the
+                                    live stations,
+                                    then step into the Library if they want the bigger archive.
+                                </p>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="muted-foot">
-                        Use the Vending Machine if you want unlimited access and the journal. Use the Variables Scan if
-                        you want one personal report plus a short voice note from me.
-                    </div>
-                </aside>
-
+                </article>
             </div>
-        </div>
+        </section>
+
+        <section id="dj-sun-studio" class="section">
+            <div class="container">
+                <header class="section-head">
+                    <span class="section-label">DJ Sun</span>
+                    <h2>Spin the Frequency</h2>
+                    <p>
+                        The current Sun gate sits on deck. Spin for a random live station. Keywords and playlist show
+                        under the turntable.
+                    </p>
+                </header>
+
+                <div class="studio-grid">
+                    <article class="panel studio-card" id="turntableCard">
+                        <div class="now-playing-panel">
+                            <span class="status-line">
+                                <span class="status-dot"></span>
+                                DJ Sun • Weekly Main Broadcast
+                            </span>
+                            <h3 id="sunTransitTitle">Gate 36 · Crisis</h3>
+                            <p id="sunTransitCopy">
+                                Crisis is the current Sun transit. This is the live gate on deck right now.
+                            </p>
+                            <div class="now-playing-meta">
+                                <span class="meta-chip" id="sunTransitTags">Emotional storm · Unknown · Initiation ·
+                                    Compassion</span>
+                                <span class="meta-chip" id="sunTransitDates">March 18–23</span>
+                                <span class="meta-chip" id="sunTransitSet">SET 036</span>
+                            </div>
+                        </div>
+
+                        <div class="turntable-shell">
+                            <div class="turntable-platter" aria-hidden="true">
+                                <div class="turntable-ring ring-1"></div>
+                                <div class="turntable-ring ring-2"></div>
+                                <div class="turntable-ring ring-3"></div>
+
+                                <div class="vinyl-record">
+                                    <div class="vinyl-groove groove-1"></div>
+                                    <div class="vinyl-groove groove-2"></div>
+                                    <div class="vinyl-groove groove-3"></div>
+                                    <div class="vinyl-groove groove-4"></div>
+
+                                    <div class="record-label">
+                                        <span class="record-label-top">DJ Sun</span>
+                                        <strong id="recordGateNumber">36</strong>
+                                        <span id="recordGateName">Crisis</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tonearm-wrap">
+                                <div class="tonearm-base"></div>
+                                <div class="tonearm-arm"></div>
+                                <div class="tonearm-head"></div>
+                            </div>
+                        </div>
+
+                        <div class="turntable-actions">
+                            <button type="button" class="btn btn-primary" id="spinBtn">Spin the deck</button>
+                        </div>
+
+                        <div class="turntable-result" id="jukeboxResult" aria-live="polite">
+                            <h4>Gate 36 · Crisis</h4>
+                            <p>
+                                Transition, experience, and emotional intensity.
+                            </p>
+
+                            <div class="result-keywords" id="resultKeywords">
+                                <span class="keyword-chip">Transition</span>
+                                <span class="keyword-chip">Experience</span>
+                                <span class="keyword-chip">Emotional intensity</span>
+                            </div>
+
+                            <div class="stacked-actions">
+                                <a href="https://open.spotify.com/playlist/7fpUSkCC0DRZ3zVvh0w2Mp?si=Qf4XW3A3RvKYBHQOdjZXeg"
+                                    target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                                    Open gate playlist
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="panel request-card">
+                        <span class="pill">Request line</span>
+                        <h3>DJ Request Line</h3>
+                        <p>
+                            Want a gate station next. Drop the gate, mood, or artist direction here.
+                            This is for future station requests, not support questions.
+                        </p>
+
+                        <form id="dj-request-form" class="request-form" method="POST"
+                            action="YOUR_GOOGLE_SCRIPT_URL_HERE">
+                            <input type="hidden" name="formType" value="dj_request" />
+                            <input type="hidden" name="tag" value="gates-radio-dj-request" />
+
+                            <div class="field-group">
+                                <label for="djName">Name</label>
+                                <input id="djName" name="name" type="text" placeholder="Your name" />
+                            </div>
+
+                            <div class="field-group">
+                                <label for="djEmail">Email</label>
+                                <input id="djEmail" name="email" type="email" placeholder="you@email.com" />
+                            </div>
+
+                            <div class="field-group">
+                                <label for="djGate">Requested gate or theme</label>
+                                <input id="djGate" name="gate" type="text"
+                                    placeholder="Gate 55, Gate 49, melancholy, heartbreak, power..." />
+                            </div>
+
+                            <div class="field-group">
+                                <label for="djNotes">Notes</label>
+                                <textarea id="djNotes" name="notes"
+                                    placeholder="Tell me the vibe, artist direction, emotional tone, or why you want it."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit DJ request</button>
+
+                            <p class="form-note">
+                                Replace <strong>YOUR_GOOGLE_SCRIPT_URL_HERE</strong> with your actual Apps Script URL.
+                            </p>
+
+                            <div class="form-response" id="formResponse"></div>
+                        </form>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="living-library" class="section">
+            <div class="container">
+                <header class="section-head">
+                    <span class="section-label">Paid archive</span>
+                    <h2>Living Library</h2>
+                    <p>
+                        The Living Library is the deeper paid side of Gates Radio. More gates. More context.
+                        More of the system already built for you.
+                    </p>
+                </header>
+
+                <div class="library-grid">
+                    <article class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <h3>What is live right now</h3>
+                                <div class="chart-sub">The growing archive</div>
+                            </div>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table aria-label="Featured online gate stations">
+                                <thead>
+                                    <tr>
+                                        <th>Gate</th>
+                                        <th>Station</th>
+                                        <th>Status</th>
+                                        <th>Open</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="topStationsPreview"></tbody>
+                            </table>
+                        </div>
+
+                        <div class="stacked-actions">
+                            <a href="https://YOUR-LIVING-LIBRARY-PAYHIP-LINK" target="_blank" rel="noopener noreferrer"
+                                class="btn btn-primary">
+                                Enter Living Library
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="label-card">
+                        <h3>What Gates Radio is</h3>
+
+                        <p>
+                            This is not just a pile of playlists. Gates Radio is the sound side of Human Design.
+                            Each gate becomes a station, a mood, and a frequency.
+                        </p>
+
+                        <ul class="bullet-list">
+                            <li>Gate playlists you can browse and play</li>
+                            <li>A growing archive built through music</li>
+                            <li>A way to feel the gates instead of only reading about them</li>
+                        </ul>
+
+                        <div class="label-actions" style="margin-top:14px;">
+                            <a href="https://YOUR-LIVING-LIBRARY-PAYHIP-LINK" target="_blank" rel="noopener noreferrer"
+                                class="btn btn-primary">
+                                Go to Living Library
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="gate-stations" class="section">
+            <div class="container">
+                <header class="section-head">
+                    <span class="section-label">Stations</span>
+                    <h2>Online Gate Stations</h2>
+                    <p>
+                        These are the current live stations in the archive. Open the playlists directly from here.
+                    </p>
+                </header>
+
+                <div class="stations-grid" id="stationsGrid"></div>
+            </div>
+        </section>
+
+        <section id="gates-radio-method" class="section">
+            <div class="container">
+                <header class="section-head">
+                    <span class="section-label">DIY</span>
+                    <h2>The Gates Radio Method</h2>
+                    <p>
+                        This is the DIY side. Learn how to take a song, break down its energy,
+                        match it to a gate, and build your own gate playlists.
+                    </p>
+                </header>
+
+                <div class="split-grid">
+                    <article class="label-card">
+                        <span class="pill pill-soon">Coming soon</span>
+                        <h3>Build your own gate playlists</h3>
+
+                        <p>
+                            You do not need to memorize your gates. You need to learn how to hear them.
+                            This method shows you how.
+                        </p>
+
+                        <ul class="bullet-list">
+                            <li>Match songs to specific gates</li>
+                            <li>Use circuitry and centers simply, not academically</li>
+                            <li>Build your own playlists in a repeatable way</li>
+                            <li>Use the method with your own music taste</li>
+                        </ul>
+
+                        <div class="label-actions" style="margin-top:14px;">
+                            <button type="button" class="btn btn-primary" disabled>
+                                Coming soon
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <h3>For the one who wants to do it herself</h3>
+                                <div class="chart-sub">DIY digital guide</div>
+                            </div>
+                        </div>
+
+                        <p>
+                            This is not the Living Library. This is the method behind it.
+                            If you want to understand the process and build your own gate playlists,
+                            this is your entry point.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="custom-cross" class="section">
+            <div class="container">
+                <header class="section-head">
+                    <span class="section-label">Custom offer</span>
+                    <h2>Custom Cross Soundtrack</h2>
+                    <p>
+                        A custom playlist built around the four gates of your incarnation cross, plus a PDF breakdown.
+                    </p>
+                </header>
+
+                <div class="split-grid">
+                    <article class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <h3>What it is</h3>
+                                <div class="chart-sub">Done for you</div>
+                            </div>
+                            <span class="pill pill-soon">Coming soon</span>
+                        </div>
+
+                        <p>
+                            This is the high-touch option. You give me your taste. I build the soundtrack around
+                            your incarnation cross and send it back custom.
+                        </p>
+
+                        <ul class="bullet-list">
+                            <li>4 cross gates</li>
+                            <li>25–30 tracks</li>
+                            <li>PDF guide</li>
+                            <li>Built around your actual taste and direction</li>
+                        </ul>
+                    </article>
+
+                    <article class="label-card">
+                        <h3>Custom Cross Soundtrack</h3>
+
+                        <p class="label-price">
+                            4 gates · 25–30 tracks · PDF guide
+                        </p>
+
+                        <div class="label-actions">
+                            <button type="button" class="btn btn-primary" disabled>
+                                Coming soon
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyQG1g9pGGSLetpLtHy1kjIlVgbjKVhtGi4rGCP9hnq2M2XaXrQz1e717xbfYkdA37/exec';
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-note">
+                Manifestor Anonymous • Gates Radio • DJ Sun • Living Library • The Gates Radio Method • Custom Cross
+                Soundtrack
+            </p>
+        </div>
+    </footer>
 
-        const state = {
-            emailUnlocked: false,
-            coinTapped: false,
-            topLeft: null,
-            topRight: null,
-            bottomLeft: null,
-            bottomRight: null,
-            savedEmail: null
+    <script>
+        const DJ_SUN = {
+            trackTitle: "CRISIS RADIO",
+            gate: "Gate 36 · Crisis",
+            tags: "Emotional storm · Unknown · Initiation · Compassion",
+            dates: "March 18–23",
+            setId: "SET 036",
+            artist: "Collective – Sensing Circuit",
+            reason: "Gate 36 carries the Gate of Crisis. This set holds the emotional storm and the dark hallway between who you were and who you are about to become as a Manifestor."
         };
 
-        const emailInput = document.getElementById('emailInput');
-        const emailBtn = document.getElementById('emailBtn');
-        const emailError = document.getElementById('emailError');
-        const coin = document.getElementById('coin');
-        const displayText = document.getElementById('displayText');
-        const displayStrip = document.getElementById('displayStrip');
-        const tagsLine = document.getElementById('tagsLine');
-        const vendBtn = document.getElementById('vendBtn');
-        const vendLed = document.getElementById('vendLed');
-        const snapshotList = document.getElementById('snapshotList');
-        const snapshotBlend = document.getElementById('snapshotBlend');
-        const downloadBtn = document.getElementById('downloadSnapshotBtn');
-        const machineShell = document.getElementById('machineShell');
-        const arrowButtons = document.querySelectorAll('.arrow-btn');
+        const GATE_STATIONS = [
+            {
+                gate: 22,
+                title: "Grace",
+                tagline: "Mood · Presence · Emotional influence",
+                playlist: "https://open.spotify.com/playlist/4dRtSluSyPUpDwhcJE0r8D?si=DIvyJYSxTe22yfONcGSUPQ",
+                status: "online"
+            },
+            {
+                gate: 36,
+                title: "Crisis",
+                tagline: "Transition · Experience · Emotional intensity",
+                playlist: "https://open.spotify.com/playlist/7fpUSkCC0DRZ3zVvh0w2Mp?si=Qf4XW3A3RvKYBHQOdjZXeg",
+                status: "online"
+            },
+            {
+                gate: 12,
+                title: "Caution",
+                tagline: "Timing · Emotional voice · Shy-bold",
+                playlist: "https://open.spotify.com/playlist/5JiFAS4gmNyzNQfzadFjjd?si=4e_LNCaASx-QLtSNkz2sAg",
+                status: "online"
+            },
+            {
+                gate: 17,
+                title: "Opinions",
+                tagline: "Beliefs · Perspective · Rightness",
+                playlist: "https://open.spotify.com/playlist/6tZuukDRMO4VcTzy9YbMPh?si=6gsssL4dTHe66H_2VZ3fgA",
+                status: "online"
+            },
+            {
+                gate: 21,
+                title: "Control",
+                tagline: "Authority · Resources · Order",
+                playlist: "https://open.spotify.com/playlist/2rPXSj4E4XGCDG3atSjxbH?si=GrH78FBHQ3K2-LOsPKr2bw",
+                status: "online"
+            },
+            {
+                gate: 25,
+                title: "Spirit of the Self",
+                tagline: "Innocence · Universal love · Open heart",
+                playlist: "https://open.spotify.com/playlist/4RKZ6E1uGBGWs561iO4hFR?si=xoFkKCB9SpGWTYX5QQPzrw",
+                status: "online"
+            },
+            {
+                gate: 38,
+                title: "Struggle",
+                tagline: "Purpose · Resistance · The right fight",
+                playlist: "https://open.spotify.com/playlist/5FK9BMpMUkhXuYe7u3d2kS?si=4f3pjKydQlSNHPYS5P5y-Q",
+                status: "online"
+            }
+        ];
 
-        function setDisplay(mode, text) {
-            displayText.textContent = text;
-            displayStrip.classList.remove('red', 'yellow', 'green');
-            displayStrip.classList.add(mode);
+        function getOnlineGates() {
+            return GATE_STATIONS.filter((station) => station.status === "online");
         }
 
-        function validateEmail(email) {
-            const input = document.createElement('input');
-            input.type = 'email';
-            input.value = email;
-            return input.checkValidity();
+        function buildKeywordChips(tagline) {
+            return tagline
+                .split("·")
+                .map((item) => item.trim())
+                .filter(Boolean)
+                .map((item) => `<span class="keyword-chip">${item}</span>`)
+                .join("");
         }
 
-        async function saveEmailToGoogleSheet(email) {
-            const formData = new FormData();
-            formData.append('email', email);
-            formData.append('source', 'arrows-scanner');
-            formData.append('page', 'arrows-room');
-            formData.append('formType', 'arrows-snapshot');
-            formData.append('tag', 'arrows-room-email');
-            formData.append('resultKey', '');
-            formData.append('resultTitle', '');
-            formData.append('resultBody', '');
-            formData.append('name', '');
-            formData.append('songtitle', '');
-            formData.append('songartist', '');
-            formData.append('whytrackhits', '');
+        function syncDjSunUI() {
+            const heroCurrentBroadcast = document.getElementById("heroCurrentBroadcast");
+            const sunTransitTitle = document.getElementById("sunTransitTitle");
+            const sunTransitCopy = document.getElementById("sunTransitCopy");
+            const sunTransitTags = document.getElementById("sunTransitTags");
+            const sunTransitDates = document.getElementById("sunTransitDates");
+            const sunTransitSet = document.getElementById("sunTransitSet");
 
-            await fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: formData
+            if (heroCurrentBroadcast) {
+                heroCurrentBroadcast.textContent = `${DJ_SUN.gate} is holding the live main broadcast right now.`;
+            }
+
+            if (sunTransitTitle) {
+                sunTransitTitle.textContent = DJ_SUN.gate;
+            }
+
+            if (sunTransitCopy) {
+                sunTransitCopy.textContent = "This is the current Sun transit. It is the live gate on deck right now.";
+            }
+
+            if (sunTransitTags) {
+                sunTransitTags.textContent = DJ_SUN.tags;
+            }
+
+            if (sunTransitDates) {
+                sunTransitDates.textContent = DJ_SUN.dates;
+            }
+
+            if (sunTransitSet) {
+                sunTransitSet.textContent = DJ_SUN.setId;
+            }
+        }
+
+        function renderTopStationsPreview() {
+            const preview = document.getElementById("topStationsPreview");
+            if (!preview) return;
+
+            const featured = getOnlineGates().slice(0, 4);
+
+            preview.innerHTML = featured.map((station) => `
+                <tr>
+                    <td class="chart-rank">${station.gate}</td>
+                    <td class="chart-gate">
+                        <strong>Gate ${station.gate} · ${station.title}</strong>
+                        <span>${station.tagline}</span>
+                    </td>
+                    <td>
+                        <span class="badge-status badge-online">
+                            <span class="badge-dot"></span> Live
+                        </span>
+                    </td>
+                    <td>
+                        <a href="${station.playlist}" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-tertiary" style="padding:6px 10px;font-size:10px;">
+                            Open
+                        </a>
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        function renderStations() {
+            const stationsGrid = document.getElementById("stationsGrid");
+            if (!stationsGrid) return;
+
+            const online = getOnlineGates();
+
+            stationsGrid.innerHTML = online.map((station) => `
+                <article class="station-card">
+                    <div class="station-top">
+                        <div class="station-number">${station.gate}</div>
+                        <span class="badge-status badge-online">
+                            <span class="badge-dot"></span> Live
+                        </span>
+                    </div>
+
+                    <div>
+                        <h3>${station.title}</h3>
+                    </div>
+
+                    <p>${station.tagline}</p>
+
+                    <div class="stacked-actions">
+                        <a href="${station.playlist}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                            Open playlist
+                        </a>
+                    </div>
+                </article>
+            `).join("");
+        }
+
+        function setupTurntable() {
+            const spinBtn = document.getElementById("spinBtn");
+            const jukeboxResult = document.getElementById("jukeboxResult");
+            const recordGateNumber = document.getElementById("recordGateNumber");
+            const recordGateName = document.getElementById("recordGateName");
+            const turntableCard = document.getElementById("turntableCard");
+
+            if (!spinBtn || !jukeboxResult || !recordGateNumber || !recordGateName || !turntableCard) return;
+
+            let isSpinning = false;
+
+            spinBtn.addEventListener("click", function () {
+                if (isSpinning) return;
+
+                const online = getOnlineGates();
+                if (!online.length) return;
+
+                isSpinning = true;
+                spinBtn.disabled = true;
+                spinBtn.textContent = "Spinning...";
+                turntableCard.classList.add("is-playing");
+
+                const randomGate = online[Math.floor(Math.random() * online.length)];
+
+                setTimeout(function () {
+                    recordGateNumber.textContent = randomGate.gate;
+                    recordGateName.textContent = randomGate.title;
+
+                    jukeboxResult.innerHTML = `
+                        <h4>Gate ${randomGate.gate} · ${randomGate.title}</h4>
+                        <p>${randomGate.tagline}</p>
+                        <div class="result-keywords">
+                            ${buildKeywordChips(randomGate.tagline)}
+                        </div>
+                        <div class="stacked-actions">
+                            <a href="${randomGate.playlist}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                                Open gate playlist
+                            </a>
+                        </div>
+                    `;
+
+                    turntableCard.classList.remove("is-playing");
+                    spinBtn.disabled = false;
+                    spinBtn.textContent = "Spin again";
+                    isSpinning = false;
+                }, 2100);
             });
-
-            return true;
         }
 
-        emailBtn.addEventListener('click', async () => {
-            const val = emailInput.value.trim();
-            if (!validateEmail(val)) {
-                emailError.style.display = 'block';
-                setDisplay('red', 'Enter a valid email to unlock the scan.');
-                return;
-            }
+        function setupRequestForm() {
+            const form = document.getElementById("dj-request-form");
+            const responseEl = document.getElementById("formResponse");
 
-            emailError.style.display = 'none';
-            emailBtn.disabled = true;
-            emailBtn.textContent = 'Unlocking...';
-            setDisplay('yellow', 'Saving your email and waking up the scanner...');
+            if (!form || !responseEl) return;
 
-            try {
-                await saveEmailToGoogleSheet(val);
-                state.emailUnlocked = true;
-                state.savedEmail = val;
-                coin.classList.remove('disabled');
-                coin.classList.add('enabled');
-                emailInput.disabled = true;
-                setDisplay('green', 'Scanner is awake. Tap the coin to start.');
-            } catch (err) {
-                console.error(err);
-                setDisplay('red', 'Something glitched. Try again in a minute.');
-                emailBtn.disabled = false;
-                emailBtn.textContent = 'Unlock';
-            }
-        });
+            form.addEventListener("submit", async function (event) {
+                const action = form.getAttribute("action");
 
-        coin.addEventListener('click', () => {
-            if (!state.emailUnlocked) return;
-            state.coinTapped = true;
-            machineShell.classList.add('live');
-            setDisplay('yellow', 'Pick Left or Right for each arrow, then hit Scan.');
-        });
-
-        arrowButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (!state.coinTapped) return;
-
-                const slot = btn.dataset.slot;
-                const dir = btn.dataset.dir;
-
-                document.querySelectorAll(`.arrow-btn[data-slot="${slot}"]`).forEach(b => {
-                    b.classList.remove('active-left', 'active-right');
-                });
-
-                if (dir === 'L') {
-                    btn.classList.add('active-left');
-                } else {
-                    btn.classList.add('active-right');
+                if (!action || action === "YOUR_GOOGLE_SCRIPT_URL_HERE") {
+                    event.preventDefault();
+                    responseEl.textContent = "Add your Google Apps Script URL first.";
+                    return;
                 }
 
-                state[slot] = dir;
+                event.preventDefault();
+                responseEl.textContent = "Sending request...";
 
-                const rowEl = document.querySelector(`.arrow-row[data-row="${slot}"]`);
-                if (rowEl) rowEl.classList.add('active');
+                try {
+                    const formData = new FormData(form);
+                    await fetch(action, {
+                        method: "POST",
+                        body: formData
+                    });
 
-                updateTagsLine();
-                updateVendState();
+                    form.reset();
+                    responseEl.textContent = "Request sent.";
+                } catch (error) {
+                    responseEl.textContent = "Request failed. Check the script URL and try again.";
+                }
             });
-        });
-
-        function updateTagsLine() {
-            const pieces = [];
-            if (state.topLeft) pieces.push(`Top Left: ${state.topLeft === 'L' ? 'Left' : 'Right'}`);
-            if (state.bottomLeft) pieces.push(`Bottom Left: ${state.bottomLeft === 'L' ? 'Left' : 'Right'}`);
-            if (state.topRight) pieces.push(`Top Right: ${state.topRight === 'L' ? 'Left' : 'Right'}`);
-            if (state.bottomRight) pieces.push(`Bottom Right: ${state.bottomRight === 'L' ? 'Left' : 'Right'}`);
-            tagsLine.textContent = pieces.length ? pieces.join(' • ') : 'No arrows selected yet.';
         }
 
-        function allArrowsChosen() {
-            return state.topLeft && state.bottomLeft && state.topRight && state.bottomRight;
-        }
-
-        function updateVendState() {
-            if (state.coinTapped && allArrowsChosen()) {
-                vendBtn.classList.add('ready');
-                vendLed.classList.add('on');
-                setDisplay('green', 'All arrows set. Hit Scan to read your snapshot.');
-            } else if (state.coinTapped) {
-                vendBtn.classList.remove('ready');
-                vendLed.classList.remove('on');
-                setDisplay('yellow', 'Keep setting arrows. You need all four.');
-            }
-        }
-
-        function renderSnapshot() {
-            snapshotList.innerHTML = '';
-
-            function addLine(text) {
-                const div = document.createElement('div');
-                div.className = 'snapshot-list-item';
-                div.textContent = text;
-                snapshotList.appendChild(div);
-            }
-
-            // TOP LEFT: DETERMINATION
-            if (state.topLeft) {
-                if (state.topLeft === 'L') {
-                    addLine('Top Left • Determination: Left — Your Manifestor brain runs focused. It likes steady input, cleaner patterns, and less chaos so your urges actually land.');
-                } else {
-                    addLine('Top Left • Determination: Right — Your Manifestor brain is more open and relaxed. It learns better when you stop forcing a rigid system and let life come to you.');
-                }
-            }
-
-            // BOTTOM LEFT: ENVIRONMENT
-            if (state.bottomLeft) {
-                if (state.bottomLeft === 'L') {
-                    addLine('Bottom Left • Environment: Left — Your body likes active relationship with space. Choosing where you are and moving with some intention helps your system stay alive.');
-                } else {
-                    addLine('Bottom Left • Environment: Right — Your body is more receptive with space. You do not need to chase every environment. The right ones do more work on you when you let them.');
-                }
-            }
-
-            // TOP RIGHT: MOTIVATION (CORRECTED)
-            if (state.topRight) {
-                if (state.topRight === 'L') {
-                    addLine('Top Right • Motivation: Left — Your mind likes strategy and explanation. Frameworks can help you channel your urges into something other people can actually follow.');
-                } else {
-                    addLine('Top Right • Motivation: Right — Your mind is more fluid. Strict motivation stories can shut you down. Space, looseness, and natural timing matter more here.');
-                }
-            }
-
-            // BOTTOM RIGHT: PERSPECTIVE (CORRECTED)
-            if (state.bottomRight) {
-                if (state.bottomRight === 'L') {
-                    addLine('Bottom Right • Perspective: Left — Your view is focused. You are built to zero in, track something specific, and stay with it long enough to really see the pattern.');
-                } else {
-                    addLine('Bottom Right • Perspective: Right — Your view is wide-angle. You are here to take in more of the field, not pin yourself to one tiny detail forever.');
-                }
-            }
-
-            snapshotBlend.textContent = 'When these four line up, you stop trying to run your life for other people and start letting your Manifestor system move the way it is built to move.';
-        }
-
-        vendBtn.addEventListener('click', () => {
-            if (!vendBtn.classList.contains('ready')) return;
-            renderSnapshot();
-        });
-
-        downloadBtn.addEventListener('click', () => {
-            html2canvas(document.getElementById('snapshotPanel')).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'manifestor-arrows-snapshot.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            });
+        document.addEventListener("DOMContentLoaded", function () {
+            syncDjSunUI();
+            renderTopStationsPreview();
+            renderStations();
+            setupTurntable();
+            setupRequestForm();
         });
     </script>
-
 </body>
 
 </html>

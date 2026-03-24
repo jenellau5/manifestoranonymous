@@ -1,28 +1,28 @@
 /* Shared DJ sun data for index.html + gates.html
-   This keeps the ‘current Sun gate’ info in sync across pages.
+   This keeps the current Sun gate info in sync across pages.
    Update the values below to change both pages at once.
 */
 
 const DJ_SUN = {
     // main headline / track name
-    trackTitle: "CRISIS RADIO",
+    trackTitle: "OPINION RADIO",
 
     // gate labels
-    gate: "Gate 36 · Crisis",
-    tags: "Emotional storm · Unknown · Initiation · Compassion",
+    gate: "Gate 17 · Opinions",
+    tags: "Logic · Pattern recognition · Mental pressure · Organizing ideas",
 
     // metadata for index.html
-    dates: "March 18–23",
-    setId: "SET 036",
-    artist: "Collective – Sensing Circuit",
+    dates: "March 24–29",
+    setId: "SET 017",
+    artist: "Collective – Understanding Circuit",
 
     // copy for index.html / gates.html
-    reason: "Gate 36 carries the Gate of Crisis. This set holds the emotional storm – the dark hallway between who you were and who you’re about to become as a Manifestor.",
-    description: "Crisis is not you failing. It’s your ignition point. When your emotional field goes dark, that’s often the moment your next Manifestor initiation is trying to come through.",
+    reason: "Gate 17 carries Opinions — logical insight, pattern recognition, and the pressure to organize ideas into something that makes sense. This set feels like scanning the bigger picture, spotting what is off, and forming a sharper perspective on what could work better.",
+    description: "Your opinion is not the truth. It is a pattern check. When you stop forcing certainty and let your insight stay sharp but open, your Manifestor mind becomes a cleaner signal instead of a pressure chamber.",
 
     // gates.html specific fields
-    gateLabel: "Gate 36 · Crisis",
-    gateTitle: "Gate 36 · Crisis mix",
+    gateLabel: "Gate 17 · Opinions",
+    gateTitle: "Gate 17 · Opinions mix",
 };
 
 function updateElementText(id, value) {
