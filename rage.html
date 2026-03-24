@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rage Room • Manifestor Anonymous</title>
     <meta name="description"
-        content="Rage Room inside the Manifestor Anonymous Underground Terminal. Vent first. Decode the anger after." />
+        content="Release your anger, identify the exact pattern, and understand what it is pointing to. Built specifically for Manifestors." />
     <style>
         :root {
             --bg: #050608;
-            --panel: rgba(255, 255, 255, 0.045);
             --line: rgba(255, 255, 255, 0.11);
             --line-strong: rgba(255, 255, 255, 0.18);
             --text: #f5f7fb;
@@ -33,7 +32,6 @@
         body {
             margin: 0;
             font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            /* red accent glow to match rage palette */
             background:
                 radial-gradient(circle at top, rgba(255, 77, 109, 0.18), transparent 20%),
                 radial-gradient(circle at 15% 80%, rgba(255, 77, 109, 0.12), transparent 26%),
@@ -62,14 +60,12 @@
             max-width: 100%;
         }
 
-        /* ensure header logo fits its circular container without distortion */
         .brand-icon img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        /* all anchors default to page accent color with a subtle glow */
         a {
             color: var(--danger);
             text-decoration: none;
@@ -80,23 +76,14 @@
             text-shadow: 0 0 12px var(--danger);
         }
 
-        /* buttons in top bar should size consistently */
-        .top-links .btn {
-            font-size: 13px;
-            padding: 14px 22px;
-        }
-
         button {
             font: inherit;
         }
 
         .container {
-            /* match arrows.html maximum width */
             width: min(1200px, calc(100% - 32px));
             margin: 0 auto;
         }
-
-        /* TOP BAR */
 
         .topbar {
             position: sticky;
@@ -104,8 +91,7 @@
             z-index: 40;
             backdrop-filter: blur(14px);
             background: rgba(3, 7, 18, 0.82);
-            border-bottom: 1px solid rgba(30, 64, 175, 0.4);
-            /* gates blue */
+            border-bottom: 1px solid rgba(255, 77, 109, 0.28);
         }
 
         .topbar-inner {
@@ -128,13 +114,13 @@
             border-radius: 50%;
             border: 1px solid var(--line-strong);
             overflow: hidden;
-            box-shadow: 0 0 22px rgba(56, 189, 248, 0.3);
-            /* blue glow like gates */
+            box-shadow: 0 0 22px rgba(255, 77, 109, 0.32);
             background: #08090d;
         }
 
         .brand-copy small,
-        .section-label {
+        .section-label,
+        .side-chip {
             display: inline-block;
             text-transform: uppercase;
             letter-spacing: 0.26em;
@@ -153,7 +139,7 @@
         .topbar-tagline {
             margin-top: 4px;
             font-size: 9px;
-            letter-spacing: 0.26em;
+            letter-spacing: 0.22em;
             text-transform: uppercase;
             color: rgba(148, 163, 184, 0.9);
         }
@@ -166,9 +152,7 @@
             font-size: 12px;
         }
 
-        /* button utilities from gates/index */
-        .btn,
-        .module-btn {
+        .btn {
             border: 0;
             border-radius: 18px;
             padding: 14px 22px;
@@ -180,27 +164,29 @@
             transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
         }
 
-        .btn:hover,
-        .module-btn:hover {
+        .btn:hover {
             transform: translateY(-2px);
-        }
-
-        .btn-primary {
-            background: var(--green);
-            color: #05130a;
-            box-shadow: 0 0 30px rgba(57, 255, 136, 0.22);
         }
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.05);
             color: var(--text);
-            border: 1px solid var(--line-strong);
-            /* red glow for rage page */
-            box-shadow: 0 0 18px var(--danger);
-            border-color: var(--danger);
+            border: 1px solid var(--danger);
+            box-shadow: 0 0 18px rgba(255, 77, 109, 0.24);
         }
 
-        /* MAIN LAYOUT */
+        .btn-primary {
+            background: var(--danger);
+            color: #240208;
+            box-shadow: 0 0 28px rgba(255, 77, 109, 0.45);
+        }
+
+        .btn-muted {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text);
+            border: 1px solid var(--line-strong);
+            box-shadow: none;
+        }
 
         main {
             padding: 30px 0 40px;
@@ -229,9 +215,6 @@
             padding: 20px 20px 18px;
         }
 
-        /* LEFT PANEL */
-
-        /* match the module-pill sizing used on arrows page */
         .signal-chip {
             display: inline-flex;
             align-items: center;
@@ -267,15 +250,29 @@
             color: rgba(245, 247, 251, 0.86);
         }
 
-        .intro {
-            margin-top: 16px;
+        .intro,
+        .side-card p,
+        ul.clean,
+        .hint,
+        .terminal-text,
+        .selection-intro,
+        .pattern-grid p,
+        .map-card p,
+        .map-list {
             font-size: 14px;
-            line-height: 1.9;
+            line-height: 1.8;
             color: var(--muted);
-            max-width: 46ch;
         }
 
-        .intro strong {
+        .intro {
+            margin-top: 16px;
+            max-width: 50ch;
+        }
+
+        .intro strong,
+        .side-card strong,
+        .map-card strong,
+        .pattern-card strong {
             color: var(--text);
             font-weight: 700;
         }
@@ -288,7 +285,47 @@
             color: var(--dim);
         }
 
-        /* FORM */
+        .clarity-grid,
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .pattern-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            margin-bottom: 18px;
+        }
+
+        .clarity-card,
+        .pattern-card,
+        .map-card,
+        .offer-card {
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+            padding: 14px;
+        }
+
+        .clarity-card strong,
+        .pattern-card strong,
+        .map-card strong,
+        .offer-card strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .clarity-card p,
+        .pattern-card p,
+        .map-card p,
+        .offer-card p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.55;
+            color: var(--muted);
+        }
 
         form {
             margin-top: 18px;
@@ -323,9 +360,9 @@
         }
 
         .hint {
+            margin-top: 3px;
             font-size: 11px;
             color: var(--dim);
-            margin-top: 3px;
         }
 
         .btn-row {
@@ -336,36 +373,44 @@
             align-items: center;
         }
 
-        .btn-primary {
-            border: 0;
-            border-radius: 999px;
-            padding: 10px 20px;
-            background: var(--danger);
-            color: #240208;
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.22em;
-            cursor: pointer;
-            box-shadow: 0 0 28px rgba(255, 77, 109, 0.45);
-            transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+        .selection-wrap {
+            display: none;
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .btn-primary:hover {
+        .selection-wrap.active {
+            display: block;
+        }
+
+        .selection-intro {
+            margin: 0 0 12px;
+        }
+
+        .selection-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .selection-btn {
+            border-radius: 16px;
+            border: 1px solid rgba(255, 77, 109, 0.35);
+            background: rgba(255, 77, 109, 0.08);
+            color: #ffd7e1;
+            padding: 14px 12px;
+            font-size: 12px;
+            line-height: 1.45;
+            text-align: left;
+            cursor: pointer;
+            transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+        }
+
+        .selection-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 0 36px rgba(255, 77, 109, 0.65);
-        }
-
-        .btn-secondary {
-            border-radius: 999px;
-            border: 1px solid var(--line-strong);
-            background: rgba(255, 255, 255, 0.04);
-            padding: 9px 18px;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--muted);
-            cursor: pointer;
+            box-shadow: 0 0 18px rgba(255, 77, 109, 0.2);
+            border-color: rgba(255, 77, 109, 0.6);
         }
 
         .terminal-text {
@@ -382,43 +427,40 @@
             white-space: pre-wrap;
         }
 
-        /* Rage wall: starts EMPTY, shows only after purge */
-
         #rageWall {
             margin-top: 14px;
             display: none;
         }
 
-        /* SIDE COLUMN */
-
         .side-card h2 {
             margin: 10px 0 0;
-            font-size: 20px;
+            font-size: 22px;
             letter-spacing: -0.04em;
         }
 
         .side-card p {
             margin: 10px 0 0;
-            font-size: 13px;
-            line-height: 1.8;
-            color: var(--muted);
         }
 
-        ul.clean {
+        ul.clean,
+        .map-list,
+        .offer-list {
             list-style: none;
             padding: 0;
             margin: 12px 0 0;
-            font-size: 13px;
-            color: var(--muted);
         }
 
-        ul.clean li {
+        ul.clean li,
+        .map-list li,
+        .offer-list li {
             position: relative;
             padding-left: 14px;
             margin-top: 8px;
         }
 
-        ul.clean li::before {
+        ul.clean li::before,
+        .map-list li::before,
+        .offer-list li::before {
             content: "";
             position: absolute;
             left: 2px;
@@ -431,12 +473,7 @@
         }
 
         .side-chip {
-            display: inline-block;
             margin-top: 8px;
-            font-size: 10px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--dim);
         }
 
         .offer-link {
@@ -447,7 +484,6 @@
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            /* use page danger colour for the scan link */
             color: var(--danger);
             text-shadow: 0 0 8px var(--danger);
             cursor: pointer;
@@ -464,7 +500,11 @@
             font-size: 14px;
         }
 
-        /* FOOTER */
+        .offer-stack {
+            display: grid;
+            gap: 14px;
+            margin-top: 14px;
+        }
 
         footer {
             border-top: 1px solid var(--line);
@@ -481,13 +521,27 @@
             flex-wrap: wrap;
         }
 
-        @media (max-width:880px) {
+        @media (max-width: 980px) {
+            .pattern-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 880px) {
             .room-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        @media (max-width:640px) {
+        @media (max-width: 760px) {
+
+            .clarity-grid,
+            .selection-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
             .topbar-inner {
                 flex-direction: column;
                 align-items: flex-start;
@@ -503,11 +557,9 @@
                 display: none;
             }
 
-            /* keep the back‑to‑terminal link visible on small screens */
             .top-links {
                 display: flex;
                 font-size: 11px;
-                /* optional size adjust, matches arrows.html */
             }
 
             main {
@@ -533,7 +585,7 @@
                     <small>Manifestor Anonymous</small>
                     <strong>Rage Room</strong>
                     <div class="topbar-tagline">
-                        Vent aloud. Decode the pattern. Release the blocked signal.
+                        Vent first. Choose the pattern. See what your anger is pointing to.
                     </div>
                 </div>
             </div>
@@ -545,25 +597,42 @@
 
     <main>
         <div class="container room-grid">
-            <!-- LEFT: VENT + WALL -->
             <section class="panel">
                 <div class="signal-chip">
                     <span class="signal-dot"></span>
                     <span>Module 02 · Path: Anger</span>
                 </div>
 
-                <h1>Rage Room.</h1>
-                <p class="hero-sub">Vent first. Decode it after.</p>
+                <h1>Rage Room</h1>
+                <p class="hero-sub">Release the anger. Choose the pattern. See what it points to.</p>
 
                 <p class="intro">
-                    This is where Manifestor anger goes when it is done behaving.
+                    This tool is for the moments when your anger is building, your body is tight, and you need somewhere
+                    to put it.
                     Dump it here <strong>uncensored</strong>. No fixing. No polite informing.
-                    Once it is out of your body, the terminal will reflect what the signal is actually about.
+                    Then choose the anger pattern that fits best so the reflection actually matches what is happening.
                 </p>
 
                 <p class="step-labels">
-                    Step 1 · Purge the room. Step 2 · Read the signal.
+                    Step 1 · Release the anger. Step 2 · Choose the pattern. Step 3 · Read what it points to.
                 </p>
+
+                <div class="clarity-grid">
+                    <div class="clarity-card">
+                        <strong>What this solves</strong>
+                        <p>It gives your anger somewhere to go before it turns into shutdown, resentment, or an
+                            explosion.</p>
+                    </div>
+                    <div class="clarity-card">
+                        <strong>What this does</strong>
+                        <p>It helps you vent first, then identify what kind of anger you are actually in.</p>
+                    </div>
+                    <div class="clarity-card">
+                        <strong>What this is not</strong>
+                        <p>Not therapy. Not a full chart read. This is a pressure-release and pattern-recognition tool.
+                        </p>
+                    </div>
+                </div>
 
                 <form id="rageForm">
                     <div>
@@ -571,59 +640,130 @@
                         <textarea id="rageText" name="rageText"
                             placeholder="Type exactly what you are thinking. Swear. Repeat yourself. Say the thing you keep swallowing."></textarea>
                         <div class="hint">
-                            Nothing here is sent anywhere. This is between you and the terminal.
+                            Nothing here is sent anywhere. This stays in the room.
                         </div>
                     </div>
 
                     <div class="btn-row">
-                        <button type="submit" class="btn-primary">Purge the room</button>
-                        <button type="button" id="clearBtn" class="btn-secondary">Clear room</button>
+                        <button type="submit" class="btn btn-primary">Run the rage</button>
+                        <button type="button" id="clearBtn" class="btn btn-muted">Clear room</button>
                     </div>
                 </form>
 
-                <!-- This is the ONLY red box. Starts blank & hidden. -->
+                <div id="selectionWrap" class="selection-wrap">
+                    <p class="selection-intro">What does this feel most like right now?</p>
+                    <div class="selection-buttons">
+                        <button type="button" class="selection-btn" data-pattern="control">I feel controlled or
+                            managed</button>
+                        <button type="button" class="selection-btn" data-pattern="interrupted">I keep getting
+                            interrupted or pulled out of my flow</button>
+                        <button type="button" class="selection-btn" data-pattern="suppressed">I’m not saying what I
+                            actually want to say</button>
+                        <button type="button" class="selection-btn" data-pattern="exhaustion">I’m pushing past
+                            exhaustion</button>
+                        <button type="button" class="selection-btn" data-pattern="selfbetrayal">I stayed too long in
+                            something wrong</button>
+                    </div>
+                </div>
+
                 <div id="rageWall" class="terminal-text"></div>
             </section>
 
-            <!-- RIGHT: CONTEXT + ANGER SCAN -->
             <aside class="side-card">
                 <span class="section-label">Why this exists</span>
-                <h2>Manifestor anger is blocked signal.</h2>
+                <h2>Manifestor anger builds when your energy has nowhere to go.</h2>
                 <p>
-                    Your aura is built to move first and inform as you go. When you slow yourself down
-                    to keep people comfortable, the energy has nowhere to go. It stacks as irritation,
-                    resentment, volcanic rage, or numb shutdown.
+                    When you keep swallowing what you really want to say, let people manage your energy, push past your
+                    real pace, or stay too long in what already feels wrong, anger starts stacking.
                 </p>
                 <p>
-                    The Rage Room gives that backlog a wall to hit so you can see
-                    <strong>what the anger is protecting</strong> instead of turning it on yourself.
+                    The Rage Room gives that anger somewhere to land so you can see <strong>what it is actually
+                        protecting</strong> instead of turning it on yourself.
                 </p>
 
                 <span class="side-chip">Use this when</span>
                 <ul class="clean">
                     <li>You feel like everyone is in your way and you want to disappear or explode.</li>
                     <li>You keep getting interrupted, questioned, or controlled.</li>
-                    <li>You are exhausted but still forcing yourself to initiate.</li>
-                    <li>You are sick of “being the calm one” when you are not calm.</li>
+                    <li>You are exhausted but still forcing yourself to keep going.</li>
+                    <li>You are tired of being the calm one when you are not calm.</li>
                 </ul>
 
-                <span class="side-chip" style="margin-top:14px;">Deeper scan</span>
-                <p>
-                    If you want this rage pattern read through your chart, the next step is an
-                    Anger Scan. The machine holds the vent. The scan maps it to your design.
-                </p>
+                <span class="side-chip" style="margin-top:14px;">The anger patterns in this room</span>
+                <div class="pattern-grid">
+                    <div class="pattern-card">
+                        <strong>Control anger</strong>
+                        <p>When your energy is being managed, questioned, or slowed down too much.</p>
+                    </div>
+                    <div class="pattern-card">
+                        <strong>Interruption anger</strong>
+                        <p>When your flow keeps getting broken by demands, questions, or people needing access to you.
+                        </p>
+                    </div>
+                    <div class="pattern-card">
+                        <strong>Suppressed voice anger</strong>
+                        <p>When you stay quiet, soften your response, or keep swallowing what you actually want to say.
+                        </p>
+                    </div>
+                    <div class="pattern-card">
+                        <strong>Exhaustion anger</strong>
+                        <p>When you have pushed past your real energy and your body is already done.</p>
+                    </div>
+                    <div class="pattern-card">
+                        <strong>Self-betrayal anger</strong>
+                        <p>When you already knew something was wrong and stayed in it anyway.</p>
+                    </div>
+                </div>
 
-                <button type="button" class="offer-link" disabled>
-                    <span>➜</span> Coming soon
-                </button>
+                <div class="offer-stack">
+                    <div class="map-card">
+                        <span class="section-label">Digital download</span>
+                        <h2 style="margin-top:10px;">Manifestor Anger Map</h2>
+                        <p>
+                            A digital guide that breaks down the main Manifestor anger patterns so you can understand
+                            what your anger means, what it is protecting, and what it may need next.
+                        </p>
+                        <ul class="map-list">
+                            <li>Control anger</li>
+                            <li>Interruption anger</li>
+                            <li>Suppressed voice anger</li>
+                            <li>Exhaustion anger</li>
+                            <li>Self-betrayal anger</li>
+                            <li>What each pattern sounds like, protects, and needs</li>
+                        </ul>
+                        <button type="button" class="offer-link" disabled>
+                            <span>➜</span> Coming soon
+                        </button>
+                    </div>
+
+                    <div class="offer-card">
+                        <span class="section-label">Personalized offer</span>
+                        <h2 style="margin:10px 0 0; font-size:22px; letter-spacing:-0.04em;">Manifestor Anger Breakdown
+                        </h2>
+                        <p style="margin-top:10px;">
+                            A personalized read to help you see exactly what anger pattern you are in, where it keeps
+                            showing up in your life, what it is protecting, and what likely needs to change.
+                        </p>
+                        <ul class="offer-list">
+                            <li>Your dominant anger pattern or pattern mix</li>
+                            <li>Where it is showing up in your life</li>
+                            <li>What your anger is protecting</li>
+                            <li>What you may be tolerating that is no longer working</li>
+                            <li>What needs to shift next</li>
+                        </ul>
+                        <button type="button" class="offer-link" disabled>
+                            <span>➜</span> Coming soon
+                        </button>
+                    </div>
+                </div>
             </aside>
         </div>
     </main>
 
     <footer>
         <div class="container footer-inner">
-            <div>© Manifestor Anonymous. Underground Terminal.</div>
-            <div>Module 02 · Rage Room.</div>
+            <div>© Manifestor Anonymous</div>
+            <div>Module 02 · Rage Room</div>
         </div>
     </footer>
 
@@ -632,42 +772,106 @@
         const textarea = document.getElementById('rageText');
         const clearBtn = document.getElementById('clearBtn');
         const rageWall = document.getElementById('rageWall');
+        const selectionWrap = document.getElementById('selectionWrap');
+        const selectionButtons = document.querySelectorAll('.selection-btn');
 
-        // Pool of random ROOM NOTE messages
-        const roomNotes = [
-            "ROOM NOTE // SIGNAL · CONTROL BREACH.\n\nYour anger is flagging every place someone is trying to run your energy for you. Manifestor systems short‑circuit when they are managed.\n\nMOVE // Inform once: what you are doing and what you are unavailable for. Then act without asking permission. Peace comes from movement, not from explaining.",
-            "ROOM NOTE // SIGNAL · PACE VIOLATION.\n\nThis is not laziness. Your body is saying the cycle ended and you kept pushing.\n\nMOVE // Cancel or pause one thing. Call a rest cycle on purpose. When you come back online, choose one initiation that actually matters and drop the rest.",
-            "ROOM NOTE // SIGNAL · VOICE JAM.\n\nYour voice is built to change the field. Being ignored feels like erasure.\n\nMOVE // Stop repeating yourself. Inform once from a grounded place, then move your energy where it is received. Your throat is not meant to fight for airtime.",
-            "ROOM NOTE // SIGNAL · COMPLIANCE HANGOVER.\n\nYour anger is the invoice for keeping everyone else comfortable.\n\nMOVE // Let one person be mildly disappointed today. Inform your no, then leave the space. Your nervous system needs proof that nothing explodes when you stop pleasing.",
-            "ROOM NOTE // SIGNAL · AURA OVERLOAD.\n\nYour aura wants room. Too many people, too close, for too long.\n\nMOVE // Take ten minutes of complete aloneness: no phone, no talking, no explaining. Call it maintenance, not a luxury.",
-            "ROOM NOTE // SIGNAL · BODY OVERRIDE.\n\nYour body has been saying no and you have been saying yes.\n\nMOVE // Honour one body signal today without negotiation: lie down, log off, eat, drink water, go outside.",
-            "ROOM NOTE // SIGNAL · MIXED LOAD.\n\nThis rage holds more than one thread: control, pace, voice, and old roles all tangled together.\n\nMOVE // You do not have to fix all of it tonight. Change your behaviour by one degree—say no sooner, rest earlier, or move without asking. The system recalibrates through action, not self‑judgment."
-        ];
+        const rageNotes = {
+            control: `ROOM NOTE // CONTROL
 
-        const quietNote =
-            "ROOM NOTE // The room is quiet.\n\nType what you are actually thinking, not what you think you should say.";
+Your anger may be pointing to control.
+
+This usually shows up when you feel managed, questioned, slowed down, or forced to explain yourself more than necessary.
+
+WHAT IT IS PROTECTING
+Your independence and your ability to move on your own terms.
+
+WHAT IT MAY NEED NEXT
+A boundary. Less explanation. More movement without permission.`,
+
+            interrupted: `ROOM NOTE // INTERRUPTION
+
+Your anger may be pointing to interruption.
+
+This usually shows up when your flow keeps getting broken. People need things, ask questions, or pull you out of what you were doing.
+
+WHAT IT IS PROTECTING
+Your momentum and your ability to stay in your own lane.
+
+WHAT IT MAY NEED NEXT
+Space to complete what you started. Fewer interruptions. Clearer limits on access to you.`,
+
+            suppressed: `ROOM NOTE // SUPPRESSED VOICE
+
+Your anger may be pointing to what you are not saying.
+
+This usually shows up when you stay quiet, soften your response, or let things slide that are not actually okay.
+
+WHAT IT IS PROTECTING
+Your truth and your natural impact.
+
+WHAT IT MAY NEED NEXT
+One direct statement. One honest response. Stop editing yourself.`,
+
+            exhaustion: `ROOM NOTE // EXHAUSTION
+
+Your anger may be pointing to a pace problem.
+
+This usually shows up when you keep going after your energy is already gone or force consistency that is no longer real.
+
+WHAT IT IS PROTECTING
+Your body and your need for rest.
+
+WHAT IT MAY NEED NEXT
+Stop. Rest. Reduce pressure before your body has to force it.`,
+
+            selfbetrayal: `ROOM NOTE // SELF-BETRAYAL
+
+Your anger may be pointing to a decision you already knew.
+
+This usually shows up when you stayed too long in something that felt off or went against what you knew was right.
+
+WHAT IT IS PROTECTING
+Your self-trust.
+
+WHAT IT MAY NEED NEXT
+A decision. A shift. Or leaving what you already know is wrong.`
+        };
+
+        const quietNote = `ROOM NOTE // The room is quiet.
+
+Type what you are actually thinking, not what you think you should say.`;
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             const text = textarea.value.trim();
 
-            rageWall.style.display = 'block';
+            rageWall.style.display = 'none';
+            rageWall.textContent = '';
 
             if (!text) {
+                rageWall.style.display = 'block';
                 rageWall.textContent = quietNote;
+                selectionWrap.classList.remove('active');
                 return;
             }
 
-            // pick a random anger note
-            const randomIndex = Math.floor(Math.random() * roomNotes.length);
-            const note = roomNotes[randomIndex];
+            selectionWrap.classList.add('active');
+        });
 
-            // show ROOM NOTE + RAGE LOG together in the one red box
-            rageWall.textContent = note + "\n\nRAGE LOG // " + text;
+        selectionButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const pattern = this.dataset.pattern;
+                const text = textarea.value.trim();
+                const note = rageNotes[pattern] || quietNote;
+
+                rageWall.style.display = 'block';
+                rageWall.textContent = note + "\n\nRAGE LOG // " + text;
+            });
         });
 
         clearBtn.addEventListener('click', function () {
             textarea.value = "";
+            selectionWrap.classList.remove('active');
             rageWall.style.display = 'none';
             rageWall.textContent = "";
         });

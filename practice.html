@@ -4,24 +4,21 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Manifestor Anonymous</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <title>Rage Room • Manifestor Anonymous</title>
     <meta name="description"
-        content="Manifestor Anonymous helps Manifestors understand their Human Design through practical tools like Gates Radio, the Arrows Machine, and the Rage Room." />
-
+        content="Rage Room gives Manifestors a place to release anger, choose the pattern it matches, and see what that anger may actually be pointing to. Includes the Manifestor Anger Map digital download." />
     <style>
         :root {
             --bg: #050608;
-            --panel: rgba(255, 255, 255, 0.045);
             --line: rgba(255, 255, 255, 0.11);
             --line-strong: rgba(255, 255, 255, 0.18);
             --text: #f5f7fb;
             --muted: rgba(245, 247, 251, 0.66);
             --dim: rgba(245, 247, 251, 0.42);
             --green: #39ff88;
-            --purple: #7c3aed;
-            --radius: 28px;
-            --shadow: 0 24px 80px rgba(0, 0, 0, 0.58);
+            --danger: #ff4d6d;
+            --radius: 26px;
+            --shadow: 0 22px 70px rgba(0, 0, 0, 0.7);
         }
 
         * {
@@ -36,9 +33,9 @@
             margin: 0;
             font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             background:
-                radial-gradient(circle at top, rgba(57, 255, 136, 0.08), transparent 16%),
-                radial-gradient(circle at 20% 14%, rgba(124, 58, 237, 0.14), transparent 21%),
-                radial-gradient(circle at 78% 10%, rgba(255, 255, 255, 0.05), transparent 12%),
+                radial-gradient(circle at top, rgba(255, 77, 109, 0.18), transparent 20%),
+                radial-gradient(circle at 15% 80%, rgba(255, 77, 109, 0.12), transparent 26%),
+                radial-gradient(circle at 80% 10%, rgba(255, 77, 109, 0.14), transparent 32%),
                 var(--bg);
             color: var(--text);
             min-height: 100vh;
@@ -52,8 +49,8 @@
             pointer-events: none;
             opacity: 0.06;
             background-image:
-                linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+                linear-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.18) 1px, transparent 1px);
             background-size: 42px 42px;
             mask-image: radial-gradient(circle at center, black 40%, transparent 88%);
         }
@@ -70,8 +67,13 @@
         }
 
         a {
-            color: inherit;
+            color: var(--danger);
             text-decoration: none;
+            text-shadow: 0 0 6px var(--danger);
+        }
+
+        a:hover {
+            text-shadow: 0 0 12px var(--danger);
         }
 
         button {
@@ -79,591 +81,482 @@
         }
 
         .container {
-            width: min(1240px, calc(100% - 32px));
+            width: min(1200px, calc(100% - 32px));
             margin: 0 auto;
         }
 
         .topbar {
             position: sticky;
             top: 0;
-            z-index: 50;
+            z-index: 40;
             backdrop-filter: blur(14px);
-            background: rgba(5, 6, 8, 0.62);
-            border-bottom: 1px solid var(--line);
+            background: rgba(3, 7, 18, 0.82);
+            border-bottom: 1px solid rgba(255, 77, 109, 0.28);
         }
 
         .topbar-inner {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
-            padding: 16px 0;
+            gap: 18px;
+            padding: 14px 0;
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
         }
 
         .brand-icon {
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             border: 1px solid var(--line-strong);
             overflow: hidden;
-            box-shadow: 0 0 24px rgba(57, 255, 136, 0.12);
+            box-shadow: 0 0 22px rgba(255, 77, 109, 0.32);
             background: #08090d;
         }
 
         .brand-copy small,
         .section-label,
-        .eyebrow,
-        .micro {
+        .side-chip {
             display: inline-block;
             text-transform: uppercase;
-            letter-spacing: 0.28em;
-            font-size: 11px;
+            letter-spacing: 0.26em;
+            font-size: 10px;
             color: var(--dim);
         }
 
         .brand-copy strong {
             display: block;
-            margin-top: 4px;
-            font-size: 18px;
-            letter-spacing: 0.04em;
+            margin-top: 2px;
+            font-size: 14px;
+            letter-spacing: 0.08em;
             font-weight: 700;
         }
 
         .topbar-tagline {
             margin-top: 4px;
-            font-size: 10px;
-            letter-spacing: 0.24em;
+            font-size: 9px;
+            letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: var(--dim);
+            color: rgba(148, 163, 184, 0.9);
         }
 
         .top-links {
             display: flex;
             align-items: center;
-            gap: 18px;
+            gap: 14px;
             color: var(--muted);
-            font-size: 14px;
+            font-size: 12px;
         }
 
-        .hero {
-            padding: 48px 0 28px;
+        .btn {
+            border: 0;
+            border-radius: 18px;
+            padding: 14px 22px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
         }
 
-        .hero-grid {
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: 1px solid var(--danger);
+            box-shadow: 0 0 18px rgba(255, 77, 109, 0.24);
+        }
+
+        .btn-primary {
+            background: var(--danger);
+            color: #240208;
+            box-shadow: 0 0 28px rgba(255, 77, 109, 0.45);
+        }
+
+        .btn-muted {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text);
+            border: 1px solid var(--line-strong);
+            box-shadow: none;
+        }
+
+        main {
+            padding: 30px 0 40px;
+        }
+
+        .room-grid {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 34px;
-            align-items: stretch;
+            grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+            gap: 20px;
+            align-items: flex-start;
         }
 
-        .hero-copy,
-        .hero-visual-card,
-        .module-card,
-        .statement-card {
-            border: 1px solid var(--line);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+        .panel,
+        .side-card {
             border-radius: var(--radius);
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
             box-shadow: var(--shadow);
         }
 
-        .hero-copy {
-            padding: 28px;
-            position: relative;
-            overflow: hidden;
+        .panel {
+            padding: 24px 22px 22px;
+        }
+
+        .side-card {
+            padding: 20px 20px 18px;
         }
 
         .signal-chip {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px 16px;
+            gap: 0.5rem;
+            padding: 0.45rem 1rem;
             border-radius: 999px;
-            border: 1px solid rgba(57, 255, 136, 0.22);
-            background: rgba(57, 255, 136, 0.08);
-            color: #b8ffd3;
-            box-shadow: 0 0 28px rgba(57, 255, 136, 0.09);
+            border: 1px solid rgba(255, 77, 109, 0.6);
+            background: rgba(255, 77, 109, 0.14);
+            color: #ffd1dd;
+            box-shadow: 0 0 26px rgba(255, 77, 109, 0.3);
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
         }
 
         .signal-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--green);
+            background: var(--danger);
+            box-shadow: 0 0 16px rgba(255, 77, 109, 0.9);
         }
 
         h1 {
-            margin: 20px 0 0;
-            font-size: clamp(46px, 7vw, 72px);
-            line-height: 0.96;
+            margin: 18px 0 0;
+            font-size: clamp(36px, 5vw, 46px);
             letter-spacing: -0.06em;
+            line-height: 0.98;
         }
 
         .hero-sub {
-            display: block;
-            color: rgba(245, 247, 251, 0.8);
-            margin-top: 10px;
-            font-size: 15px;
-        }
-
-        .hero-body {
-            margin: 22px 0 0;
-            max-width: 720px;
-            font-size: 18px;
-            line-height: 1.8;
-            color: var(--muted);
-        }
-
-        .hero-body strong {
-            color: var(--text);
-            font-weight: 700;
-        }
-
-        .hero-tagline {
-            margin-top: 14px;
-            font-size: 12px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--dim);
-        }
-
-        .cta-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            margin-top: 26px;
-        }
-
-        .btn,
-        .module-btn {
-            border: 0;
-            border-radius: 18px;
-            padding: 14px 22px;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            font-size: 12px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-        }
-
-        .btn:hover,
-        .module-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn-primary {
-            background: var(--green);
-            color: #05130a;
-            box-shadow: 0 0 30px rgba(57, 255, 136, 0.22);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text);
-            border: 1px solid var(--line-strong);
-        }
-
-        .hero-visual-wrap {
-            position: relative;
-            min-height: 100%;
-        }
-
-        .hero-visual-card {
-            padding: 14px;
-            position: relative;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .visual-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 16px;
-            border: 1px solid var(--line);
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.04);
-            margin-bottom: 14px;
-        }
-
-        .hero-image-box {
-            position: relative;
-            overflow: hidden;
-            border-radius: 24px;
-            border: 1px solid var(--line);
-            background: #030406;
-            min-height: 480px;
-        }
-
-        .hero-image-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            left: 18px;
-            right: 18px;
-            bottom: 18px;
-            z-index: 2;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 22px;
-            background: rgba(0, 0, 0, 0.42);
-            backdrop-filter: blur(14px);
-            padding: 18px;
-        }
-
-        .hero-overlay h2 {
-            margin: 8px 0 0;
-            font-size: 26px;
-            letter-spacing: -0.04em;
-        }
-
-        .hero-overlay p {
-            margin: 8px 0 0;
-            color: var(--muted);
-            line-height: 1.7;
-            font-size: 14px;
-        }
-
-        .section,
-        .dj-section {
-            padding: 28px 0 0;
-        }
-
-        .section-head {
-            display: block;
-            margin-bottom: 18px;
-        }
-
-        .section-head h2 {
-            margin: 8px 0 4px;
-            font-size: clamp(30px, 4vw, 42px);
-            letter-spacing: -0.05em;
-        }
-
-        .section-head p {
-            max-width: 620px;
-            margin: 0;
-            color: var(--muted);
-            line-height: 1.8;
-            font-size: 14px;
-        }
-
-        .module-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-        }
-
-        .module-card {
-            padding: 20px 20px 76px;
-            position: relative;
-            min-height: 250px;
-        }
-
-        .module-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .module-label {
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 0.3em;
-            color: var(--dim);
-        }
-
-        .module-status {
-            border-radius: 999px;
-            padding: 6px 10px;
-            border: 1px solid var(--line);
-            background: rgba(255, 255, 255, 0.04);
-            text-transform: uppercase;
-            font-size: 10px;
-            letter-spacing: 0.22em;
-            color: var(--dim);
-        }
-
-        .module-status.live {
-            border-color: rgba(57, 255, 136, 0.24);
-            background: rgba(57, 255, 136, 0.08);
-            color: #b8ffd3;
-        }
-
-        .module-status.standby {
-            border-color: rgba(124, 58, 237, 0.18);
-            background: rgba(124, 58, 237, 0.08);
-            color: #d6c3ff;
-        }
-
-        .module-path {
             margin-top: 8px;
-            font-size: 11px;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-            color: var(--dim);
-        }
-
-        .module-card h3 {
-            margin: 12px 0 0;
-            font-size: 26px;
-            line-height: 1.05;
-            letter-spacing: -0.04em;
-        }
-
-        .module-card p {
-            margin: 12px 0 0;
-            color: var(--muted);
-            line-height: 1.8;
-            font-size: 14px;
-            max-width: 34ch;
-        }
-
-        .module-btn {
-            position: absolute;
-            left: 20px;
-            bottom: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text);
-            border: 1px solid var(--line-strong);
-        }
-
-        .module-btn.live {
-            background: #f5f7fb;
-            color: #06080b;
-            border: 0;
-        }
-
-        .dj-card {
-            border-radius: var(--radius);
-            border: 1px solid var(--line-strong);
-            background:
-                linear-gradient(135deg,
-                    rgba(124, 58, 237, 0.9),
-                    rgba(48, 255, 152, 0.28) 42%,
-                    rgba(10, 12, 16, 0.96) 100%);
-            box-shadow: var(--shadow);
-            padding: 26px 24px 26px;
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 18px;
-            align-items: stretch;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            border-radius: 999px;
-            border: 1px solid rgba(57, 255, 136, 0.22);
-            background: rgba(57, 255, 136, 0.08);
-            font-size: 10px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: #bbffda;
-            white-space: nowrap;
-        }
-
-        .dj-left-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
-
-        .dj-label {
-            text-transform: uppercase;
-            letter-spacing: 0.28em;
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.86);
-        }
-
-        .dj-heading {
-            margin: 6px 0 0;
-            font-size: clamp(32px, 4vw, 50px);
-            line-height: 1;
-            letter-spacing: -0.05em;
-        }
-
-        .dj-subcopy {
-            margin: 12px 0 0;
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.8;
             font-size: 15px;
-            max-width: 56ch;
-        }
-
-        .dj-meta-label {
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
-            font-size: 10px;
-            opacity: 0.9;
-        }
-
-        .dj-gate-value {
-            margin-top: 8px;
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: -0.04em;
-        }
-
-        .dj-tags {
-            margin-top: 4px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.86);
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
-        }
-
-        .dj-description-box {
-            margin-top: 16px;
-            border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            background: rgba(5, 6, 8, 0.72);
-            padding: 14px 16px;
-            font-size: 14px;
-            line-height: 1.8;
-            color: #f5f7fb;
-        }
-
-        .dj-description-box strong {
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
-            font-size: 10px;
-            display: block;
-            margin-bottom: 4px;
-            color: rgba(245, 247, 251, 0.92);
-        }
-
-        .dj-right {
-            border-radius: 22px;
-            border: 1px solid rgba(255, 255, 255, 0.42);
-            background: rgba(1, 3, 5, 0.82);
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .dj-right-title {
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
             color: rgba(245, 247, 251, 0.86);
         }
 
-        .dj-track-reason,
-        .dj-track-link {
-            font-size: 13px;
+        .intro,
+        .side-card p,
+        ul.clean,
+        .hint,
+        .terminal-text,
+        .selection-intro,
+        .pattern-grid p,
+        .map-card p,
+        .map-list {
+            font-size: 14px;
             line-height: 1.8;
-            color: rgba(245, 247, 251, 0.9);
+            color: var(--muted);
         }
 
-        .statement-grid {
+        .intro {
+            margin-top: 16px;
+            max-width: 50ch;
+        }
+
+        .intro strong,
+        .side-card strong,
+        .map-card strong,
+        .pattern-card strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .step-labels {
+            margin-top: 18px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--dim);
+        }
+
+        .clarity-grid,
+        .pattern-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
             margin-top: 18px;
         }
 
-        .statement-card {
-            padding: 22px;
+        .pattern-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            margin-bottom: 18px;
         }
 
-        .statement-card p {
-            margin: 12px 0 0;
+        .clarity-card,
+        .pattern-card,
+        .map-card {
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+            padding: 14px;
+        }
+
+        .clarity-card strong,
+        .pattern-card strong,
+        .map-card strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .clarity-card p,
+        .pattern-card p,
+        .map-card p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.55;
             color: var(--muted);
+        }
+
+        form {
+            margin-top: 18px;
+            display: grid;
+            gap: 12px;
+        }
+
+        label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--dim);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 170px;
+            resize: vertical;
+            border-radius: 18px;
+            border: 1px solid var(--line-strong);
+            background: rgba(3, 4, 6, 0.95);
+            color: var(--text);
+            padding: 14px 14px;
+            font-size: 14px;
+            line-height: 1.75;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: rgba(255, 77, 109, 0.7);
+            box-shadow: 0 0 0 1px rgba(255, 77, 109, 0.7);
+        }
+
+        .hint {
+            margin-top: 3px;
+            font-size: 11px;
+            color: var(--dim);
+        }
+
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 6px;
+            align-items: center;
+        }
+
+        .selection-wrap {
+            display: none;
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .selection-wrap.active {
+            display: block;
+        }
+
+        .selection-intro {
+            margin: 0 0 12px;
+        }
+
+        .selection-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .selection-btn {
+            border-radius: 16px;
+            border: 1px solid rgba(255, 77, 109, 0.35);
+            background: rgba(255, 77, 109, 0.08);
+            color: #ffd7e1;
+            padding: 14px 12px;
+            font-size: 12px;
+            line-height: 1.45;
+            text-align: left;
+            cursor: pointer;
+            transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+        }
+
+        .selection-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 18px rgba(255, 77, 109, 0.2);
+            border-color: rgba(255, 77, 109, 0.6);
+        }
+
+        .terminal-text {
+            margin-top: 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 77, 109, 0.55);
+            background: rgba(15, 4, 9, 0.9);
+            padding: 12px 14px;
+            font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+            font-size: 12px;
             line-height: 1.8;
-            font-size: 15px;
+            color: #ffd7e1;
+            letter-spacing: 0.03em;
+            white-space: pre-wrap;
+        }
+
+        #rageWall {
+            margin-top: 14px;
+            display: none;
+        }
+
+        .side-card h2 {
+            margin: 10px 0 0;
+            font-size: 22px;
+            letter-spacing: -0.04em;
+        }
+
+        .side-card p {
+            margin: 10px 0 0;
+        }
+
+        ul.clean,
+        .map-list {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 0;
+        }
+
+        ul.clean li,
+        .map-list li {
+            position: relative;
+            padding-left: 14px;
+            margin-top: 8px;
+        }
+
+        ul.clean li::before,
+        .map-list li::before {
+            content: "";
+            position: absolute;
+            left: 2px;
+            top: 9px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--danger);
+            box-shadow: 0 0 10px rgba(255, 77, 109, 0.6);
+        }
+
+        .side-chip {
+            margin-top: 8px;
+        }
+
+        .offer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--danger);
+            text-shadow: 0 0 8px var(--danger);
+            cursor: pointer;
+        }
+
+        .offer-link:disabled,
+        .offer-link[disabled] {
+            cursor: default;
+            opacity: 0.55;
+            text-shadow: none;
+        }
+
+        .offer-link span {
+            font-size: 14px;
         }
 
         footer {
             border-top: 1px solid var(--line);
-            margin-top: 32px;
-            padding: 18px 0 26px;
-            font-size: 12px;
+            margin-top: 30px;
+            padding: 16px 0 24px;
+            font-size: 11px;
             color: var(--dim);
         }
 
         .footer-inner {
             display: flex;
             justify-content: space-between;
-            gap: 16px;
+            gap: 14px;
             flex-wrap: wrap;
         }
 
-        @media (max-width: 1100px) {
-            .hero-grid {
+        @media (max-width: 980px) {
+            .pattern-grid {
                 grid-template-columns: 1fr;
             }
+        }
 
-            .module-grid,
-            .statement-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .dj-card {
+        @media (max-width: 880px) {
+            .room-grid {
                 grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 760px) {
 
-            .topbar-inner,
-            .footer-inner {
-                align-items: flex-start;
+            .clarity-grid,
+            .selection-buttons {
+                grid-template-columns: 1fr;
             }
+        }
 
+        @media (max-width: 640px) {
             .topbar-inner {
                 flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
             }
 
-            .top-links {
+            .brand-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+            .topbar-tagline {
                 display: none;
             }
 
-            .hero {
-                padding-top: 26px;
+            .top-links {
+                display: flex;
+                font-size: 11px;
             }
 
-            .hero-copy,
-            .hero-visual-card,
-            .statement-card,
-            .module-card,
-            .dj-card {
+            main {
+                padding-top: 24px;
+            }
+
+            .panel,
+            .side-card {
                 padding: 20px;
-            }
-
-            .module-grid,
-            .statement-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .module-card {
-                padding-bottom: 78px;
-            }
-
-            .cta-row {
-                width: 100%;
-            }
-
-            .btn,
-            .module-btn {
-                width: 100%;
-                text-align: center;
             }
         }
     </style>
@@ -678,306 +571,229 @@
                 </div>
                 <div class="brand-copy">
                     <small>Manifestor Anonymous</small>
-                    <strong>Manifestor tools that actually make sense</strong>
-                    <div class="topbar-tagline">Gates Radio · Arrows Machine · Rage Room</div>
+                    <strong>Rage Room</strong>
+                    <div class="topbar-tagline">
+                        Vent first. Choose the pattern. See what your anger is pointing to.
+                    </div>
                 </div>
             </div>
             <nav class="top-links">
-                <a href="#machines">Tools</a>
-                <span>/</span>
-                <a href="#dj-sun">DJ Sun</a>
-                <span>/</span>
-                <a href="#system">About</a>
+                <a href="index.html" class="btn btn-secondary">Back to terminal</a>
             </nav>
         </div>
     </header>
 
     <main>
-        <section class="hero">
-            <div class="container hero-grid">
-                <div class="hero-copy">
-                    <div class="signal-chip">
-                        <span class="signal-dot"></span>
-                        <span class="eyebrow">For Manifestors</span>
+        <div class="container room-grid">
+            <section class="panel">
+                <div class="signal-chip">
+                    <span class="signal-dot"></span>
+                    <span>Module 02 · Path: Anger</span>
+                </div>
+
+                <h1>Rage Room</h1>
+                <p class="hero-sub">Release the anger. Choose the pattern. See what it points to.</p>
+
+                <p class="intro">
+                    This tool is for the moments when your anger is building, your body is tight, and you need somewhere
+                    to put it.
+                    Dump it here <strong>uncensored</strong>. No fixing. No polite informing.
+                    Then choose the anger pattern that fits best so the reflection actually matches what is happening.
+                </p>
+
+                <p class="step-labels">
+                    Step 1 · Release the anger. Step 2 · Choose the pattern. Step 3 · Read what it points to.
+                </p>
+
+                <div class="clarity-grid">
+                    <div class="clarity-card">
+                        <strong>What this solves</strong>
+                        <p>It gives your anger somewhere to go before it turns into shutdown, resentment, or an
+                            explosion.</p>
                     </div>
-
-                    <h1>Understand your Human Design without overthinking it.</h1>
-                    <span class="hero-sub">Tools for Manifestors who are tired of trying to figure themselves out
-                        mentally.</span>
-
-                    <p class="hero-body">
-                        Most Human Design content gives you more information, more words, and more things to memorize.
-                        <strong>Manifestor Anonymous gives you tools that help you actually recognize your design in
-                            real life.</strong>
-                    </p>
-
-                    <p class="hero-body">
-                        Start with playlists, scans, and direct tools that make your chart easier to understand, easier
-                        to use, and a lot harder to forget.
-                    </p>
-
-                    <p class="hero-tagline">
-                        Clear tools. Real pattern recognition. No vague spiritual fluff.
-                    </p>
-
-                    <div class="cta-row">
-                        <a class="btn btn-primary" href="#machines">Explore the tools</a>
-                        <a class="btn btn-secondary" href="gates.html">Start with Gates Radio</a>
+                    <div class="clarity-card">
+                        <strong>What this does</strong>
+                        <p>It helps you vent first, then identify what kind of anger you are actually in.</p>
+                    </div>
+                    <div class="clarity-card">
+                        <strong>What this is not</strong>
+                        <p>Not therapy. Not a full chart read. This is a pressure-release and pattern-recognition tool.
+                        </p>
                     </div>
                 </div>
 
-                <div class="hero-visual-wrap">
-                    <div class="hero-visual-card">
-                        <div class="visual-meta">
-                            <div>
-                                <span class="micro">Manifestor Anonymous</span>
-                            </div>
-                        </div>
-
-                        <div class="hero-image-box">
-                            <img src="images/logofull.png"
-                                alt="Manifestor Anonymous hooded figure with glowing throat" />
-                            <div class="hero-overlay">
-                                <span class="micro">What this is</span>
-                                <h2>Not more chart facts. Better ways to recognize yourself.</h2>
-                                <p>
-                                    This site is built to help Manifestors understand their chart through experience,
-                                    not just explanation.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="dj-section" id="dj-sun">
-            <div class="container">
-                <article class="dj-card">
+                <form id="rageForm">
                     <div>
-                        <div class="dj-left-header" style="align-items:center;gap:8px;">
-                            <span class="status-badge" style="font-size:11px;padding:3px 8px;">
-                                NOW PLAYING
-                            </span>
-                            <span class="dj-label"
-                                style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;">
-                                DJ Sun • weekly gate playlist
-                            </span>
-                        </div>
-
-                        <div
-                            style="margin-top:10px;font-size:13px;text-transform:uppercase;letter-spacing:0.18em;color:rgba(255,255,255,0.9);">
-                            This week’s gate playlist:
-                            <span id="djTrackTitle"
-                                style="font-weight:700;letter-spacing:0.12em;font-size:13px;text-transform:uppercase;">
-                                OPINION RADIO
-                            </span>
-                        </div>
-
-                        <h2 class="dj-heading" style="margin-top:16px;">One gate playlist, updated every week</h2>
-                        <p class="dj-subcopy">
-                            DJ Sun highlights one live transit gate at a time so you can listen to the energy that is
-                            active right now.
-                        </p>
-
-                        <div class="dj-gate-value" id="djGate" style="margin-top:18px;">Gate 17 · Opinions</div>
-                        <div class="dj-tags" id="djTags">Logic • Pattern recognition • Mental pressure • Organizing
-                            ideas</div>
-
-                        <div style="margin-top:14px;font-size:11px;color:rgba(245,247,251,0.9);line-height:1.9;">
-                            <div>
-                                <span class="dj-meta-label" style="margin-right:6px;">Gate window</span>
-                                <span id="djDates" style="letter-spacing:0.04em;">March 24–29</span>
-                            </div>
-                            <div>
-                                <span class="dj-meta-label" style="margin-right:6px;">Set ID</span>
-                                <span id="djSetId" style="letter-spacing:0.06em;">SET 017</span>
-                            </div>
-                        </div>
-
-                        <div style="margin-top:12px;">
-                            <iframe data-testid="embed-iframe" style="border-radius:12px"
-                                src="https://open.spotify.com/embed/playlist/1q09fpTML4NDVLWIKlOvBi?utm_source=generator&theme=0"
-                                width="100%" height="152" frameBorder="0" allowfullscreen=""
-                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                loading="lazy"></iframe>
+                        <label for="rageText">Rage dump</label>
+                        <textarea id="rageText" name="rageText"
+                            placeholder="Type exactly what you are thinking. Swear. Repeat yourself. Say the thing you keep swallowing."></textarea>
+                        <div class="hint">
+                            Nothing here is sent anywhere. This stays in the room.
                         </div>
                     </div>
 
-                    <div class="dj-right">
-                        <div class="dj-right-title">What DJ Sun is</div>
-
-                        <div class="dj-track-reason" id="djReason">
-                            DJ Sun is the weekly front door into Gates Radio. It gives you one gate to listen to so you
-                            can start hearing your Human Design instead of just reading about it.
-                        </div>
-
-                        <div class="dj-track-link" style="margin-top:10px;">
-                            Use this when you want a simple entry point, a current transit mirror, or a new gate
-                            playlist to start with.
-                        </div>
-
-                        <div class="dj-description-box" id="djDescription" style="margin-top:14px;">
-                            <strong>Why this matters</strong>
-                            It is easier to remember your design when you can hear it, feel it, and recognize it in
-                            something you already connect to.
-                        </div>
+                    <div class="btn-row">
+                        <button type="submit" class="btn btn-primary">Run the rage</button>
+                        <button type="button" id="clearBtn" class="btn btn-muted">Clear room</button>
                     </div>
-                </article>
-            </div>
-        </section>
+                </form>
 
-        <section class="section" id="machines">
-            <div class="container">
-                <div class="section-head">
-                    <span class="section-label">Start here</span>
-                    <h2>Pick the tool you need.</h2>
+                <div id="selectionWrap" class="selection-wrap">
+                    <p class="selection-intro">What does this feel most like right now?</p>
+                    <div class="selection-buttons">
+                        <button type="button" class="selection-btn" data-pattern="control">I feel controlled or
+                            managed</button>
+                        <button type="button" class="selection-btn" data-pattern="voice">I feel ignored, interrupted, or
+                            talked over</button>
+                        <button type="button" class="selection-btn" data-pattern="repressed">I’m holding too much
+                            in</button>
+                        <button type="button" class="selection-btn" data-pattern="exhaustion">I’m pushing past
+                            exhaustion</button>
+                        <button type="button" class="selection-btn" data-pattern="selfbetrayal">I stayed too long in
+                            something wrong</button>
+                    </div>
+                </div>
+
+                <div id="rageWall" class="terminal-text"></div>
+            </section>
+
+            <aside class="side-card">
+                <span class="section-label">Why this exists</span>
+                <h2>Manifestor anger builds when your energy has nowhere to go.</h2>
+                <p>
+                    When you keep swallowing what you really want to say, let people manage your energy, push past your
+                    real pace, or stay too long in what already feels wrong, anger starts stacking.
+                </p>
+                <p>
+                    The Rage Room gives that anger somewhere to land so you can see <strong>what it is actually
+                        protecting</strong> instead of turning it on yourself.
+                </p>
+
+                <span class="side-chip">Use this when</span>
+                <ul class="clean">
+                    <li>You feel like everyone is in your way and you want to disappear or explode.</li>
+                    <li>You keep getting interrupted, questioned, or controlled.</li>
+                    <li>You are exhausted but still forcing yourself to keep going.</li>
+                    <li>You are tired of being the calm one when you are not calm.</li>
+                </ul>
+
+                <span class="side-chip" style="margin-top:14px;">The anger patterns in this room</span>
+                <div class="pattern-grid">
+                    <div class="pattern-card">
+                        <strong>Control anger</strong>
+                        <p>When your energy is being managed, questioned, or slowed down too much.</p>
+                    </div>
+                    <div class="pattern-card">
+                        <strong>Voice anger</strong>
+                        <p>When your words get swallowed, ignored, or talked over.</p>
+                    </div>
+                    <div class="pattern-card">
+                        <strong>Repressed anger</strong>
+                        <p>When you are holding too much in and resentment has started building underneath.</p>
+                    </div>
+                    <div class="pattern-card">
+                        <strong>Exhaustion anger</strong>
+                        <p>When you have pushed past your real energy and your body is already done.</p>
+                    </div>
+                    <div class="pattern-card">
+                        <strong>Self-betrayal anger</strong>
+                        <p>When you already knew something was wrong and stayed in it anyway.</p>
+                    </div>
+                </div>
+
+                <div class="map-card" style="margin-top:14px;">
+                    <span class="section-label">Digital download</span>
+                    <h2 style="margin-top:10px;">Manifestor Anger Map</h2>
                     <p>
-                        These are direct tools built to help you understand different parts of your design without
-                        getting lost in information.
+                        A clearer breakdown of the main Manifestor anger patterns so you can understand what your anger
+                        means, what it is protecting, and what it may need next.
                     </p>
+                    <ul class="map-list">
+                        <li>Control anger</li>
+                        <li>Voice anger</li>
+                        <li>Repressed anger</li>
+                        <li>Exhaustion anger</li>
+                        <li>Self-betrayal anger</li>
+                        <li>What each pattern sounds like, protects, and needs</li>
+                    </ul>
+                    <button type="button" class="offer-link" disabled>
+                        <span>➜</span> Coming soon
+                    </button>
                 </div>
 
-                <div class="module-grid">
-                    <article class="module-card">
-                        <div class="module-top">
-                            <span class="module-label">Module 01</span>
-                            <span class="module-status live">Live</span>
-                        </div>
-                        <div class="module-path">How your system processes life</div>
-                        <h3>Arrows Machine</h3>
-                        <p>
-                            Understand how your mind, body, and environment actually work so you stop forcing methods
-                            that are wrong for you.
-                        </p>
-                        <a class="module-btn live" href="arrows.html">Open tool</a>
-                    </article>
+                <span class="side-chip" style="margin-top:14px;">Deeper scan</span>
+                <p>
+                    If you want this anger pattern read through your chart, the next step is an Anger Scan that connects
+                    your anger directly to your design.
+                </p>
 
-                    <article class="module-card">
-                        <div class="module-top">
-                            <span class="module-label">Module 02</span>
-                            <span class="module-status live">Live</span>
-                        </div>
-                        <div class="module-path">Understand your anger</div>
-                        <h3>Rage Room</h3>
-                        <p>
-                            Empty the pressure and see what your anger is actually pointing to instead of stuffing it
-                            down or turning it on yourself.
-                        </p>
-                        <a class="module-btn live" href="rage.html">Open tool</a>
-                    </article>
-
-                    <article class="module-card">
-                        <div class="module-top">
-                            <span class="module-label">Module 03</span>
-                            <span class="module-status live">Live</span>
-                        </div>
-                        <div class="module-path">Turn your chart into a playlist</div>
-                        <h3>Gates Radio</h3>
-                        <p>
-                            Listen to gate playlists that help you recognize your Human Design through music instead of
-                            trying to memorize it.
-                        </p>
-                        <a class="module-btn live" href="gates.html">Open tool</a>
-                    </article>
-
-                    <article class="module-card">
-                        <div class="module-top">
-                            <span class="module-label">Module 04</span>
-                            <span class="module-status standby">Stand by</span>
-                        </div>
-                        <div class="module-path">Shadow and conditioning</div>
-                        <h3>Black Market</h3>
-                        <p>
-                            Look at the parts of yourself you were taught to hide, reject, or tone down and see what is
-                            actually conditioning versus what is power.
-                        </p>
-                        <button class="module-btn" type="button">Locked</button>
-                    </article>
-
-                    <article class="module-card">
-                        <div class="module-top">
-                            <span class="module-label">Module 05</span>
-                            <span class="module-status standby">Stand by</span>
-                        </div>
-                        <div class="module-path">Creative urges</div>
-                        <h3>Initiation Exchange</h3>
-                        <p>
-                            A place for unfinished urges, ideas, and initiations that still have energy in them and need
-                            somewhere to move.
-                        </p>
-                        <button class="module-btn" type="button">Locked</button>
-                    </article>
-
-                    <article class="module-card">
-                        <div class="module-top">
-                            <span class="module-label">Module 06</span>
-                            <span class="module-status standby">Stand by</span>
-                        </div>
-                        <div class="module-path">Burnout and recovery</div>
-                        <h3>MA Meetings</h3>
-                        <p>
-                            Future anonymous Manifestor rooms for burnout, anger, failed initiations, and the parts of
-                            this process people usually hide.
-                        </p>
-                        <button class="module-btn" type="button">Locked</button>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="system">
-            <div class="container">
-                <div class="section-head">
-                    <span class="section-label">About</span>
-                    <h2>What Manifestor Anonymous actually does.</h2>
-                    <p>
-                        This is not another site that dumps more Human Design information on you. It is built to make
-                        your design easier to understand and easier to use.
-                    </p>
-                </div>
-
-                <div class="statement-grid">
-                    <article class="statement-card">
-                        <span class="section-label">Clearer learning</span>
-                        <h2 style="margin:12px 0 0;font-size:28px;letter-spacing:-0.05em;">
-                            Less memorizing. More recognition.
-                        </h2>
-                        <p>
-                            The goal is not to make you collect more chart facts. The goal is to help you recognize your
-                            own patterns faster and understand what your design actually looks like in real life.
-                        </p>
-                    </article>
-
-                    <article class="statement-card">
-                        <span class="section-label">One connected system</span>
-                        <h2 style="margin:12px 0 0;font-size:28px;letter-spacing:-0.05em;">
-                            Different tools. Same mission.
-                        </h2>
-                        <p>
-                            Gates Radio, the Arrows Machine, and the Rage Room all do the same core job from different
-                            angles: they help Manifestors understand themselves more clearly without vague language or
-                            confusing offers.
-                        </p>
-                    </article>
-                </div>
-            </div>
-        </section>
+                <button type="button" class="offer-link" disabled>
+                    <span>➜</span> Coming soon
+                </button>
+            </aside>
+        </div>
     </main>
 
     <footer>
         <div class="container footer-inner">
             <div>© Manifestor Anonymous</div>
-            <div>Built for Manifestors who want clearer tools, not more confusion.</div>
-            <div class="social-link" style="margin-top:4px;">
-                <a href="https://instagram.com/manifestor.anonymous" target="_blank" rel="noopener noreferrer">
-                    @manifestor.anonymous
-                </a>
-            </div>
+            <div>Module 02 · Rage Room</div>
         </div>
     </footer>
 
-    <script src="assets/dj-sun.js" defer></script>
+    <script>
+        const form = document.getElementById('rageForm');
+        const textarea = document.getElementById('rageText');
+        const clearBtn = document.getElementById('clearBtn');
+        const rageWall = document.getElementById('rageWall');
+        const selectionWrap = document.getElementById('selectionWrap');
+        const selectionButtons = document.querySelectorAll('.selection-btn');
+
+        const rageNotes = {
+            control: `ROOM NOTE // CONTROL\n\nYour anger may be pointing to a control breach. This usually shows up when you feel managed, questioned, slowed down, or forced to explain yourself more than necessary.\n\nWHAT IT MAY BE PROTECTING // Your independence, your pace, and your right to move without being run by other people.\n\nWHAT IT MAY NEED NEXT // A boundary, less explanation, and a cleaner line between what is yours and what is not.`,
+            voice: `ROOM NOTE // VOICE\n\nYour anger may be pointing to blocked expression. This usually shows up when you feel ignored, interrupted, talked over, or like your real reaction keeps getting edited down.\n\nWHAT IT MAY BE PROTECTING // Your truth, your impact, and your need to speak without shrinking yourself.\n\nWHAT IT MAY NEED NEXT // One direct sentence, one honest no, or one place where you stop softening what you actually mean.`,
+            repressed: `ROOM NOTE // REPRESSED ANGER\n\nYour anger may be pointing to everything you have been holding in. This usually shows up when resentment has been building quietly underneath the version of you that keeps acting fine.\n\nWHAT IT MAY BE PROTECTING // Your unmet needs, your unspoken reactions, and the parts of you that are tired of staying composed.\n\nWHAT IT MAY NEED NEXT // More honesty, less suppression, and somewhere real for your anger to move before it hardens.`,
+            exhaustion: `ROOM NOTE // EXHAUSTION\n\nYour anger may be pointing to a pace problem. This usually shows up when you keep going after the energy is gone, force consistency that is no longer real, or stay in motion because stopping feels unsafe.\n\nWHAT IT MAY BE PROTECTING // Your body, your rest cycle, and the part of you that already knows enough is enough.\n\nWHAT IT MAY NEED NEXT // Rest, less pressure, and permission to stop before your body has to shut the whole thing down for you.`,
+            selfbetrayal: `ROOM NOTE // SELF-BETRAYAL\n\nYour anger may be pointing to a place where you already knew something was wrong and stayed anyway. This usually feels like resentment, exhaustion, and the sense that you are carrying more than you should be.\n\nWHAT IT MAY BE PROTECTING // Your self-trust, your standards, and the part of you that knew the truth before you acted against it.\n\nWHAT IT MAY NEED NEXT // A decision, a changed behavior, or dropping something you already know is draining you.`
+        };
+
+        const quietNote = `ROOM NOTE // The room is quiet.\n\nType what you are actually thinking, not what you think you should say.`;
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const text = textarea.value.trim();
+
+            rageWall.style.display = 'none';
+            rageWall.textContent = '';
+
+            if (!text) {
+                rageWall.style.display = 'block';
+                rageWall.textContent = quietNote;
+                selectionWrap.classList.remove('active');
+                return;
+            }
+
+            selectionWrap.classList.add('active');
+        });
+
+        selectionButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const pattern = this.dataset.pattern;
+                const text = textarea.value.trim();
+                const note = rageNotes[pattern] || quietNote;
+
+                rageWall.style.display = 'block';
+                rageWall.textContent = note + "\n\nRAGE LOG // " + text;
+            });
+        });
+
+        clearBtn.addEventListener('click', function () {
+            textarea.value = "";
+            selectionWrap.classList.remove('active');
+            rageWall.style.display = 'none';
+            rageWall.textContent = "";
+        });
+    </script>
 </body>
 
 </html>
