@@ -3,28 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Arrows Machine • Manifestor Anonymous</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrows Machine • Manifestor Anonymous</title>
     <meta name="description"
-        content="Arrows Machine helps you understand how your mind, body, environment, and perspective work together through your four arrows, then points you to the deeper Variables Vending Machine." />
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+        content="Free arrows scan plus the Variables Vending Machine for Manifestor Anonymous. See how your body and mind are designed to work together.">
     <style>
         :root {
-            --bg: #050608;
-            --bg-soft: #0b0e14;
-            --panel: rgba(255, 255, 255, 0.045);
-            --panel-strong: rgba(255, 255, 255, 0.075);
-            --line: rgba(255, 255, 255, 0.11);
+            --bg: #05060b;
+            --panel: rgba(255, 255, 255, 0.05);
+            --panel-strong: rgba(255, 255, 255, 0.08);
+            --line: rgba(255, 255, 255, 0.12);
             --line-strong: rgba(255, 255, 255, 0.18);
-            --text: #f5f7fb;
-            --muted: rgba(245, 247, 251, 0.74);
-            --dim: rgba(245, 247, 251, 0.48);
-            --green: #39ff88;
-            --danger: #ff4d6d;
-            --radius: 26px;
+            --text: #f6f7fb;
+            --muted: rgba(246, 247, 251, 0.75);
+            --dim: rgba(246, 247, 251, 0.54);
+            --pink: #ff83e6;
+            --green: #67ffb2;
+            --danger: #ff6484;
+            --shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+            --radius: 28px;
             --radius-sm: 18px;
-            --shadow: 0 22px 70px rgba(0, 0, 0, 0.7);
-            --max: 1200px;
+            --max: 1240px;
         }
 
         * {
@@ -37,33 +36,27 @@
 
         body {
             margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background:
-                radial-gradient(circle at top, rgba(57, 255, 136, 0.14), transparent 18%),
-                radial-gradient(circle at 12% 82%, rgba(57, 255, 136, 0.08), transparent 24%),
-                radial-gradient(circle at 82% 8%, rgba(57, 255, 136, 0.1), transparent 28%),
-                var(--bg);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             color: var(--text);
+            background:
+                radial-gradient(circle at top, rgba(255, 131, 230, 0.12), transparent 18%),
+                radial-gradient(circle at 16% 82%, rgba(103, 255, 178, 0.08), transparent 20%),
+                linear-gradient(180deg, #0a0c14 0%, #05060b 56%, #030409 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
 
         body::before {
-            content: '';
+            content: "";
             position: fixed;
             inset: 0;
             pointer-events: none;
-            opacity: 0.05;
+            opacity: 0.04;
             background-image:
-                linear-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(148, 163, 184, 0.18) 1px, transparent 1px);
+                linear-gradient(rgba(148, 163, 184, 0.24) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.24) 1px, transparent 1px);
             background-size: 42px 42px;
-            mask-image: radial-gradient(circle at center, black 40%, transparent 88%);
-        }
-
-        img {
-            display: block;
-            max-width: 100%;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 86%);
         }
 
         a {
@@ -84,17 +77,17 @@
         .topbar {
             position: sticky;
             top: 0;
-            z-index: 40;
+            z-index: 50;
+            background: rgba(5, 7, 17, 0.84);
+            border-bottom: 1px solid rgba(255, 131, 230, 0.14);
             backdrop-filter: blur(14px);
-            background: rgba(3, 7, 18, 0.82);
-            border-bottom: 1px solid rgba(57, 255, 136, 0.18);
         }
 
         .topbar-inner {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            gap: 18px;
+            justify-content: space-between;
+            gap: 16px;
             padding: 14px 0;
         }
 
@@ -104,117 +97,107 @@
             gap: 12px;
         }
 
-        .brand-icon {
-            width: 38px;
-            height: 38px;
+        .brand-mark {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            display: grid;
+            place-items: center;
             border: 1px solid var(--line-strong);
-            overflow: hidden;
-            box-shadow: 0 0 16px rgba(57, 255, 136, 0.18);
-            background: #08090d;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--pink);
+            box-shadow: 0 0 18px rgba(255, 131, 230, 0.14);
+            font-weight: 800;
         }
 
-        .brand-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .brand-copy small,
-        .path-label,
+        .eyebrow,
+        .tiny,
+        .pill,
         .section-kicker,
-        .right-label,
-        .right-section-label,
-        .snapshot-title,
-        .snapshot-blend-label {
+        .card-label {
             display: inline-block;
             text-transform: uppercase;
             letter-spacing: 0.16em;
             font-size: 11px;
-            color: rgba(190, 198, 255, 0.75);
+            color: rgba(221, 228, 255, 0.72);
         }
 
         .brand-copy strong {
             display: block;
-            margin-top: 2px;
             font-size: 14px;
             letter-spacing: 0.06em;
-            font-weight: 700;
         }
 
-        .topbar-tagline {
-            margin-top: 4px;
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: rgba(148, 163, 184, 0.88);
+        .brand-copy small {
+            color: var(--dim);
         }
 
-        .top-links {
+        .nav-actions {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
-        .btn,
-        .offer-btn,
-        .offer-btn.secondary {
+        .btn {
+            border: 1px solid transparent;
             border-radius: 16px;
-            padding: 14px 22px;
+            padding: 13px 20px;
             text-transform: uppercase;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.14em;
             font-size: 12px;
             font-weight: 800;
             cursor: pointer;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+            transition: transform .18s ease, border-color .18s ease, background .18s ease;
         }
 
-        .btn:hover,
-        .offer-btn:hover,
-        .offer-btn.secondary:hover {
+        .btn:hover {
             transform: translateY(-2px);
         }
 
+        .btn-primary {
+            background: linear-gradient(135deg, var(--pink), var(--green));
+            color: #08100b;
+            box-shadow: 0 0 22px rgba(255, 131, 230, 0.16);
+        }
+
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             color: var(--text);
-            border: 1px solid rgba(57, 255, 136, 0.32);
+            border-color: rgba(255, 131, 230, 0.22);
         }
 
-        .page-wrap {
-            min-height: 100vh;
-            padding: 30px 16px 54px;
-        }
-
-        .page-inner {
-            width: min(var(--max), 100%);
-            margin: 0 auto;
+        main {
+            padding: 30px 0 72px;
         }
 
         .main-grid {
             display: grid;
-            grid-template-columns: minmax(0, 1.55fr) minmax(320px, 0.95fr);
+            grid-template-columns: minmax(0, 1.8fr);
             gap: 24px;
             align-items: start;
         }
 
-        .left-panel,
-        .right-panel {
+        .panel,
+        .card,
+        .result-card,
+        .cta-panel,
+        .faq-item,
+        .system-card,
+        .arrow-card {
+            background: radial-gradient(circle at top, #111420 0%, #06070d 78%);
+            border: 1px solid rgba(115, 128, 170, 0.32);
             border-radius: var(--radius);
-            border: 1px solid rgba(115, 128, 170, 0.42);
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.72);
+            box-shadow: var(--shadow);
         }
 
-        .left-panel {
-            background: radial-gradient(circle at top, #13151c 0%, #05060a 72%);
+        .panel {
             padding: 28px;
         }
 
-        .right-panel {
-            background: radial-gradient(circle at top, #12151f 0%, #05060b 72%);
-            padding: 24px;
-            position: sticky;
-            top: 88px;
+        .stack {
+            display: grid;
+            gap: 18px;
         }
 
         .module-pill {
@@ -223,1264 +206,685 @@
             gap: 10px;
             padding: 8px 14px;
             border-radius: 999px;
-            font-size: 11px;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            border: 1px solid rgba(57, 255, 136, 0.45);
-            background: rgba(57, 255, 136, 0.1);
-            color: #c8ffe7;
-            box-shadow: 0 0 18px rgba(57, 255, 136, 0.14);
+            border: 1px solid rgba(255, 131, 230, 0.3);
+            background: rgba(255, 131, 230, 0.08);
+            color: #ffd7f7;
             margin-bottom: 14px;
+            box-shadow: 0 0 18px rgba(255, 131, 230, 0.12);
         }
 
-        .module-dot,
-        .display-dot,
-        .bullet-dot,
-        .vend-led.on {
+        .dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--green);
-            box-shadow: 0 0 8px rgba(57, 255, 136, 0.6);
-        }
-
-        .hero {
-            margin-bottom: 24px;
+            background: var(--pink);
         }
 
         .title {
-            font-size: clamp(2.1rem, 5vw, 3rem);
+            margin: 0 0 10px;
+            font-size: clamp(2.3rem, 5vw, 3.4rem);
             line-height: 1.02;
-            margin: 0 0 10px;
+            letter-spacing: -0.03em;
         }
 
-        .subtitle,
-        .quick-card p,
-        .step-card span,
-        .machine-note,
-        .drop-body,
-        .right-intro,
-        .right-body,
-        .muted-foot,
-        .snapshot-blend-text,
-        .snapshot-list-item {
+        .lead,
+        .body-copy,
+        .card p,
+        .result-card p,
+        .faq-item p,
+        .system-card p,
+        .arrow-card p,
+        .cta-panel p {
             font-size: 14px;
-            line-height: 1.65;
+            line-height: 1.7;
             color: var(--muted);
+            margin: 0;
         }
 
-        .subtitle {
-            max-width: 720px;
-            margin: 0 0 10px;
+        .hero-actions,
+        .inline-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
         }
 
-        .quick-points,
-        .steps-grid {
+        .hero-points {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 12px;
-            margin: 0 0 24px;
+            gap: 14px;
+            margin-top: 18px;
         }
 
-        .quick-card,
-        .step-card,
-        .offer-card,
-        .snapshot-list-item,
-        details.info-drop {
-            border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+        .point {
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.03);
         }
 
-        .quick-card,
-        .step-card,
-        .offer-card {
-            padding: 14px;
-        }
-
-        .quick-card strong,
-        .step-card strong {
+        .point strong,
+        .card h3,
+        .faq-item h3,
+        .system-card h3,
+        .arrow-card h3,
+        .result-card h3,
+        .cta-panel h3 {
             display: block;
-            font-size: 13px;
-            margin-bottom: 6px;
-            color: #ffffff;
+            margin: 0 0 6px;
+            font-size: 16px;
+            line-height: 1.3;
         }
 
-        .step-num,
-        .machine-heading,
-        .machine-subheading,
-        .pill-small,
-        .row-tag,
-        .email-label,
-        .coin-slot-label,
-        .dj-meta-label {
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-        }
-
-        .step-num,
-        .pill-small {
-            font-size: 10px;
-            color: rgba(57, 255, 136, 0.82);
-        }
-
-        .machine-shell {
-            width: 100%;
-            border-radius: 22px;
-            background: linear-gradient(180deg, #181b2a, #0c0f1b 55%, #03040a 100%);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
-            border: 1px solid #02030a;
-            padding: 18px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 18px;
-        }
-
-        .machine-shell::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.11), transparent 50%);
-            pointer-events: none;
-        }
-
-        .machine-shell.live {
-            box-shadow: 0 0 0 1px rgba(70, 230, 168, 0.22), 0 0 22px rgba(70, 230, 168, 0.22), 0 18px 40px rgba(0, 0, 0, 0.8);
-        }
-
-        .machine-top {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 14px;
-            z-index: 1;
-        }
-
-        .machine-heading {
-            font-size: 13px;
-            color: #ffffff;
-        }
-
-        .machine-subheading {
-            font-size: 11px;
-            color: #d0d7ff;
-        }
-
-        .pill-small {
-            padding: 5px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            background: rgba(5, 7, 18, 0.95);
-            align-self: flex-start;
-        }
-
-        .control-panel,
-        .vend-row {
+        .section {
+            margin-top: 22px;
             display: grid;
-            grid-template-columns: minmax(0, 1.7fr) auto;
-            gap: 12px;
-            align-items: center;
+            gap: 18px;
         }
 
-        .control-panel {
-            padding: 12px;
-            border-radius: 16px;
-            background: linear-gradient(180deg, #090c1b, #050614);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.8);
-            margin-top: 4px;
-        }
-
-        .email-row {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .email-label,
-        .coin-slot-label {
-            font-size: 11px;
-            color: #cbd2ee;
-        }
-
-        .email-input-wrap {
-            display: flex;
+        .section-head {
+            display: grid;
             gap: 8px;
         }
 
-        .email-input-wrap input {
-            flex: 1;
-            min-width: 0;
-            padding: 12px 14px;
-            border-radius: 10px;
-            border: 1px solid rgba(204, 214, 255, 0.44);
-            background: #050716;
-            color: #f9fbff;
-            font-size: 14px;
-        }
-
-        .email-input-wrap input:focus {
-            outline: 1px solid #46e6a8;
-            border-color: #46e6a8;
-        }
-
-        .email-input-wrap button {
-            padding: 12px 16px;
-            border-radius: 10px;
-            border: none;
-            background: #46e6a8;
-            color: #02120b;
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .email-input-wrap button:disabled {
-            opacity: 0.65;
-            cursor: not-allowed;
-        }
-
-        .email-error {
-            font-size: 12px;
-            color: #ff9e9e;
-        }
-
-        .coin-block {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .coin-slot-label {
-            max-width: 136px;
-            line-height: 1.35;
-        }
-
-        .coin {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 20%, #ffffff, #ffd76a 35%, #b3760b 65%, #5a3202 100%);
-            border: 2px solid #4d2b03;
-            box-shadow: 0 0 12px rgba(255, 215, 106, 0.45);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            font-weight: 800;
-            color: #3d2400;
-            cursor: pointer;
-            position: relative;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
-        }
-
-        .coin::after {
-            content: '';
-            position: absolute;
-            inset: 4px;
-            border-radius: 50%;
-            border: 1px solid rgba(0, 0, 0, 0.35);
-        }
-
-        .coin.disabled {
-            opacity: 0.35;
-            cursor: default;
-            box-shadow: none;
-        }
-
-        .coin.enabled:hover {
-            transform: scale(1.06);
-            box-shadow: 0 0 18px rgba(255, 215, 106, 0.72);
-        }
-
-        .coin.enabled:active {
-            transform: scale(0.96);
-        }
-
-        .display-strip {
-            margin-top: 10px;
-            min-height: 48px;
-            border-radius: 14px;
-            border: 1px solid rgba(14, 31, 19, 0.6);
-            padding: 10px 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            font-size: 13px;
-            line-height: 1.4;
-        }
-
-        .display-strip.red {
-            background: linear-gradient(135deg, rgba(88, 14, 20, 0.94), rgba(26, 4, 8, 0.98));
-            color: #ffd8df;
-        }
-
-        .display-strip.yellow {
-            background: linear-gradient(135deg, rgba(90, 66, 12, 0.94), rgba(28, 18, 4, 0.98));
-            color: #fff1c8;
-        }
-
-        .display-strip.green {
-            background: linear-gradient(135deg, rgba(10, 55, 31, 0.94), rgba(4, 18, 11, 0.98));
-            color: #d7ffea;
-        }
-
-        .mid-panel {
-            position: relative;
-            margin: 14px 0;
-            border-radius: 18px;
-            background: linear-gradient(180deg, rgba(8, 10, 26, 0.97), rgba(3, 4, 12, 0.98));
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.9);
-            padding: 12px;
-            z-index: 1;
-        }
-
-        .mid-grid {
-            display: grid;
-            grid-template-rows: repeat(4, minmax(0, 1fr));
-            gap: 10px;
-        }
-
-        .arrow-row {
-            display: grid;
-            grid-template-columns: auto minmax(0, 1fr) auto auto;
-            gap: 10px;
-            align-items: center;
-            padding: 12px 12px 16px;
-            border-radius: 12px;
-            background: linear-gradient(90deg, rgba(15, 18, 40, 0.88), rgba(7, 9, 24, 0.9));
-            position: relative;
-            transition: box-shadow 0.2s ease, border-color 0.2s ease;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .arrow-row.active {
-            box-shadow: 0 0 0 1px rgba(90, 192, 255, 0.22), 0 0 10px rgba(90, 192, 255, 0.14);
-        }
-
-        .row-tag {
-            font-size: 11px;
-            background: rgba(1, 2, 8, 0.9);
-            padding: 4px 8px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            color: #c5ccff;
-        }
-
-        .row-text {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            min-width: 0;
-        }
-
-        .row-label {
-            font-size: 14px;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .row-sub {
-            font-size: 12px;
-            color: #b9c1e6;
-            line-height: 1.45;
-        }
-
-        .coil-line {
-            position: absolute;
-            left: 12px;
-            right: 12px;
-            bottom: 6px;
-            height: 3px;
-            background-image: radial-gradient(circle, #b9c3ff 2px, transparent 3px);
-            background-size: 18px 10px;
-            background-repeat: repeat-x;
-            opacity: 0.18;
-            pointer-events: none;
-        }
-
-        .arrow-btn {
-            min-width: 76px;
-            padding: 10px 12px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            background: rgba(5, 7, 18, 0.96);
-            color: #f9fbff;
-            font-size: 12px;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-
-        .arrow-btn.active-left {
-            background: linear-gradient(135deg, #36d1dc, #5b86e5);
-            border-color: rgba(0, 0, 0, 0.35);
-            color: #050711;
-            box-shadow: 0 0 10px rgba(90, 192, 255, 0.34);
-        }
-
-        .arrow-btn.active-right {
-            background: linear-gradient(135deg, #f7971e, #ffd200);
-            border-color: rgba(0, 0, 0, 0.35);
-            color: #201000;
-            box-shadow: 0 0 10px rgba(255, 223, 122, 0.28);
-        }
-
-        .vend-row {
-            align-items: center;
-        }
-
-        .vend-btn {
-            padding: 12px 16px;
-            border-radius: 999px;
-            border: none;
-            background: #313842;
-            color: #9da4b2;
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            cursor: default;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, transform 0.2s ease;
-        }
-
-        .vend-btn.ready {
-            background: #46e6a8;
-            color: #02120b;
-            cursor: pointer;
-            box-shadow: 0 0 14px rgba(70, 230, 168, 0.3);
-        }
-
-        .vend-btn.ready:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 0 16px rgba(70, 230, 168, 0.44);
-        }
-
-        .vend-led {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #262b32;
-            box-shadow: none;
-        }
-
-        .tags-line {
-            font-size: 13px;
-            line-height: 1.5;
-            color: #cfd5f2;
-        }
-
-        .snapshot-panel {
-            border-radius: 20px;
-            background: linear-gradient(145deg, #050713, #0b1020);
-            border: 1px solid rgba(159, 171, 255, 0.34);
-            box-shadow: 0 18px 38px rgba(0, 0, 0, 0.82);
-            padding: 18px;
-        }
-
-        .snapshot-list {
-            display: grid;
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-
-        .snapshot-list-item {
-            padding: 12px 14px;
-        }
-
-        #downloadSnapshotBtn {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 999px;
-            border: 1px solid rgba(159, 171, 255, 0.48);
-            background: rgba(5, 7, 20, 0.95);
-            color: #e5e8ff;
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            cursor: pointer;
-        }
-
-        #downloadSnapshotBtn:hover {
-            border-color: rgba(255, 255, 255, 0.7);
-            background: rgba(10, 13, 30, 0.98);
-        }
-
-        details.info-drop {
-            padding: 0;
-            overflow: hidden;
-            margin-top: 14px;
-        }
-
-        details.info-drop summary {
-            list-style: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        details.info-drop summary::-webkit-details-marker {
-            display: none;
-        }
-
-        details.info-drop summary::after {
-            content: '+';
-            font-size: 18px;
-            line-height: 1;
-            color: var(--green);
-        }
-
-        details.info-drop[open] summary::after {
-            content: '−';
-        }
-
-        .drop-body {
-            padding: 0 16px 16px;
-        }
-
-        .drop-body p {
-            margin: 0 0 12px;
-        }
-
-        .drop-body p:last-child,
-        .drop-body ul:last-child {
-            margin-bottom: 0;
-        }
-
-        .bullet-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            font-size: 14px;
-            color: #dde2ff;
-            display: grid;
-            gap: 10px;
-        }
-
-        .bullet-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .right-title-main {
-            font-size: 24px;
-            line-height: 1.15;
-            margin: 0 0 10px;
-        }
-
-        .offer-stack {
+        .cards-2,
+        .cards-4 {
             display: grid;
             gap: 16px;
         }
 
-        .right-title {
-            font-size: 19px;
-            line-height: 1.2;
-            font-weight: 700;
-            margin: 0 0 10px;
+        .cards-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
-        .offer-btn {
-            width: 100%;
-            display: inline-flex;
+        .cards-4 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .card,
+        .system-card,
+        .arrow-card,
+        .faq-item,
+        .cta-panel,
+        .result-card {
+            padding: 20px;
+        }
+
+        .card ul,
+        .system-card ul,
+        .cta-panel ul {
+            margin: 12px 0 0;
+            padding-left: 18px;
+            color: var(--muted);
+            display: grid;
+            gap: 6px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .compare {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .scan-shell {
+            display: grid;
+            gap: 14px;
+            padding: 18px;
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .scan-row {
+            display: grid;
+            grid-template-columns: 1.1fr auto;
+            gap: 12px;
             align-items: center;
-            justify-content: center;
+            padding: 12px 14px;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .scan-row.active {
+            border-color: rgba(255, 131, 230, 0.28);
+        }
+
+        .row-copy strong {
+            font-size: 14px;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .row-copy span {
+            color: var(--dim);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .toggle-group {
+            display: inline-flex;
             gap: 8px;
-            background: var(--green);
-            color: #04140b;
-            box-shadow: 0 0 18px rgba(57, 255, 136, 0.16);
-            border: 1px solid transparent;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
-        .offer-btn.secondary {
-            background: rgba(255, 255, 255, 0.06);
-            color: #f5f7fb;
-            border-color: rgba(255, 255, 255, 0.12);
-            box-shadow: none;
+        .toggle {
+            min-width: 54px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+            padding: 9px 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
         }
 
-        @media (max-width: 1080px) {
+        .toggle.left-active {
+            border-color: rgba(255, 131, 230, 0.34);
+            background: rgba(255, 131, 230, 0.16);
+            color: #ffd7f7;
+        }
+
+        .toggle.right-active {
+            border-color: rgba(103, 255, 178, 0.34);
+            background: rgba(103, 255, 178, 0.14);
+            color: #d8ffe8;
+        }
+
+        .email-box {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: minmax(0, 1fr) auto;
+        }
+
+        .input {
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            padding: 13px 15px;
+            outline: none;
+            font-size: 14px;
+            pointer-events: auto;
+        }
+
+        .input::placeholder {
+            color: rgba(246, 247, 251, 0.4);
+        }
+
+        .status {
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .error {
+            color: #ffb1c1;
+            font-size: 12px;
+            display: none;
+        }
+
+        .result-grid {
+            display: none;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .result-grid.show {
+            display: grid;
+        }
+
+        .cta-panel {
+            background:
+                radial-gradient(circle at top left, rgba(255, 131, 230, 0.14), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(103, 255, 178, 0.12), transparent 28%),
+                #080b12;
+        }
+
+        .faq-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        @media (max-width: 1024px) {
             .main-grid {
                 grid-template-columns: 1fr;
             }
-
-            .right-panel {
-                position: static;
-                top: auto;
-            }
         }
 
-        @media (max-width: 820px) {
+        @media (max-width: 760px) {
 
-            .quick-points,
-            .steps-grid {
+            .hero-points,
+            .cards-2,
+            .cards-4,
+            .compare,
+            .result-grid,
+            .email-box,
+            .scan-row {
                 grid-template-columns: 1fr;
             }
 
-            .control-panel,
-            .vend-row {
-                grid-template-columns: 1fr;
-                align-items: stretch;
-            }
-
-            .coin-block {
-                justify-content: space-between;
-            }
-        }
-
-        @media (max-width: 700px) {
-            .page-wrap {
-                padding: 18px 12px 34px;
-            }
-
-            .left-panel,
-            .right-panel {
-                padding: 18px;
-            }
-
-            .machine-shell {
-                padding: 14px;
-            }
-
-            .email-input-wrap {
-                flex-direction: column;
+            .toggle-group {
+                justify-content: flex-start;
             }
 
             .topbar-inner {
-                flex-direction: column;
                 align-items: flex-start;
-                gap: 8px;
-                padding: 10px 0;
             }
 
-            .topbar-tagline {
-                display: none;
-            }
-
-            .brand-icon {
-                width: 32px;
-                height: 32px;
-            }
-
-            .arrow-row {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-                padding-bottom: 18px;
-            }
-
-            .row-tag {
-                justify-self: start;
-            }
-
-            .row-text {
-                grid-column: 1 / -1;
-            }
-
-            .arrow-btn {
-                min-width: 0;
-                width: 100%;
-            }
-
-            .coin-block {
-                align-items: center;
-            }
-
-            .coin-slot-label {
-                max-width: none;
+            .nav-actions {
+                justify-content: flex-start;
             }
         }
     </style>
 </head>
 
 <body>
-
     <header class="topbar">
         <div class="container topbar-inner">
             <div class="brand">
-                <div class="brand-icon">
-                    <img src="images/logocircle.png" alt="Manifestor Anonymous icon">
-                </div>
+                <div class="brand-mark">MA</div>
                 <div class="brand-copy">
                     <small>Manifestor Anonymous</small>
                     <strong>Arrows Machine</strong>
                 </div>
-                <div class="topbar-tagline">See how your system processes life</div>
             </div>
-            <nav class="top-links">
-                <a href="index.html" class="btn btn-secondary">Back to terminal</a>
-            </nav>
+            <div class="nav-actions">
+                <a class="btn btn-secondary" href="#free-scan">Free arrows scan</a>
+                <a class="btn btn-primary" href="#paid">Variables Vending Machine</a>
+            </div>
         </div>
     </header>
 
-    <main class="page-wrap">
-        <div class="page-inner">
-            <div class="main-grid">
+    <main class="container">
+        <div class="main-grid">
+            <section class="panel">
+                <div class="module-pill"><span class="dot"></span> Variables · Arrows</div>
 
-                <section class="left-panel">
-                    <div class="module-pill">
-                        <div class="module-dot"></div>
-                        <span>Module 03 • Arrows Machine</span>
+                <div class="section-head">
+                    <span class="eyebrow">Free scan + paid deep dive</span>
+                    <h1 class="title">Variables explain why things do not stick.</h1>
+                    <p class="lead">Your arrows show how your body and mind work together. When they are not supported,
+                        everything feels harder than it needs to.</p>
+                    <p class="body-copy">This page gives you a free arrows scan and a simple bridge into the Variables
+                        Vending Machine. No extra theory. Just what each arrow touches and where to go deeper.</p>
+                </div>
+
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#free-scan">Run free arrows scan</a>
+                    <a class="btn btn-secondary" href="#paid">See the full machine</a>
+                </div>
+
+                <div class="hero-points">
+                    <div class="point">
+                        <strong>Body side</strong>
+                        <span class="tiny">How you take life in and where you function best.</span>
+                    </div>
+                    <div class="point">
+                        <strong>Mind side</strong>
+                        <span class="tiny">How you see, speak, and act from what you see.</span>
+                    </div>
+                    <div class="point">
+                        <strong>Manifestor impact</strong>
+                        <span class="tiny">Why timing, urges, and informing feel off when this is ignored.</span>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-head">
+                        <span class="section-kicker">Two simple sides</span>
+                        <h2>Body side · Mind side</h2>
+                        <p class="body-copy">Four arrows, two sides. This is the clean structure.</p>
                     </div>
 
-                    <div class="hero">
-                        <div class="path-label">Determination • Environment • Motivation • Perspective</div>
-                        <h1 class="title">Arrows Machine</h1>
-                        <p class="subtitle">
-                            Understand how your mind, body, environment, and perspective actually work together.
-                        </p>
-                        <p class="subtitle">
-                            Your four arrows are not random chart trivia. They show how your system takes in life, where
-                            your body meets the least resistance, how your view works, and how your mind aims itself.
-                            This tool gives you the pattern clearly so you stop forcing what was never built for you.
-                        </p>
-                    </div>
-
-                    <div class="quick-points">
-                        <div class="quick-card">
-                            <strong>What this shows</strong>
-                            <p>Your four arrows as one system, not separate pieces.</p>
-                        </div>
-                        <div class="quick-card">
-                            <strong>What you get</strong>
-                            <p>A clearer snapshot with stronger explanations you can actually use in real life.</p>
-                        </div>
-                        <div class="quick-card">
-                            <strong>What this is not</strong>
-                            <p>Not a full variables breakdown. This is your starting layer.</p>
-                        </div>
-                    </div>
-
-                    <div class="steps-wrap">
-                        <div class="section-kicker">How to use this tool</div>
-                        <div class="steps-grid">
-                            <div class="step-card">
-                                <div class="step-num">Step 1</div>
-                                <strong>Unlock</strong>
-                                <span>Enter your email to wake up the scanner.</span>
-                            </div>
-                            <div class="step-card">
-                                <div class="step-num">Step 2</div>
-                                <strong>Set your arrows</strong>
-                                <span>Choose Left or Right for each of the four arrows.</span>
-                            </div>
-                            <div class="step-card">
-                                <div class="step-num">Step 3</div>
-                                <strong>Run the scan</strong>
-                                <span>Get a richer snapshot of how your settings move together.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="machine-shell" id="machineShell">
-                        <div class="machine-top">
-                            <div class="machine-heading">Arrows Scanner</div>
-                            <div class="machine-subheading">Direction-only surface scan</div>
-                            <div class="machine-note">
-                                This scanner reads your arrow directions and shows how they work together as one system.
-                                This is the starting layer. The full breakdown lives in the Variables Vending Machine.
-                            </div>
-                            <div class="pill-small">Manifestors</div>
-                        </div>
-
-                        <div class="control-panel">
-                            <div class="email-row">
-                                <div class="email-label">Email to unlock the scan</div>
-                                <div class="email-input-wrap">
-                                    <input type="email" id="emailInput" placeholder="you@example.com">
-                                    <button id="emailBtn" type="button">Unlock</button>
-                                </div>
-                                <div class="email-error" id="emailError" style="display:none;">
-                                    Please enter a valid email address.
-                                </div>
-                            </div>
-
-                            <div class="coin-block">
-                                <div class="coin-slot-label">Tap the coin to start the scan</div>
-                                <div class="coin disabled" id="coin">
-                                    <span>M</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="display-strip red" id="displayStrip">
-                            <div id="displayText">Waiting for email to unlock the scan.</div>
-                            <div class="display-dot"></div>
-                        </div>
-
-                        <div class="mid-panel">
-                            <div class="mid-grid">
-
-                                <div class="arrow-row" data-row="topLeft">
-                                    <div class="row-tag">A</div>
-                                    <div class="row-text">
-                                        <div class="row-label">Top Left • Determination</div>
-                                        <div class="row-sub">How your brain digests life and takes in input.</div>
-                                    </div>
-                                    <button class="arrow-btn" type="button" data-slot="topLeft"
-                                        data-dir="L">Left</button>
-                                    <button class="arrow-btn" type="button" data-slot="topLeft"
-                                        data-dir="R">Right</button>
-                                    <div class="coil-line"></div>
-                                </div>
-
-                                <div class="arrow-row" data-row="bottomLeft">
-                                    <div class="row-tag">B</div>
-                                    <div class="row-text">
-                                        <div class="row-label">Bottom Left • Environment</div>
-                                        <div class="row-sub">How your body meets the least resistance in space.</div>
-                                    </div>
-                                    <button class="arrow-btn" type="button" data-slot="bottomLeft"
-                                        data-dir="L">Left</button>
-                                    <button class="arrow-btn" type="button" data-slot="bottomLeft"
-                                        data-dir="R">Right</button>
-                                    <div class="coil-line"></div>
-                                </div>
-
-                                <div class="arrow-row" data-row="topRight">
-                                    <div class="row-tag">C</div>
-                                    <div class="row-text">
-                                        <div class="row-label">Top Right • Motivation</div>
-                                        <div class="row-sub">How your mind aims itself and engages mentally.</div>
-                                    </div>
-                                    <button class="arrow-btn" type="button" data-slot="topRight"
-                                        data-dir="L">Left</button>
-                                    <button class="arrow-btn" type="button" data-slot="topRight"
-                                        data-dir="R">Right</button>
-                                    <div class="coil-line"></div>
-                                </div>
-
-                                <div class="arrow-row" data-row="bottomRight">
-                                    <div class="row-tag">D</div>
-                                    <div class="row-text">
-                                        <div class="row-label">Bottom Right • Perspective</div>
-                                        <div class="row-sub">How you take in the field and see the world.</div>
-                                    </div>
-                                    <button class="arrow-btn" type="button" data-slot="bottomRight"
-                                        data-dir="L">Left</button>
-                                    <button class="arrow-btn" type="button" data-slot="bottomRight"
-                                        data-dir="R">Right</button>
-                                    <div class="coil-line"></div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="bottom-panel">
-                            <div class="vend-row">
-                                <button class="vend-btn" id="vendBtn" type="button">
-                                    <div class="vend-led" id="vendLed"></div>
-                                    <span>Scan arrows</span>
-                                </button>
-                                <div class="tags-line" id="tagsLine">No arrows selected yet.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="snapshot-panel" id="snapshotPanel">
-                        <div class="snapshot-title">Your Arrows Snapshot</div>
-
-                        <div id="snapshotList" class="snapshot-list">
-                            <div class="snapshot-list-item">
-                                Press "Scan" once your arrows are set to read your pattern in plain Manifestor language.
-                            </div>
-                        </div>
-
-                        <div class="snapshot-blend-label">How this moves together</div>
-                        <div class="snapshot-blend-text" id="snapshotBlend">
-                            When you run the scan, you’ll see how your brain, body, view, and mental style move as one
-                            system instead of feeling like separate problems you need to fix.
-                        </div>
-
-                        <button id="downloadSnapshotBtn" type="button">Download Snapshot Card</button>
-                    </div>
-
-                    <details class="info-drop">
-                        <summary>Why this tool exists</summary>
-                        <div class="drop-body">
-                            <p>
-                                Most people meet variables like homework. Eat like this. Work like this. Focus like
-                                this. That misses the point.
-                            </p>
-                            <p>
-                                This tool exists so you can see your arrow directions as a pattern instead of turning
-                                yourself into another self-improvement project. It is here to show you what is already
-                                true about how your system works.
-                            </p>
-                        </div>
-                    </details>
-
-                    <details class="info-drop">
-                        <summary>Use this tool when</summary>
-                        <div class="drop-body">
-                            <ul class="bullet-list">
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>Non-Manifestor routines never really stick for you.</span>
-                                </li>
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>You feel guilty for how inconsistent your focus, appetite, or schedule can
-                                        look.</span>
-                                </li>
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>You want language for your arrows that actually helps you explain
-                                        yourself.</span>
-                                </li>
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>You want a starting point before going deeper into variables.</span>
-                                </li>
+                    <div class="cards-2">
+                        <article class="system-card">
+                            <span class="card-label">Body side</span>
+                            <h3>Left side of the chart</h3>
+                            <ul>
+                                <li>Top left · Determination: how you take things in.</li>
+                                <li>Bottom left · Environment: where your body meets the least resistance.</li>
                             </ul>
-                        </div>
-                    </details>
+                        </article>
 
-                </section>
-
-                <aside class="right-panel">
-                    <div class="right-label">Next step • go deeper</div>
-                    <h2 class="right-title-main">You see the pattern. Now decide how deep you want to go.</h2>
-                    <p class="right-intro">
-                        This tool gives you the pattern. Next step depends on whether you want unlimited self-serve
-                        access or one personal read.
-                    </p>
-
-                    <div class="offer-stack">
-                        <div class="offer-card">
-                            <div class="right-section-label">Offer 01</div>
-                            <div class="right-title">Manifestor Variables Vending Machine</div>
-                            <div class="right-body">
-                                This is the full self-serve tool. Run your variables through different life areas
-                                whenever something gets loud.
-                            </div>
-                            <ul class="bullet-list" style="margin-bottom: 14px;">
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>Unlimited access to the Variables Vending Machine.</span>
-                                </li>
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>Use it for work, business, relationships, money, creativity, rest, and
-                                        visibility.</span>
-                                </li>
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>Includes the Manifestor Variables Integration Journal.</span>
-                                </li>
+                        <article class="system-card">
+                            <span class="card-label">Mind side</span>
+                            <h3>Right side of the chart</h3>
+                            <ul>
+                                <li>Bottom right · Perspective: how you naturally see.</li>
+                                <li>Top right · Motivation: what drives your speech and action.</li>
                             </ul>
-                            <button disabled class="offer-btn" aria-label="Coming soon">
-                                <span>→</span>
-                                <span>Coming soon</span>
-                            </button>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-head">
+                        <span class="section-kicker">The four arrows</span>
+                        <h2>What each arrow is about</h2>
+                    </div>
+
+                    <div class="cards-4">
+                        <article class="arrow-card">
+                            <span class="card-label">Top left</span>
+                            <h3>Determination</h3>
+                            <p>How you take in food, information, and stimulation so your brain can function.</p>
+                        </article>
+                        <article class="arrow-card">
+                            <span class="card-label">Bottom left</span>
+                            <h3>Environment</h3>
+                            <p>What kind of spaces support your body instead of draining it.</p>
+                        </article>
+                        <article class="arrow-card">
+                            <span class="card-label">Bottom right</span>
+                            <h3>Perspective</h3>
+                            <p>How you naturally see the world and filter what you notice.</p>
+                        </article>
+                        <article class="arrow-card">
+                            <span class="card-label">Top right</span>
+                            <h3>Motivation</h3>
+                            <p>Why you speak, act, advise, or stay quiet about what you see.</p>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-head">
+                        <span class="section-kicker">When things feel off</span>
+                        <h2>Signals your variables need support</h2>
+                    </div>
+                    <div class="cards-2">
+                        <article class="card">
+                            <h3>Body side</h3>
+                            <ul>
+                                <li>Routines never hold for long.</li>
+                                <li>Your energy will not settle or crashes fast.</li>
+                                <li>Spaces feel wrong even when they “should” work.</li>
+                            </ul>
+                        </article>
+                        <article class="card">
+                            <h3>Mind side</h3>
+                            <ul>
+                                <li>You overthink or misread what you see.</li>
+                                <li>You speak from pressure instead of clarity.</li>
+                                <li>You doubt your natural way of processing.</li>
+                            </ul>
+                        </article>
+                    </div>
+                    <article class="cta-panel">
+                        <span class="card-label">Manifestor note</span>
+                        <h3>For Manifestors, this hits your timing.</h3>
+                        <p>When these parts are unsupported, it shows up in how you move, how you inform, and whether
+                            you trust your urges enough to act.</p>
+                    </article>
+                </div>
+
+                <div class="section" id="free-scan">
+                    <div class="section-head">
+                        <span class="section-kicker">Free arrows scan</span>
+                        <h2>Start with left and right.</h2>
+                        <p class="body-copy">This preview shows which arrows are more strategic (left) and which are
+                            more receptive (right). It is enough to see your pattern. The deeper “what to do with it”
+                            lives in the paid machine.</p>
+                    </div>
+
+                    <div class="scan-shell">
+                        <div class="email-box">
+                            <input class="input" id="emailInput" type="email"
+                                placeholder="Enter your email to unlock the free scan">
+                            <button class="btn btn-primary" id="unlockBtn">Unlock scan</button>
+                        </div>
+                        <div class="error" id="emailError">Enter a valid email to unlock the scan.</div>
+                        <div class="status" id="statusText">Locked. Enter your email, unlock the scan, then choose left
+                            or right for each arrow.</div>
+
+                        <div class="scan-row" data-slot-row="topLeft">
+                            <div class="row-copy">
+                                <strong>Top Left · Determination</strong>
+                                <span>How your system takes life in.</span>
+                            </div>
+                            <div class="toggle-group">
+                                <button class="toggle" data-slot="topLeft" data-dir="L">Left</button>
+                                <button class="toggle" data-slot="topLeft" data-dir="R">Right</button>
+                            </div>
                         </div>
 
-                        <div class="offer-card">
-                            <div class="right-section-label">Offer 02</div>
-                            <div class="right-title">Variables Scan • Personal Read</div>
-                            <div class="right-body">
-                                This is the one-time personalized option. I run your variables for you, generate your
-                                report, and send a short voice note walking you through it.
+                        <div class="scan-row" data-slot-row="bottomLeft">
+                            <div class="row-copy">
+                                <strong>Bottom Left · Environment</strong>
+                                <span>What kind of spaces support your body.</span>
                             </div>
-                            <ul class="bullet-list" style="margin-bottom: 14px;">
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>Your personal Variables Scan report.</span>
-                                </li>
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>A short voice note explaining your scan.</span>
-                                </li>
-                                <li>
-                                    <div class="bullet-dot"></div>
-                                    <span>One personal read without needing full machine access.</span>
-                                </li>
-                            </ul>
-                            <button disabled class="offer-btn secondary" aria-label="Coming soon">
-                                <span>→</span>
-                                <span>Coming soon</span>
-                            </button>
+                            <div class="toggle-group">
+                                <button class="toggle" data-slot="bottomLeft" data-dir="L">Left</button>
+                                <button class="toggle" data-slot="bottomLeft" data-dir="R">Right</button>
+                            </div>
+                        </div>
+
+                        <div class="scan-row" data-slot-row="bottomRight">
+                            <div class="row-copy">
+                                <strong>Bottom Right · Perspective</strong>
+                                <span>How you naturally see and filter the world.</span>
+                            </div>
+                            <div class="toggle-group">
+                                <button class="toggle" data-slot="bottomRight" data-dir="L">Left</button>
+                                <button class="toggle" data-slot="bottomRight" data-dir="R">Right</button>
+                            </div>
+                        </div>
+
+                        <div class="scan-row" data-slot-row="topRight">
+                            <div class="row-copy">
+                                <strong>Top Right · Motivation</strong>
+                                <span>What drives your speech and action.</span>
+                            </div>
+                            <div class="toggle-group">
+                                <button class="toggle" data-slot="topRight" data-dir="L">Left</button>
+                                <button class="toggle" data-slot="topRight" data-dir="R">Right</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="muted-foot">
-                        Use the Vending Machine if you want unlimited access and the journal. Use the Variables Scan if
-                        you want one personal report plus a short voice note.
-                    </div>
-                </aside>
+                    <div class="result-grid" id="resultGrid"></div>
+                </div>
 
-            </div>
+                <div class="section" id="paid">
+                    <div class="section-head">
+                        <span class="section-kicker">Paid version</span>
+                        <h2>Variables Vending Machine</h2>
+                        <p class="body-copy">The scan shows your pattern. The machine explains it and applies it.</p>
+                    </div>
+
+                    <div class="compare">
+                        <article class="card">
+                            <span class="card-label">Free arrows scan</span>
+                            <h3>Pattern only</h3>
+                            <ul>
+                                <li>Shows left and right for all four arrows.</li>
+                                <li>Gives a short explanation for each arrow.</li>
+                                <li>Helps you see where support might be missing.</li>
+                            </ul>
+                        </article>
+                        <article class="card">
+                            <span class="card-label">Variables Vending Machine</span>
+                            <h3>Pattern plus application</h3>
+                            <ul>
+                                <li>Explains what is throwing you off on each side.</li>
+                                <li>Shows how body side and mind side interact.</li>
+                                <li>Connects your arrows to real choices in work, rest, money, and relationships.</li>
+                            </ul>
+                        </article>
+                    </div>
+
+                    <article class="cta-panel">
+                        <span class="card-label">What the machine adds</span>
+                        <h3>Deeper breakdown of your exact setup.</h3>
+                        <p>Instead of more theory, you get a clear read of your body side, mind side, and the four
+                            arrows together, written for Manifestors.</p>
+                        <ul>
+                            <li>How your brain processes and what actually feeds it.</li>
+                            <li>What structure helps instead of drains.</li>
+                            <li>Where your body works with the least resistance.</li>
+                            <li>How your perspective and motivation distort when unsupported.</li>
+                            <li>What this means for your urges, informing, and timing.</li>
+                        </ul>
+                        <div class="inline-actions">
+                            <a class="btn btn-primary" href="#">COMING SOON Variables Vending Machine</a>
+                            <a class="btn btn-secondary" href="#free-scan">Start with free scan</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="section">
+                    <div class="section-head">
+                        <span class="section-kicker">FAQ</span>
+                        <h2>Quick answers</h2>
+                    </div>
+                    <div class="faq-list">
+                        <article class="faq-item">
+                            <h3>Do I need to already know my arrows?</h3>
+                            <p>No. The free scan is built to help you identify the four directions first.</p>
+                        </article>
+                        <article class="faq-item">
+                            <h3>What is the difference between the scan and the machine?</h3>
+                            <p>The scan shows your left/right pattern. The machine explains what that means and how to
+                                work with it in real life.</p>
+                        </article>
+                        <article class="faq-item">
+                            <h3>Why does this matter for Manifestors?</h3>
+                            <p>Because unsupported variables change how clearly you move, inform, and trust your timing.
+                                When this is off, hesitation creeps in fast.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyQG1g9pGGSLetpLtHy1kjIlVgbjKVhtGi4rGCP9hnq2M2XaXrQz1e717xbfYkdA37/exec';
+        const emailInput = document.getElementById('emailInput');
+        const unlockBtn = document.getElementById('unlockBtn');
+        const emailError = document.getElementById('emailError');
+        const statusText = document.getElementById('statusText');
+        const resultGrid = document.getElementById('resultGrid');
+        const toggles = Array.from(document.querySelectorAll('.toggle'));
+
+        // Ensure the email input is enabled
+        emailInput.disabled = false;
+        emailInput.readOnly = false;
 
         const state = {
-            emailUnlocked: false,
-            coinTapped: false,
-            topLeft: null,
-            topRight: null,
-            bottomLeft: null,
-            bottomRight: null,
-            savedEmail: null
-        };
-
-        const emailInput = document.getElementById('emailInput');
-        const emailBtn = document.getElementById('emailBtn');
-        const emailError = document.getElementById('emailError');
-        const coin = document.getElementById('coin');
-        const displayText = document.getElementById('displayText');
-        const displayStrip = document.getElementById('displayStrip');
-        const tagsLine = document.getElementById('tagsLine');
-        const vendBtn = document.getElementById('vendBtn');
-        const vendLed = document.getElementById('vendLed');
-        const snapshotList = document.getElementById('snapshotList');
-        const snapshotBlend = document.getElementById('snapshotBlend');
-        const downloadBtn = document.getElementById('downloadSnapshotBtn');
-        const machineShell = document.getElementById('machineShell');
-        const arrowButtons = document.querySelectorAll('.arrow-btn');
-
-        const snapshotCopy = {
-            topLeft: {
-                L: {
-                    short: 'Top Left • Determination: Left',
-                    long: 'Your brain digests life in a more active and focused way. Left determination is built for regular input, repetition, and clearer parameters. It tends to work best when you are not multitasking your life to death. Feeding your system in simple, consistent ways gives your mind more bandwidth for actual urges instead of wasting energy on constant decision fatigue.'
-                },
-                R: {
-                    short: 'Top Left • Determination: Right',
-                    long: 'Your brain digests life in a more receptive and passive way. Right determination takes in more of the field and usually works worse under pressure, rigid timing, or forced focus. You are designed to absorb, notice, and relax into input more than control every part of it. The less you force yourself to act like a hyper-structured brain, the easier it is for your own intelligence to come through.'
-                }
-            },
-            bottomLeft: {
-                L: {
-                    short: 'Bottom Left • Environment: Left',
-                    long: 'Your body tends to meet the least resistance in environments that energize activity. Left environment has an active quality to it. The right spaces usually make you want to do, move, participate, and engage. If a space deadens you, flattens you, or constantly asks you to collapse when your body wants movement, it is probably not supporting you well.'
-                },
-                R: {
-                    short: 'Bottom Left • Environment: Right',
-                    long: 'Your body tends to meet the least resistance in environments that let you relax and receive. Right environment is more passive, observational, and surrendered. The right places usually do more work on you than you do on them. When your environment is correct, you often do not need to push so hard because life and the right people start coming into your field more naturally.'
-                }
-            },
-            topRight: {
-                L: {
-                    short: 'Top Right • Motivation: Left',
-                    long: 'Your mental style has a more strategic and directed quality. Left here is narrower, more specific, and tends to want a cleaner line from thought to action. You often do better when you can name what matters, reduce noise, and point your mind somewhere on purpose. Used well, this can help you communicate your urges in a way other people can actually follow.'
-                },
-                R: {
-                    short: 'Top Right • Motivation: Right',
-                    long: 'Your mental style has a more open and fluid quality. Right here is broader, less forceful, and more receptive to what is already in the field. You are not designed to hammer your mind into one rigid line all the time. Your best insight often comes when you stop trying to control every thought and allow your mind to stay looser, wider, and more observant.'
-                }
-            },
-            bottomRight: {
-                L: {
-                    short: 'Bottom Right • Perspective: Left',
-                    long: 'Your view is more focused and specific. Left perspective tends to track patterns through concentration, narrowing in, and holding attention on something long enough to really see it. You are usually better served by choosing what deserves your attention instead of pretending everything matters equally.'
-                },
-                R: {
-                    short: 'Bottom Right • Perspective: Right',
-                    long: 'Your view is more peripheral and wide-angle. Right perspective takes in more of the field and is less about drilling down into one tiny point forever. You often notice context, atmosphere, and what sits around the edges. This works best when you stop shaming yourself for not seeing the world through a narrow lens all the time.'
-                }
+            unlocked: false,
+            arrows: {
+                topLeft: null,
+                bottomLeft: null,
+                bottomRight: null,
+                topRight: null
             }
         };
 
-        function setDisplay(mode, text) {
-            displayText.textContent = text;
-            displayStrip.classList.remove('red', 'yellow', 'green');
-            displayStrip.classList.add(mode);
+        const previewCopy = {
+            topLeft: {
+                title: 'Determination',
+                left: 'Left Determination usually needs rhythm, repetition, and clearer structure so your brain has support instead of constant noise.',
+                right: 'Right Determination is built to receive. It works better with receptivity, space, and the right inputs drawing things out than with forced focus.'
+            },
+            bottomLeft: {
+                title: 'Environment',
+                left: 'Left Environment tends to do well in spaces that support action, movement, and engagement.',
+                right: 'Right Environment tends to do well in spaces that let your body relax, observe, and receive.'
+            },
+            bottomRight: {
+                title: 'Perspective',
+                left: 'Left Perspective tends to narrow and focus. It sees clearly when it can choose what deserves attention.',
+                right: 'Right Perspective takes in the wider field. It sees more when it does not have to force a narrow view.'
+            },
+            topRight: {
+                title: 'Motivation',
+                left: 'Left Motivation tends to move with more strategy and aim. It works best when you point it at what matters.',
+                right: 'Right Motivation tends to move with more openness. It works best when your intelligence is drawn out instead of pushed.'
+            }
+        };
+
+        function validEmail(value) {
+            return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim());
         }
 
-        function validateEmail(email) {
-            const input = document.createElement('input');
-            input.type = 'email';
-            input.value = email;
-            return input.checkValidity();
+        function setStatus(message) {
+            statusText.textContent = message;
         }
 
-        async function saveEmailToGoogleSheet(email) {
-            const formData = new FormData();
-            formData.append('email', email);
-            formData.append('source', 'arrows-scanner');
-            formData.append('page', 'arrows-machine');
-            formData.append('formType', 'arrows-snapshot');
-            formData.append('tag', 'arrows-machine-email');
-            formData.append('resultKey', '');
-            formData.append('resultTitle', '');
-            formData.append('resultBody', '');
-            formData.append('name', '');
-            formData.append('songtitle', '');
-            formData.append('songartist', '');
-            formData.append('whytrackhits', '');
+        function renderResults() {
+            const complete = Object.values(state.arrows).every(Boolean);
+            if (!complete) {
+                resultGrid.classList.remove('show');
+                return;
+            }
 
-            await fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: formData
-            });
+            const order = ['topLeft', 'bottomLeft', 'bottomRight', 'topRight'];
+            resultGrid.innerHTML = order.map(slot => {
+                const item = previewCopy[slot];
+                const dir = state.arrows[slot];
+                return `
+          <article class="result-card">
+            <span class="card-label">${dir === 'L' ? 'Left' : 'Right'} arrow</span>
+            <h3>${item.title}</h3>
+            <p>${dir === 'L' ? item.left : item.right}</p>
+          </article>
+        `;
+            }).join('');
 
-            return true;
+            resultGrid.classList.add('show');
+            setStatus('Free scan complete. The Variables Vending Machine gives the deeper breakdown and application.');
         }
 
-        emailBtn.addEventListener('click', async () => {
-            const val = emailInput.value.trim();
-            if (!validateEmail(val)) {
+        unlockBtn.addEventListener('click', () => {
+            if (!validEmail(emailInput.value)) {
                 emailError.style.display = 'block';
-                setDisplay('red', 'Enter a valid email to unlock the scan.');
+                state.unlocked = false;
+                setStatus('Locked. Enter a valid email to unlock the free scan.');
                 return;
             }
 
             emailError.style.display = 'none';
-            emailBtn.disabled = true;
-            emailBtn.textContent = 'Unlocking...';
-            setDisplay('yellow', 'Saving your email and waking up the scanner...');
-
-            try {
-                await saveEmailToGoogleSheet(val);
-                state.emailUnlocked = true;
-                state.savedEmail = val;
-                coin.classList.remove('disabled');
-                coin.classList.add('enabled');
-                emailInput.disabled = true;
-                setDisplay('green', 'Scanner is awake. Tap the coin to start.');
-            } catch (err) {
-                console.error(err);
-                setDisplay('red', 'Something glitched. Try again in a minute.');
-                emailBtn.disabled = false;
-                emailBtn.textContent = 'Unlock';
-            }
+            state.unlocked = true;
+            setStatus('Unlocked. Choose left or right for each arrow.');
         });
 
-        coin.addEventListener('click', () => {
-            if (!state.emailUnlocked) return;
-            state.coinTapped = true;
-            machineShell.classList.add('live');
-            setDisplay('yellow', 'Pick Left or Right for each arrow, then hit Scan.');
-        });
-
-        arrowButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (!state.coinTapped) return;
-
-                const slot = btn.dataset.slot;
-                const dir = btn.dataset.dir;
-
-                document.querySelectorAll(`.arrow-btn[data-slot="${slot}"]`).forEach(b => {
-                    b.classList.remove('active-left', 'active-right');
-                });
-
-                if (dir === 'L') {
-                    btn.classList.add('active-left');
-                } else {
-                    btn.classList.add('active-right');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                if (!state.unlocked) {
+                    setStatus('Unlock the scan first, then choose your arrows.');
+                    return;
                 }
 
-                state[slot] = dir;
+                const slot = toggle.dataset.slot;
+                const dir = toggle.dataset.dir;
+                state.arrows[slot] = dir;
 
-                const rowEl = document.querySelector(`.arrow-row[data-row="${slot}"]`);
-                if (rowEl) rowEl.classList.add('active');
+                const row = document.querySelector(`[data-slot-row="${slot}"]`);
+                row.classList.add('active');
 
-                updateTagsLine();
-                updateVendState();
-            });
-        });
+                row.querySelectorAll('.toggle').forEach(btn => {
+                    btn.classList.remove('left-active', 'right-active');
+                });
 
-        function updateTagsLine() {
-            const pieces = [];
-            if (state.topLeft) pieces.push(`Top Left: ${state.topLeft === 'L' ? 'Left' : 'Right'}`);
-            if (state.bottomLeft) pieces.push(`Bottom Left: ${state.bottomLeft === 'L' ? 'Left' : 'Right'}`);
-            if (state.topRight) pieces.push(`Top Right: ${state.topRight === 'L' ? 'Left' : 'Right'}`);
-            if (state.bottomRight) pieces.push(`Bottom Right: ${state.bottomRight === 'L' ? 'Left' : 'Right'}`);
-            tagsLine.textContent = pieces.length ? pieces.join(' • ') : 'No arrows selected yet.';
-        }
-
-        function allArrowsChosen() {
-            return state.topLeft && state.bottomLeft && state.topRight && state.bottomRight;
-        }
-
-        function updateVendState() {
-            if (state.coinTapped && allArrowsChosen()) {
-                vendBtn.classList.add('ready');
-                vendLed.classList.add('on');
-                setDisplay('green', 'All arrows set. Hit Scan to read your snapshot.');
-            } else if (state.coinTapped) {
-                vendBtn.classList.remove('ready');
-                vendLed.classList.remove('on');
-                setDisplay('yellow', 'Keep setting arrows. You need all four.');
-            }
-        }
-
-        function addLine(text) {
-            const div = document.createElement('div');
-            div.className = 'snapshot-list-item';
-            div.textContent = text;
-            snapshotList.appendChild(div);
-        }
-
-        function renderSnapshot() {
-            snapshotList.innerHTML = '';
-
-            if (state.topLeft) addLine(`${snapshotCopy.topLeft[state.topLeft].short} — ${snapshotCopy.topLeft[state.topLeft].long}`);
-            if (state.bottomLeft) addLine(`${snapshotCopy.bottomLeft[state.bottomLeft].short} — ${snapshotCopy.bottomLeft[state.bottomLeft].long}`);
-            if (state.topRight) addLine(`${snapshotCopy.topRight[state.topRight].short} — ${snapshotCopy.topRight[state.topRight].long}`);
-            if (state.bottomRight) addLine(`${snapshotCopy.bottomRight[state.bottomRight].short} — ${snapshotCopy.bottomRight[state.bottomRight].long}`);
-
-            const leftCount = [state.topLeft, state.bottomLeft, state.topRight, state.bottomRight].filter(v => v === 'L').length;
-            const rightCount = [state.topLeft, state.bottomLeft, state.topRight, state.bottomRight].filter(v => v === 'R').length;
-
-            let blend = '';
-
-            if (leftCount === 4) {
-                blend = 'You have an all-left pattern here. That usually means more activity, more structure, more specificity, and more strategic focus across the whole system. This can be powerful, but only when you stop using all that pressure against yourself and start using it to support what actually matters.';
-            } else if (rightCount === 4) {
-                blend = 'You have an all-right pattern here. That usually means more receptivity, more openness, more observation, and less benefit from rigid force. Your system often works best when you stop trying to act like a machine and let yourself take in more of the field.';
-            } else if (leftCount > rightCount) {
-                blend = 'Your pattern leans left. There is more active, strategic, and focused energy in your setup. Structure can help you, but only if it supports you instead of becoming another control system you resent.';
-            } else if (rightCount > leftCount) {
-                blend = 'Your pattern leans right. There is more receptive, relaxed, and observational energy in your setup. Looseness is not laziness for you. It is often the condition that lets your system work the way it is built to.';
-            } else {
-                blend = 'Your pattern is mixed. That usually means some parts of you need more structure while other parts need more openness. The point is not to choose one identity. It is to stop forcing every part of your life to run the same way.';
-            }
-
-            snapshotBlend.textContent = blend;
-        }
-
-        vendBtn.addEventListener('click', () => {
-            if (!vendBtn.classList.contains('ready')) return;
-            renderSnapshot();
-        });
-
-        downloadBtn.addEventListener('click', () => {
-            html2canvas(document.getElementById('snapshotPanel')).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'manifestor-arrows-snapshot.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
+                toggle.classList.add(dir === 'L' ? 'left-active' : 'right-active');
+                setStatus('Arrow loaded. Keep going until all four are selected.');
+                renderResults();
             });
         });
     </script>
-
 </body>
 
 </html>
