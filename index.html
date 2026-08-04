@@ -7,7 +7,7 @@
     <title>Manifestor Anonymous</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
     <meta name="description"
-        content="Manifestor Anonymous helps Manifestors understand their Human Design through practical tools like Gates Radio, the Arrows Machine, and the Rage Room." />
+        content="Manifestor Anonymous helps Manifestors understand themselves through personalized Chart Drops, anonymous submissions, practical digital guides, and Gates Radio." />
 
     <style>
         :root {
@@ -299,24 +299,28 @@
             border-radius: 24px;
             border: 1px solid var(--line);
             background: #030406;
-            min-height: 480px;
+            display: flex;
+            flex-direction: column;
         }
 
         .hero-image-box img {
             width: 100%;
-            height: 100%;
+            height: auto;
+            max-height: 420px;
             object-fit: cover;
+            display: block;
         }
 
         .hero-overlay {
-            position: absolute;
-            left: 18px;
-            right: 18px;
-            bottom: 18px;
+            position: relative;
+            left: auto;
+            right: auto;
+            bottom: auto;
             z-index: 2;
             border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 22px;
-            background: rgba(0, 0, 0, 0.42);
+            border-top: 0;
+            border-radius: 0 0 22px 22px;
+            background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(14px);
             padding: 18px;
         }
@@ -666,6 +670,12 @@
                 text-align: center;
             }
         }
+
+        @media (max-width: 760px) {
+            #vault .module-card[style*="grid-column"] {
+                grid-column: span 1 !important;
+            }
+        }
     </style>
 </head>
 
@@ -678,16 +688,18 @@
                 </div>
                 <div class="brand-copy">
                     <small>Manifestor Anonymous</small>
-                    <strong>Manifestor tools that actually make sense</strong>
-                    <div class="topbar-tagline">Gates Radio · Arrows Machine · Rage Room</div>
+                    <strong>Understand yourself differently.</strong>
+                    <div class="topbar-tagline">Chart Drops · Anonymous Submissions · Manifestor Vault</div>
                 </div>
             </div>
             <nav class="top-links">
-                <a href="#machines">Tools</a>
+                <a href="#chart-drops">Chart Drops</a>
                 <span>/</span>
-                <a href="#dj-sun">DJ Sun</a>
+                <a href="#submissions">Submissions</a>
                 <span>/</span>
-                <a href="#system">About</a>
+                <a href="#vault">Vault</a>
+                <span>/</span>
+                <a href="#gates-radio">Gates Radio</a>
             </nav>
         </div>
     </header>
@@ -701,28 +713,24 @@
                         <span class="eyebrow">For Manifestors</span>
                     </div>
 
-                    <h1>Understand your Human Design without overthinking it.</h1>
-                    <span class="hero-sub">Tools for Manifestors who are tired of trying to figure themselves out
-                        mentally.</span>
+                    <h1>Finally understand why you experience life the way you do as a Manifestor.</h1>
+                    <span class="hero-sub">Understand yourself differently.</span>
 
                     <p class="hero-body">
-                        Most Human Design content gives you more information, more words, and more things to memorize.
-                        <strong>Manifestor Anonymous gives you tools that help you actually recognize your design in
-                            real life.</strong>
-                    </p>
-
-                    <p class="hero-body">
-                        Start with playlists, scans, and direct tools that make your chart easier to understand, easier
-                        to use, and a lot harder to forget.
+                        You can know your type, authority, profile, and gates and still wonder,
+                        <strong>Why am I like this?</strong> Manifestor Anonymous translates your chart into the
+                        patterns,
+                        strengths, friction, and real-life experiences you can actually recognize.
                     </p>
 
                     <p class="hero-tagline">
-                        Clear tools. Real pattern recognition. No vague spiritual fluff.
+                        Less memorizing. More recognition.
                     </p>
 
                     <div class="cta-row">
-                        <a class="btn btn-primary" href="#machines">Explore the tools</a>
-                        <a class="btn btn-secondary" href="gates.html">Start with Gates Radio</a>
+                        <a class="btn btn-primary" href="#chart-drops">Get a Chart Drop</a>
+                        <a class="btn btn-secondary" href="https://tally.so/r/gDALkD" target="_blank"
+                            rel="noopener noreferrer">Submit anonymously</a>
                     </div>
                 </div>
 
@@ -738,11 +746,11 @@
                             <img src="images/logofull.png"
                                 alt="Manifestor Anonymous hooded figure with glowing throat" />
                             <div class="hero-overlay">
-                                <span class="micro">What this is</span>
-                                <h2>Not more chart facts. Better ways to recognize yourself.</h2>
+                                <span class="micro">Why this exists</span>
+                                <h2>Because understanding your chart should help you understand yourself.</h2>
                                 <p>
-                                    This site is built to help Manifestors understand their chart through experience,
-                                    not just explanation.
+                                    This is Human Design translated into patterns you can actually recognize, use, and
+                                    remember.
                                 </p>
                             </div>
                         </div>
@@ -751,180 +759,165 @@
             </div>
         </section>
 
-        <section class="dj-section" id="dj-sun">
+        <section class="section" id="problem">
             <div class="container">
-                <article class="dj-card">
-                    <div>
-                        <div class="dj-left-header" style="align-items:center;gap:8px;">
-                            <span class="status-badge" style="font-size:11px;padding:3px 8px;">
-                                NOW PLAYING
-                            </span>
-                            <span class="dj-label"
-                                style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;">
-                                DJ Sun • weekly gate playlist
-                            </span>
-                        </div>
+                <div class="section-head">
+                    <span class="section-label">The problem</span>
+                    <h2>Knowing your chart is not the same as recognizing yourself.</h2>
+                    <p>Human Design should help you make sense of your actual life, not leave you collecting more
+                        definitions.</p>
+                </div>
 
-                        <div
-                            style="margin-top:10px;font-size:13px;text-transform:uppercase;letter-spacing:0.18em;color:rgba(255,255,255,0.9);">
-                            This week’s gate playlist:
-                            <span id="djTrackTitle"
-                                style="font-weight:700;letter-spacing:0.12em;font-size:13px;text-transform:uppercase;">
-                                OPINION RADIO
-                            </span>
-                        </div>
+                <div class="module-grid">
+                    <article class="module-card">
+                        <div class="module-path">The question underneath it all</div>
+                        <h3>Why do I keep doing this?</h3>
+                        <p>Repeated patterns, unfinished ideas, anger, rest guilt, relationships, work, and the parts of
+                            you other people misunderstand.</p>
+                    </article>
 
-                        <h2 class="dj-heading" style="margin-top:16px;">One gate playlist, updated every week</h2>
-                        <p class="dj-subcopy">
-                            DJ Sun highlights one live transit gate at a time so you can listen to the energy that is
-                            active right now.
-                        </p>
+                    <article class="module-card">
+                        <div class="module-path">The disconnect</div>
+                        <h3>I know my chart, but it still feels abstract.</h3>
+                        <p>You do not need another definition. You need help seeing where the information is already
+                            showing up in your life.</p>
+                    </article>
 
-                        <div class="dj-gate-value" id="djGate" style="margin-top:18px;">Gate 17 · Opinions</div>
-                        <div class="dj-tags" id="djTags">Logic • Pattern recognition • Mental pressure • Organizing
-                            ideas</div>
+                    <article class="module-card">
+                        <div class="module-path">The outcome</div>
+                        <h3>Recognition changes everything.</h3>
+                        <p>When you recognize your patterns, you can stop treating your design like a problem and start
+                            working with it.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-                        <div style="margin-top:14px;font-size:11px;color:rgba(245,247,251,0.9);line-height:1.9;">
-                            <div>
-                                <span class="dj-meta-label" style="margin-right:6px;">Gate window</span>
-                                <span id="djDates" style="letter-spacing:0.04em;">March 24–29</span>
-                            </div>
-                            <div>
-                                <span class="dj-meta-label" style="margin-right:6px;">Set ID</span>
-                                <span id="djSetId" style="letter-spacing:0.06em;">SET 017</span>
-                            </div>
-                        </div>
-
-                        <div style="margin-top:12px;">
-                            <iframe data-testid="embed-iframe" style="border-radius:12px"
-                                src="https://open.spotify.com/embed/playlist/1q09fpTML4NDVLWIKlOvBi?utm_source=generator&theme=0"
-                                width="100%" height="152" frameBorder="0" allowfullscreen=""
-                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                loading="lazy"></iframe>
-                        </div>
-                    </div>
-
-                    <div class="dj-right">
-                        <div class="dj-right-title">What DJ Sun is</div>
-
-                        <div class="dj-track-reason" id="djReason">
-                            DJ Sun is the weekly front door into Gates Radio. It gives you one gate to listen to so you
-                            can start hearing your Human Design instead of just reading about it.
-                        </div>
-
-                        <div class="dj-track-link" style="margin-top:10px;">
-                            Use this when you want a simple entry point, a current transit mirror, or a new gate
-                            playlist to start with.
-                        </div>
-
-                        <div class="dj-description-box" id="djDescription" style="margin-top:14px;">
-                            <strong>Why this matters</strong>
-                            It is easier to remember your design when you can hear it, feel it, and recognize it in
-                            something you already connect to.
-                        </div>
+        <section class="section" id="chart-drops">
+            <div class="container">
+                <article class="statement-card" style="padding:32px;">
+                    <span class="section-label">Personal audio reading</span>
+                    <h2 style="margin:12px 0 0;font-size:clamp(32px,4vw,46px);letter-spacing:-0.05em;">
+                        Bring me one question. I’ll show you what your chart has to say about it.
+                    </h2>
+                    <p style="max-width:720px;font-size:16px;">
+                        Your Chart Drop is a private 8–12 minute audio focused on the parts of your chart that best
+                        speak to
+                        the question, pattern, or experience you want help understanding.
+                    </p>
+                    <p style="margin-top:10px;color:var(--dim);font-size:13px;">
+                        One question · Private audio · Delivered in 5–7 business days
+                    </p>
+                    <div class="cta-row">
+                        <a class="btn btn-primary" href="https://payhip.com/b/ky9wG" target="_blank"
+                            rel="noopener noreferrer">Get your Chart Drop</a>
                     </div>
                 </article>
             </div>
         </section>
 
-        <section class="section" id="machines">
+        <section class="section" id="submissions">
             <div class="container">
                 <div class="section-head">
-                    <span class="section-label">Start here</span>
-                    <h2>Pick the tool you need.</h2>
-                    <p>
-                        These are direct tools built to help you understand different parts of your design without
-                        getting lost in information.
-                    </p>
+                    <span class="section-label">Community learning</span>
+                    <h2>Anonymous Submissions</h2>
+                    <p>Sometimes the best lessons come from someone else's question.</p>
                 </div>
+
+                <article class="dj-card"
+                    style="background:linear-gradient(135deg, rgba(124,58,237,0.78), rgba(57,255,136,0.16) 46%, rgba(10,12,16,0.98) 100%);">
+                    <div>
+                        <span class="status-badge">Anonymous by design</span>
+                        <h2 class="dj-heading" style="margin-top:18px;">Tell me something you have never understood
+                            about yourself.</h2>
+                        <p class="dj-subcopy">
+                            Submit something you've never understood about yourself, and I may anonymously feature it on
+                            Manifestor Anonymous to help other Manifestors recognize themselves too.
+                        </p>
+                    </div>
+
+                    <div class="dj-right">
+                        <div class="dj-right-title">What you can share</div>
+                        <div class="dj-track-reason">
+                            A pattern you keep repeating, something you are naturally good at, something people
+                            misunderstand
+                            about you, a relationship dynamic, a work pattern, or a question you have always wondered
+                            about.
+                        </div>
+                        <div class="dj-description-box">
+                            <strong>How it works</strong>
+                            Your identifying details stay private. Selected submissions may be used as short public
+                            teachings.
+                        </div>
+                        <a class="btn btn-primary" href="https://tally.so/r/gDALkD" target="_blank"
+                            rel="noopener noreferrer">Submit anonymously</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="vault">
+            <div class="container">
+                <div class="section-head">
+                    <span class="section-label">Evergreen resources</span>
+                    <h2>The Manifestor Vault</h2>
+                    <p>Practical digital guides that turn Human Design concepts into something you can recognize and
+                        live.</p>
+                </div>
+
                 <div class="module-grid">
-                    <article class="module-card">
+                    <article class="module-card" style="grid-column:span 2;">
                         <div class="module-top">
-                            <span class="module-label">Module 01</span>
-                            <span class="module-status live">Live</span>
+                            <span class="module-label">Featured guide</span>
+                            <span class="module-status live">Coming soon</span>
                         </div>
-                        <div class="module-path">Turn your chart into a playlist</div>
-                        <h3>Gates Radio</h3>
+                        <div class="module-path">All 12 Manifestor profiles</div>
+                        <h3>The Manifestor Profile Handbook</h3>
                         <p>
-                            Listen to gate playlists that help you recognize your Human Design through music instead of
-                            trying to memorize it.
+                            One complete guide to all 12 Manifestor profiles, with original names, real-life patterns,
+                            strengths, friction points, and what each profile actually looks like in everyday life.
                         </p>
-                        <a class="module-btn live" href="gates.html">Open tool</a>
-                    </article>
-
-
-                    <article class="module-card">
-                        <div class="module-top">
-                            <span class="module-label">Module 02</span>
-                            <span class="module-status live">Live</span>
-                        </div>
-                        <div class="module-path">Understand your anger</div>
-                        <h3>Rage Room</h3>
-                        <p>
-                            Empty the pressure and see what your anger is actually pointing to instead of stuffing it
-                            down or turning it on yourself.
-                        </p>
-                        <a class="module-btn live" href="rage.html">Open tool</a>
-                    </article>
-
-
-                    <article class="module-card">
-                        <div class="module-top">
-                            <span class="module-label">Module 03</span>
-                            <span class="module-status live">Live</span>
-                        </div>
-                        <div class="module-path">How your system processes life</div>
-                        <h3>Arrows Machine</h3>
-                        <p>
-                            Understand how your mind, body, and environment actually work so you stop forcing methods
-                            that are wrong for you.
-                        </p>
-                        <a class="module-btn live" href="arrows.html">Open tool</a>
+                        <a class="module-btn" href="#">View the handbook</a>
                     </article>
 
                     <article class="module-card">
                         <div class="module-top">
-                            <span class="module-label">Module 04</span>
-                            <span class="module-status standby">Stand by</span>
+                            <span class="module-label">The Vault</span>
+                            <span class="module-status standby">Expanding</span>
                         </div>
-                        <div class="module-path">Shadow and conditioning</div>
-                        <h3>Black Market</h3>
+                        <div class="module-path">More lived Human Design</div>
+                        <h3>Future Guides</h3>
                         <p>
-                            Look at the parts of yourself you were taught to hide, reject, or tone down and see what is
-                            actually conditioning versus what is power.
+                            Future resources may explore centers, gates, authority, rest, anger, and other parts of the
+                            Manifestor experience. Only when they are ready.
                         </p>
-                        <button class="module-btn" type="button">Locked</button>
-                    </article>
-
-                    <article class="module-card">
-                        <div class="module-top">
-                            <span class="module-label">Module 05</span>
-                            <span class="module-status standby">Stand by</span>
-                        </div>
-                        <div class="module-path">Creative urges</div>
-                        <h3>Initiation Exchange</h3>
-                        <p>
-                            A place for unfinished urges, ideas, and initiations that still have energy in them and need
-                            somewhere to move.
-                        </p>
-                        <button class="module-btn" type="button">Locked</button>
-                    </article>
-
-                    <article class="module-card">
-                        <div class="module-top">
-                            <span class="module-label">Module 06</span>
-                            <span class="module-status standby">Stand by</span>
-                        </div>
-                        <div class="module-path">Burnout and recovery</div>
-                        <h3>MA Meetings</h3>
-                        <p>
-                            Future anonymous Manifestor rooms for burnout, anger, failed initiations, and the parts of
-                            this process people usually hide.
-                        </p>
-                        <button class="module-btn" type="button">Locked</button>
+                        <button class="module-btn" type="button">Stay tuned</button>
                     </article>
                 </div>
             </div>
+        </section>
+
+        <section class="section" id="gates-radio">
+            <div class="container">
+                <div class="section-head">
+                    <span class="section-label">Free resource</span>
+                    <h2>Gates Radio</h2>
+                    <p>Learn the gates through music instead of trying to memorize another list of definitions.</p>
+                </div>
+
+                <article class="statement-card">
+                    <span class="section-label">Listen to the energy</span>
+                    <h2 style="margin:12px 0 0;font-size:28px;letter-spacing:-0.05em;">
+                        Turn your chart into something you can hear.
+                    </h2>
+                    <p>
+                        Gates Radio pairs Human Design gates with songs that reflect their themes, tension, expression,
+                        and lived experience.
+                    </p>
+                    <div class="cta-row">
+                        <a class="btn btn-secondary" href="gates.html">Open Gates Radio</a>
+                    </div>
+                </article>
             </div>
         </section>
 
@@ -932,36 +925,12 @@
             <div class="container">
                 <div class="section-head">
                     <span class="section-label">About</span>
-                    <h2>What Manifestor Anonymous actually does.</h2>
+                    <h2>Manifestor Anonymous helps Manifestors recognize themselves.</h2>
                     <p>
-                        This is not another site that dumps more Human Design information on you. It is built to make
-                        your design easier to understand and easier to use.
+                        The point is not to memorize your chart. The point is to finally understand what your design
+                        looks
+                        like in your actual life.
                     </p>
-                </div>
-
-                <div class="statement-grid">
-                    <article class="statement-card">
-                        <span class="section-label">Clearer learning</span>
-                        <h2 style="margin:12px 0 0;font-size:28px;letter-spacing:-0.05em;">
-                            Less memorizing. More recognition.
-                        </h2>
-                        <p>
-                            The goal is not to make you collect more chart facts. The goal is to help you recognize your
-                            own patterns faster and understand what your design actually looks like in real life.
-                        </p>
-                    </article>
-
-                    <article class="statement-card">
-                        <span class="section-label">One connected system</span>
-                        <h2 style="margin:12px 0 0;font-size:28px;letter-spacing:-0.05em;">
-                            Different tools. Same mission.
-                        </h2>
-                        <p>
-                            Gates Radio, the Arrows Machine, and the Rage Room all do the same core job from different
-                            angles: they help Manifestors understand themselves more clearly without vague language or
-                            confusing offers.
-                        </p>
-                    </article>
                 </div>
             </div>
         </section>
@@ -970,7 +939,7 @@
     <footer>
         <div class="container footer-inner">
             <div>© Manifestor Anonymous</div>
-            <div>Built for Manifestors who want clearer tools, not more confusion.</div>
+            <div>Human Design that helps you recognize yourself in real life.</div>
             <div class="social-link" style="margin-top:4px;">
                 <a href="https://instagram.com/manifestor.anonymous" target="_blank" rel="noopener noreferrer">
                     @manifestor.anonymous
@@ -979,7 +948,6 @@
         </div>
     </footer>
 
-    <script src="assets/dj-sun.js" defer></script>
 </body>
 
 </html>
