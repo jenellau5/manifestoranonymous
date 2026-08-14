@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Find your Manifestor profile archetype and see how your power initiates, informs, meets resistance, and resets.">
+    <title>Find Your Profile Archetype | Manifestor Anonymous</title>
+    <style>
+        :root {
+            --bg: #060706;
+            --panel: #101210;
+            --panel2: #151815;
+            --text: #f7f8f3;
+            --muted: #a6aaa2;
+            --line: #2a2e29;
+            --acid: #39ff88;
+            --ink: #05130a;
+            --radius: 24px;
+            --shadow: 0 24px 70px rgba(0, 0, 0, .5)
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            background: radial-gradient(circle at 70% 0, rgba(57, 255, 136, .08), transparent 22%), var(--bg);
+            color: var(--text);
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            min-height: 100vh
+        }
+
+        body:before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .055;
+            background-image: linear-gradient(rgba(255, 255, 255, .08) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .08) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: radial-gradient(circle at center, #000 35%, transparent 90%)
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        .container {
+            width: min(1160px, calc(100% - 32px));
+            margin: auto
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(6, 7, 6, .82);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .topbar-inner {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px
+        }
+
+        .brand small,
+        .eyebrow,
+        .label {
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: .22em;
+            font: 700 10px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace
+        }
+
+        .brand small {
+            color: var(--acid)
+        }
+
+        .brand strong {
+            display: block;
+            margin-top: 5px;
+            font-size: 17px
+        }
+
+        .back {
+            color: var(--muted);
+            font-size: 13px;
+            border: 1px solid var(--line);
+            padding: 10px 14px;
+            border-radius: 999px
+        }
+
+        .back:hover {
+            border-color: var(--acid);
+            color: var(--text)
+        }
+
+        main {
+            position: relative;
+            z-index: 1
+        }
+
+        .hero {
+            padding: 72px 0 38px
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            gap: 28px;
+            align-items: end
+        }
+
+        .eyebrow {
+            color: var(--acid)
+        }
+
+        h1 {
+            margin: 20px 0 0;
+            max-width: 820px;
+            font-size: clamp(50px, 8vw, 92px);
+            line-height: .9;
+            letter-spacing: -.065em;
+            text-transform: uppercase
+        }
+
+        .hero p {
+            max-width: 650px;
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.7
+        }
+
+        .manifesto {
+            border-left: 5px solid var(--acid);
+            padding: 20px 0 20px 22px;
+            color: var(--text);
+            font-size: 16px;
+            line-height: 1.65
+        }
+
+        .manifesto strong {
+            color: var(--acid)
+        }
+
+        .finder {
+            padding: 28px 0 80px
+        }
+
+        .finder-shell {
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .02));
+            border-radius: 32px;
+            box-shadow: var(--shadow);
+            overflow: hidden
+        }
+
+        .finder-head {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 28px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .finder-head h2 {
+            margin: 8px 0 0;
+            font-size: clamp(28px, 5vw, 48px);
+            letter-spacing: -.05em
+        }
+
+        .step {
+            color: var(--muted);
+            font: 700 11px ui-monospace, SFMono-Regular, Menlo, monospace;
+            letter-spacing: .12em
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding: 28px
+        }
+
+        .profile-btn {
+            min-height: 134px;
+            text-align: left;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--panel);
+            color: var(--text);
+            padding: 17px;
+            cursor: pointer;
+            transition: .18s ease
+        }
+
+        .profile-btn:hover,
+        .profile-btn:focus-visible {
+            transform: translateY(-2px);
+            border-color: var(--acid);
+            outline: 0
+        }
+
+        .profile-btn[aria-pressed="true"] {
+            background: var(--acid);
+            border-color: var(--acid);
+            color: var(--ink)
+        }
+
+        .profile-code {
+            font: 800 25px ui-monospace, SFMono-Regular, Menlo, monospace
+        }
+
+        .profile-name {
+            display: block;
+            margin-top: 12px;
+            font-size: 12px;
+            line-height: 1.35;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .05em
+        }
+
+        .result {
+            display: none;
+            border-top: 1px solid var(--line);
+            padding: 32px
+        }
+
+        .result.active {
+            display: block;
+            animation: rise .3s ease
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .result-top {
+            display: grid;
+            grid-template-columns: .7fr 1.3fr;
+            gap: 28px;
+            align-items: start
+        }
+
+        .result-code {
+            font: 900 clamp(72px, 11vw, 132px)/.9 ui-monospace, SFMono-Regular, Menlo, monospace;
+            color: var(--acid)
+        }
+
+        .result h2 {
+            margin: 5px 0 0;
+            font-size: clamp(34px, 6vw, 65px);
+            line-height: .95;
+            letter-spacing: -.055em;
+            text-transform: uppercase
+        }
+
+        .result-truth {
+            margin: 24px 0 0;
+            color: var(--acid);
+            font: 800 14px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+            text-transform: uppercase
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-top: 30px
+        }
+
+        .result-card {
+            background: var(--panel2);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 20px
+        }
+
+        .label {
+            color: var(--acid)
+        }
+
+        .result-card p {
+            margin: 10px 0 0;
+            color: #e9ece4;
+            line-height: 1.65;
+            font-size: 15px
+        }
+
+        .result-card.wide {
+            grid-column: 1/-1
+        }
+
+        .cta {
+            margin-top: 18px;
+            border: 1px solid rgba(57, 255, 136, .35);
+            background: linear-gradient(135deg, rgba(57, 255, 136, .11), rgba(255, 255, 255, .025));
+            border-radius: 22px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px
+        }
+
+        .cta h3 {
+            margin: 8px 0 0;
+            font-size: clamp(24px, 4vw, 38px);
+            letter-spacing: -.045em
+        }
+
+        .cta p {
+            margin: 8px 0 0;
+            color: var(--muted);
+            line-height: 1.6
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 auto;
+            background: var(--acid);
+            color: var(--ink);
+            padding: 15px 20px;
+            border-radius: 14px;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            font-weight: 900;
+            font-size: 11px;
+            box-shadow: 0 0 30px rgba(57, 255, 136, .13)
+        }
+
+        .btn:hover {
+            transform: translateY(-2px)
+        }
+
+        .unknown {
+            margin: 0 28px 28px;
+            padding: 18px 20px;
+            border: 1px dashed var(--line);
+            border-radius: 16px;
+            color: var(--muted);
+            line-height: 1.6
+        }
+
+        .unknown strong {
+            color: var(--text)
+        }
+
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 24px 0 36px;
+            color: #777d74;
+            font-size: 12px
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap
+        }
+
+        @media(max-width:850px) {
+
+            .hero-grid,
+            .result-top {
+                grid-template-columns: 1fr
+            }
+
+            .profile-grid {
+                grid-template-columns: repeat(3, 1fr)
+            }
+
+            .manifesto {
+                margin-top: 12px
+            }
+        }
+
+        @media(max-width:620px) {
+            .hero {
+                padding-top: 45px
+            }
+
+            .profile-grid {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 18px
+            }
+
+            .finder-head,
+            .result {
+                padding: 22px
+            }
+
+            .finder-head {
+                align-items: start;
+                flex-direction: column
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr
+            }
+
+            .result-card.wide {
+                grid-column: auto
+            }
+
+            .cta {
+                align-items: stretch;
+                flex-direction: column
+            }
+
+            .btn {
+                width: 100%
+            }
+
+            .unknown {
+                margin: 0 18px 18px
+            }
+
+            .topbar-inner {
+                min-height: 68px
+            }
+
+            .brand strong {
+                font-size: 14px
+            }
+
+            .back {
+                font-size: 11px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner"><a class="brand" href="index.html"><small>Manifestor
+                    Anonymous</small><strong>Understand yourself differently.</strong></a><a class="back"
+                href="index.html">Back to home</a></div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="container hero-grid">
+                <div><span class="eyebrow">Free profile finder</span>
+                    <h1>Find your Manifestor weapon.</h1>
+                    <p>Same aura. Twelve different ways power moves. Choose the profile from your Human Design chart and
+                        see how yours initiates, informs, meets resistance, and resets.</p>
+                </div>
+                <div class="manifesto"><strong>This is the surface, not the full reading.</strong><br>No digging. No
+                    soft language. Just the pattern, the pressure point, and the move.</div>
+            </div>
+        </section>
+        <section class="finder">
+            <div class="container">
+                <div class="finder-shell">
+                    <div class="finder-head">
+                        <div><span class="eyebrow">Choose your profile</span>
+                            <h2>Which one are you?</h2>
+                        </div>
+                        <div class="step">01 / SELECT &nbsp; 02 / RECOGNIZE &nbsp; 03 / MOVE</div>
+                    </div>
+                    <div class="profile-grid" id="profile-grid" aria-label="Manifestor profiles"></div>
+                    <div class="unknown"><strong>Do not know your profile?</strong> Look for the two numbers listed as
+                        “Profile” on your Human Design chart, then come back and select them here.</div>
+                    <article class="result" id="result" aria-live="polite">
+                        <div class="result-top">
+                            <div class="result-code" id="result-code"></div>
+                            <div><span class="eyebrow">Your archetype</span>
+                                <h2 id="result-name"></h2>
+                                <p class="result-truth" id="result-truth"></p>
+                            </div>
+                        </div>
+                        <div class="result-grid">
+                            <div class="result-card"><span class="label">Your move</span>
+                                <p id="result-move"></p>
+                            </div>
+                            <div class="result-card"><span class="label">Inform like this</span>
+                                <p id="result-inform"></p>
+                            </div>
+                            <div class="result-card"><span class="label">Watch for</span>
+                                <p id="result-watch"></p>
+                            </div>
+                            <div class="result-card"><span class="label">Reset</span>
+                                <p id="result-reset"></p>
+                            </div>
+                            <div class="result-card wide"><span class="label">Remember</span>
+                                <p id="result-remember"></p>
+                            </div>
+                        </div>
+                        <div class="cta">
+                            <div><span class="eyebrow">This is only the surface</span>
+                                <h3>Get the complete Manifestor Profile Bundle.</h3>
+                                <p>Three digital guides. All 12 profiles. 86 total pages. $37.</p>
+                            </div><a class="btn" href="https://payhip.com/b/Hwgs5" target="_blank"
+                                rel="noopener noreferrer">View the complete bundle</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container footer-inner"><span>© Manifestor Anonymous</span><span>The aura is shared. The movement is
+                not.</span></div>
+    </footer>
+    <script>
+        const profiles = [
+            { code: '1/3', name: 'The Firestarter Scientist', truth: 'You do not tiptoe into life. You set it on fire to see what survives.', move: 'Test the urge in real life. Every collision gives you data no untouched theory can.', inform: 'I am testing this direction. I will update you if the plan changes.', watch: 'Perfection pressure, shame after impact, and treating an experiment like a permanent promise.', reset: 'Record the data. Stop calling it failure. Adjust and move again.', remember: 'The world calls it failure. You call it research.' },
+            { code: '1/4', name: 'The Underground Instigator', truth: 'You build the foundation in private, then move it through the right people.', move: 'Build privately until conviction locks in, then activate the circle that can carry it.', inform: 'I have made a decision. I am letting you know before I move.', watch: 'Outside opinions, endless preparation, and fear that initiation will cost you belonging.', reset: 'Return to the foundation. Tell the right few. Stop asking the crowd.', remember: 'You do not just initiate. You recruit.' },
+            { code: '2/4', name: 'The Hidden Fuse', truth: 'You recharge out of sight, then your people carry the spark farther than force could.', move: 'Emerge from retreat when the spark is ready. Your network spreads the impact.', inform: 'I am offline for a while. I will reach out when I am available again.', watch: 'Forced visibility, grinding for recognition, or hiding after the moment has arrived.', reset: 'Withdraw on purpose. Recharge fully. Re-enter clearly.', remember: 'You appear, impact, and retreat.' },
+            { code: '2/5', name: 'The Disruptive Savior', truth: 'You crave simplicity while others project solutions onto your natural power.', move: 'Make the one clean intervention that resets the system without adopting the entire problem.', inform: 'I can help with this part, but I am not taking responsibility for the whole outcome.', watch: 'Being cast as the permanent savior and accepting a role you never agreed to hold.', reset: 'Simplify. Refuse the rescue role. Protect your retreat.', remember: 'You are not here to please. You are here to disrupt and reset.' },
+            { code: '3/5', name: 'The Chaos Catalyst', truth: 'You turn collapse into field-tested strategy and make disruption useful.', move: 'Enter the experiment. Meet reality. Turn the wreckage into something that actually works.', inform: 'This is a test, not a guarantee. Here is what I know right now.', watch: 'Public projection, impossible guarantees, and blame for exposing what was already broken.', reset: 'Extract the lesson before rebuilding. Your failure is data.', remember: 'You try. You break. You rebuild. Publicly.' },
+            { code: '3/6', name: 'The Eternal Burner', truth: 'You outgrow, rebuild, and become proof that transformation is survivable.', move: 'Initiate the next evolution from lived truth, not from pressure to remain consistent.', inform: 'This is the direction I am living now. The result may refine the plan.', watch: 'Being trapped in an old identity or creating another burn because stillness feels unfamiliar.', reset: 'Observe the full pattern. Integrate the last transformation before forcing the next.', remember: 'You were never built to remain identical to yesterday.' },
+            { code: '4/6', name: 'The System Breaker', truth: 'You change the people who shape the system, then become proof of a new standard.', move: 'Reroute the group through relationships, perspective, and embodied change.', inform: 'This change affects our shared system, so I am telling you before I act.', watch: 'Community expectations, forced role-model energy, and staying loyal to an expired system.', reset: 'Leave the stage. Integrate privately. Let embodiment speak.', remember: 'People do not just follow you. They reorganize around you.' },
+            { code: '4/1', name: 'The Unstoppable Force', truth: 'You build certainty, align the right people, and move with fixed direction.', move: 'Wait for conviction. Once it locks in, move without negotiating your direction away.', inform: 'The direction is decided. I want you to know how it will affect you.', watch: 'Pressure to move early, repeated redirection, and turning certainty into defensiveness.', reset: 'Let the foundation settle. Stop debating the decision.', remember: 'You do not influence. You reroute.' },
+            { code: '5/1', name: 'The Revolutionary Commander', truth: 'Others expect the answer. Your authority comes from a foundation you trust.', move: 'Turn a researched solution into decisive action that can move more than one person.', inform: 'Here is what I can solve, and here is what is outside my scope.', watch: 'Performing certainty, carrying heroic projections, and solving problems that are not yours.', reset: 'Put down the command role. Investigate without an audience.', remember: 'You do not just start fires. You turn them into movements.' },
+            { code: '5/2', name: 'The Shadow Disruptor', truth: 'You withdraw from projection, then emerge with a solution no one saw coming.', move: 'Emerge from stillness with one precise intervention, then leave when the work is complete.', inform: 'I can make this intervention, but I am not taking an ongoing role.', watch: 'Feeling hunted by other people’s needs or hiding so deeply recognition cannot reach you.', reset: 'Disappear deliberately, not resentfully. Protect your exit.', remember: 'You disrupt from the shadows, not the stage.' },
+            { code: '6/2', name: 'The Silent Provoker', truth: 'Your presence becomes the message. Embodiment changes the room before words do.', move: 'Move from embodied clarity, not pressure to perform wisdom or prove your gift.', inform: 'I need quiet to hear what is actually mine. I will reconnect afterward.', watch: 'Forced visibility, overexplaining, and waiting for perfect embodiment before acting.', reset: 'Retreat until the noise drops away. Return when the truth is yours again.', remember: 'You do not push change. You become it.' },
+            { code: '6/3', name: 'The Indestructible Instigator', truth: 'You collide with life, rise with perspective, and make resilience revolutionary.', move: 'Move first, collide, repair, and rise with authority that no polished theory can fake.', inform: 'My plan changed because experience gave me better information.', watch: 'Proving resilience through preventable damage or treating recovery like weakness.', reset: 'Recover fully. Your strength does not need another test.', remember: 'You do not just bounce back. You restart timelines.' }
+        ];
+        const grid = document.getElementById('profile-grid'), result = document.getElementById('result');
+        profiles.forEach((p, i) => { const b = document.createElement('button'); b.className = 'profile-btn'; b.type = 'button'; b.setAttribute('aria-pressed', 'false'); b.innerHTML = `<span class="profile-code">${p.code}</span><span class="profile-name">${p.name}</span>`; b.addEventListener('click', () => showProfile(i, b)); grid.appendChild(b) });
+        function showProfile(i, button) { const p = profiles[i]; document.querySelectorAll('.profile-btn').forEach(b => b.setAttribute('aria-pressed', 'false')); button.setAttribute('aria-pressed', 'true');['code', 'name', 'truth', 'move', 'inform', 'watch', 'reset', 'remember'].forEach(k => document.getElementById('result-' + k).textContent = p[k]); result.classList.add('active'); requestAnimationFrame(() => result.scrollIntoView({ behavior: 'smooth', block: 'start' })); history.replaceState(null, '', '#' + p.code.replace('/', '-')) }
+        const requested = location.hash.slice(1).replace('-', '/'); const initial = profiles.findIndex(p => p.code === requested); if (initial >= 0) setTimeout(() => document.querySelectorAll('.profile-btn')[initial].click(), 100);
+    </script>
+</body>
+
+</html>
