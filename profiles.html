@@ -16,6 +16,7 @@
             --muted: #a6aaa2;
             --line: #2a2e29;
             --acid: #39ff88;
+            --purple: #7c3aed;
             --ink: #05130a;
             --radius: 24px;
             --shadow: 0 24px 70px rgba(0, 0, 0, .5)
@@ -31,7 +32,10 @@
 
         body {
             margin: 0;
-            background: radial-gradient(circle at 70% 0, rgba(57, 255, 136, .08), transparent 22%), var(--bg);
+            background:
+                radial-gradient(circle at 18% 8%, rgba(124, 58, 237, .17), transparent 24%),
+                radial-gradient(circle at 78% 0, rgba(57, 255, 136, .08), transparent 20%),
+                var(--bg);
             color: var(--text);
             font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             min-height: 100vh
@@ -68,7 +72,7 @@
         }
 
         .topbar-inner {
-            min-height: 76px;
+            min-height: 78px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -88,22 +92,44 @@
             color: var(--acid)
         }
 
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            flex: 0 0 auto;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            box-shadow: 0 0 24px rgba(57, 255, 136, .12)
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
         .brand strong {
             display: block;
             margin-top: 5px;
             font-size: 17px
         }
 
-        .back {
+        .page-nav {
+            display: flex;
+            align-items: center;
+            gap: 14px;
             color: var(--muted);
-            font-size: 13px;
-            border: 1px solid var(--line);
-            padding: 10px 14px;
-            border-radius: 999px
+            font-size: 13px
         }
 
-        .back:hover {
-            border-color: var(--acid);
+        .page-nav a:hover,
+        .page-nav .active {
             color: var(--text)
         }
 
@@ -118,9 +144,9 @@
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1.15fr .85fr;
-            gap: 28px;
-            align-items: end
+            grid-template-columns: .92fr 1.08fr;
+            gap: clamp(28px, 5vw, 60px);
+            align-items: center
         }
 
         .eyebrow {
@@ -130,7 +156,7 @@
         h1 {
             margin: 20px 0 0;
             max-width: 820px;
-            font-size: clamp(50px, 8vw, 92px);
+            font-size: clamp(44px, 7vw, 78px);
             line-height: .9;
             letter-spacing: -.065em;
             text-transform: uppercase
@@ -143,16 +169,22 @@
             line-height: 1.7
         }
 
-        .manifesto {
-            border-left: 5px solid var(--acid);
-            padding: 20px 0 20px 22px;
-            color: var(--text);
-            font-size: 16px;
-            line-height: 1.65
+        .hero-graphic {
+            display: block;
+            width: 100%;
+            max-width: 560px;
+            justify-self: end;
+            overflow: hidden;
+            border-radius: 24px;
+            border: 1px solid rgba(124, 58, 237, .42);
+            box-shadow: var(--shadow)
         }
 
-        .manifesto strong {
-            color: var(--acid)
+        .hero-graphic img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover
         }
 
         .finder {
@@ -200,7 +232,7 @@
             text-align: left;
             border: 1px solid var(--line);
             border-radius: 18px;
-            background: var(--panel);
+            background: linear-gradient(145deg, rgba(124, 58, 237, .10), var(--panel));
             color: var(--text);
             padding: 17px;
             cursor: pointer;
@@ -210,7 +242,8 @@
         .profile-btn:hover,
         .profile-btn:focus-visible {
             transform: translateY(-2px);
-            border-color: var(--acid);
+            border-color: rgba(124, 58, 237, .75);
+            box-shadow: 0 12px 34px rgba(76, 29, 149, .18);
             outline: 0
         }
 
@@ -319,7 +352,8 @@
             background: linear-gradient(135deg, rgba(57, 255, 136, .11), rgba(255, 255, 255, .025));
             border-radius: 22px;
             padding: 24px;
-            display: flex;
+            display: grid;
+            grid-template-columns: 170px 1fr auto;
             align-items: center;
             justify-content: space-between;
             gap: 24px
@@ -329,6 +363,20 @@
             margin: 8px 0 0;
             font-size: clamp(24px, 4vw, 38px);
             letter-spacing: -.045em
+        }
+
+        .cta-graphic {
+            display: block;
+            overflow: hidden;
+            border-radius: 14px;
+            border: 1px solid rgba(57, 255, 136, .24)
+        }
+
+        .cta-graphic img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover
         }
 
         .cta p {
@@ -395,8 +443,8 @@
                 grid-template-columns: repeat(3, 1fr)
             }
 
-            .manifesto {
-                margin-top: 12px
+            .hero-graphic {
+                justify-self: center
             }
         }
 
@@ -430,7 +478,11 @@
 
             .cta {
                 align-items: stretch;
-                flex-direction: column
+                grid-template-columns: 1fr
+            }
+
+            .cta-graphic {
+                width: min(100%, 260px)
             }
 
             .btn {
@@ -449,8 +501,8 @@
                 font-size: 14px
             }
 
-            .back {
-                font-size: 11px
+            .page-nav {
+                display: none
             }
         }
     </style>
@@ -458,20 +510,31 @@
 
 <body>
     <header class="topbar">
-        <div class="container topbar-inner"><a class="brand" href="index.html"><small>Manifestor
-                    Anonymous</small><strong>Understand yourself differently.</strong></a><a class="back"
-                href="index.html">Back to home</a></div>
+        <div class="container topbar-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-icon"><img src="images/logocircle.png" alt="Manifestor Anonymous icon"></span>
+                <span><small>Manifestor Anonymous</small><strong>Understand yourself differently.</strong></span>
+            </a>
+            <nav class="page-nav" aria-label="Main navigation">
+                <a href="index.html">Home</a><span>/</span>
+                <a class="active" href="profiles.html">Profiles</a><span>/</span>
+                <a href="index.html#vault">Vault</a><span>/</span>
+                <a href="gates.html">Gates Radio</a>
+            </nav>
+        </div>
     </header>
     <main>
         <section class="hero">
             <div class="container hero-grid">
-                <div><span class="eyebrow">Free profile finder</span>
-                    <h1>Find your Manifestor weapon.</h1>
-                    <p>Same aura. Twelve different ways power moves. Choose the profile from your Human Design chart and
-                        see how yours initiates, informs, meets resistance, and resets.</p>
+                <div><span class="eyebrow">Free · all 12 profiles</span>
+                    <h1>Same aura. Twelve ways power moves.</h1>
+                    <p>Choose the two-number profile from your Human Design chart. See the surface pattern, your direct
+                        move, how to inform, what creates resistance, and how you reset.</p>
                 </div>
-                <div class="manifesto"><strong>This is the surface, not the full reading.</strong><br>No digging. No
-                    soft language. Just the pattern, the pressure point, and the move.</div>
+                <a class="hero-graphic" href="#profile-grid" aria-label="Choose your Manifestor profile">
+                    <img src="images/maprofilefinder.png"
+                        alt="Find Your Profile Archetype — all 12 Manifestor profiles">
+                </a>
             </div>
         </section>
         <section class="finder">
@@ -512,11 +575,16 @@
                             </div>
                         </div>
                         <div class="cta">
-                            <div><span class="eyebrow">This is only the surface</span>
+                            <a class="cta-graphic" href="https://payhip.com/b/Hwgs5" target="_blank"
+                                rel="noopener noreferrer" aria-label="View the Manifestor Profile Bundle">
+                                <img src="images/mabundle.png" alt="The Manifestor Profile Handbook Bundle">
+                            </a>
+                            <div><span class="eyebrow">Go beyond the free profile finder</span>
                                 <h3>Get the complete Manifestor Profile Bundle.</h3>
-                                <p>Three digital guides. All 12 profiles. 86 total pages. $37.</p>
+                                <p>Handbook, comparison chart, and Quick Reference Guide. All 12 profiles. 86 pages.
+                                    $37.</p>
                             </div><a class="btn" href="https://payhip.com/b/Hwgs5" target="_blank"
-                                rel="noopener noreferrer">View the complete bundle</a>
+                                rel="noopener noreferrer">Get all 3 guides · $37</a>
                         </div>
                     </article>
                 </div>
@@ -535,8 +603,8 @@
             { code: '2/5', name: 'The Disruptive Savior', truth: 'You crave simplicity while others project solutions onto your natural power.', move: 'Make the one clean intervention that resets the system without adopting the entire problem.', inform: 'I can help with this part, but I am not taking responsibility for the whole outcome.', watch: 'Being cast as the permanent savior and accepting a role you never agreed to hold.', reset: 'Simplify. Refuse the rescue role. Protect your retreat.', remember: 'You are not here to please. You are here to disrupt and reset.' },
             { code: '3/5', name: 'The Chaos Catalyst', truth: 'You turn collapse into field-tested strategy and make disruption useful.', move: 'Enter the experiment. Meet reality. Turn the wreckage into something that actually works.', inform: 'This is a test, not a guarantee. Here is what I know right now.', watch: 'Public projection, impossible guarantees, and blame for exposing what was already broken.', reset: 'Extract the lesson before rebuilding. Your failure is data.', remember: 'You try. You break. You rebuild. Publicly.' },
             { code: '3/6', name: 'The Eternal Burner', truth: 'You outgrow, rebuild, and become proof that transformation is survivable.', move: 'Initiate the next evolution from lived truth, not from pressure to remain consistent.', inform: 'This is the direction I am living now. The result may refine the plan.', watch: 'Being trapped in an old identity or creating another burn because stillness feels unfamiliar.', reset: 'Observe the full pattern. Integrate the last transformation before forcing the next.', remember: 'You were never built to remain identical to yesterday.' },
-            { code: '4/6', name: 'The System Breaker', truth: 'You change the people who shape the system, then become proof of a new standard.', move: 'Reroute the group through relationships, perspective, and embodied change.', inform: 'This change affects our shared system, so I am telling you before I act.', watch: 'Community expectations, forced role-model energy, and staying loyal to an expired system.', reset: 'Leave the stage. Integrate privately. Let embodiment speak.', remember: 'People do not just follow you. They reorganize around you.' },
             { code: '4/1', name: 'The Unstoppable Force', truth: 'You build certainty, align the right people, and move with fixed direction.', move: 'Wait for conviction. Once it locks in, move without negotiating your direction away.', inform: 'The direction is decided. I want you to know how it will affect you.', watch: 'Pressure to move early, repeated redirection, and turning certainty into defensiveness.', reset: 'Let the foundation settle. Stop debating the decision.', remember: 'You do not influence. You reroute.' },
+            { code: '4/6', name: 'The System Breaker', truth: 'You change the people who shape the system, then become proof of a new standard.', move: 'Reroute the group through relationships, perspective, and embodied change.', inform: 'This change affects our shared system, so I am telling you before I act.', watch: 'Community expectations, forced role-model energy, and staying loyal to an expired system.', reset: 'Leave the stage. Integrate privately. Let embodiment speak.', remember: 'People do not just follow you. They reorganize around you.' },
             { code: '5/1', name: 'The Revolutionary Commander', truth: 'Others expect the answer. Your authority comes from a foundation you trust.', move: 'Turn a researched solution into decisive action that can move more than one person.', inform: 'Here is what I can solve, and here is what is outside my scope.', watch: 'Performing certainty, carrying heroic projections, and solving problems that are not yours.', reset: 'Put down the command role. Investigate without an audience.', remember: 'You do not just start fires. You turn them into movements.' },
             { code: '5/2', name: 'The Shadow Disruptor', truth: 'You withdraw from projection, then emerge with a solution no one saw coming.', move: 'Emerge from stillness with one precise intervention, then leave when the work is complete.', inform: 'I can make this intervention, but I am not taking an ongoing role.', watch: 'Feeling hunted by other people’s needs or hiding so deeply recognition cannot reach you.', reset: 'Disappear deliberately, not resentfully. Protect your exit.', remember: 'You disrupt from the shadows, not the stage.' },
             { code: '6/2', name: 'The Silent Provoker', truth: 'Your presence becomes the message. Embodiment changes the room before words do.', move: 'Move from embodied clarity, not pressure to perform wisdom or prove your gift.', inform: 'I need quiet to hear what is actually mine. I will reconnect afterward.', watch: 'Forced visibility, overexplaining, and waiting for perfect embodiment before acting.', reset: 'Retreat until the noise drops away. Return when the truth is yours again.', remember: 'You do not push change. You become it.' },
