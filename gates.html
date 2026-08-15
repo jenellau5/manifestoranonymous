@@ -22,8 +22,8 @@
             --dim: rgba(245, 247, 251, 0.42);
             --accent: #39ff88;
             --accent-soft: rgba(57, 255, 136, 0.14);
-            --green: #a78bfa;
-            --purple: #7c3aed;
+            --green: #39ff88;
+            --purple: #9b5cff;
             --radius: 24px;
             --shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
             --shadow-soft: 0 14px 38px rgba(0, 0, 0, 0.35);
@@ -1043,7 +1043,7 @@
                 <article class="panel hero-main">
                     <div class="signal-chip">
                         <span class="signal-dot"></span>
-                        <span>Gates Radio · DIY Living Library</span>
+                        <span>Gates Radio Living Library</span>
                     </div>
 
                     <h1 class="hero-title">Study the gates through sound. Not memorization.</h1>
@@ -1055,13 +1055,13 @@
                     </p>
 
                     <p class="hero-text">
-                        The Gates Radio DIY Living Library connects all 64 gates to real songs, centers, circuitry, and
+                        The Gates Radio Living Library connects all 64 gates to real songs, centers, circuitry, and
                         direct WHY explanations so you can hear the frequency instead of trying to memorize it.
                     </p>
 
                     <div class="hero-actions">
                         <a href="#living-library" class="btn btn-primary">Get lifetime access</a>
-                        <a href="#gate-stations" class="btn btn-secondary">Explore gate playlists</a>
+                        <a href="#how-it-works" class="btn btn-secondary">See how it works</a>
                     </div>
                 </article>
 
@@ -1074,7 +1074,7 @@
                 <article class="library-offer">
                     <div class="library-hero">
                         <div>
-                            <span class="library-kicker">Gates Radio DIY Living Library</span>
+                            <span class="library-kicker">Gates Radio Living Library</span>
                             <h2 class="library-title">Hear how every gate moves.</h2>
                             <p class="library-lead">
                                 One complete study system for learning each gate’s circuit, center, and frequency
@@ -1136,41 +1136,42 @@
             </div>
         </section>
 
-        <section id="gate-stations" class="section">
+        <section id="how-it-works" class="section">
             <div class="container">
                 <header class="section-head">
-                    <span class="section-label">Free playlists</span>
-                    <h2>Listen before you study.</h2>
+                    <span class="section-label">One purchase · Three connected parts</span>
+                    <h2>Buy once. Start immediately. Keep every update.</h2>
                     <p>
-                        Open any live gate playlist for free. When you want the center, circuit, song index, and WHY
-                        behind each match, enter the complete DIY Living Library.
+                        Pay once through Payhip and download your 94-page method book. Your download connects you to
+                        the private Gate Radio station index and the view-only Living Library Log. Return whenever you
+                        want. New tracks and refinements appear without another purchase.
                     </p>
                 </header>
 
                 <article class="chart-card preview-card">
                     <div class="chart-header">
                         <div>
-                            <h3>Gate playlists now live</h3>
-                            <div class="chart-sub">Free playlists · listen by gate</div>
+                            <h3>Your access path</h3>
+                            <div class="chart-sub">Simple · connected · always growing</div>
                         </div>
                     </div>
 
-                    <div class="table-wrap">
-                        <table class="chart-table" aria-label="Online gate playlists">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Gate</th>
-                                    <th>Status</th>
-                                    <th>Playlist</th>
-                                </tr>
-                            </thead>
-                            <tbody id="topStationsPreview">
-                                <tr>
-                                    <td colspan="4" class="micro" style="opacity:0.7;">Loading playlists…</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="library-grid">
+                        <section class="library-column">
+                            <span class="section-label">01 · Download</span>
+                            <h3>Open the 94-page method book</h3>
+                            <p>Build the foundation with centers, circuits, gates and the listening method.</p>
+                        </section>
+                        <section class="library-column">
+                            <span class="section-label">02 · Listen</span>
+                            <h3>Enter the Gate Radio stations</h3>
+                            <p>Choose a live gate and hear its frequency move through real songs.</p>
+                        </section>
+                        <section class="library-column">
+                            <span class="section-label">03 · Connect</span>
+                            <h3>Use the Living Library Log</h3>
+                            <p>Match the sound to its gate, center, circuit, song details and direct WHY line.</p>
+                        </section>
                     </div>
 
                     <div class="chart-actions">
@@ -1181,7 +1182,7 @@
                     </div>
 
                     <p class="chart-footnote">
-                        Free listening preview · Complete study system available above
+                        Early-access price · Rises to $128 when all 64 gate stations are active
                     </p>
                 </article>
             </div>
@@ -1193,32 +1194,9 @@
         <div class="container footer-inner">
             <div>© Manifestor Anonymous · Gates Radio</div>
             <div>Study the gates through sound. Not memorization.</div>
-            <div>Free gate playlists · DIY Living Library</div>
+            <div>94-page method book · Gate Radio stations · Living Library Log</div>
         </div>
     </footer>
-
-    <script src="assets/gate-stations.js"></script>
-    <script>
-        (function () {
-            var preview = document.getElementById("topStationsPreview");
-            if (!preview || !window.getOnlineGates) return;
-
-            preview.innerHTML = getOnlineGates().map(function (station) {
-                return `<tr>
-                    <td class="chart-rank"></td>
-                    <td class="chart-gate">
-                        <strong>Gate  · </strong>
-                        <span></span>
-                    </td>
-                    <td><span class="badge-status badge-online"><span class="badge-dot"></span> Live</span></td>
-                    <td>
-                        <a href="" target="_blank" rel="noopener noreferrer"
-                            class="btn btn-tertiary" style="padding:6px 10px;font-size:10px;">Listen</a>
-                    </td>
-                </tr>`;
-            }).join("");
-        })();
-    </script>
 </body>
 
 </html>
