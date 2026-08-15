@@ -417,19 +417,19 @@
      box-shadow: 0 24px 80px rgba(76, 29, 149, 0.2);
  }
 
-.vault-graphic {
-    width: min(100%, 820px);
-    margin: 0 auto 20px;
-    overflow: hidden;
-}
+ .vault-graphic {
+     width: min(100%, 820px);
+     margin: 0 auto 20px;
+     overflow: hidden;
+ }
 
-.vault-graphic img {
-    width: 100%;
-    height: auto;
-    max-height: 380px;
-    object-fit: cover;
-    display: block;
-}
+ .vault-graphic img {
+     width: 100%;
+     height: auto;
+     max-height: 380px;
+     object-fit: cover;
+     display: block;
+ }
 
  .bundle-graphic {
      display: block;
@@ -843,9 +843,9 @@
          text-align: center;
      }
 
-    .vault-graphic img {
-        max-height: 240px;
-    }
+     .vault-graphic img {
+         max-height: 240px;
+     }
  }
 
  @media (max-width: 760px) {
