@@ -16,37 +16,31 @@
 <body>
     <header class="topbar">
         <div class="container topbar-inner">
-            <div class="brand">
+            <a class="brand" href="index.html" aria-label="Manifestor Anonymous home">
                 <div class="brand-icon">
                     <img src="images/logocircle.png" alt="Manifestor Anonymous icon" />
                 </div>
                 <div class="brand-copy">
-                    <small>Manifestor Anonymous</small>
-                    <strong>Understand yourself differently.</strong>
-                    <div class="topbar-tagline">Chart Drops · Profile Guides · 11 Channels · Gates Radio</div>
+                    <strong>Manifestor Anonymous</strong>
+                    <small>Understand yourself differently.</small>
                 </div>
-            </div>
-            <nav class="top-links">
+            </a>
+            <nav class="top-links" aria-label="Main navigation">
                 <a href="#chart-drops">Chart Drops</a>
-                <span>/</span>
-                <a href="#submissions">Submissions</a>
-                <span>/</span>
                 <a href="profiles.html">Profiles</a>
-                <span>/</span>
-                <a href="#profile-bundle">Profile Bundle</a>
-                <span>/</span>
                 <a href="#channels-guide">11 Channels</a>
-                <span>/</span>
                 <a href="#gates-radio">Gates Radio</a>
+                <a class="nav-cta" href="#submissions">Submit anonymously</a>
             </nav>
-            <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
-            <nav id="mobile-nav" class="mobile-nav" aria-hidden="true">
+            <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-nav"
+                aria-label="Open navigation menu"><span>Menu</span><span class="menu-lines"
+                    aria-hidden="true"></span></button>
+            <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
                 <a href="#chart-drops">Chart Drops</a>
-                <a href="#submissions">Submissions</a>
                 <a href="profiles.html">Profiles</a>
-                <a href="#profile-bundle">Profile Bundle</a>
                 <a href="#channels-guide">11 Channels</a>
                 <a href="#gates-radio">Gates Radio</a>
+                <a class="nav-cta" href="#submissions">Submit anonymously</a>
             </nav>
         </div>
     </header>
@@ -89,7 +83,7 @@
                         </div>
 
                         <div class="hero-image-box">
-                            <img src="images/logofull.png"
+                            <img src="images/hero-manifestor.png"
                                 alt="Manifestor Anonymous hooded figure with glowing throat" />
                             <div class="hero-overlay">
                                 <span class="micro">Why this exists</span>
@@ -233,30 +227,6 @@
                     </div>
                 </article>
 
-                <div class="channels-preview-head">
-                    <div>
-                        <span class="section-label">Inside the guide</span>
-                        <h3>Four real pages for every channel. Not one paragraph and filler.</h3>
-                    </div>
-                    <p>The 5-15 Channel of Rhythm is shown below so you can see the exact depth each channel receives.
-                    </p>
-                </div>
-
-                <div class="channels-preview-grid" aria-label="Sample pages from the 5-15 Channel of Rhythm chapter">
-                    <a href="images/channels-5-15-1.png" target="_blank" rel="noopener noreferrer">
-                        <img src="images/channels-5-15-1.png" alt="Sample page one for the 5-15 Channel of Rhythm" />
-                    </a>
-                    <a href="images/channels-5-15-2.png" target="_blank" rel="noopener noreferrer">
-                        <img src="images/channels-5-15-2.png" alt="Sample page two for the 5-15 Channel of Rhythm" />
-                    </a>
-                    <a href="images/channels-5-15-3.png" target="_blank" rel="noopener noreferrer">
-                        <img src="images/channels-5-15-3.png" alt="Sample page three for the 5-15 Channel of Rhythm" />
-                    </a>
-                    <a href="images/channels-5-15-4.png" target="_blank" rel="noopener noreferrer">
-                        <img src="images/channels-5-15-4.png" alt="Sample page four for the 5-15 Channel of Rhythm" />
-                    </a>
-                </div>
-
                 <article class="channels-checker-card">
                     <a class="channels-checker-image" href="checker.html" aria-label="Open the free gate checker">
                         <img src="images/machannelchecker.png"
@@ -317,14 +287,13 @@
         </section>
         <section class="section" id="submissions">
             <div class="container">
-                <a class="section-graphic submission-graphic" href="https://tr.ee/r3r4PB5Pyh" target="_blank"
-                    rel="noopener noreferrer" aria-label="Open the anonymous submission form">
-                    <img src="images/masubmission.png"
-                        alt="Anonymous Submissions — Sometimes the best lessons come from someone else's question." />
-                </a>
-
                 <article class="statement-card submission-copy-card">
-                    <div>
+                    <a class="submission-card-image" href="https://tr.ee/r3r4PB5Pyh" target="_blank"
+                        rel="noopener noreferrer" aria-label="Open the anonymous submission form">
+                        <img src="images/anonymous-submissions.png"
+                            alt="Manifestor Anonymous woman placing an anonymous submission into a box" />
+                    </a>
+                    <div class="submission-card-copy">
                         <span class="section-label">Free · anonymous by design</span>
                         <h2>Ask the question you never say out loud.</h2>
                         <p>Submit a chart question without attaching your identity to the teaching. I choose the
@@ -337,6 +306,35 @@
                             rel="noopener noreferrer">Submit anonymously</a>
                     </div>
                 </article>
+
+                <div class="submission-examples">
+                    <div class="submission-examples-head">
+                        <div>
+                            <span class="section-label">See what this becomes</span>
+                            <h3>Real anonymous submissions. Real chart teaching.</h3>
+                        </div>
+                        <p>These are not full readings. They are patterns pulled from two real Manifestor charts and
+                            shared without exposing the people behind them.</p>
+                    </div>
+
+                    <div class="instagram-submission-grid">
+                        <div class="instagram-submission-card">
+                            <span class="submission-number">Anonymous Submission 01</span>
+                            <h4>The Firestarter Scientist</h4>
+                            <p>See how a real 1/3 Emotional Manifestor chart was translated into recognizable patterns.
+                            </p>
+                            <a class="btn btn-secondary" href="https://www.instagram.com/reel/DcG_E_jg4yD/"
+                                target="_blank" rel="noopener noreferrer">Watch Submission 01 on Instagram</a>
+                        </div>
+                        <div class="instagram-submission-card">
+                            <span class="submission-number">Anonymous Submission 02</span>
+                            <h4>The Hidden Fuse</h4>
+                            <p>See how a real 2/4 Emotional Manifestor chart became a direct, anonymous teaching.</p>
+                            <a class="btn btn-secondary" href="https://www.instagram.com/reel/DcotxFTgzAR/"
+                                target="_blank" rel="noopener noreferrer">Watch Submission 02 on Instagram</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
