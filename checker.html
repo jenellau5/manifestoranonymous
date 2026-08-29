@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free Manifestor Gate Checker | Manifestor Anonymous</title>
+    <meta name="description"
+        content="Check which side of the 11 Sacral channels appears in your Manifestor chart and find the guide sections that apply to you." />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="assets/style.css" />
+    <link rel="stylesheet" href="assets/checker.css" />
+</head>
+
+<body class="checker-page">
+    <header class="topbar">
+        <div class="container checker-topbar">
+            <a class="brand" href="index.html" aria-label="Return to Manifestor Anonymous home">
+                <div class="brand-icon">
+                    <img src="images/logocircle.png" alt="Manifestor Anonymous icon" />
+                </div>
+                <div class="brand-copy">
+                    <small>Manifestor Anonymous</small>
+                    <strong>11-Channel Gate Checker</strong>
+                </div>
+            </a>
+            <a class="checker-home-link" href="index.html#channels-guide">Back to the guide</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="checker-hero">
+            <div class="container checker-hero-grid">
+                <div>
+                    <span class="checker-kicker">Free tool · for Manifestors</span>
+                    <h1>You cannot have the complete channel. Which side do you carry?</h1>
+                    <p>
+                        Open your Human Design chart. Select every gate below that appears anywhere in your chart.
+                        The checker will show whether you carry the Sacral-side gate, the opposite gate or neither for
+                        all 11 channels.
+                    </p>
+                    <p class="checker-fact">
+                        There are 22 gate positions across these 11 channels, but 19 unique gate numbers because Gate
+                        34 appears in three different channels.
+                    </p>
+                </div>
+                <aside class="checker-warning">
+                    <span>Before you start</span>
+                    <strong>This does not read your whole chart.</strong>
+                    <p>It tells you which gate configuration to read inside the 11 Channels Guide. Your Authority,
+                        definition and the rest of your chart still matter.</p>
+                </aside>
+            </div>
+        </section>
+
+        <section class="checker-workspace">
+            <div class="container">
+                <div class="checker-panel">
+                    <div class="checker-panel-head">
+                        <div>
+                            <span class="checker-step">Step 1</span>
+                            <h2>Select the gates you carry.</h2>
+                            <p>Do not select a gate just because you see it listed beside a channel. Select it only if
+                                it is activated in your own chart.</p>
+                        </div>
+                        <button class="checker-reset" id="reset-checker" type="button">Clear all</button>
+                    </div>
+
+                    <div class="gate-grid" id="gate-grid" aria-label="Select gates in your chart"></div>
+
+                    <div class="checker-actions">
+                        <div class="selected-count" aria-live="polite"><strong id="selected-count">0</strong> gates
+                            selected</div>
+                        <button class="checker-submit" id="show-results" type="button">Show my channel map</button>
+                    </div>
+                </div>
+
+                <section class="checker-results" id="checker-results" hidden aria-live="polite">
+                    <div class="checker-results-head">
+                        <div>
+                            <span class="checker-step">Step 2</span>
+                            <h2>Your 11-channel map</h2>
+                            <p>This is your reading path. The results do not replace the full interpretations.</p>
+                        </div>
+                        <div class="results-key">
+                            <span><i class="key-dot sacral"></i>Sacral gate</span>
+                            <span><i class="key-dot opposite"></i>Opposite gate</span>
+                            <span><i class="key-dot neither"></i>Neither</span>
+                        </div>
+                    </div>
+
+                    <div class="result-summary" id="result-summary"></div>
+                    <div class="result-grid" id="result-grid"></div>
+
+                    <div class="checker-offer">
+                        <div>
+                            <span class="checker-kicker">59-page digital guide</span>
+                            <h2>The checker tells you what you carry. The guide tells you what it can look like in your
+                                actual life.</h2>
+                            <p>Get the real-life breakdown for relationships, parenting, business, borrowed energy,
+                                overpromising, authority differences and how to use the gap to your advantage.</p>
+                        </div>
+                        <a class="btn btn-primary" href="https://payhip.com/b/REPLACE-WITH-CHANNELS-GUIDE"
+                            target="_blank" rel="noopener noreferrer">Get the full guide · $37</a>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <div>© Manifestor Anonymous</div>
+            <div>Use the checker for recognition. Use your Authority for decisions.</div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            var channels = [
+                { code: '5-15', name: 'Rhythm', sacral: 5, opposite: 15, truth: 'Stop Calling Me Inconsistent' },
+                { code: '14-2', name: 'The Beat', sacral: 14, opposite: 2, truth: 'I Know the Direction. I Am Not the Engine.' },
+                { code: '29-46', name: 'Discovery', sacral: 29, opposite: 46, truth: 'My Yes Is Not a Life Sentence' },
+                { code: '34-10', name: 'Exploration', sacral: 34, opposite: 10, truth: 'I Do Not Have to Perform Authenticity' },
+                { code: '34-20', name: 'Charisma', sacral: 34, opposite: 20, truth: 'I Start It. I Do Not Have to Do It All.' },
+                { code: '34-57', name: 'Power', sacral: 34, opposite: 57, truth: 'My Knowing Does Not Need Endless Power' },
+                { code: '27-50', name: 'Preservation', sacral: 27, opposite: 50, truth: "I Am Not Everyone's Caretaker" },
+                { code: '59-6', name: 'Mating', sacral: 59, opposite: 6, truth: 'Chemistry Is Not a Contract' },
+                { code: '9-52', name: 'Concentration', sacral: 9, opposite: 52, truth: 'My Focus Is Not My Worth' },
+                { code: '3-60', name: 'Mutation', sacral: 3, opposite: 60, truth: 'I Cannot Force the Breakthrough' },
+                { code: '42-53', name: 'Maturation', sacral: 42, opposite: 53, truth: 'Starting It Does Not Make It Mine Forever' }
+            ];
+
+            var gates = [2, 3, 5, 6, 9, 10, 14, 15, 20, 27, 29, 34, 42, 46, 50, 52, 53, 57, 59];
+            var selected = new Set();
+            var gateGrid = document.getElementById('gate-grid');
+            var count = document.getElementById('selected-count');
+            var results = document.getElementById('checker-results');
+            var resultGrid = document.getElementById('result-grid');
+            var summary = document.getElementById('result-summary');
+
+            function updateCount() {
+                count.textContent = selected.size;
+            }
+
+            gates.forEach(function (gate) {
+                var button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'gate-button';
+                button.textContent = 'Gate ' + gate;
+                button.setAttribute('aria-pressed', 'false');
+                button.addEventListener('click', function () {
+                    if (selected.has(gate)) {
+                        selected.delete(gate);
+                        button.classList.remove('selected');
+                        button.setAttribute('aria-pressed', 'false');
+                    } else {
+                        selected.add(gate);
+                        button.classList.add('selected');
+                        button.setAttribute('aria-pressed', 'true');
+                    }
+                    updateCount();
+                });
+                gateGrid.appendChild(button);
+            });
+
+            function makeResult(channel) {
+                var hasSacral = selected.has(channel.sacral);
+                var hasOpposite = selected.has(channel.opposite);
+                var state;
+                var title;
+                var copy;
+
+                if (hasSacral && hasOpposite) {
+                    state = 'warning';
+                    title = 'Both gates selected';
+                    copy = 'Check your chart. These two gates complete the channel and define the Sacral. A valid Manifestor chart cannot carry both.';
+                } else if (hasSacral) {
+                    state = 'sacral';
+                    title = 'You carry Gate ' + channel.sacral;
+                    copy = 'This is the Sacral-side hanging gate. Read the Gate ' + channel.sacral + ' section in the guide.';
+                } else if (hasOpposite) {
+                    state = 'opposite';
+                    title = 'You carry Gate ' + channel.opposite;
+                    copy = 'This is the gate on the opposite side. Read the Gate ' + channel.opposite + ' section and check whether its center is defined or undefined.';
+                } else {
+                    state = 'neither';
+                    title = 'You carry neither gate';
+                    copy = 'Read the neither-gate section to understand what can become louder around people who carry either gate or the complete channel.';
+                }
+
+                return '<article class="result-card ' + state + '">' +
+                    '<div class="result-code"><strong>' + channel.code + '</strong><span>' + channel.name + '</span></div>' +
+                    '<p class="result-truth">' + channel.truth + '</p>' +
+                    '<h3>' + title + '</h3>' +
+                    '<p>' + copy + '</p>' +
+                    '</article>';
+            }
+
+            document.getElementById('show-results').addEventListener('click', function () {
+                var warnings = 0;
+                var carried = 0;
+                channels.forEach(function (channel) {
+                    if (selected.has(channel.sacral) && selected.has(channel.opposite)) warnings += 1;
+                    else if (selected.has(channel.sacral) || selected.has(channel.opposite)) carried += 1;
+                });
+
+                resultGrid.innerHTML = channels.map(makeResult).join('');
+                summary.innerHTML = '<strong>' + carried + '</strong> channels where you carry one side' +
+                    '<span></span><strong>' + (11 - carried - warnings) + '</strong> where you carry neither' +
+                    (warnings ? '<span></span><strong>' + warnings + '</strong> chart selection warning' : '');
+                results.hidden = false;
+                results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+
+            document.getElementById('reset-checker').addEventListener('click', function () {
+                selected.clear();
+                Array.prototype.forEach.call(document.querySelectorAll('.gate-button'), function (button) {
+                    button.classList.remove('selected');
+                    button.setAttribute('aria-pressed', 'false');
+                });
+                updateCount();
+                results.hidden = true;
+                resultGrid.innerHTML = '';
+                summary.innerHTML = '';
+            });
+        })();
+    </script>
+</body>
+
+</html>
