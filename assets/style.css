@@ -1734,3 +1734,31 @@ footer {
         grid-column: auto;
     }
 }
+/* Hero primary actions */
+.hero-cta-row {
+    gap: 12px;
+}
+
+.hero-cta-row .btn {
+    padding: 18px 30px;
+    font-size: 13px;
+    min-height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-cta-row .btn-primary {
+    box-shadow: 0 0 44px rgba(57, 255, 136, 0.34);
+}
+
+.btn-hero-alt {
+    background: rgba(124, 58, 237, 0.16);
+    color: var(--text);
+    border: 1px solid rgba(124, 58, 237, 0.7);
+    text-decoration: none;
+}
+
+.btn-hero-alt:hover {
+    background: rgba(124, 58, 237, 0.26);
+}
