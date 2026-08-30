@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free Manifestor Profile Finder. Choose your profile and see how your Human Design Manifestor pattern initiates, informs, meets resistance, and resets." />
+    <meta name="description"
+        content="Free Manifestor Profile Finder. Choose your profile and see how your Human Design Manifestor pattern initiates, informs, meets resistance, and resets." />
     <title>Manifestor Profiles: Free Profile Finder | Manifestor Anonymous</title>
     <style>
         :root {
@@ -130,6 +131,49 @@
         .page-nav a:hover,
         .page-nav .active {
             color: var(--text)
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text);
+            padding: 9px 12px;
+            font-size: 10px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .menu-lines,
+        .menu-lines::before,
+        .menu-lines::after {
+            display: block;
+            position: relative;
+            width: 15px;
+            height: 1px;
+            background: var(--acid);
+            content: "";
+        }
+
+        .menu-lines::before {
+            position: absolute;
+            top: -5px;
+            left: 0;
+        }
+
+        .menu-lines::after {
+            position: absolute;
+            top: 5px;
+            left: 0;
+        }
+
+        .mobile-nav {
+            display: none;
         }
 
         main {
@@ -503,6 +547,37 @@
             .page-nav {
                 display: none
             }
+
+            .mobile-menu-toggle {
+                display: inline-flex;
+                margin-left: auto;
+            }
+
+            .mobile-nav {
+                display: none;
+                flex-direction: column;
+                gap: 2px;
+                padding: 12px 16px 16px;
+                border-top: 1px solid var(--line);
+                background: rgba(6, 7, 6, 0.96);
+            }
+
+            .mobile-nav.open {
+                display: flex;
+            }
+
+            .mobile-nav a {
+                padding: 12px 10px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                color: var(--muted);
+                font-size: 12px;
+                letter-spacing: .12em;
+                text-transform: uppercase;
+            }
+
+            .mobile-nav a:last-child {
+                border-bottom: 0;
+            }
         }
     </style>
 
@@ -513,12 +588,14 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://www.manifestoranonymous.com/profiles.html" />
     <meta property="og:title" content="Manifestor Profiles: Free Profile Finder | Manifestor Anonymous" />
-    <meta property="og:description" content="Free Manifestor Profile Finder. Choose your profile and see how your Human Design Manifestor pattern initiates, informs, meets resistance, and resets." />
+    <meta property="og:description"
+        content="Free Manifestor Profile Finder. Choose your profile and see how your Human Design Manifestor pattern initiates, informs, meets resistance, and resets." />
     <meta property="og:image" content="https://www.manifestoranonymous.com/images/hero-manifestor.png" />
     <meta property="og:image:alt" content="Manifestor Anonymous — Human Design for Manifestors" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Manifestor Profiles: Free Profile Finder | Manifestor Anonymous" />
-    <meta name="twitter:description" content="Free Manifestor Profile Finder. Choose your profile and see how your Human Design Manifestor pattern initiates, informs, meets resistance, and resets." />
+    <meta name="twitter:description"
+        content="Free Manifestor Profile Finder. Choose your profile and see how your Human Design Manifestor pattern initiates, informs, meets resistance, and resets." />
     <meta name="twitter:image" content="https://www.manifestoranonymous.com/images/hero-manifestor.png" />
 
     <script type="application/ld+json">
@@ -544,6 +621,17 @@
                 <a href="index.html">Home</a><span>/</span>
                 <a class="active" href="profiles.html">Profiles</a><span>/</span>
                 <a href="index.html#vault">Vault</a><span>/</span>
+                <a href="gates.html">Gates Radio</a>
+            </nav>
+            <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-nav"
+                aria-label="Open navigation menu">
+                <span>Menu</span>
+                <span class="menu-lines" aria-hidden="true"></span>
+            </button>
+            <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
+                <a href="index.html">Home</a>
+                <a href="profiles.html">Profiles</a>
+                <a href="index.html#vault">Vault</a>
                 <a href="gates.html">Gates Radio</a>
             </nav>
         </div>
@@ -639,6 +727,18 @@
         profiles.forEach((p, i) => { const b = document.createElement('button'); b.className = 'profile-btn'; b.type = 'button'; b.setAttribute('aria-pressed', 'false'); b.innerHTML = `<span class="profile-code">${p.code}</span><span class="profile-name">${p.name}</span>`; b.addEventListener('click', () => showProfile(i, b)); grid.appendChild(b) });
         function showProfile(i, button) { const p = profiles[i]; document.querySelectorAll('.profile-btn').forEach(b => b.setAttribute('aria-pressed', 'false')); button.setAttribute('aria-pressed', 'true');['code', 'name', 'truth', 'move', 'inform', 'watch', 'reset', 'remember'].forEach(k => document.getElementById('result-' + k).textContent = p[k]); result.classList.add('active'); requestAnimationFrame(() => result.scrollIntoView({ behavior: 'smooth', block: 'start' })); history.replaceState(null, '', '#' + p.code.replace('/', '-')) }
         const requested = location.hash.slice(1).replace('-', '/'); const initial = profiles.findIndex(p => p.code === requested); if (initial >= 0) setTimeout(() => document.querySelectorAll('.profile-btn')[initial].click(), 100);
+
+        (function () {
+            var btn = document.querySelector('.mobile-menu-toggle');
+            var nav = document.getElementById('mobile-nav');
+            if (!btn || !nav) return;
+
+            btn.addEventListener('click', function () {
+                var isOpen = nav.classList.toggle('open');
+                btn.setAttribute('aria-expanded', String(isOpen));
+                nav.setAttribute('aria-hidden', String(!isOpen));
+            });
+        }());
     </script>
 </body>
 

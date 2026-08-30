@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gates Radio: Learn the Human Design Gates | Manifestor Anonymous</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
-    <meta name="description" content="Gates Radio is a sound-based study system for all 64 Human Design gates, with a 94-page reference and practice book, a living gate index, playlists and lifetime updates." />
+    <meta name="description"
+        content="Gates Radio is a sound-based study system for all 64 Human Design gates, with a 94-page reference and practice book, a living gate index, playlists and lifetime updates." />
 
     <style>
         :root {
@@ -162,6 +163,49 @@
 
         .top-links a:hover {
             color: var(--text);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.035);
+            color: var(--text);
+            padding: 9px 12px;
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .menu-lines,
+        .menu-lines::before,
+        .menu-lines::after {
+            display: block;
+            position: relative;
+            width: 16px;
+            height: 1px;
+            background: var(--accent);
+            content: "";
+        }
+
+        .menu-lines::before {
+            position: absolute;
+            top: -5px;
+            left: 0;
+        }
+
+        .menu-lines::after {
+            position: absolute;
+            top: 5px;
+            left: 0;
+        }
+
+        .mobile-nav {
+            display: none;
         }
 
         .btn {
@@ -832,8 +876,44 @@
 
         @media (max-width: 720px) {
             .topbar-inner {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .top-links {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: inline-flex;
+                margin-left: auto;
+            }
+
+            .mobile-nav {
+                display: none;
                 flex-direction: column;
-                align-items: flex-start;
+                gap: 2px;
+                padding: 12px 16px 16px;
+                border-top: 1px solid var(--line);
+                background: rgba(5, 6, 8, 0.96);
+                width: 100%;
+            }
+
+            .mobile-nav.open {
+                display: flex;
+            }
+
+            .mobile-nav a {
+                padding: 12px 10px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                color: var(--muted);
+                font-size: 12px;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+            }
+
+            .mobile-nav a:last-child {
+                border-bottom: 0;
             }
 
             .panel,
@@ -1017,12 +1097,14 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://www.manifestoranonymous.com/gates.html" />
     <meta property="og:title" content="Gates Radio: Learn the Human Design Gates | Manifestor Anonymous" />
-    <meta property="og:description" content="Gates Radio is a sound-based study system for all 64 Human Design gates, with a 94-page reference and practice book, a living gate index, playlists and lifetime updates." />
+    <meta property="og:description"
+        content="Gates Radio is a sound-based study system for all 64 Human Design gates, with a 94-page reference and practice book, a living gate index, playlists and lifetime updates." />
     <meta property="og:image" content="https://www.manifestoranonymous.com/images/hero-manifestor.png" />
     <meta property="og:image:alt" content="Manifestor Anonymous — Human Design for Manifestors" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Gates Radio: Learn the Human Design Gates | Manifestor Anonymous" />
-    <meta name="twitter:description" content="Gates Radio is a sound-based study system for all 64 Human Design gates, with a 94-page reference and practice book, a living gate index, playlists and lifetime updates." />
+    <meta name="twitter:description"
+        content="Gates Radio is a sound-based study system for all 64 Human Design gates, with a 94-page reference and practice book, a living gate index, playlists and lifetime updates." />
     <meta name="twitter:image" content="https://www.manifestoranonymous.com/images/hero-manifestor.png" />
 
     <script type="application/ld+json">
@@ -1050,13 +1132,24 @@
                     <div class="topbar-tagline">Study the gates through sound. Not memorization.</div>
                 </div>
             </div>
-            <nav class="top-links">
+            <nav class="top-links" aria-label="Main navigation">
                 <a href="index.html">Home</a>
                 <span>/</span>
                 <a href="index.html#chart-drops">Chart Drops</a>
                 <span>/</span>
                 <a href="profiles.html">Profiles</a>
                 <span>/</span>
+                <a href="index.html#vault">Vault</a>
+            </nav>
+            <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-nav"
+                aria-label="Open navigation menu">
+                <span>Menu</span>
+                <span class="menu-lines" aria-hidden="true"></span>
+            </button>
+            <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
+                <a href="index.html">Home</a>
+                <a href="index.html#chart-drops">Chart Drops</a>
+                <a href="profiles.html">Profiles</a>
                 <a href="index.html#vault">Vault</a>
             </nav>
         </div>
@@ -1222,6 +1315,19 @@
             <div>94-page method book · Gate Radio stations · Living Library Log</div>
         </div>
     </footer>
+    <script>
+        (function () {
+            var btn = document.querySelector('.mobile-menu-toggle');
+            var nav = document.getElementById('mobile-nav');
+            if (!btn || !nav) return;
+
+            btn.addEventListener('click', function () {
+                var isOpen = nav.classList.toggle('open');
+                btn.setAttribute('aria-expanded', String(isOpen));
+                nav.setAttribute('aria-hidden', String(!isOpen));
+            });
+        }());
+    </script>
 </body>
 
 </html>
