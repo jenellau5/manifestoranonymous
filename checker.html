@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Free Manifestor Gate Checker | Manifestor Anonymous</title>
-    <meta name="description" content="Free Gate Checker for Manifestors. Check your Human Design gates against the 11 Sacral channels Manifestors cannot have fully defined and see which side you carry." />
+    <meta name="description"
+        content="Free Gate Checker for Manifestors. Check your Human Design gates against the 11 Sacral channels Manifestors cannot have fully defined and see which side you carry." />
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
     <link rel="stylesheet" href="assets/style.css" />
     <link rel="stylesheet" href="assets/checker.css" />
@@ -17,12 +18,14 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://www.manifestoranonymous.com/checker.html" />
     <meta property="og:title" content="Free Manifestor Gate Checker | Manifestor Anonymous" />
-    <meta property="og:description" content="Free Gate Checker for Manifestors. Check your Human Design gates against the 11 Sacral channels Manifestors cannot have fully defined and see which side you carry." />
+    <meta property="og:description"
+        content="Free Gate Checker for Manifestors. Check your Human Design gates against the 11 Sacral channels Manifestors cannot have fully defined and see which side you carry." />
     <meta property="og:image" content="https://www.manifestoranonymous.com/images/hero-manifestor.png" />
     <meta property="og:image:alt" content="Manifestor Anonymous — Human Design for Manifestors" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Free Manifestor Gate Checker | Manifestor Anonymous" />
-    <meta name="twitter:description" content="Free Gate Checker for Manifestors. Check your Human Design gates against the 11 Sacral channels Manifestors cannot have fully defined and see which side you carry." />
+    <meta name="twitter:description"
+        content="Free Gate Checker for Manifestors. Check your Human Design gates against the 11 Sacral channels Manifestors cannot have fully defined and see which side you carry." />
     <meta name="twitter:image" content="https://www.manifestoranonymous.com/images/hero-manifestor.png" />
 
     <script type="application/ld+json">
@@ -60,12 +63,19 @@
                     <span class="checker-kicker">Free tool · for Manifestors</span>
                     <h1>You cannot have the complete channel. Which side do you carry?</h1>
                     <p>
-                        Open your Human Design chart. Select every gate below that appears anywhere in your chart.
+                        This checker is built specifically for Manifestors. Open your personal Human Design chart and
+                        select every gate below that appears anywhere in your chart.
                         The checker will show whether you carry the Sacral-side gate, the opposite gate or neither for
                         all 11 channels.
                     </p>
+                    <p class="checker-chart-help">
+                        Do not have your chart open? <a
+                            href="https://jovianarchive.com/pages/get-your-human-design-chart" target="_blank"
+                            rel="noopener noreferrer">Generate your free Human Design chart here</a>, then come back
+                        and select your gates.
+                    </p>
                     <p class="checker-fact">
-                        There are 22 gate positions across these 11 channels, but 19 unique gate numbers because Gate
+                        There are 22 gate positions across these 11 channels, but 20 unique gate numbers because Gate
                         34 appears in three different channels.
                     </p>
                 </div>
@@ -85,8 +95,9 @@
                         <div>
                             <span class="checker-step">Step 1</span>
                             <h2>Select the gates you carry.</h2>
-                            <p>Do not select a gate just because you see it listed beside a channel. Select it only if
-                                it is activated in your own chart.</p>
+                            <p>Use your personal chart. Do not select a gate just because it sounds like you. Select it
+                                only if that gate is activated in your chart. This is not a general personality quiz.
+                            </p>
                         </div>
                         <button class="checker-reset" id="reset-checker" type="button">Clear all</button>
                     </div>
@@ -105,7 +116,9 @@
                         <div>
                             <span class="checker-step">Step 2</span>
                             <h2>Your 11-channel map</h2>
-                            <p>This is your reading path. The results do not replace the full interpretations.</p>
+                            <p>This is your Manifestor-specific reading path. These short results show where to look.
+                                The guide explains how the pattern can show up in relationships, parenting, business,
+                                energy, conditioning and the way other people may misread you.</p>
                         </div>
                         <div class="results-key">
                             <span><i class="key-dot sacral"></i>Sacral gate</span>
@@ -143,20 +156,109 @@
     <script>
         (function () {
             var channels = [
-                { code: '5-15', name: 'Rhythm', sacral: 5, opposite: 15, truth: 'Stop Calling Me Inconsistent' },
-                { code: '14-2', name: 'The Beat', sacral: 14, opposite: 2, truth: 'I Know the Direction. I Am Not the Engine.' },
-                { code: '29-46', name: 'Discovery', sacral: 29, opposite: 46, truth: 'My Yes Is Not a Life Sentence' },
-                { code: '34-10', name: 'Exploration', sacral: 34, opposite: 10, truth: 'I Do Not Have to Perform Authenticity' },
-                { code: '34-20', name: 'Charisma', sacral: 34, opposite: 20, truth: 'I Start It. I Do Not Have to Do It All.' },
-                { code: '34-57', name: 'Power', sacral: 34, opposite: 57, truth: 'My Knowing Does Not Need Endless Power' },
-                { code: '27-50', name: 'Preservation', sacral: 27, opposite: 50, truth: "I Am Not Everyone's Caretaker" },
-                { code: '59-6', name: 'Mating', sacral: 59, opposite: 6, truth: 'Chemistry Is Not a Contract' },
-                { code: '9-52', name: 'Concentration', sacral: 9, opposite: 52, truth: 'My Focus Is Not My Worth' },
-                { code: '3-60', name: 'Mutation', sacral: 3, opposite: 60, truth: 'I Cannot Force the Breakthrough' },
-                { code: '42-53', name: 'Maturation', sacral: 42, opposite: 53, truth: 'Starting It Does Not Make It Mine Forever' }
+                {
+                    code: '5-15', name: 'Rhythm', sacral: 5, opposite: 15,
+                    truth: 'Stop Calling Me Inconsistent',
+                    sacralCopy: 'You carry Gate 5, the Sacral side of Rhythm. You may crave reliable routines or feel pressure to repeat what worked yesterday, then judge yourself when your Manifestor energy refuses to cooperate. Around Gate 15, a rhythm can suddenly feel easier to hold. The guide shows how to use structure without making consistency the price of being trusted.',
+                    oppositeCopy: 'You carry Gate 15, the side that can hold extremes and a wide range of timing. You may move from one pace to another and be misread as unpredictable, especially around people who expect a fixed routine. Gate 5 can temporarily give those extremes a pattern. The guide shows how this plays out in households, work schedules and relationships without forcing you into somebody else\'s clock.',
+                    neitherCopy: 'You carry neither Gate 5 nor Gate 15. Rhythm may not be a constant personal storyline until another person or a transit brings it into the room. Around the complete channel, you may suddenly feel regulated, punctual or able to repeat a routine, then lose that ease when the connection changes. Your advantage is flexibility. The guide shows how to build support around timing without deciding you are broken when the borrowed rhythm disappears.'
+                },
+                {
+                    code: '14-2', name: 'The Beat', sacral: 14, opposite: 2,
+                    truth: 'I Know the Direction. I Am Not the Engine.',
+                    sacralCopy: 'You carry Gate 14, the Sacral power behind skills, resources and work that creates momentum. You may sense what could be resourced, then overestimate how long your Manifestor body can keep supplying the fuel. Gate 2 can give that power a direction. The guide shows how to work with resources without turning yourself into the workforce.',
+                    oppositeCopy: 'You carry Gate 2, the receptive sense of direction. You may know where something wants to go without having steady energy to drive it there, which can make you question a direction that was actually clear. Gate 14 can temporarily bring resources and power behind it. The guide shows how to lead the direction, inform the right people and stop assuming you must be the engine.',
+                    neitherCopy: 'You carry neither Gate 14 nor Gate 2. Around the complete channel, resources, effort and direction may suddenly line up so cleanly that you feel certain you can maintain the pace alone. When the connection leaves, the momentum may leave too. Your advantage is that you are not locked into one way of powering a direction. The guide shows how to initiate movement and build support that can sustain it.'
+                },
+                {
+                    code: '29-46', name: 'Discovery', sacral: 29, opposite: 46,
+                    truth: 'My Yes Is Not a Life Sentence',
+                    sacralCopy: 'You carry Gate 29, the Sacral pressure to commit and keep saying yes to the experience. A yes can feel enormous around Gate 46, then become an expectation you keep obeying after your Manifestor energy has changed. The guide shows where commitment can become overpromising and how Authority protects your yes.',
+                    oppositeCopy: 'You carry Gate 46, an openness to meeting life through the body and the experience itself. You may be drawn toward people or opportunities that make full commitment feel possible. Gate 29 can temporarily supply the staying power behind that experience. The guide shows how to stay present without treating every meaningful experience as something you must finish forever.',
+                    neitherCopy: 'You carry neither Gate 29 nor Gate 46. Around the complete channel, commitment can feel unusually embodied and easy, and you may say yes before noticing that the staying power belongs to the connection. When that energy changes, you may wonder why you cannot keep showing up the same way. Your advantage is freedom from automatic perseverance. The guide shows how to let Authority choose the experiences that are actually yours.'
+                },
+                {
+                    code: '34-10', name: 'Exploration', sacral: 34, opposite: 10,
+                    truth: 'I Do Not Have to Perform Authenticity',
+                    sacralCopy: 'You carry Gate 34 here, pointing toward Gate 10 and the power to move as yourself. Around Gate 10, you may feel fiercely self-directed and physically able to act on what is correct for you, then expect that level of power to remain. The guide separates real self-trust from borrowed Sacral force so you stop measuring authenticity by output.',
+                    oppositeCopy: 'You carry Gate 10, the behavior of the self. You may care deeply about moving through life in a way that feels true to you, but without Gate 34 you do not have this channel\'s consistent Sacral power behind that movement. Around Gate 34, being yourself can feel physically unstoppable. The guide shows how to live your truth without performing power to prove it.',
+                    neitherCopy: 'You carry neither Gate 34 nor Gate 10 in this channel. Around someone with 34–10, self-directed action may look effortless and you may temporarily feel more physically certain about being yourself. That can disappear without making your identity less real. Your advantage is that authenticity does not have to become one fixed physical performance. The guide shows how Manifestor initiation can express the self without copying Sacral power.'
+                },
+                {
+                    code: '34-20', name: 'Charisma', sacral: 34, opposite: 20,
+                    truth: 'I Start It. I Do Not Have to Do It All.',
+                    sacralCopy: 'You carry Gate 34 here, pointing toward Gate 20 and immediate action in the now. Around Gate 20, you may feel able to move, speak and handle everything instantly, then keep expecting that speed after the connection changes. The guide shows why temporary action power is not the same as your Manifestor capacity and where informing still matters.',
+                    oppositeCopy: 'You carry Gate 20, the voice and awareness of what is happening now. You may be ready to speak or act in the moment, but you do not carry this channel\'s consistent Sacral power to execute everything immediately. Gate 34 can make your now feel supercharged. The guide shows how to honor timing without turning urgency into a permanent operating system.',
+                    neitherCopy: 'You carry neither Gate 34 nor Gate 20 in this channel. Around 34–20, action can become immediate, efficient and almost impossible to slow down, and you may mistake that temporary speed for the standard your business or family should expect from you. Your advantage is room to pause for Authority and inform before movement. The guide shows how to initiate without becoming an around-the-clock action machine.'
+                },
+                {
+                    code: '34-57', name: 'Power', sacral: 34, opposite: 57,
+                    truth: 'My Knowing Does Not Need Endless Power',
+                    sacralCopy: 'You carry Gate 34 here, pointing toward Gate 57 and instinctive power in the moment. Around Gate 57, you may feel physically equipped to respond to what your instincts notice, then overtrust that power after the connection is gone. The guide shows how borrowed force can amplify survival pressure and how to stop confusing power with correctness.',
+                    oppositeCopy: 'You carry Gate 57, intuitive clarity in the present. You may know what is safe, healthy or off before you can explain it, but you do not have this channel\'s constant Sacral power behind that knowing. Gate 34 can make intuition feel physically forceful. The guide shows how to trust the signal without demanding that your body power every response.',
+                    neitherCopy: 'You carry neither Gate 34 nor Gate 57 in this channel. Around 34–57, you may feel unusually instinctive, capable and physically ready to handle whatever is happening. When the person or transit leaves, that sense of invincibility may drop. Your advantage is not being locked into constant survival readiness. The guide shows how to recognize borrowed instinctive power without building your life around emergency mode.'
+                },
+                {
+                    code: '27-50', name: 'Preservation', sacral: 27, opposite: 50,
+                    truth: "I Am Not Everyone's Caretaker",
+                    sacralCopy: 'You carry Gate 27, the Sacral side of nourishment and care. You may be pulled to feed, fix, protect or keep everyone going, then discover your Manifestor body cannot sustain the role people assigned you. Gate 50 can give that care a value system and responsibility. The guide shows how to care without becoming the family or business battery.',
+                    oppositeCopy: 'You carry Gate 50, values, responsibility and what protects the wellbeing of the group. You may see what should be handled but lack the consistent Sacral care energy of Gate 27 to keep doing it personally. Around Gate 27, responsibility can become hands-on caretaking fast. The guide shows how to uphold standards, delegate and stop letting values trap you in endless labor.',
+                    neitherCopy: 'You carry neither Gate 27 nor Gate 50. Around the complete channel, you may become more focused on feeding, protecting and taking responsibility for everyone, then feel guilty when that caretaking energy disappears. Your advantage is the ability to question whether a responsibility is actually yours. The guide shows how this can affect parenting, partnerships and business without turning non-Sacral limits into selfishness.'
+                },
+                {
+                    code: '59-6', name: 'Mating', sacral: 59, opposite: 6,
+                    truth: 'Chemistry Is Not a Contract',
+                    sacralCopy: 'You carry Gate 59, the Sacral drive to break barriers and create intimacy. You may feel unusually open, available or bonded around Gate 6, then mistake chemistry for an agreement to maintain access. The guide shows how this can affect sex, friendship, clients and emotional boundaries for a Manifestor.',
+                    oppositeCopy: 'You carry Gate 6, emotional friction and the boundary that decides when closeness is possible. You may feel who gets access and when, while Gate 59 can temporarily push through those barriers with powerful bonding energy. The guide shows how emotional Authority and intimacy pressure can get tangled, especially when another person expects continued closeness.',
+                    neitherCopy: 'You carry neither Gate 59 nor Gate 6. Around the complete channel, barriers may drop quickly and intimacy can feel unusually natural, urgent or consuming. When the connection changes, your need for distance may return and confuse both people. Your advantage is not being built to reproduce one fixed bonding pattern. The guide shows how to recognize chemistry without turning it into obligation.'
+                },
+                {
+                    code: '9-52', name: 'Concentration', sacral: 9, opposite: 52,
+                    truth: 'My Focus Is Not My Worth',
+                    sacralCopy: 'You carry Gate 9, the Sacral capacity to narrow attention onto details. Around Gate 52, focus may lock in and make long concentration feel natural, then vanish when the stillness is gone. The guide shows why losing focus does not mean you are lazy and how to build work around Manifestor bursts instead of sustained Sacral output.',
+                    oppositeCopy: 'You carry Gate 52, the Root pressure for stillness. You may be able to hold yourself in place while waiting for something worth focusing on, but without Gate 9 the concentration itself is not consistent. Around Gate 9, stillness can suddenly become productive focus. The guide shows how to use pauses without turning stillness into forced immobility.',
+                    neitherCopy: 'You carry neither Gate 9 nor Gate 52. Around the complete channel, you may suddenly sit still, filter out distractions and work through details for hours, then wonder why you cannot recreate it alone. Your advantage is movement between focus and initiation rather than permanent concentration. The guide shows how to structure business and daily life without using Sacral focus as the measure of competence.'
+                },
+                {
+                    code: '3-60', name: 'Mutation', sacral: 3, opposite: 60,
+                    truth: 'I Cannot Force the Breakthrough',
+                    sacralCopy: 'You carry Gate 3, the Sacral pressure to bring order to a new mutation. You may feel the chaos of a beginning and push to make the breakthrough happen before timing is ready. Gate 60 provides the limitation that mutation needs. The guide shows how a Manifestor can initiate change without burning energy trying to force evolution.',
+                    oppositeCopy: 'You carry Gate 60, the Root pressure of limitation. You may feel exactly where life, work or a relationship has hit a wall, and your Manifestor nature may want to break through it immediately. Gate 3 can temporarily bring ordering energy to the limitation. The guide shows how accepting a limit can protect your energy without turning acceptance into resignation.',
+                    neitherCopy: 'You carry neither Gate 3 nor Gate 60. Around the complete channel, change may arrive in pulses, with sudden disorder followed by a breakthrough that cannot be scheduled. You may feel energized by the mutation and then frustrated when it stops. Your advantage is not being bound to that pulse. The guide shows how to participate in change without assuming every stuck period is yours to break open.'
+                },
+                {
+                    code: '42-53', name: 'Maturation', sacral: 42, opposite: 53,
+                    truth: 'Starting It Does Not Make It Mine Forever',
+                    sacralCopy: 'You carry Gate 42, the Sacral pressure to grow and complete a cycle. You may stay involved because something feels unfinished, even after your Manifestor energy and role have ended. Gate 53 can bring the beginning that gives completion a clear cycle. The guide shows how to recognize what is yours to finish and what should be handed off.',
+                    oppositeCopy: 'You carry Gate 53, the Root pressure to begin a new cycle. Starting comes naturally to Manifestors, so this pressure can become especially loud, but Gate 42 is what supplies the Sacral growth toward completion. The guide shows how to initiate cleanly, inform who will be affected and stop treating every beginning as your lifelong responsibility.',
+                    neitherCopy: 'You carry neither Gate 42 nor Gate 53. Around the complete channel, beginnings and endings can feel organized into a clear developmental process, and you may expect yourself to maintain every stage after initiating it. When the connection changes, your interest may leave before the cycle ends. Your advantage is the freedom to start movement and transfer ownership. The guide shows how to do that without guilt or abandoned promises.'
+                }
             ];
 
-            var gates = [2, 3, 5, 6, 9, 10, 14, 15, 20, 27, 29, 34, 42, 46, 50, 52, 53, 57, 59];
+            var gateDetails = {
+                2: { name: 'Direction', copy: 'You may recognize direction before you have the consistent Sacral fuel to keep driving it. Your direction can be real without becoming a demand to power everything yourself.' },
+                3: { name: 'New Order', copy: 'You may feel pressure to organize chaos into something new. As a Manifestor, the breakthrough is not something you can force just because you are ready to initiate.' },
+                5: { name: 'Fixed Rhythms', copy: 'You may crave a reliable pattern and still be unable to produce the same energy every day. Structure can support a Manifestor without becoming a rigid standard you must perform.' },
+                6: { name: 'Friction', copy: 'You may be highly aware of emotional boundaries, closeness and when access feels wrong. Your openness to intimacy is not the same thing as permanent availability.' },
+                9: { name: 'Focus', copy: 'You may lock onto details and become intensely absorbed when the energy is available. That does not mean your Manifestor body owes anyone sustained concentration on demand.' },
+                10: { name: 'Behavior of Self', copy: 'You may carry a strong relationship to being yourself and moving in a way that feels correct to you. You do not need constant Sacral power to prove that your self-trust is real.' },
+                14: { name: 'Power Skills', copy: 'You may recognize where resources and energy could create momentum. The trap is treating temporary access to Sacral power as proof that you should keep producing indefinitely.' },
+                15: { name: 'Extremes', copy: 'You may naturally hold a wide range of rhythms, moods or ways of being. Other people may call that inconsistency when your Manifestor timing simply refuses to stay inside one fixed pattern.' },
+                20: { name: 'The Now', copy: 'You may be built to speak or act from what is present now. Around Gate 34, that immediacy can feel supercharged, but borrowed speed is not the same as your consistent capacity.' },
+                27: { name: 'Caring', copy: 'You may feel a powerful pull to nourish, protect or keep others going. As a Manifestor, care does not require becoming the endless energy source for everyone around you.' },
+                29: { name: 'Commitment', copy: 'You may feel the pressure of a yes long after your energy has changed. Your Authority decides what deserves commitment. An old yes is not automatically a life sentence.' },
+                34: { name: 'Power', copy: 'You can carry Gate 34 in your undefined Sacral without owning its power consistently. It may become loud around other people, but temporary power is not a contract to keep going.' },
+                42: { name: 'Growth', copy: 'You may recognize what wants to mature or reach completion. That does not mean every cycle is yours to carry all the way to the end with your own energy.' },
+                46: { name: 'Love of the Body', copy: 'You may recognize the importance of being fully inside an experience and letting the body meet life. You do not need to keep saying yes to prove you are open to discovery.' },
+                50: { name: 'Values', copy: 'You may carry strong values around responsibility, protection and what keeps people or systems healthy. You can uphold standards without becoming the permanent caretaker.' },
+                52: { name: 'Stillness', copy: 'You may recognize the pressure to stop, hold still and concentrate. Stillness can help you focus, but forcing your Manifestor body to stay locked down can become another form of control.' },
+                53: { name: 'Beginnings', copy: 'You may feel the pressure to begin a new cycle before knowing who will sustain it. Initiating is your role. Personally carrying every cycle to completion is not.' },
+                57: { name: 'Intuitive Clarity', copy: 'You may know what is safe or correct in the moment before you can explain it. Around Gate 34, that knowing can feel physically powerful, but the power is not yours to store.' },
+                59: { name: 'Intimacy', copy: 'You may feel the drive to break barriers and create closeness. Chemistry can be real without meaning someone gets unlimited access to your time, body or energy.' },
+                60: { name: 'Limitation', copy: 'You may feel the pressure of limits before change is ready to happen. For a Manifestor, accepting the current limit is not giving up. It can stop you wasting energy trying to force mutation.' }
+            };
+
+            var gates = [2, 3, 5, 6, 9, 10, 14, 15, 20, 27, 29, 34, 42, 46, 50, 52, 53, 57, 59, 60];
             var selected = new Set();
             var gateGrid = document.getElementById('gate-grid');
             var count = document.getElementById('selected-count');
@@ -172,7 +274,7 @@
                 var button = document.createElement('button');
                 button.type = 'button';
                 button.className = 'gate-button';
-                button.textContent = 'Gate ' + gate;
+                button.innerHTML = '<strong>Gate ' + gate + '</strong><span>' + gateDetails[gate].name + '</span>';
                 button.setAttribute('aria-pressed', 'false');
                 button.addEventListener('click', function () {
                     if (selected.has(gate)) {
@@ -203,15 +305,15 @@
                 } else if (hasSacral) {
                     state = 'sacral';
                     title = 'You carry Gate ' + channel.sacral;
-                    copy = 'This is the Sacral-side hanging gate. Read the Gate ' + channel.sacral + ' section in the guide.';
+                    copy = channel.sacralCopy;
                 } else if (hasOpposite) {
                     state = 'opposite';
                     title = 'You carry Gate ' + channel.opposite;
-                    copy = 'This is the gate on the opposite side. Read the Gate ' + channel.opposite + ' section and check whether its center is defined or undefined.';
+                    copy = channel.oppositeCopy;
                 } else {
                     state = 'neither';
                     title = 'You carry neither gate';
-                    copy = 'Read the neither-gate section to understand what can become louder around people who carry either gate or the complete channel.';
+                    copy = channel.neitherCopy;
                 }
 
                 return '<article class="result-card ' + state + '">' +
