@@ -98,6 +98,32 @@
             gap: 12px
         }
 
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            color: var(--muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            background: rgba(255, 255, 255, .02);
+        }
+
+        .back-link:hover {
+            color: var(--text);
+            border-color: rgba(57, 255, 136, .5);
+        }
+
         .brand-icon {
             width: 42px;
             height: 42px;
@@ -617,19 +643,22 @@
                 <span class="brand-icon"><img src="images/logocircle.png" alt="Manifestor Anonymous icon"></span>
                 <span><small>Manifestor Anonymous</small><strong>Understand yourself differently.</strong></span>
             </a>
-            <nav class="page-nav" aria-label="Main navigation">
-                <a href="index.html">Home</a><span>/</span>
-                <a class="active" href="profiles.html">Profiles</a><span>/</span>
-                <a href="index.html#vault">Vault</a><span>/</span>
-                <a href="gates.html">Gates Radio</a>
-            </nav>
-            <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-nav"
-                aria-label="Open navigation menu">
-                <span>Menu</span>
-                <span class="menu-lines" aria-hidden="true"></span>
-            </button>
+            <div class="header-actions">
+                <a class="back-link" href="index.html">← Home</a>
+                <nav class="page-nav" aria-label="Main navigation">
+                    <a href="index.html">Home</a><span>/</span>
+                    <a class="active" href="profiles.html">Profiles</a><span>/</span>
+                    <a href="index.html#vault">Vault</a><span>/</span>
+                    <a href="gates.html">Gates Radio</a>
+                </nav>
+                <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-nav"
+                    aria-label="Open navigation menu">
+                    <span>Menu</span>
+                    <span class="menu-lines" aria-hidden="true"></span>
+                </button>
+            </div>
             <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
-                <a href="index.html">Home</a>
+                <a href="index.html">← Back to Home</a>
                 <a href="profiles.html">Profiles</a>
                 <a href="index.html#vault">Vault</a>
                 <a href="gates.html">Gates Radio</a>

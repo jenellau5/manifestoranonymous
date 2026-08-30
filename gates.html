@@ -161,6 +161,32 @@
             font-size: 14px;
         }
 
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            color: var(--muted);
+            background: rgba(255, 255, 255, 0.02);
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .back-link:hover {
+            color: var(--text);
+            border-color: rgba(57, 255, 136, 0.5);
+        }
+
         .top-links a:hover {
             color: var(--text);
         }
@@ -1132,22 +1158,25 @@
                     <div class="topbar-tagline">Study the gates through sound. Not memorization.</div>
                 </div>
             </div>
-            <nav class="top-links" aria-label="Main navigation">
-                <a href="index.html">Home</a>
-                <span>/</span>
-                <a href="index.html#chart-drops">Chart Drops</a>
-                <span>/</span>
-                <a href="profiles.html">Profiles</a>
-                <span>/</span>
-                <a href="index.html#vault">Vault</a>
-            </nav>
-            <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-nav"
-                aria-label="Open navigation menu">
-                <span>Menu</span>
-                <span class="menu-lines" aria-hidden="true"></span>
-            </button>
+            <div class="header-actions">
+                <a class="back-link" href="index.html">← Home</a>
+                <nav class="top-links" aria-label="Main navigation">
+                    <a href="index.html">Home</a>
+                    <span>/</span>
+                    <a href="index.html#chart-drops">Chart Drops</a>
+                    <span>/</span>
+                    <a href="profiles.html">Profiles</a>
+                    <span>/</span>
+                    <a href="index.html#vault">Vault</a>
+                </nav>
+                <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-nav"
+                    aria-label="Open navigation menu">
+                    <span>Menu</span>
+                    <span class="menu-lines" aria-hidden="true"></span>
+                </button>
+            </div>
             <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
-                <a href="index.html">Home</a>
+                <a href="index.html">← Back to Home</a>
                 <a href="index.html#chart-drops">Chart Drops</a>
                 <a href="profiles.html">Profiles</a>
                 <a href="index.html#vault">Vault</a>
