@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guided Gate Coder | Learn the Human Design Gates Through Music</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <meta name="description"
+        content="Code a song into a Human Design gate step by step. The digital version of the printable workbook method: feeling, evidence, center, circuit, gate, build." />
+    <style>
+        :root {
+            --bg: #050608;
+            --bg-2: #090a0e;
+            --panel: rgba(255, 255, 255, 0.045);
+            --panel-soft: rgba(255, 255, 255, 0.03);
+            --line: rgba(255, 255, 255, 0.11);
+            --line-strong: rgba(255, 255, 255, 0.2);
+            --text: #f5f7fb;
+            --muted: rgba(245, 247, 251, 0.66);
+            --dim: rgba(245, 247, 251, 0.42);
+            --accent: #39ff88;
+            --accent-soft: rgba(57, 255, 136, 0.14);
+            --purple: #9b5cff;
+            --radius: 22px;
+            --shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top, rgba(57, 255, 136, 0.08), transparent 16%),
+                radial-gradient(circle at 20% 14%, rgba(124, 58, 237, 0.14), transparent 21%),
+                linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        img { display: block; max-width: 100%; }
+        a { color: inherit; text-decoration: none; }
+        button, input, textarea, select { font: inherit; }
+
+        .container { width: min(1080px, calc(100% - 28px)); margin: 0 auto; }
+
+        .topbar {
+            position: sticky; top: 0; z-index: 100;
+            backdrop-filter: blur(14px);
+            background: rgba(5, 6, 8, 0.78);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .topbar-inner {
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 14px; padding: 14px 0;
+        }
+
+        .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+
+        .brand-icon {
+            width: 42px; height: 42px; border-radius: 50%;
+            border: 1px solid var(--line-strong); overflow: hidden; background: #08090d;
+            box-shadow: 0 0 24px rgba(57, 255, 136, 0.12); flex: 0 0 auto;
+        }
+
+        .brand-icon img { width: 100%; height: 100%; object-fit: cover; }
+        .brand-copy small {
+            display: block; text-transform: uppercase; letter-spacing: 0.18em;
+            font-size: 0.6rem; color: var(--dim);
+        }
+        .brand-copy strong { display: block; font-size: 0.98rem; letter-spacing: 0.01em; }
+
+        .back-link {
+            border: 1px solid var(--line-strong); padding: 9px 15px; border-radius: 999px;
+            font-size: 0.78rem; color: var(--muted); white-space: nowrap;
+        }
+        .back-link:hover { color: var(--text); border-color: var(--accent); }
+
+        main { padding: 30px 0 70px; }
+
+        .panel {
+            background: var(--panel); border: 1px solid var(--line);
+            border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);
+        }
+
+        .label {
+            display: inline-block; text-transform: uppercase; letter-spacing: 0.2em;
+            font-size: 0.62rem; color: var(--accent); margin-bottom: 12px;
+        }
+
+        h1 { font-size: clamp(1.9rem, 6vw, 2.9rem); line-height: 1.08; margin: 0 0 12px; letter-spacing: -0.02em; }
+        h2 { font-size: clamp(1.35rem, 4vw, 1.9rem); margin: 0 0 10px; letter-spacing: -0.01em; }
+        h3 { font-size: 1.02rem; margin: 0 0 6px; }
+        p { color: var(--muted); line-height: 1.6; margin: 0 0 12px; }
+        .lead { font-size: 1.02rem; color: rgba(245, 247, 251, 0.8); }
+
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 13px 22px; border-radius: 999px; border: 1px solid transparent;
+            font-size: 0.86rem; font-weight: 600; cursor: pointer; letter-spacing: 0.01em;
+        }
+        .btn-primary { background: var(--accent); color: #04150b; }
+        .btn-primary:hover { filter: brightness(1.08); }
+        .btn-secondary { background: transparent; border-color: var(--line-strong); color: var(--text); }
+        .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+        .btn-ghost { background: transparent; border-color: var(--line); color: var(--muted); padding: 10px 16px; }
+        .btn-ghost:hover { color: var(--text); border-color: var(--line-strong); }
+        .btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+
+        .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+
+        .paths { display: grid; gap: 14px; margin-top: 26px; grid-template-columns: 1fr; }
+        @media (min-width: 760px) { .paths { grid-template-columns: 1fr 1fr; } }
+
+        .path-card { background: var(--panel-soft); border: 1px solid var(--line); border-radius: 18px; padding: 20px; }
+        .path-card .tag {
+            font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--purple); display: block; margin-bottom: 10px;
+        }
+
+        .steps-strip { display: grid; gap: 10px; grid-template-columns: repeat(2, 1fr); margin-top: 20px; }
+        @media (min-width: 760px) { .steps-strip { grid-template-columns: repeat(4, 1fr); } }
+        .step-mini {
+            border: 1px solid var(--line); border-radius: 14px; padding: 14px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .step-mini span { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--accent); display: block; margin-bottom: 6px; }
+        .step-mini strong { display: block; font-size: 0.9rem; margin-bottom: 4px; }
+        .step-mini p { font-size: 0.8rem; margin: 0; }
+
+        section.block { margin-top: 34px; }
+
+        /* Coder */
+        .progress-rail { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+        .pip {
+            flex: 1 1 42px; height: 5px; border-radius: 999px;
+            background: rgba(255, 255, 255, 0.09);
+        }
+        .pip.done { background: var(--accent); }
+        .pip.active { background: var(--purple); }
+
+        .step-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+        .step-num {
+            font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--accent); border: 1px solid var(--accent-soft); padding: 5px 9px; border-radius: 999px;
+        }
+
+        .field { margin-top: 14px; }
+        .field label { display: block; font-size: 0.78rem; color: var(--dim); margin-bottom: 6px; letter-spacing: 0.04em; }
+        input[type="text"], textarea {
+            width: 100%; background: rgba(255, 255, 255, 0.04); color: var(--text);
+            border: 1px solid var(--line); border-radius: 14px; padding: 13px 14px;
+        }
+        input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--accent); }
+        textarea { min-height: 92px; resize: vertical; }
+
+        .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .chip {
+            border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+            color: var(--muted); border-radius: 999px; padding: 9px 14px; font-size: 0.82rem; cursor: pointer;
+        }
+        .chip:hover { border-color: var(--line-strong); color: var(--text); }
+        .chip.on { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+        .grid-cards { display: grid; gap: 10px; grid-template-columns: 1fr; margin-top: 14px; }
+        @media (min-width: 620px) { .grid-cards { grid-template-columns: 1fr 1fr; } }
+        @media (min-width: 900px) { .grid-cards.three { grid-template-columns: repeat(3, 1fr); } }
+
+        .pick {
+            text-align: left; width: 100%; cursor: pointer;
+            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--line);
+            border-radius: 16px; padding: 15px; color: var(--text);
+        }
+        .pick:hover { border-color: var(--line-strong); }
+        .pick.on { border-color: var(--accent); background: var(--accent-soft); }
+        .pick .pick-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .pick strong { font-size: 0.98rem; }
+        .pick .count { font-size: 0.68rem; color: var(--dim); letter-spacing: 0.08em; white-space: nowrap; }
+        .pick p { font-size: 0.82rem; margin: 6px 0 0; }
+        .pick .hint { color: var(--purple); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 8px; display: block; }
+
+        .gate-card { border: 1px solid var(--line); border-radius: 16px; padding: 16px; background: rgba(255, 255, 255, 0.03); }
+        .gate-card.on { border-color: var(--accent); background: var(--accent-soft); }
+        .gate-card.second { border-color: var(--purple); }
+        .gate-num { font-size: 0.66rem; letter-spacing: 0.18em; color: var(--dim); text-transform: uppercase; }
+        .gate-card h4 { margin: 4px 0 8px; font-size: 1.04rem; }
+        .words { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+        .gate-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+        .mini-btn {
+            border: 1px solid var(--line-strong); background: transparent; color: var(--muted);
+            border-radius: 999px; padding: 7px 13px; font-size: 0.74rem; cursor: pointer;
+        }
+        .mini-btn:hover { color: var(--text); border-color: var(--accent); }
+        .mini-btn.on { color: #04150b; background: var(--accent); border-color: var(--accent); }
+        .mini-btn.alt.on { color: #ffffff; background: var(--purple); border-color: var(--purple); }
+
+        .summary {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--line-strong);
+            border-radius: 18px; padding: 18px; margin-top: 14px;
+        }
+        .summary dl { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 0; }
+        @media (min-width: 620px) { .summary dl { grid-template-columns: 1fr 1fr; } }
+        .summary dt { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); margin-bottom: 3px; }
+        .summary dd { margin: 0; font-size: 0.92rem; color: var(--text); }
+        .summary .full { grid-column: 1 / -1; }
+
+        .saved-item {
+            border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px;
+            display: flex; justify-content: space-between; gap: 12px; align-items: center;
+            background: rgba(255, 255, 255, 0.02); margin-top: 8px;
+        }
+        .saved-item div { min-width: 0; }
+        .saved-item strong { display: block; font-size: 0.9rem; }
+        .saved-item span { font-size: 0.76rem; color: var(--dim); }
+
+        .note { font-size: 0.8rem; color: var(--dim); margin-top: 12px; }
+        .hidden { display: none !important; }
+
+        .nav-row { display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
+
+        .toast {
+            position: fixed; left: 50%; transform: translateX(-50%); bottom: 22px;
+            background: var(--accent); color: #04150b; padding: 11px 18px; border-radius: 999px;
+            font-size: 0.82rem; font-weight: 600; z-index: 200; box-shadow: var(--shadow);
+        }
+
+        footer { border-top: 1px solid var(--line); padding: 26px 0 40px; }
+        .footer-inner { display: grid; gap: 8px; font-size: 0.78rem; color: var(--dim); }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="brand">
+                <div class="brand-icon">
+                    <img src="images/logocircle.png" alt="Manifestor Anonymous icon" />
+                </div>
+                <div class="brand-copy">
+                    <small>Manifestor Anonymous</small>
+                    <strong>Guided Gate Coder</strong>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a class="back-link" href="gates.html">Back to the guide</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+
+            <section class="panel">
+                <span class="label">Digital version of the workbook method</span>
+                <h1>Code one song. Follow the method. Find the gate.</h1>
+                <p class="lead">
+                    Use the workbook on paper, or use the guided digital version to move through the same method online.
+                    Same seven steps, same order, same rule: start with what you actually noticed instead of forcing a
+                    gate onto a song.
+                </p>
+                <div class="actions">
+                    <a class="btn btn-primary" href="#coder">Start coding a song</a>
+                    <a class="btn btn-secondary" href="#how">See how it works</a>
+                </div>
+
+                <div class="paths">
+                    <div class="path-card">
+                        <span class="tag">Path one · Paper</span>
+                        <h3>Print the workbook</h3>
+                        <p>Use the Song Coding Sheet, Gate Study Sheet, Playlist Builder, Transit Tracker and Bodygraph
+                            Pattern Log by hand. Slow, physical, and good for deep listening sessions.</p>
+                    </div>
+                    <div class="path-card">
+                        <span class="tag">Path two · Digital</span>
+                        <h3>Use the guided coder</h3>
+                        <p>Click through the same seven steps here. Feeling and evidence narrow the center, the center
+                            narrows the circuit, and the circuit narrows the gate list to compare.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="block" id="how">
+                <div class="panel">
+                    <span class="label">How the guided version works</span>
+                    <h2>Experience → feeling → evidence → center → circuit → gate → build</h2>
+                    <p>Nothing is guessed for you. The coder only removes gates that do not belong to the center and
+                        circuit you chose, so you compare a short list instead of all 64.</p>
+                    <div class="steps-strip">
+                        <div class="step-mini"><span>01 · 02</span><strong>Experience + feeling</strong>
+                            <p>Listen all the way through, then name your reaction in plain words.</p>
+                        </div>
+                        <div class="step-mini"><span>03</span><strong>Evidence</strong>
+                            <p>Point to the lyric, vocal shift, beat, repetition or silence that carried it.</p>
+                        </div>
+                        <div class="step-mini"><span>04 · 05</span><strong>Center + circuit</strong>
+                            <p>Locate the kind of energy, then how it behaves: individual, collective or tribal.</p>
+                        </div>
+                        <div class="step-mini"><span>06 · 07</span><strong>Gate + build</strong>
+                            <p>Compare the narrowed gates, record why, and save the entry to your library.</p>
+                        </div>
+                    </div>
+                    <p class="note">A song can carry more than one gate, and your reading can change with a transit or
+                        an emotional wave. That is pattern recognition, not a wrong answer.</p>
+                </div>
+            </section>
+
+            <section class="block" id="coder">
+                <div class="panel">
+                    <div class="progress-rail" id="rail"></div>
+                    <div id="steps"></div>
+                    <div class="nav-row">
+                        <button class="btn btn-ghost" id="backBtn">Back</button>
+                        <button class="btn btn-primary" id="nextBtn">Next step</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="block" id="savedWrap">
+                <div class="panel">
+                    <span class="label">Your coded songs</span>
+                    <h2>Bodygraph pattern log</h2>
+                    <p>Entries are saved in this browser only, so nothing is uploaded anywhere. Copy or download them
+                        into the Living Library Log whenever you are ready.</p>
+                    <div id="savedList"></div>
+                    <div class="actions">
+                        <button class="btn btn-secondary" id="copyAll">Copy all entries</button>
+                        <button class="btn btn-ghost" id="downloadAll">Download as text</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="block">
+                <div class="panel">
+                    <span class="label">Get the full system</span>
+                    <h2>The coder narrows the gate. The guide teaches the frequency.</h2>
+                    <p>The 82-page reference guide gives every gate its core frequency, distortion, aligned expression
+                        and musical clues. The printable workbook gives you the paper version of this exact flow, and
+                        the gate playlists plus Living Library Log show how songs were coded already.</p>
+                    <div class="actions">
+                        <a class="btn btn-primary" href="https://payhip.com/b/eGAgT" target="_blank"
+                            rel="noopener noreferrer">Get lifetime access · $64</a>
+                        <a class="btn btn-secondary" href="gates.html">See everything included</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <div>© Manifestor Anonymous · Learn the Human Design Gates Through Music</div>
+            <div>Study the gates through sound. Not memorization.</div>
+        </div>
+    </footer>
+
+    <script>
+        const GATES = {"1": {"name": "Self-Expression", "center": "G", "circuit": "Individual", "words": ["Creativity", "Self-expression", "Originality", "Bold presence", "Making", "Artistic identity", "Uniqueness", "Creative self", "Visibility", "Authenticity"]}, "2": {"name": "Receptivity / Higher Knowledge", "center": "G", "circuit": "Individual", "words": ["Receptivity", "Inner knowing", "Guidance", "Direction", "Higher knowledge", "Feminine wisdom", "Trust", "Soul navigation", "Stillness", "The driver"]}, "3": {"name": "Ordering", "center": "Sacral", "circuit": "Individual", "words": ["Ordering", "Completion", "Resolution", "Organizing chaos", "Mutation", "Finding the path", "Sacral response", "Individual process", "Difficulty to beauty", "Closure"]}, "4": {"name": "Answers", "center": "Ajna", "circuit": "Collective", "words": ["Answers", "Mental formulas", "Possibility", "Logic", "Searching", "Collective solutions", "Mental pressure", "Formulation", "Intellectual drive", "Sharing ideas"]}, "5": {"name": "Fixed Rhythms / Patterns", "center": "Sacral", "circuit": "Collective", "words": ["Rhythm", "Routine", "Habit", "Fixed patterns", "Mechanical repetition", "Consistency", "Anchoring", "Daily life", "Biological timing", "Collective rhythm"]}, "6": {"name": "Friction", "center": "Solar Plexus", "circuit": "Tribal", "words": ["Friction", "Intimacy", "Boundaries", "Inner circle", "Discernment", "Sexual energy", "Tribal bonding", "Emotional gating", "Merger", "Selection"]}, "7": {"name": "Role Of The Self", "center": "G", "circuit": "Collective", "words": ["Leadership", "Recognition", "Role", "Service", "Natural authority", "Collective guidance", "Democracy", "Influence", "Direction", "Being called"]}, "8": {"name": "Contribution", "center": "Throat", "circuit": "Individual", "words": ["Contribution", "Bold statement", "Example", "Visibility", "Unique style", "Attention", "Truth-telling", "Standing out", "Creative identity", "Making a mark"]}, "9": {"name": "Focus", "center": "Sacral", "circuit": "Collective", "words": ["Focus", "Repetition", "Mastery", "Sustained effort", "Experimentation", "Detail", "Collective knowledge-building", "Sacral drive", "Refinement", "Process"]}, "10": {"name": "Behavior Of The Self", "center": "G", "circuit": "Individual", "words": ["Self-love", "Behavior", "Empowerment", "Love of life", "Authenticity", "Walking your truth", "Individual expression", "Self-worth", "Quiet power", "Living example"]}, "11": {"name": "Ideas", "center": "Ajna", "circuit": "Collective", "words": ["Ideas", "Storytelling", "Images", "Collective sensing", "Abstract narrative", "Imagination", "Piecing together", "The bigger picture", "Creative overload", "Dreamlike"]}, "12": {"name": "Caution", "center": "Throat", "circuit": "Individual", "words": ["Caution", "Vulnerability", "Love", "Tenderness", "Individual expression", "Timing", "Holding back", "Letting out", "Heart speech", "The quiet declaration"]}, "13": {"name": "Listener", "center": "G", "circuit": "Collective", "words": ["Listening", "Witnessing", "Secrets", "Stories", "Receiving", "Collective memory", "Openness", "Truth-telling", "Holding space", "Archive"]}, "14": {"name": "Power Skills", "center": "Sacral", "circuit": "Individual", "words": ["Power", "Skill", "Mastery", "Material abundance", "Fuel", "Empowerment", "Direction", "Individual resource", "Capability", "Doing what you're built for"]}, "15": {"name": "Extremes", "center": "G", "circuit": "Collective", "words": ["Extremes", "Rhythm", "Range", "Inconsistency", "Wildness", "Unpredictability", "Collective humanity", "Embracing the swing", "No fixed pattern", "Dynamic living"]}, "16": {"name": "Skills", "center": "Throat", "circuit": "Collective", "words": ["Skills", "Enthusiasm", "Just do it", "Natural talent", "Action", "Expression", "Collective sharing", "Diving in", "Vitality", "Doing before knowing"]}, "17": {"name": "Opinions", "center": "Ajna", "circuit": "Collective", "words": ["Opinions", "Possibilities", "Perspective", "Patterns", "Collective formulas", "Questioning", "\"What if\"", "Proposing", "Logic", "Opening minds"]}, "18": {"name": "Correction", "center": "Spleen", "circuit": "Collective", "words": ["Correction", "Improvement", "Logic", "Discernment", "Optimization", "Better way", "Critique", "Joy through efficiency", "Spleen knowing", "Collective service"]}, "19": {"name": "Wanting", "center": "Root", "circuit": "Tribal", "words": ["Wanting", "Sensitivity", "Community", "Belonging", "Need", "Tribal longing", "Access", "Attunement", "Rootedness", "Connection hunger"]}, "20": {"name": "Now / The Present", "center": "Throat", "circuit": "Individual", "words": ["Now", "Presence", "Immediacy", "Spontaneity", "Action", "Contemplation", "Individual expression", "The moment", "No plan", "Awareness"]}, "21": {"name": "Hunter / Huntress", "center": "Heart / Ego", "circuit": "Tribal", "words": ["Control", "Hunter", "Material drive", "Acquisition", "Territorial", "Willpower", "Securing resources", "Ego", "Tribal provision", "Capability"]}, "22": {"name": "Grace / Openness", "center": "Solar Plexus", "circuit": "Individual", "words": ["Grace", "Openness", "Mood", "Emotional presence", "Social magnetism", "Receptivity", "Individual emotion", "Transmitting feeling", "\"Working the room\"", "Warmth"]}, "23": {"name": "Assimilation", "center": "Throat", "circuit": "Individual", "words": ["Assimilation", "Creative downloads", "Insight", "New things", "Birth", "Individual expression", "Synthesis", "Ahead of time", "Clear knowing", "Expression of the new"]}, "24": {"name": "Rationalization", "center": "Ajna", "circuit": "Individual", "words": ["Rationalization", "Mental processing", "Mystery", "Repetition", "Understanding", "Individual thinking", "Loop to clarity", "Rationalizing", "Solving", "Patience"]}, "25": {"name": "Innocence / Spirit Of Self", "center": "G", "circuit": "Individual", "words": ["Innocence", "Spirit", "Divine love", "Healing", "Open heart", "Spiritual presence", "Purity", "Universal love", "Soul recognition", "Grace without condition"]}, "26": {"name": "Trickster / Egoist", "center": "Heart / Ego", "circuit": "Tribal", "words": ["Trickster", "Deal-making", "Persuasion", "Ego", "Tribal exchange", "Marketing", "Charm", "Positioning", "Negotiation", "Getting the most"]}, "27": {"name": "Caring", "center": "Sacral", "circuit": "Tribal", "words": ["Caring", "Nourishment", "Tribal support", "Protection", "Family", "Provision", "Love as action", "Tending", "Community", "Sacral care"]}, "28": {"name": "Struggle / Risk", "center": "Spleen", "circuit": "Individual", "words": ["Struggle", "Meaning", "Risk", "Existential", "Wisdom through pain", "Spleen instinct", "What's worth it", "Individual quest", "Fighting for purpose", "Dark before dawn"]}, "29": {"name": "Perseverance / Yes", "center": "Sacral", "circuit": "Collective", "words": ["Yes", "Perseverance", "Commitment", "Following through", "Endurance", "Sacral response", "Saying yes", "Process", "Collective sustaining", "Persistence"]}, "30": {"name": "Desire / Feelings", "center": "Solar Plexus", "circuit": "Collective", "words": ["Desire", "Longing", "Intensity", "Emotion", "Wanting", "Change", "Burning", "Collective feeling", "Transformation through desire", "Never free"]}, "31": {"name": "Leading / Influence", "center": "Throat", "circuit": "Collective", "words": ["Leadership", "Influence", "Collective voice", "Authority", "Recognition", "Being called", "Direction", "Throat", "Natural leader", "\"Follow me\""]}, "32": {"name": "Continuity", "center": "Spleen", "circuit": "Tribal", "words": ["Continuity", "Instinct", "Adaptation", "Preservation", "Tribal endurance", "What's worth keeping", "Survival", "Carrying on", "Spleen knowing", "Generational"]}, "33": {"name": "Privacy / Retreat", "center": "Throat", "circuit": "Collective", "words": ["Privacy", "Retreat", "Reflection", "Solitude", "Secrets", "Integration", "Collective memory", "Processing", "Quiet wisdom", "Space"]}, "34": {"name": "Power", "center": "Sacral", "circuit": "Individual", "words": ["Power", "Sacral force", "Capability", "Raw energy", "Multitasking", "Response", "Unstoppable", "Individual momentum", "Physical drive", "Pure output"]}, "35": {"name": "Change", "center": "Throat", "circuit": "Collective", "words": ["Change", "Experience", "Personal story", "Collective inspiration", "Throat expression", "Moving forward", "Sharing", "Novelty", "Storytelling", "Catalyst"]}, "36": {"name": "Crisis", "center": "Solar Plexus", "circuit": "Collective", "words": ["Crisis", "Darkness \u2192 light", "Emotional cycle", "Breakthrough", "Collective experience", "Solar Plexus wave", "Catalyst", "Confusion before clarity", "Catharsis", "Moving through"]}, "37": {"name": "Friendship / Harmony", "center": "Solar Plexus", "circuit": "Tribal", "words": ["Friendship", "Harmony", "Tribal bond", "Family", "Belonging", "Warmth", "Community", "Emotional connection", "\"We\"", "Chosen tribe"]}, "38": {"name": "The Fighter", "center": "Root", "circuit": "Individual", "words": ["Fighter", "Meaning", "Struggle", "Purpose", "Against the odds", "Root pressure", "Individual quest", "Warrior spirit", "What's worth it", "Endurance"]}, "39": {"name": "Provocation", "center": "Root", "circuit": "Individual", "words": ["Provocation", "Agitation", "Waking up", "Root pressure", "Individual stirring", "Spirit activation", "Edge", "Disruption", "\"I dare you\"", "Spiriting"]}, "40": {"name": "Aloneness", "center": "Heart / Ego", "circuit": "Tribal", "words": ["Aloneness", "Rest", "Solitude", "Balance", "Work and replenishment", "Tribal withdrawal", "Ego renewal", "\"I need space\"", "Community and retreat", "Will replenishment"]}, "41": {"name": "Contraction", "center": "Root", "circuit": "Collective", "words": ["Contraction", "Fantasy", "Dreaming", "Pulling back", "Preparation", "Emotional pressure", "Collective cycles", "Novelty", "Longing for the possible", "Starting point"]}, "42": {"name": "Growth", "center": "Sacral", "circuit": "Collective", "words": ["Growth", "Completion", "Closure", "Cycles", "Finishing", "Maximizing potential", "Sacral commitment", "Collective growth", "\"I did it\"", "Release"]}, "43": {"name": "Insight / Breakthrough", "center": "Ajna", "circuit": "Individual", "words": ["Insight", "Breakthrough", "Sudden knowing", "\"I know\"", "Ahead of time", "Individual awareness", "Ajna", "Recognition", "Downloading", "Genius"]}, "44": {"name": "Alertness", "center": "Spleen", "circuit": "Tribal", "words": ["Alertness", "Pattern recognition", "Past wisdom", "Instinct", "Tribal resource", "Spleen knowing", "Capability assessment", "Survival", "History", "Seeing what's needed"]}, "45": {"name": "The Gatherer", "center": "Throat", "circuit": "Tribal", "words": ["Gathering", "Community", "Tribal leadership", "Resources", "Bringing together", "\"Come join\"", "Stewardship", "Voice of the tribe", "Collective resources", "Access"]}, "46": {"name": "Serendipity / Determination Of Self", "center": "G", "circuit": "Collective", "words": ["Serendipity", "Body", "Physical presence", "Good fortune", "Embodiment", "Luck through presence", "Perfection in imperfection", "Flesh", "Sensing", "G Center love"]}, "47": {"name": "Realization", "center": "Ajna", "circuit": "Collective", "words": ["Realization", "AHA", "Epiphany", "Abstract to whole", "Clarity", "Collective insight", "Mental synthesis", "\"Now I see\"", "Puzzle complete", "Ajna"]}, "48": {"name": "Depth", "center": "Spleen", "circuit": "Collective", "words": ["Depth", "Craftsmanship", "Beauty", "Thoroughness", "Intuition", "Collective wisdom", "Spleen knowing", "\"Not ready yet\" \u2192 mastery", "Detail", "Completeness"]}, "49": {"name": "Revolution / Principles", "center": "Solar Plexus", "circuit": "Tribal", "words": ["Revolution", "Principles", "Drawing lines", "Tribal transformation", "Emotional upheaval", "Solar Plexus", "What I stand for", "Non-negotiable", "Deciding", "Righteous change"]}, "50": {"name": "Values", "center": "Spleen", "circuit": "Tribal", "words": ["Values", "Tribal code", "Care", "Standards", "Cohesion", "Spleen instinct", "What we owe each other", "Responsibility", "Keeping the tribe", "Moral clarity"]}, "51": {"name": "Shock / Initiation", "center": "Heart / Ego", "circuit": "Individual", "words": ["Shock", "Initiation", "Competition", "Courage", "Disruption", "Spiritual awakening", "Ego", "Individual jolt", "\"Wake up\"", "First mover"]}, "52": {"name": "Stillness", "center": "Root", "circuit": "Collective", "words": ["Stillness", "Concentration", "Pause", "Seeing the whole", "Root inaction", "Creative stillness", "Rest as power", "Inner quiet", "Suspension", "Collective grounding"]}, "53": {"name": "Beginnings / Starts", "center": "Root", "circuit": "Collective", "words": ["Beginnings", "Starts", "Launch energy", "Initiation", "Pressure to begin", "New cycles", "Root pressure", "\"Here we go\"", "First step", "Collective development"]}, "54": {"name": "Ambition", "center": "Root", "circuit": "Tribal", "words": ["Ambition", "Grand vision", "Material success", "Climbing", "Drive", "Tribal status", "\"I want it all\"", "Big energy", "Achievement", "Rising"]}, "55": {"name": "Spirit / Abundance", "center": "Solar Plexus", "circuit": "Individual", "words": ["Spirit", "Abundance", "Emotional depth", "Individual feeling", "\"Getting through\"", "Overflow", "Solar Plexus richness", "Feeling full", "Spirit connection", "Breaking through"]}, "56": {"name": "Stimulation / Storytelling", "center": "Throat", "circuit": "Collective", "words": ["Storytelling", "Stimulation", "Narrative", "Teaching through story", "Ideas expressed", "Collective sharing", "Memory", "Compelling", "\"Let me tell you\"", "Throat expression"]}, "57": {"name": "Intuition / Clarity", "center": "Spleen", "circuit": "Individual", "words": ["Intuition", "Clarity", "\"I just know\"", "Psychic", "Spleen knowing", "Now awareness", "Beyond logic", "Individual insight", "Trust the knowing", "Somatic truth"]}, "58": {"name": "Vitality / Joy Of Life", "center": "Root", "circuit": "Collective", "words": ["Vitality", "Joy", "Aliveness", "Improvement", "Zest", "Collective uplift", "Root energy", "\"Let's make it better\"", "Genuine happiness", "Energizing"]}, "59": {"name": "Intimacy / Sexuality", "center": "Sacral", "circuit": "Tribal", "words": ["Intimacy", "Sexuality", "Seduction", "Coming together", "Deep bonding", "Tribal connection", "Sacral desire", "\"Come closer\"", "Barriers dissolving", "Genuine closeness"]}, "60": {"name": "Acceptance / Limitation", "center": "Root", "circuit": "Individual", "words": ["Acceptance", "Limitation", "Surge", "Burst", "\"Go now\"", "Working within constraints", "Momentum", "Root pressure", "Individual launch", "Compression to release"]}, "61": {"name": "Mystery", "center": "Head", "circuit": "Individual", "words": ["Mystery", "Why", "Unknowable", "Existential questions", "Wonder", "Head pressure", "Individual intuition", "Reaching", "\"What is this all for\"", "Awe"]}, "62": {"name": "Details", "center": "Throat", "circuit": "Collective", "words": ["Details", "Precision", "Organization", "Practical", "Step-by-step", "Naming", "Collective clarity", "\"Here's how\"", "Implementation", "Exactness"]}, "63": {"name": "Doubt", "center": "Head", "circuit": "Collective", "words": ["Doubt", "Questioning", "Logical inquiry", "\"Is this true?\"", "Healthy skepticism", "Head pressure", "Collective quality control", "Verification", "Inquiry", "Testing"]}, "64": {"name": "Confusion / Divine Confusion", "center": "Head", "circuit": "Collective", "words": ["Confusion", "Abstraction", "Fragments", "Mental pressure", "\"Something here\"", "Before the AHA", "Collective sensing", "Trust the process", "Dizzying", "Pieces forming"]}};
+        const CENTERS = [{"name": "Head", "blurb": "Mental pressure to wonder, doubt and question. Inspiration that has nowhere to go yet."}, {"name": "Ajna", "blurb": "Conceptualizing, opinions, answers, rationalizing. The mind sorting a thought into a shape."}, {"name": "Throat", "blurb": "Expression, speaking, doing, being seen. Energy that wants out into the world."}, {"name": "G", "blurb": "Identity, direction, love and self. Who you are and where you are going."}, {"name": "Heart / Ego", "blurb": "Willpower, worth, ego, deals, proving. The measure of what you can do."}, {"name": "Sacral", "blurb": "Life-force, work, sexuality, fertility. Sustainable power and response."}, {"name": "Solar Plexus", "blurb": "Emotion, waves, desire, crisis, spirit. Feeling that moves in cycles."}, {"name": "Spleen", "blurb": "Instinct, intuition, fear, survival, the now. Split-second body knowing."}, {"name": "Root", "blurb": "Stress, adrenaline, pressure to start, move, or push through."}];
+        const CIRCUITS = [{"name": "Individual", "blurb": "Mutation, empowerment and melancholy. Energy that does its own thing and changes things by existing."}, {"name": "Collective", "blurb": "Sharing with everyone. Logic, patterns, experience and story told outward."}, {"name": "Tribal", "blurb": "Bonds, bargains, support and needs. Family, resources, loyalty and touch."}];
+        const FEELINGS = {"tense": ["Head", "Root", "Ajna"], "pressured": ["Root", "Head"], "defiant": ["Heart / Ego", "Throat", "Root"], "angry": ["Root", "Heart / Ego", "Solar Plexus"], "tender": ["Solar Plexus", "G"], "aching": ["Solar Plexus", "G"], "hungry": ["Sacral", "Heart / Ego"], "restless": ["Root", "Sacral"], "private": ["G", "Spleen", "Throat"], "euphoric": ["Solar Plexus", "Sacral"], "unstoppable": ["Sacral", "Throat", "Heart / Ego"], "lonely": ["G", "Solar Plexus"], "alert": ["Spleen", "Root"], "afraid": ["Spleen", "Head"], "certain": ["Spleen", "Ajna"], "questioning": ["Head", "Ajna"], "confused": ["Head", "Ajna"], "seen": ["Throat", "G"], "held": ["Solar Plexus", "Sacral"], "provoked": ["Root", "Throat"], "still": ["Root", "G"], "nostalgic": ["Solar Plexus", "Ajna"]};
+
+        const state = {
+            step: 0, song: "", artist: "", listened: false,
+            feelings: [], evidence: "", center: "", circuit: "",
+            gate: null, second: null, why: ""
+        };
+
+        const STEP_TITLES = [
+            ["01 · Experience", "Listen all the way through"],
+            ["02 · Feeling", "Name what it did to you"],
+            ["03 · Evidence", "Find what created the feeling"],
+            ["04 · Center", "Locate the kind of energy"],
+            ["05 · Circuit", "Identify how the energy behaves"],
+            ["06 · Gate", "Choose the closest gate"],
+            ["07 · Build", "Add it to your living library"]
+        ];
+
+        const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+        function suggestedCenters() {
+            const tally = {};
+            state.feelings.forEach(f => (FEELINGS[f] || []).forEach(c => tally[c] = (tally[c] || 0) + 1));
+            return Object.keys(tally).sort((a, b) => tally[b] - tally[a]).slice(0, 4);
+        }
+
+        function gatesFor(center, circuit) {
+            return Object.keys(GATES).map(Number).filter(n =>
+                GATES[n].center === center && (!circuit || GATES[n].circuit === circuit))
+                .sort((a, b) => a - b);
+        }
+
+        function circuitsFor(center) {
+            const set = {};
+            gatesFor(center, null).forEach(n => set[GATES[n].circuit] = (set[GATES[n].circuit] || 0) + 1);
+            return set;
+        }
+
+        function toast(msg) {
+            const t = document.createElement("div");
+            t.className = "toast"; t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 2200);
+        }
+
+        function render() {
+            const rail = document.getElementById("rail");
+            rail.innerHTML = STEP_TITLES.map((_, i) =>
+                `<div class="pip ${i < state.step ? "done" : i === state.step ? "active" : ""}"></div>`).join("");
+
+            const [num, title] = STEP_TITLES[state.step];
+            let body = "";
+
+            if (state.step === 0) {
+                body = `
+                <p>No skipping and no immediate replay. Take in the full track. Your first impression is data.</p>
+                <div class="field"><label for="song">Song title</label>
+                <input type="text" id="song" value="${esc(state.song)}" placeholder="Song title" /></div>
+                <div class="field"><label for="artist">Artist</label>
+                <input type="text" id="artist" value="${esc(state.artist)}" placeholder="Artist" /></div>
+                <div class="chips"><button class="chip ${state.listened ? "on" : ""}" data-listened="1">I listened all the way through</button></div>`;
+            }
+
+            if (state.step === 1) {
+                body = `
+                <p>Use plain words. Name your reaction, not the song's official meaning. Pick one to three.</p>
+                <div class="chips">${Object.keys(FEELINGS).map(f =>
+                    `<button class="chip ${state.feelings.includes(f) ? "on" : ""}" data-feeling="${f}">${f}</button>`).join("")}</div>
+                <p class="note">Your words point at a kind of energy. In the next steps the coder highlights the centers those words usually live in, then you decide.</p>`;
+            }
+
+            if (state.step === 2) {
+                body = `
+                <p>Pull the lyric, vocal shift, beat, repetition, silence or overall tone that carried the feeling. If you can point to it, you are tracking rather than guessing.</p>
+                <div class="field"><label for="evidence">What created it</label>
+                <textarea id="evidence" placeholder="The line that hit, the moment the beat drops out, the way the vocal cracks...">${esc(state.evidence)}</textarea></div>`;
+            }
+
+            if (state.step === 3) {
+                const sug = suggestedCenters();
+                body = `
+                <p>Is it mental pressure, expression, identity, will, instinct, life-force, emotion or stress? Your feeling words are highlighted as starting points, not answers.</p>
+                <div class="grid-cards">${CENTERS.map(c => {
+                    const count = gatesFor(c.name, null).length;
+                    return `<button class="pick ${state.center === c.name ? "on" : ""}" data-center="${esc(c.name)}">
+                        <span class="pick-top"><strong>${esc(c.name)}</strong><span class="count">${count} gates</span></span>
+                        <p>${esc(c.blurb)}</p>
+                        ${sug.includes(c.name) ? '<span class="hint">Matches your feeling words</span>' : ""}
+                    </button>`;
+                }).join("")}</div>`;
+            }
+
+            if (state.step === 4) {
+                const avail = circuitsFor(state.center);
+                body = `
+                <p>Individual energy mutates. Collective energy observes, experiences and shares. Tribal energy handles bonds, bargains, needs and support.</p>
+                <div class="grid-cards three">${CIRCUITS.map(c => {
+                    const n = avail[c.name] || 0;
+                    return `<button class="pick ${state.circuit === c.name ? "on" : ""} ${n ? "" : "hidden"}" data-circuit="${esc(c.name)}">
+                        <span class="pick-top"><strong>${esc(c.name)}</strong><span class="count">${n} gates</span></span>
+                        <p>${esc(c.blurb)}</p></button>`;
+                }).join("")}</div>
+                <p class="note">Only the circuits that exist in the ${esc(state.center)} center are shown.</p>`;
+            }
+
+            if (state.step === 5) {
+                const list = gatesFor(state.center, state.circuit);
+                body = `
+                <p>${list.length} gate${list.length === 1 ? "" : "s"} left in ${esc(state.center)} · ${esc(state.circuit)}. Pick the closest fit and record why. A second possibility is allowed.</p>
+                <div class="grid-cards">${list.map(n => {
+                    const g = GATES[n];
+                    return `<div class="gate-card ${state.gate === n ? "on" : ""} ${state.second === n ? "second" : ""}">
+                        <div class="gate-num">Gate ${n}</div>
+                        <h4>${esc(g.name)}</h4>
+                        <div class="words">${g.words.map(esc).join(" · ")}</div>
+                        <div class="gate-actions">
+                            <button class="mini-btn ${state.gate === n ? "on" : ""}" data-gate="${n}">${state.gate === n ? "Closest fit" : "This is the closest"}</button>
+                            <button class="mini-btn alt ${state.second === n ? "on" : ""}" data-second="${n}">${state.second === n ? "Second possibility" : "Maybe also this"}</button>
+                        </div>
+                    </div>`;
+                }).join("")}</div>
+                <div class="field"><label for="why">Why this gate</label>
+                <textarea id="why" placeholder="One or two lines in your own voice: what in the song carries this frequency.">${esc(state.why)}</textarea></div>`;
+            }
+
+            if (state.step === 6) {
+                const g = state.gate ? GATES[state.gate] : null;
+                body = `
+                <p>Here is your entry, written in the same shape as the Living Library Log. Save it, copy it into your log, or open a playlist and keep listening.</p>
+                <div class="summary"><dl>
+                    <div><dt>Song</dt><dd>${esc(state.song || "—")}</dd></div>
+                    <div><dt>Artist</dt><dd>${esc(state.artist || "—")}</dd></div>
+                    <div><dt>Gate</dt><dd>${g ? "Gate " + state.gate + " · " + esc(g.name) : "—"}</dd></div>
+                    <div><dt>Second possibility</dt><dd>${state.second ? "Gate " + state.second + " · " + esc(GATES[state.second].name) : "None"}</dd></div>
+                    <div><dt>Center</dt><dd>${esc(state.center || "—")}</dd></div>
+                    <div><dt>Circuit</dt><dd>${esc(state.circuit || "—")}</dd></div>
+                    <div class="full"><dt>Feeling</dt><dd>${state.feelings.length ? state.feelings.map(esc).join(" · ") : "—"}</dd></div>
+                    <div class="full"><dt>Evidence</dt><dd>${esc(state.evidence || "—")}</dd></div>
+                    <div class="full"><dt>Why</dt><dd>${esc(state.why || "—")}</dd></div>
+                </dl></div>
+                <div class="actions">
+                    <button class="btn btn-primary" id="saveEntry">Save to my pattern log</button>
+                    <button class="btn btn-secondary" id="copyEntry">Copy this entry</button>
+                    <button class="btn btn-ghost" id="resetEntry">Code another song</button>
+                </div>
+                <p class="note">Coded the same song differently last month? Keep both. The library is meant to move with you.</p>`;
+            }
+
+            document.getElementById("steps").innerHTML = `
+                <div class="step-head"><span class="step-num">${num}</span><h2>${title}</h2></div>${body}`;
+
+            document.getElementById("backBtn").disabled = state.step === 0;
+            const next = document.getElementById("nextBtn");
+            next.classList.toggle("hidden", state.step === 6);
+            next.textContent = state.step === 5 ? "See my entry" : "Next step";
+        }
+
+        function entryText(e) {
+            return [
+                "Song: " + (e.song || "—"),
+                "Artist: " + (e.artist || "—"),
+                "Gate: " + (e.gate ? e.gate + " · " + GATES[e.gate].name : "—"),
+                "Second possibility: " + (e.second ? e.second + " · " + GATES[e.second].name : "None"),
+                "Center: " + (e.center || "—"),
+                "Circuit: " + (e.circuit || "—"),
+                "Feeling: " + (e.feelings || []).join(" · "),
+                "Evidence: " + (e.evidence || "—"),
+                "Why: " + (e.why || "—")
+            ].join("\n");
+        }
+
+        function loadSaved() {
+            try { return JSON.parse(localStorage.getItem("gateCoderEntries") || "[]"); } catch (e) { return []; }
+        }
+
+        function renderSaved() {
+            const items = loadSaved();
+            const wrap = document.getElementById("savedList");
+            wrap.innerHTML = items.length ? items.map((e, i) =>
+                `<div class="saved-item"><div>
+                    <strong>${esc(e.song || "Untitled")}${e.artist ? " · " + esc(e.artist) : ""}</strong>
+                    <span>Gate ${e.gate || "—"}${e.gate ? " · " + esc(GATES[e.gate].name) : ""} · ${esc(e.center || "")} · ${esc(e.circuit || "")}</span>
+                </div><button class="mini-btn" data-del="${i}">Remove</button></div>`).join("")
+                : `<p class="note">Nothing coded yet. Your saved entries will show up here.</p>`;
+        }
+
+        function copyText(text, msg) {
+            navigator.clipboard.writeText(text).then(() => toast(msg)).catch(() => toast("Copy blocked by your browser"));
+        }
+
+        document.addEventListener("click", e => {
+            const t = e.target.closest("button");
+            if (!t) return;
+
+            if (t.dataset.listened) { state.listened = !state.listened; render(); }
+            if (t.dataset.feeling) {
+                const f = t.dataset.feeling;
+                state.feelings = state.feelings.includes(f) ? state.feelings.filter(x => x !== f)
+                    : state.feelings.length >= 3 ? state.feelings : state.feelings.concat(f);
+                render();
+            }
+            if (t.dataset.center) {
+                if (state.center !== t.dataset.center) { state.circuit = ""; state.gate = null; state.second = null; }
+                state.center = t.dataset.center; render();
+            }
+            if (t.dataset.circuit) {
+                if (state.circuit !== t.dataset.circuit) { state.gate = null; state.second = null; }
+                state.circuit = t.dataset.circuit; render();
+            }
+            if (t.dataset.gate) {
+                const n = Number(t.dataset.gate);
+                state.gate = state.gate === n ? null : n;
+                if (state.second === state.gate) state.second = null;
+                render();
+            }
+            if (t.dataset.second) {
+                const n = Number(t.dataset.second);
+                state.second = state.second === n ? null : n;
+                if (state.gate === state.second) state.gate = null;
+                render();
+            }
+            if (t.dataset.del) {
+                const items = loadSaved(); items.splice(Number(t.dataset.del), 1);
+                localStorage.setItem("gateCoderEntries", JSON.stringify(items)); renderSaved();
+            }
+
+            if (t.id === "backBtn") { captureInputs(); if (state.step > 0) { state.step--; render(); } }
+            if (t.id === "nextBtn") {
+                captureInputs();
+                if (state.step === 3 && !state.center) return toast("Choose a center to keep going");
+                if (state.step === 4 && !state.circuit) return toast("Choose a circuit to keep going");
+                if (state.step === 5 && !state.gate) return toast("Pick the closest gate");
+                state.step++; render();
+                document.getElementById("coder").scrollIntoView({ block: "start" });
+            }
+            if (t.id === "saveEntry") {
+                const items = loadSaved();
+                items.unshift({ ...state, saved: new Date().toISOString() });
+                localStorage.setItem("gateCoderEntries", JSON.stringify(items));
+                renderSaved(); toast("Saved to your pattern log");
+            }
+            if (t.id === "copyEntry") copyText(entryText(state), "Entry copied");
+            if (t.id === "resetEntry") {
+                Object.assign(state, {
+                    step: 0, song: "", artist: "", listened: false, feelings: [],
+                    evidence: "", center: "", circuit: "", gate: null, second: null, why: ""
+                });
+                render(); document.getElementById("coder").scrollIntoView({ block: "start" });
+            }
+            if (t.id === "copyAll") {
+                const items = loadSaved();
+                if (!items.length) return toast("Nothing saved yet");
+                copyText(items.map(entryText).join("\n\n---\n\n"), "All entries copied");
+            }
+            if (t.id === "downloadAll") {
+                const items = loadSaved();
+                if (!items.length) return toast("Nothing saved yet");
+                const blob = new Blob([items.map(entryText).join("\n\n---\n\n")], { type: "text/plain" });
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(blob); a.download = "my-coded-songs.txt"; a.click();
+                URL.revokeObjectURL(a.href);
+            }
+        });
+
+        function captureInputs() {
+            const g = id => document.getElementById(id);
+            if (g("song")) state.song = g("song").value;
+            if (g("artist")) state.artist = g("artist").value;
+            if (g("evidence")) state.evidence = g("evidence").value;
+            if (g("why")) state.why = g("why").value;
+        }
+
+        render();
+        renderSaved();
+    </script>
+</body>
+
+</html>
