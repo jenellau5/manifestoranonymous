@@ -754,9 +754,11 @@ a.section-graphic:hover img {
     display: block;
     width: 100%;
     max-width: 520px;
+    padding: 12px;
     border-radius: 20px;
     overflow: hidden;
     border: 1px solid rgba(57, 255, 136, 0.25);
+    background: radial-gradient(circle at top, rgba(57, 255, 136, 0.10), transparent 34%), rgba(6, 8, 11, 0.96);
     box-shadow: 0 24px 72px rgba(0, 0, 0, 0.5);
 }
 
@@ -764,7 +766,8 @@ a.section-graphic:hover img {
     display: block;
     width: 100%;
     aspect-ratio: 1 / 1;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
     transition: transform 0.28s ease, filter 0.28s ease;
 }
 
@@ -1734,6 +1737,7 @@ footer {
         grid-column: auto;
     }
 }
+
 /* Hero primary actions */
 .hero-cta-row {
     gap: 12px;
