@@ -10,6 +10,7 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
     <link rel="stylesheet" href="assets/style.css" />
     <link rel="stylesheet" href="assets/playground.css" />
+    <link rel="stylesheet" href="assets/playground-experiences.css" />
 </head>
 
 <body class="experience-site playground-site">
@@ -20,8 +21,15 @@
             <p>One code. No account. No personality test pretending to know you better than your own Authority.</p>
             <label for="access-code">Enter your access code</label>
             <div class="pg-access-row">
+                <p class="access-existing-copy"><strong>Already have access?</strong> Enter your Playground code below.
+                </p>
                 <input id="access-code" type="password" autocomplete="off" placeholder="ACCESS CODE" />
                 <button class="pg-btn pg-btn-green" id="unlock-playground">Enter</button>
+                <div class="access-purchase-path">
+                    <span>DON'T HAVE A CODE?</span>
+                    <a href="https://payhip.com/b/4SZio" target="_blank" rel="noopener noreferrer">GET FOUNDING ACCESS ·
+                        $97 ↗</a>
+                </div>
             </div>
             <p class="pg-access-error" id="access-error" aria-live="polite"></p>
             <a href="index.html" class="pg-text-link">← Back to Manifestor Anonymous</a>
@@ -50,6 +58,8 @@
                         <h1>Stop learning about being a Manifestor.<br><em>Start fucking with it.</em></h1>
                         <p>This is not another pile of definitions. Bring in what is actually happening today and use
                             your design against real life.</p>
+                        <p class="pg-founding-note">Founding members keep access to new tools and resources added to the
+                            Playground as it grows. Personalized services like Chart Drops stay separate.</p>
                         <div class="pg-lobby-actions">
                             <button class="pg-btn pg-btn-green" id="open-setup-hero">Set up my chart</button>
                             <button class="pg-btn pg-btn-dark" id="open-setup-secondary">Load my chart skeleton</button>
@@ -76,17 +86,19 @@
                         <button class="pg-situation" data-go="rage-room"><span>05</span><strong>I feel stuck or
                                 controlled.</strong><small>Look at what is blocked, what needs a boundary, and what
                                 actually needs informing.</small></button>
-                        <button class="pg-situation" id="open-setup-situation"><span>06</span><strong>I want the
+                        <button class="pg-situation" data-go="rest-spa"><span>06</span><strong>My system is
+                                done.</strong><small>Rest, regulate, or let the Playground prescribe something small
+                                enough to actually do.</small></button>
+                        <button class="pg-situation" id="open-setup-situation"><span>07</span><strong>I want the
                                 Playground to know my chart.</strong><small>Save Authority, Profile, Centers and
                                 activated Gates once. No login required.</small></button>
                     </div>
                 </div>
 
                 <div class="pg-room-map">
-                    <div class="pg-room-map-head"><span class="pg-kicker">PHASE 01 · OPEN NOW</span>
+                    <div class="pg-room-map-head"><span class="pg-kicker">OPEN NOW</span>
                         <h2>The first doors are open.</h2>
-                        <p>Three working rooms, your saved Manifestor Setup, and the Library. No filler tools pretending
-                            to be finished.</p>
+                        <p>The rooms that are actually ready to use. No filler tools pretending to be finished.</p>
                     </div>
                     <div class="pg-room-grid pg-room-grid-open">
                         <button class="pg-room-card informing" data-go="informing-studio"><b>01</b><span>Informing
@@ -97,16 +109,16 @@
                         <button class="pg-room-card rage" data-go="rage-room"><b>03</b><span>Rage
                                 Room</span><small>Anger gets a room. It does not get the steering
                                 wheel.</small></button>
-                        <button class="pg-room-card library" data-go="library-room"><b>04</b><span>The
+                        <button class="pg-room-card spa" data-go="rest-spa"><b>04</b><span>The Rest
+                                Spa</span><small>Rest experiments, regulation and the “I’m done” reset.</small></button>
+                        <button class="pg-room-card post" data-go="post-office"><b>05</b><span>Anonymous Post
+                                Office</span><small>Write it. Send it, print it or burn it.</small></button>
+                        <button class="pg-room-card library" data-go="library-room"><b>06</b><span>The
                                 Library</span><small>The deeper resources included with Playground.</small></button>
                     </div>
                     <div class="pg-next-rooms">
                         <span class="pg-kicker">BEING BUILT NEXT</span>
                         <div class="pg-next-room-grid">
-                            <div><strong>Rest + Regulation</strong><small>Breathwork, regulation, random rest
-                                    experiments and the “I’m done” button.</small></div>
-                            <div><strong>Anonymous Post Office</strong><small>Write it. Send it to the anonymous
-                                    mailbox, print it or burn it.</small></div>
                             <div><strong>Design Lab</strong><small>Centers, gates + lines, channels and profile in
                                     actual life.</small></div>
                             <div><strong>Planetarium + Variables</strong><small>Deeper chart context without generic
@@ -217,6 +229,76 @@
                 </div>
             </section>
 
+            <section class="pg-view room rest-spa" id="rest-spa" data-view>
+                <div class="room-shell spa-shell">
+                    <button class="room-back" data-go="lobby">← Back to lobby</button>
+                    <div class="spa-environment" aria-hidden="true">
+                        <div class="spa-halo"></div>
+                        <div class="spa-water"></div>
+                        <div class="spa-stone spa-stone-one"></div>
+                        <div class="spa-stone spa-stone-two"></div>
+                    </div>
+                    <div class="room-title spa-title"><span>ROOM 04 · THE REST SPA</span>
+                        <h1>You do not need to earn the right to stop.</h1>
+                        <p>This room is for the part of Manifestor life that gets skipped when initiation is more
+                            interesting than recovery. Choose what you need. No productivity disguised as rest.</p>
+                    </div>
+                    <div class="spa-menu">
+                        <button class="spa-service" data-spa-mode="rest"><small>REST EXPERIMENT</small><strong>Prescribe
+                                my rest.</strong><span>I do not want to think. Give me one thing to try.</span></button>
+                        <button class="spa-service" data-spa-mode="regulate"><small>REGULATION</small><strong>Regulate
+                                me.</strong><span>Breath, senses or body. Pick what matches the state you are actually
+                                in.</span></button>
+                        <button class="spa-service spa-done" data-spa-mode="done"><small>LOWEST POSSIBLE
+                                BAR</small><strong>I’m fucking done.</strong><span>Very little reading. No fixing your
+                                life. Just come down.</span></button>
+                    </div>
+                    <div class="spa-panel" id="spa-panel" hidden></div>
+                </div>
+            </section>
+
+            <section class="pg-view room post-office" id="post-office" data-view>
+                <div class="room-shell post-shell">
+                    <button class="room-back" data-go="lobby">← Back to lobby</button>
+                    <div class="post-environment" aria-hidden="true">
+                        <div class="post-slot">ANONYMOUS MAIL</div>
+                        <div class="post-stamp">MA</div>
+                        <div class="post-lines"></div>
+                    </div>
+                    <div class="room-title post-title"><span>ROOM 05 · ANONYMOUS POST OFFICE</span>
+                        <h1>Write what you are carrying.</h1>
+                        <p>No analysis required. No prompt has to make it profound. Put the words somewhere outside of
+                            you, then decide what happens to them.</p>
+                    </div>
+                    <div class="post-desk">
+                        <div class="letter-prompts" role="group" aria-label="Letter prompt">
+                            <button data-letter-prompt="Another Manifestor">TO ANOTHER MANIFESTOR</button><button
+                                data-letter-prompt="Another Human Design type">TO ANOTHER TYPE</button><button
+                                data-letter-prompt="My younger Manifestor self">TO MY YOUNGER SELF</button><button
+                                data-letter-prompt="Someone I cannot say this to">TO SOMEONE I CAN’T SAY THIS
+                                TO</button><button data-letter-prompt="No one in particular">BLANK LETTER</button>
+                        </div>
+                        <div class="letter-paper" id="letter-paper"><label for="letter-text"
+                                id="letter-label">DEAR...</label><textarea id="letter-text"
+                                placeholder="Write the letter. It does not need to be nice, useful or ready to send."></textarea>
+                        </div>
+                        <div class="letter-actions"><button class="post-action mailbox-action" id="send-letter">SEND TO
+                                ANONYMOUS MAILBOX</button><button class="post-action" id="print-letter">PRINT
+                                IT</button><button class="post-action burn-action" id="burn-letter">BURN IT</button>
+                        </div>
+                        <div class="mailbox-consent" id="mailbox-consent" hidden>
+                            <p><strong>Before you send it:</strong> this sends a copy to Manifestor Anonymous. It may be
+                                read and shared anonymously in community content or Anonymous Files. Do not include
+                                names, contact information or identifying details you do not want shared.</p>
+                            <div class="mailbox-confirm-row"><button class="pg-btn pg-btn-green"
+                                    id="confirm-send-letter">I understand. Send it anonymously.</button><button
+                                    class="pg-btn pg-btn-dark" id="cancel-send-letter">Never mind</button></div>
+                        </div>
+                        <p class="submission-status" id="letter-status" aria-live="polite"></p>
+                    </div>
+                </div>
+            </section>
+
             <section class="pg-view room library-room" id="library-room" data-view>
                 <div class="room-shell">
                     <button class="room-back" data-go="lobby">← Back to lobby</button>
@@ -226,12 +308,13 @@
                             where you experiment. The Library is where you sit down and go deeper.</p>
                     </div>
                     <div class="library-shelves">
-                        <article class="library-book"><img src="images/neonbodygraph.png" alt="Neon Body Graph" />
+                        <article class="library-book"><img src="images/mabundle.png"
+                                alt="Manifestor Profile Handbook" />
                             <div><span>INCLUDED</span>
                                 <h2>Manifestor Profile Handbook</h2>
                                 <p>12 profiles with deeper Manifestor-specific context beyond the free archetype finder.
-                                </p><a href="https://payhip.com/b/Hwgs5" target="_blank" rel="noopener noreferrer">Open
-                                    product page ↗</a>
+                                </p><a href="files/Manifestor_Anonymous_Profile_Handbook.pdf" target="_blank">Open the
+                                    handbook ↗</a>
                             </div>
                         </article>
                         <article class="library-book"><img src="images/ma11channels.png"
@@ -239,17 +322,29 @@
                             <div><span>INCLUDED</span>
                                 <h2>11 Channels Manifestors Will Never Have</h2>
                                 <p>Use the Sacral limitation as information, including hanging gates, temporary
-                                    completion and conditioning.</p><a href="https://payhip.com/b/6kvnu" target="_blank"
-                                    rel="noopener noreferrer">Open product page ↗</a>
+                                    completion and conditioning.</p><a href="files/Manifestor_11_Channels_Guide.pdf"
+                                    target="_blank">Open the guide ↗</a>
                             </div>
                         </article>
-                        <article class="library-book music-book"><img src="images/music2.png"
-                                alt="Learn Human Design Through Music" />
-                            <div><span>INCLUDED</span>
+                        <article class="library-book music-book">
+                            <img src="images/music2.png" alt="Learn Human Design Through Music" />
+                            <div>
+                                <span>INCLUDED · LISTENING STATION</span>
                                 <h2>Learn Human Design Through Music</h2>
-                                <p>Guide, workbook and Song-to-Gate Coder for learning gate themes through sound and
-                                    association.</p><a href="https://payhip.com/b/eGAgT" target="_blank"
-                                    rel="noopener noreferrer">Open product page ↗</a>
+                                <p>Use the guide, workbook and Song-to-Gate Coder together. Then jump out to Spotify or
+                                    a lyrics search when you want to actually listen, compare themes and work with a
+                                    song in real time.</p>
+                                <div class="library-link-row music-links">
+                                    <a href="files/Learn_the_Human_Design_Gates_Through_Music.pdf" target="_blank">Open
+                                        the guide ↗</a>
+                                    <a href="files/Learn_the_Human_Design_Gates_Through_Music_Workbook.pdf"
+                                        target="_blank">Open workbook ↗</a>
+                                    <a href="coder.html">Use Song-to-Gate Coder →</a>
+                                    <a href="https://open.spotify.com/search" target="_blank"
+                                        rel="noopener noreferrer">Open Spotify ↗</a>
+                                    <a href="https://genius.com/" target="_blank" rel="noopener noreferrer">Find lyrics
+                                        ↗</a>
+                                </div>
                             </div>
                         </article>
                     </div>
@@ -322,6 +417,7 @@
     </div>
 
     <script src="assets/playground.js"></script>
+    <script src="assets/playground-experiences.js"></script>
 </body>
 
 </html>
