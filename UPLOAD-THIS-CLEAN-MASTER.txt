@@ -1,0 +1,15 @@
+MANIFESTOR ANONYMOUS · VISUAL WORLD + PLANETARIUM PASS
+
+Upload/replace ALL matching files from this package together. Do not stack an older Playground ZIP on top afterward.
+
+Major changes:
+- Every major room now has an environment/stage so it feels like a place, not just a dark form.
+- Current intent-based lobby.
+- Authority Room.
+- Black Market shadow wing.
+- Speakeasy meeting room, closed by default.
+- Planetarium rebuilt around the user's actual Personality + Design Gate.Line activations, repeated-Gate analysis and placement-specific Manifestor readings.
+- Variables adds Cognition/Sense plus transference/distraction labels.
+- Archetypes add experiment menus.
+
+The Planetarium chart is saved locally under ma_planetarium_chart_v1.

@@ -1,0 +1,43 @@
+(()=>{
+const D=window.MA_DESIGN_DATA;if(!D)return;
+const $=id=>document.getElementById(id), KEY='ma_manifestor_setup_v1';
+const getSetup=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch{return{}}};
+const lifeAreas=D.lifeAreas;
+function fillSelect(el,items,valueFn=x=>x,labelFn=x=>x){if(!el)return;el.innerHTML=items.map(x=>`<option value="${valueFn(x)}">${labelFn(x)}</option>`).join('')}
+function setupStrip(){const s=getSetup(),defs=Object.entries(s.centers||{}).filter(([,v])=>v==='defined').map(([k])=>k);const el=$('design-setup-strip');if(!el)return;el.innerHTML=`<span>MY SETUP</span><strong>${s.profile||'Profile not set'} · ${s.authority||'Authority not set'}</strong><small>${(s.gates||[]).length} activated Gates · ${defs.length} defined centers</small><button id="design-edit-setup">EDIT SETUP</button>`;$('design-edit-setup').onclick=()=>document.getElementById('open-setup')?.click()}
+document.querySelectorAll('[data-design-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-design-tab]').forEach(x=>x.classList.toggle('is-active',x===b));document.querySelectorAll('[data-design-panel]').forEach(p=>p.classList.toggle('is-active',p.dataset.designPanel===b.dataset.designTab));}));
+
+// Profile
+const profiles=Object.keys(D.profiles);fillSelect($('lab-profile'),profiles);fillSelect($('profile-life'),lifeAreas);
+function renderProfile(){const s=getSetup(),p=$('lab-profile').value||s.profile||profiles[0],life=$('profile-life').value||lifeAreas[0];$('profile-output').innerHTML=`<span class="design-output-kicker">${p} MANIFESTOR · ${life.toUpperCase()}</span><h3>${p} is a way your experiment meets life, not a character you have to perform.</h3><p>${D.profiles[p]}</p><div class="design-output-card"><b>LOOK HERE</b><p>${D.profileLenses[life]}</p></div><div class="design-experiment-card"><b>RUN THIS</b><p>For the next seven days, catch one moment when this Profile pattern happens without you trying to make it happen. Record the situation, what you did naturally, and what happened when you forced the opposite.</p></div>`}
+const savedProfile=getSetup().profile;if(savedProfile&&profiles.includes(savedProfile))$('lab-profile').value=savedProfile;
+$('lab-profile')?.addEventListener('change',renderProfile);$('profile-life')?.addEventListener('change',renderProfile);renderProfile();
+
+// Channels
+const channelById=Object.fromEntries(D.channels.map(c=>[c.id,c]));
+function derivedChannels(){const gates=new Set((getSetup().gates||[]).map(String));return D.channels.filter(c=>{const [a,b]=c.id.split('-');return gates.has(a)&&gates.has(b)})}
+function renderChannelList(){const found=derivedChannels(),list=$('channel-list'),out=$('channel-output');if(!found.length){list.innerHTML='';out.innerHTML=`<h3>No complete Channels found yet.</h3><p>Open My Manifestor Setup and select the activated Gates that are colored in your chart. When both Gates of a Channel are selected, it will appear here automatically.</p>`;return}list.innerHTML=found.map((c,i)=>`<button data-channel="${c.id}" class="${i===0?'is-active':''}">${c.id} · ${c.name}</button>`).join('');list.querySelectorAll('[data-channel]').forEach(b=>b.onclick=()=>{list.querySelectorAll('button').forEach(x=>x.classList.toggle('is-active',x===b));renderChannel(b.dataset.channel)});renderChannel(found[0].id)}
+function renderChannel(id){const c=channelById[id];$('channel-output').innerHTML=`<span class="design-output-kicker">${c.id} · ${c.name}</span><h3>${c.theme}</h3><div class="design-output-card"><b>MANIFESTOR EXPERIMENT</b><p>${c.experiment}</p></div><p class="design-footnote">Read the Channel as a repeatable circuit. Do not reduce it to two isolated Gate traits.</p>`}
+renderChannelList();
+
+// Gate + Line
+const gateNums=Object.keys(D.gateNames);fillSelect($('gate-select'),gateNums,x=>x,x=>`Gate ${x} · ${D.gateNames[x]}`);fillSelect($('line-select'),['1','2','3','4','5','6'],x=>x,x=>`Line ${x} · ${D.lines[x].name}`);fillSelect($('gate-life'),lifeAreas);
+function renderGateLine(){const g=$('gate-select').value,l=$('line-select').value,life=$('gate-life').value,gt=D.gateThemes[g],ln=D.lines[l];$('gate-line-output').innerHTML=`<span class="design-output-kicker">GATE ${g}.${l} · ${D.gateNames[g]}</span><h3>${gt}</h3><p><strong>Line ${l} changes the experiment:</strong> ${ln.experiment}</p><div class="design-output-card"><b>${life.toUpperCase()}</b><p>Notice where <em>${gt}</em> is already operating in ${life.toLowerCase()}. Then watch how the ${ln.name.toLowerCase()} process changes the way you meet it.</p></div><div class="design-experiment-card"><b>RUN THIS</b><p>Catch one real situation this week where Gate ${g}'s theme appears. Do not ask whether you are “doing Gate ${g}.${l} right.” Ask what the Line ${l} process makes you do with that theme when nobody is coaching you.</p></div>`}
+['gate-select','line-select','gate-life'].forEach(id=>$(id)?.addEventListener('change',renderGateLine));renderGateLine();
+
+// Planetarium
+fillSelect($('planet-select'),Object.keys(D.planets));fillSelect($('planet-gate'),gateNums,x=>x,x=>`Gate ${x} · ${D.gateNames[x]}`);fillSelect($('planet-line'),['1','2','3','4','5','6'],x=>x,x=>`Line ${x}`);
+function renderPlanet(){const p=$('planet-select').value,side=$('side-select').value,g=$('planet-gate').value,l=$('planet-line').value;const sideLens=side.startsWith('Conscious')?'You are more likely to recognize this pattern as part of how you think about yourself.':'Other people or your body may reveal this pattern before your conscious mind claims it.';$('planet-output').innerHTML=`<span class="design-output-kicker">${side.toUpperCase()} · ${p.toUpperCase()} · ${g}.${l}</span><h3>${p}: ${D.planets[p]}</h3><p>Here, that planetary job repeatedly meets <strong>${D.gateThemes[g]}</strong> through a <strong>Line ${l} ${D.lines[l].name}</strong> process.</p><div class="design-output-card"><b>INTEGRATE IT</b><p>${sideLens} Watch where the ${p} function is the reason Gate ${g}'s theme keeps becoming relevant. The useful question is not “What does ${p} mean?” It is “What job is this activation doing in the chart?”</p></div><div class="design-experiment-card"><b>MANIFESTOR CHECK</b><p>Notice this placement for a week, but do not use it to manufacture a decision. Strategy and Authority still outrank the interpretation.</p></div>`}
+['planet-select','side-select','planet-gate','planet-line'].forEach(id=>$(id)?.addEventListener('change',renderPlanet));renderPlanet();
+
+// Variables
+const varNames=Object.keys(D.variableJobs),varState=Object.fromEntries(varNames.map(n=>[n,'Unknown']));
+function renderArrows(){$('variable-arrows').innerHTML=varNames.map(n=>`<button data-var="${n}"><span>${n}</span><strong>${varState[n]}</strong><small>${D.variableJobs[n].job}</small></button>`).join('');$('variable-arrows').querySelectorAll('[data-var]').forEach(b=>b.onclick=()=>{varState[b.dataset.var]=varState[b.dataset.var]==='Unknown'?'Left':varState[b.dataset.var]==='Left'?'Right':'Unknown';renderArrows()})}
+fillSelect($('variable-area'),['Work / Output','Business / Offers','Money / Resources','Relationships','Visibility','Rest / Creative Cycles','Transference / Shadow']);renderArrows();
+$('run-variables')?.addEventListener('click',()=>{const area=$('variable-area').value,situation=$('variable-situation').value.trim()||'the situation you are working with';const cards=varNames.map(n=>{const st=varState[n],job=D.variableJobs[n];const txt=st==='Left'?job.left:st==='Right'?job.right:'Leave this arrow open for now instead of inventing certainty. Use the other arrows you actually know.';return `<div class="variable-result-card"><span>${n} · ${st.toUpperCase()}</span><p>${txt}</p></div>`}).join('');$('variable-output').innerHTML=`<span class="design-output-kicker">${area.toUpperCase()}</span><h3>${situation}</h3><div class="variable-results">${cards}</div><div class="design-experiment-card"><b>THE RULE THAT IS NOT A RULE</b><p>Change one condition and observe what happens. Variables can refine conditions, attention and mind. They do not replace Strategy and Authority.</p></div>`});
+
+// refresh after setup save
+document.getElementById('save-setup')?.addEventListener('click',()=>setTimeout(()=>{setupStrip();const p=getSetup().profile;if(p&&profiles.includes(p)){$('lab-profile').value=p;renderProfile()}renderChannelList()},80));
+document.getElementById('clear-setup')?.addEventListener('click',()=>setTimeout(()=>{setupStrip();renderChannelList()},80));
+setupStrip();
+})();
