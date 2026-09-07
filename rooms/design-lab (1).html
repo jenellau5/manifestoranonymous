@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Lab | Manifestor Playground</title>
+  <meta name="description" content="Design Lab inside the Manifestor Playground." />
+  <link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <link rel="stylesheet" href="../assets/playground.css?v=20260908-modular" />
+  <link rel="stylesheet" href="../assets/playground-experiences.css?v=20260908-modular" />
+  <link rel="stylesheet" href="css/design-lab.css?v=20260908-modular" />
+</head>
+<body class="experience-site playground-site room-page design-lab-page" data-room="design-lab">
+<div class="pg-access" id="pg-access" aria-hidden="false">
+    <div class="pg-access-card">
+      <span class="pg-kicker">FOUNDING ACCESS</span>
+      <h1>Manifestor Playground</h1>
+      <p>One code. No account. No personality test pretending to know you better than your own Authority.</p>
+      <label for="access-code">Enter your access code</label>
+      <div class="pg-access-row">
+        <p class="access-existing-copy"><strong>Already have access?</strong> Enter your Playground code below.</p>
+<input id="access-code" type="password" autocomplete="off" placeholder="ACCESS CODE" />
+        <button class="pg-btn pg-btn-green" id="unlock-playground">Enter</button>
+            <div class="access-purchase-path">
+              <span>DON'T HAVE A CODE?</span>
+              <a href="https://payhip.com/b/4SZio" data-ma-link="playgroundPayhip" target="_blank" rel="noopener noreferrer">GET FOUNDING ACCESS · $97 ↗</a>
+            </div>
+      </div>
+      <p class="pg-access-error" id="access-error" aria-live="polite"></p>
+      <a href="../index.html" class="pg-text-link">← Back to Manifestor Anonymous</a>
+    </div>
+  </div>
+  <div id="pg-app" class="pg-app is-locked" aria-hidden="true">
+<header class="pg-topbar">
+      <a class="pg-brand" href="../index.html">
+        <img src="../images/logocircle.png" alt="Manifestor Anonymous" />
+        <div><strong>Manifestor Anonymous</strong><small>THE PLAYGROUND</small></div>
+      </a>
+      <nav class="pg-nav" aria-label="Playground navigation">
+        <a href="../playground.html">Lobby</a>
+        <button id="open-setup">My Setup</button>
+        <button data-room-link="the-library.html">Library</button>
+        <a href="../index.html">Exit</a>
+      </nav>
+    </header>
+    <main>
+<section class="pg-view room is-active design-lab" id="design-lab" data-view>
+  <div class="room-shell design-lab-shell">
+    <figure class="room-scene room-image-scene"><img src="../images/rooms/design-lab-in-room-header.png" alt="Design Lab" /></figure>
+    <button class="room-back" data-room-link="../playground.html">← Back to lobby</button>
+    <div class="room-title design-lab-title">
+      <span>ROOM 07 · DESIGN LAB</span>
+      <h1>Take the chart apart. Put it back into your life.</h1>
+      <p>Centers, Gates and Channels live here. Your chart loads first. Then explore anything else you want because this is a lab, not detention.</p>
+    </div>
+
+    <div class="design-lab-tabs" role="tablist">
+      <button class="is-active" data-design-tab="centers">CENTER EXPERIMENTS</button>
+      <button data-design-tab="gates">GATE EXPERIMENTS</button>
+      <button data-design-tab="channels">CHANNEL EXPERIMENTS</button>
+    </div>
+
+    <div class="design-setup-strip" id="design-setup-strip"></div>
+
+    <section class="design-panel is-active" data-design-panel="centers">
+      <div class="design-experiment-intro">
+        <span class="pg-kicker">CENTER EXPERIMENTS</span>
+        <h2>The core stays the same. Life changes where you notice it.</h2>
+        <p>Pick a Center. Read the core once. Then switch the life area underneath to see how that mechanic may show up specifically for a Manifestor.</p>
+      </div>
+      <div id="center-chart-status" class="center-chart-status"></div>
+      <div class="center-lab-layout">
+        <aside class="center-rack">
+          <span class="pg-kicker">SELECT A CENTER</span>
+          <div id="center-lab-buttons" class="center-lab-buttons"></div>
+          <button class="pg-btn pg-btn-dark" id="center-lab-edit">Edit My Manifestor Setup</button>
+        </aside>
+        <div class="center-workbench">
+          <article id="center-core-output" class="design-core-output"></article>
+          <span class="pg-kicker area-kicker">USE IT HERE</span>
+          <div id="center-life-buttons" class="center-life-buttons"></div>
+          <article id="center-lab-output" class="center-lab-output contextual-output"></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="design-panel" data-design-panel="gates">
+      <div class="design-experiment-intro">
+        <span class="pg-kicker">GATE EXPERIMENTS</span>
+        <h2>Start with yours. Then snoop through all 64.</h2>
+        <p>Your saved Gates show first. Flip to Explore All whenever curiosity wins.</p>
+      </div>
+      <div class="lab-view-switch">
+        <button class="is-active" data-gate-scope="mine">MY GATES</button>
+        <button data-gate-scope="all">EXPLORE ALL 64</button>
+      </div>
+      <div class="gate-browser-layout">
+        <aside><div id="lab-gate-list" class="lab-gate-list"></div></aside>
+        <div>
+          <article id="gate-core-output" class="design-core-output"></article>
+          <span class="pg-kicker area-kicker">USE IT HERE AS A MANIFESTOR</span>
+          <div id="gate-life-buttons" class="center-life-buttons"></div>
+          <article id="gate-context-output" class="contextual-output"></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="design-panel" data-design-panel="channels">
+      <div class="design-experiment-intro">
+        <span class="pg-kicker">CHANNEL EXPERIMENTS</span>
+        <h2>Your circuits first. The entire bodygraph when you want it.</h2>
+        <p>Complete Channels derived from your saved Gates load first. Explore All includes every Channel, including the 11 Sacral-defining Channels a Manifestor cannot have fully defined.</p>
+      </div>
+      <div class="lab-view-switch">
+        <button class="is-active" data-channel-scope="mine">MY CHANNELS</button>
+        <button data-channel-scope="all">EXPLORE ALL 36</button>
+      </div>
+      <div class="gate-browser-layout">
+        <aside><div id="lab-channel-list" class="lab-gate-list"></div></aside>
+        <div>
+          <article id="channel-core-output" class="design-core-output"></article>
+          <span class="pg-kicker area-kicker">USE IT HERE AS A MANIFESTOR</span>
+          <div id="channel-life-buttons" class="center-life-buttons"></div>
+          <article id="channel-context-output" class="contextual-output"></article>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+    </main>
+<aside class="setup-drawer" id="setup-drawer" aria-hidden="true">
+      <div class="setup-panel">
+        <div class="setup-head"><div><span class="pg-kicker">MY MANIFESTOR SETUP</span><h2>Give the Playground your chart skeleton.</h2></div><button id="close-setup" aria-label="Close setup">×</button></div>
+        <p class="setup-intro">Saved only in this browser. No login. No database. Choose what you know now and come back later.</p>
+
+        <div class="setup-grid-two">
+          <label>Authority<select id="setup-authority"><option value="">Choose authority</option><option>Emotional</option><option>Splenic</option><option>Ego / Heart</option></select></label>
+          <label>Profile<select id="setup-profile"><option value="">Choose profile</option><option>1/3</option><option>1/4</option><option>2/4</option><option>2/5</option><option>3/5</option><option>3/6</option><option>4/6</option><option>4/1</option><option>5/1</option><option>5/2</option><option>6/2</option><option>6/3</option></select></label>
+        </div>
+
+        <div class="setup-section">
+          <div class="setup-section-head"><h3>Centers</h3><small>Tap each center to mark it defined or undefined.</small></div>
+          <div class="center-toggle-grid" id="center-toggles"></div>
+        </div>
+
+        <div class="setup-section">
+          <div class="setup-section-head"><h3>Activated Gates</h3><small>No comma-separated homework. Click the gates that are colored in your chart.</small></div>
+          <div class="gate-chip-grid" id="gate-chips"></div>
+        </div>
+
+        <div class="setup-section derived-section">
+          <div class="setup-section-head"><h3>Channels found</h3><small>Automatically derived when both gates are selected.</small></div>
+          <div id="derived-channels" class="derived-channels"></div>
+        </div>
+
+        <div class="setup-actions"><button class="pg-btn pg-btn-green" id="save-setup">Save my setup</button><button class="pg-btn pg-btn-dark" id="clear-setup">Clear</button></div>
+      </div>
+    </aside>
+
+  </div>
+  <script src="../assets/ma-config.js"></script>
+  <script src="../assets/playground.js?v=20260908-modular"></script>
+  <script src="../assets/playground-centers-data.js"></script>
+  <script src="../assets/playground-design-data.js"></script>
+  <script src="../assets/playground-design.js?v=20260908-modular"></script>
+  <script src="js/design-lab.js?v=20260908-modular"></script>
+</body>
+</html>

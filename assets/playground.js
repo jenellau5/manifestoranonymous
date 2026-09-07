@@ -42,7 +42,11 @@
   unlock?.addEventListener('click', tryUnlock); accessInput?.addEventListener('keydown',e=>{if(e.key==='Enter') tryUnlock()});
 
   function showView(id){ const target=document.getElementById(id); if(!target || !target.hasAttribute('data-view')) return; document.querySelectorAll('[data-view]').forEach(v=>v.classList.toggle('is-active',v.id===id)); window.scrollTo({top:0,behavior:'smooth'}); }
-  document.addEventListener('click', e=>{ const go=e.target.closest('[data-go]'); if(go) showView(go.dataset.go); });
+  document.addEventListener('click', e=>{
+    const roomLink=e.target.closest('[data-room-link]');
+    if(roomLink){ window.location.href=roomLink.dataset.roomLink; return; }
+    const go=e.target.closest('[data-go]'); if(go) showView(go.dataset.go);
+  });
 
   const drawer=document.getElementById('setup-drawer');
   const openSetup=()=>{drawer.classList.add('is-open');drawer.setAttribute('aria-hidden','false')};
@@ -58,12 +62,12 @@
   try{ setup={...setup,...JSON.parse(localStorage.getItem(SETUP_KEY)||'{}')}; }catch{}
   centers.forEach(c=>{ if(!setup.centers[c]) setup.centers[c]='unknown'; });
 
-  function renderCenters(){ centerWrap.innerHTML=''; centers.forEach(c=>{ const b=document.createElement('button');b.type='button';b.className='center-toggle '+(setup.centers[c]!=='unknown'?setup.centers[c]:'');b.innerHTML=`<span>${c}</span><small>${setup.centers[c]==='defined'?'DEFINED':setup.centers[c]==='undefined'?'UNDEFINED':'TAP TO SET'}</small>`;b.onclick=()=>{setup.centers[c]=setup.centers[c]==='unknown'?'defined':setup.centers[c]==='defined'?'undefined':'unknown';renderCenters()};centerWrap.appendChild(b); }); }
-  function renderGates(){ gateWrap.innerHTML=''; for(let i=1;i<=64;i++){ const s=String(i),b=document.createElement('button');b.type='button';b.className='gate-chip'+(setup.gates.includes(s)?' is-selected':'');b.textContent=s;b.onclick=()=>{setup.gates=setup.gates.includes(s)?setup.gates.filter(g=>g!==s):[...setup.gates,s];renderGates();renderDerived()};gateWrap.appendChild(b); } }
+  function renderCenters(){ if(!centerWrap)return; centerWrap.innerHTML=''; centers.forEach(c=>{ const b=document.createElement('button');b.type='button';b.className='center-toggle '+(setup.centers[c]!=='unknown'?setup.centers[c]:'');b.innerHTML=`<span>${c}</span><small>${setup.centers[c]==='defined'?'DEFINED':setup.centers[c]==='undefined'?'UNDEFINED':'TAP TO SET'}</small>`;b.onclick=()=>{setup.centers[c]=setup.centers[c]==='unknown'?'defined':setup.centers[c]==='defined'?'undefined':'unknown';renderCenters()};centerWrap.appendChild(b); }); }
+  function renderGates(){ if(!gateWrap)return; gateWrap.innerHTML=''; for(let i=1;i<=64;i++){ const s=String(i),b=document.createElement('button');b.type='button';b.className='gate-chip'+(setup.gates.includes(s)?' is-selected':'');b.textContent=s;b.onclick=()=>{setup.gates=setup.gates.includes(s)?setup.gates.filter(g=>g!==s):[...setup.gates,s];renderGates();renderDerived()};gateWrap.appendChild(b); } }
   function getDerived(){ const s=new Set(setup.gates); return channels.filter(([a,b])=>s.has(a)&&s.has(b)); }
-  function renderDerived(){ const found=getDerived(); derivedWrap.innerHTML=found.length?found.map(c=>`<span class="derived-channel">${c[2]}</span>`).join(''):'<span class="empty-derived">No complete channels found from the selected gates yet.</span>'; }
+  function renderDerived(){ if(!derivedWrap)return; const found=getDerived(); derivedWrap.innerHTML=found.length?found.map(c=>`<span class="derived-channel">${c[2]}</span>`).join(''):'<span class="empty-derived">No complete channels found from the selected gates yet.</span>'; }
   renderCenters();renderGates();renderDerived();
-  document.getElementById('setup-authority').value=setup.authority||''; document.getElementById('setup-profile').value=setup.profile||'';
+  if(document.getElementById('setup-authority')) document.getElementById('setup-authority').value=setup.authority||''; if(document.getElementById('setup-profile')) document.getElementById('setup-profile').value=setup.profile||'';
   document.getElementById('save-setup')?.addEventListener('click',()=>{ setup.authority=document.getElementById('setup-authority').value;setup.profile=document.getElementById('setup-profile').value;localStorage.setItem(SETUP_KEY,JSON.stringify(setup));renderSetupSummary();closeSetup(); });
   document.getElementById('clear-setup')?.addEventListener('click',()=>{setup={authority:'',profile:'',centers:Object.fromEntries(centers.map(c=>[c,'unknown'])),gates:[]};localStorage.removeItem(SETUP_KEY);document.getElementById('setup-authority').value='';document.getElementById('setup-profile').value='';renderCenters();renderGates();renderDerived();});
   function renderSetupSummary(){ const el=document.getElementById('setup-summary'); if(!el)return; const defs=centers.filter(c=>setup.centers[c]==='defined'); const undefs=centers.filter(c=>setup.centers[c]==='undefined'); const found=getDerived(); el.innerHTML=`<span class="pg-kicker">YOUR SAVED SPECIMEN</span><h2>${setup.profile||'Profile not set'} · ${setup.authority||'Authority not set'}</h2><p><strong>Defined centers:</strong> ${defs.join(', ')||'Not set'}<br><strong>Undefined centers:</strong> ${undefs.join(', ')||'Not set'}<br><strong>Selected gates:</strong> ${setup.gates.length||0}<br><strong>Complete channels found:</strong> ${found.map(c=>c[2]).join(', ')||'None yet'}</p>`; }
@@ -96,13 +100,13 @@
     'INITIATION':`<strong>INITIATION</strong><p>Something you are actually moving into motion. This is no longer only a possibility on the shelf. The decision has cleared through your Authority and there is real movement to begin, change, create, leave, tell or act.</p>`,
     "I DON'T KNOW":`<strong>I DON’T KNOW</strong><p>Do not force the label. Ask: Is there body momentum? Does it keep returning without mental effort? Is there pressure to act right now? Am I simply interested? You can leave it unidentified while your Authority does its job.</p>`
   };
-  function showIdeaGuide(){const q=document.getElementById('market-question');q.hidden=false;q.innerHTML=ideaGuide[ideaType]||''}
+  function showIdeaGuide(){const q=document.getElementById('market-question');if(!q)return;q.hidden=false;q.innerHTML=ideaGuide[ideaType]||''}
   document.querySelectorAll('[data-idea-type]').forEach(b=>b.addEventListener('click',()=>{ideaType=b.dataset.ideaType;document.querySelectorAll('[data-idea-type]').forEach(x=>x.classList.toggle('is-active',x===b));showIdeaGuide()}));
   document.querySelector('[data-idea-type="IDEA"]')?.classList.add('is-active');
   showIdeaGuide();
   function saveIdeas(){localStorage.setItem(IDEA_KEY,JSON.stringify(ideas));renderIdeas()}
   function renderIdeas(){
-    const board=document.getElementById('idea-board'), released=document.getElementById('released-idea-board');
+    const board=document.getElementById('idea-board'), released=document.getElementById('released-idea-board'); if(!board||!released)return;
     const active=ideas.map((i,n)=>({...i,_index:n})).filter(i=>i.status!=='RELEASED');
     const releasedIdeas=ideas.map((i,n)=>({...i,_index:n})).filter(i=>i.status==='RELEASED');
     if(!active.length){board.innerHTML='<p class="empty-derived">Nothing on the board right now. Your brain survived.</p>'}else{

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Library | Manifestor Playground</title>
+  <meta name="description" content="The Library inside the Manifestor Playground." />
+  <link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <link rel="stylesheet" href="../assets/playground.css?v=20260908-modular" />
+  <link rel="stylesheet" href="../assets/playground-experiences.css?v=20260908-modular" />
+  <link rel="stylesheet" href="css/the-library.css?v=20260908-modular" />
+</head>
+<body class="experience-site playground-site room-page the-library-page" data-room="the-library">
+<div class="pg-access" id="pg-access" aria-hidden="false">
+    <div class="pg-access-card">
+      <span class="pg-kicker">FOUNDING ACCESS</span>
+      <h1>Manifestor Playground</h1>
+      <p>One code. No account. No personality test pretending to know you better than your own Authority.</p>
+      <label for="access-code">Enter your access code</label>
+      <div class="pg-access-row">
+        <p class="access-existing-copy"><strong>Already have access?</strong> Enter your Playground code below.</p>
+<input id="access-code" type="password" autocomplete="off" placeholder="ACCESS CODE" />
+        <button class="pg-btn pg-btn-green" id="unlock-playground">Enter</button>
+            <div class="access-purchase-path">
+              <span>DON'T HAVE A CODE?</span>
+              <a href="https://payhip.com/b/4SZio" data-ma-link="playgroundPayhip" target="_blank" rel="noopener noreferrer">GET FOUNDING ACCESS · $97 ↗</a>
+            </div>
+      </div>
+      <p class="pg-access-error" id="access-error" aria-live="polite"></p>
+      <a href="../index.html" class="pg-text-link">← Back to Manifestor Anonymous</a>
+    </div>
+  </div>
+  <div id="pg-app" class="pg-app is-locked" aria-hidden="true">
+<header class="pg-topbar">
+      <a class="pg-brand" href="../index.html">
+        <img src="../images/logocircle.png" alt="Manifestor Anonymous" />
+        <div><strong>Manifestor Anonymous</strong><small>THE PLAYGROUND</small></div>
+      </a>
+      <nav class="pg-nav" aria-label="Playground navigation">
+        <a href="../playground.html">Lobby</a>
+        <button id="open-setup">My Setup</button>
+        <button data-room-link="the-library.html">Library</button>
+        <a href="../index.html">Exit</a>
+      </nav>
+    </header>
+    <main>
+<section class="pg-view room is-active library-room" id="library-room" data-view>
+        <div class="room-shell">
+    <figure class="room-scene room-image-scene"><img src="../images/rooms/the-library-in-room-header.png" alt="The Library" /></figure>
+          <button class="room-back" data-room-link="../playground.html">← Back to lobby</button>
+          <div class="room-title"><span>ROOM 06 · THE LIBRARY</span><h1>For when the quick answer is not enough.</h1><p>The deeper resources included with your Playground purchase live here. The Playground is where you experiment. The Library is where you sit down and go deeper.</p></div>
+          <div class="library-shelves">
+            <article class="library-book"><img src="../images/mabundle.png" alt="Manifestor Profile Handbook" /><div><span>INCLUDED</span><h2>Manifestor Profile Handbook</h2><p>12 profiles with deeper Manifestor-specific context beyond the free archetype finder.</p><a href="../files/Manifestor_Anonymous_Profile_Handbook.pdf" target="_blank">Open the handbook ↗</a></div></article>
+            <article class="library-book"><img src="../images/ma11channels.png" alt="11 Channels Manifestors Will Never Have" /><div><span>INCLUDED</span><h2>11 Channels Manifestors Will Never Have</h2><p>Use the Sacral limitation as information, including hanging gates, temporary completion and conditioning.</p><a href="../files/Manifestor_11_Channels_Guide.pdf" target="_blank">Open the guide ↗</a></div></article>
+            <article class="library-book music-book">
+              <img src="../images/music2.png" alt="Learn Human Design Through Music" />
+              <div>
+                <span>INCLUDED · LISTENING STATION</span>
+                <h2>Learn Human Design Through Music</h2>
+                <p>Use the guide, workbook and Song-to-Gate Coder together. Then jump out to Spotify or a lyrics search when you want to actually listen, compare themes and work with a song in real time.</p>
+                <div class="library-link-row music-links">
+                  <a href="../files/Learn_the_Human_Design_Gates_Through_Music.pdf" target="_blank">Open the guide ↗</a>
+                  <a href="../files/Learn_the_Human_Design_Gates_Through_Music_Workbook.pdf" target="_blank">Open workbook ↗</a>
+                  <a href="https://learn-gates-through-music.jenellau.chatgpt.site/" data-ma-link="songCoderUrl" target="_blank" rel="noopener noreferrer">Use Song-to-Gate Coder ↗</a><span class="coder-password">CODER PASSWORD: <strong data-ma-text="songCoderPassword">HEAR64</strong></span>
+                  <a href="https://open.spotify.com/search" target="_blank" rel="noopener noreferrer">Open Spotify ↗</a>
+                  <a href="https://genius.com/" target="_blank" rel="noopener noreferrer">Find lyrics ↗</a>
+                </div>
+              </div>
+            </article>
+          </div>
+          <p class="library-note"><strong>Chart Drops are not part of the Library.</strong> They are personal readings from Jenell when you want her eyes on a specific question.</p>
+        </div>
+      </section>
+    </main>
+<aside class="setup-drawer" id="setup-drawer" aria-hidden="true">
+      <div class="setup-panel">
+        <div class="setup-head"><div><span class="pg-kicker">MY MANIFESTOR SETUP</span><h2>Give the Playground your chart skeleton.</h2></div><button id="close-setup" aria-label="Close setup">×</button></div>
+        <p class="setup-intro">Saved only in this browser. No login. No database. Choose what you know now and come back later.</p>
+
+        <div class="setup-grid-two">
+          <label>Authority<select id="setup-authority"><option value="">Choose authority</option><option>Emotional</option><option>Splenic</option><option>Ego / Heart</option></select></label>
+          <label>Profile<select id="setup-profile"><option value="">Choose profile</option><option>1/3</option><option>1/4</option><option>2/4</option><option>2/5</option><option>3/5</option><option>3/6</option><option>4/6</option><option>4/1</option><option>5/1</option><option>5/2</option><option>6/2</option><option>6/3</option></select></label>
+        </div>
+
+        <div class="setup-section">
+          <div class="setup-section-head"><h3>Centers</h3><small>Tap each center to mark it defined or undefined.</small></div>
+          <div class="center-toggle-grid" id="center-toggles"></div>
+        </div>
+
+        <div class="setup-section">
+          <div class="setup-section-head"><h3>Activated Gates</h3><small>No comma-separated homework. Click the gates that are colored in your chart.</small></div>
+          <div class="gate-chip-grid" id="gate-chips"></div>
+        </div>
+
+        <div class="setup-section derived-section">
+          <div class="setup-section-head"><h3>Channels found</h3><small>Automatically derived when both gates are selected.</small></div>
+          <div id="derived-channels" class="derived-channels"></div>
+        </div>
+
+        <div class="setup-actions"><button class="pg-btn pg-btn-green" id="save-setup">Save my setup</button><button class="pg-btn pg-btn-dark" id="clear-setup">Clear</button></div>
+      </div>
+    </aside>
+
+  </div>
+  <script src="../assets/ma-config.js"></script>
+  <script src="../assets/playground.js?v=20260908-modular"></script>
+  <script src="js/the-library.js?v=20260908-modular"></script>
+</body>
+</html>

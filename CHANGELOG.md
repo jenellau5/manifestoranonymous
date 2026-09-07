@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-09-08 · Modular rooms + final visual assets
+- Converted `playground.html` into a lobby-only page.
+- Split all 13 Playground rooms into independent pages under `rooms/`.
+- Added one room-specific CSS and JavaScript file for every room so future revisions stay isolated.
+- Added all 13 lobby tiles and all 13 in-room header images using their final filenames.
+- Updated lobby choices, room cards, cross-room routes and back-to-lobby controls for the new page structure.
+- Kept public Manifestor Anonymous learning pages at their existing top-level URLs.
+
 ## 2026-09-06 current master
 - Correct Song-to-Gate Coder: external chatgpt.site URL. Password HEAR64.
 - Homepage learning path reframed as suggestion, not required order.
