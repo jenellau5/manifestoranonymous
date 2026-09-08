@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../assets/style.css" />
   <link rel="stylesheet" href="../assets/playground.css?v=20260908-modular" />
   <link rel="stylesheet" href="../assets/playground-experiences.css?v=20260908-modular" />
-  <link rel="stylesheet" href="css/idea-market.css?v=20260908-modular" />
+  <link rel="stylesheet" href="css/idea-market.css?v=20260908-receipts" />
 </head>
 <body class="experience-site playground-site room-page idea-market-page" data-room="idea-market">
 <div class="pg-access" id="pg-access" aria-hidden="false">
@@ -49,29 +49,8 @@
         <div class="room-shell">
     <figure class="room-scene room-image-scene"><img src="../images/rooms/idea-market-in-room-header.png" alt="Idea Market" /></figure>
           <button class="room-back" data-room-link="../playground.html">← Back to lobby</button>
-          <div class="room-title"><span>ROOM 02 · IDEA MARKET</span><h1>Not every idea deserves to become something.</h1><p>Put it on the board. Decide what kind of thing it is. Let Authority decide whether it actually moves.</p></div>
-          <div class="market-board">
-            <div class="market-entry">
-              <label for="idea-text">WHAT JUST SHOWED UP?</label>
-              <textarea id="idea-text" placeholder="New offer, business idea, trip, post, collaboration, random 11 PM plan..."></textarea>
-              <div class="idea-type-row" role="group" aria-label="Idea classification">
-                <button data-idea-type="IDEA">IDEA</button><button data-idea-type="URGE">URGE</button><button data-idea-type="INITIATION">INITIATION</button><button data-idea-type="I DON'T KNOW">I DON'T KNOW</button>
-              </div>
-              <div class="market-question" id="market-question"></div>
-              <button class="pg-btn pg-btn-green" id="add-idea">Put it on the board</button>
-            </div>
-            <div class="market-inventory">
-              <div class="inventory-head"><div><span class="pg-kicker">YOUR INVENTORY</span><h2>What’s currently taking up space?</h2><p>Keep the things you still want to watch. Release the things you no longer want, no longer need, or that are taking up energy simply because you have not let them go.</p></div><button class="pg-btn pg-btn-dark" id="print-inventory">Print inventory</button></div>
-              <div id="idea-board" class="idea-board"></div>
-              <section class="universe-market" aria-labelledby="universe-market-title">
-                <div class="universe-market-head">
-                  <div><span class="pg-kicker">THE UNIVERSE MARKET</span><h2 id="universe-market-title">Released does not have to mean erased.</h2><p>This is where ideas go when they are no longer yours to carry. You can still look back at them. You just do not have to keep holding them. Release them into the market and let the idea belong to the universe again.</p></div>
-                  <div class="universe-bin" aria-hidden="true"><span>RELEASE</span><b>↓</b></div>
-                </div>
-                <div id="released-idea-board" class="idea-board released-board"></div>
-              </section>
-            </div>
-          </div>
+          <div class="room-title"><span>ROOM 02 · IDEA MARKET</span><h1>An idea is not an obligation.</h1><p>You are allowed to have an idea without making it your next fucking project.</p></div>
+          <div id="market-room" class="im-room"><noscript>Turn on JavaScript to save ideas in this browser.</noscript></div>
         </div>
       </section>
     </main>
@@ -107,6 +86,6 @@
   </div>
   <script src="../assets/ma-config.js"></script>
   <script src="../assets/playground.js?v=20260908-modular"></script>
-  <script src="js/idea-market.js?v=20260908-modular"></script>
+  <script src="js/idea-market.js?v=20260908-receipts"></script>
 </body>
 </html>
