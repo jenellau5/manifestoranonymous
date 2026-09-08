@@ -15,8 +15,11 @@
       await fetch(ANON_ENDPOINT, {
         method: 'POST',
         mode: 'no-cors',
+        credentials: 'omit',
+        referrerPolicy: 'no-referrer',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ room, submission, category, context, permission: true })
+        body: JSON.stringify({ room, submission, category, context, permission: true }),
+        signal: AbortSignal.timeout(15000)
       });
       return true;
     } catch (error) {
