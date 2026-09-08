@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-08 · Canonical routes + unified start path
+- Removed accidental ` (1)` download suffixes from every Playground room, stylesheet and script filename, then updated all incoming room routes.
+- Consolidated the public foundation into `start.html`; retained existing deep-dive pages and product routes.
+- Expanded paid Gate and Channel results to show selection-specific traditional mechanics alongside initiation, informing, impact, boundaries, anger/peace and non-Sacral cycle lenses.
+- Repaired Center Lab data loading and replaced stale sitemap entries with current public routes.
+
 ## 2026-09-08 · Modular rooms + final visual assets
 - Converted `playground.html` into a lobby-only page.
 - Split all 13 Playground rooms into independent pages under `rooms/`.
