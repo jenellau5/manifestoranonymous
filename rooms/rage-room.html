@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rage Room | Manifestor Playground</title>
-  <meta name="description" content="Rage Room inside the Manifestor Playground." />
+  <meta name="description" content="Stop wasting your anger. Notice it, read the signal, and let Authority decide." />
   <link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
   <link rel="stylesheet" href="../assets/style.css" />
-  <link rel="stylesheet" href="../assets/playground.css?v=20260908-modular" />
-  <link rel="stylesheet" href="../assets/playground-experiences.css?v=20260908-modular" />
-  <link rel="stylesheet" href="css/rage-room.css?v=20260908-modular" />
+  <link rel="stylesheet" href="../assets/playground.css?v=20260908-signals" />
+  <link rel="stylesheet" href="../assets/playground-experiences.css?v=20260908-signals" />
+  <link rel="stylesheet" href="css/rage-room.css?v=20260908-signals" />
 </head>
 <body class="experience-site playground-site room-page rage-room-page" data-room="rage-room">
 <div class="pg-access" id="pg-access" aria-hidden="false">
@@ -49,29 +49,13 @@
         <div class="room-shell">
     <figure class="room-scene room-image-scene"><img src="../images/rooms/rage-room-in-room-header.png" alt="Rage Room" /></figure>
           <button class="room-back" data-room-link="../playground.html">← Back to lobby</button>
-          <div class="room-title"><span>ROOM 03 · RAGE ROOM</span><h1>What the fuck pissed you off?</h1><p>No polishing. No making yourself reasonable first. Dump it here, then look at the pattern underneath the reaction.</p></div>
-          <div class="rage-console">
-            <label for="rage-text">LET IT OUT</label>
-            <textarea id="rage-text" placeholder="They changed the plan without telling me... I keep getting interrupted... everyone needs something... I said yes when I wanted to say no..."></textarea>
-            <button class="pg-btn rage-button" id="smash-rage">Read the wreckage</button>
-            <div class="tool-output rage-output" id="rage-output" hidden></div>
-            <section class="rage-release-station" id="rage-release-station" hidden>
-              <div class="rage-release-head"><span class="pg-kicker">RELEASE STATION</span><h2>Reading the anger is not the same as moving it.</h2><p>You do not have to make the anger productive. Give the charge somewhere safe to go, then decide what actually needs action.</p></div>
-              <div class="rage-release-actions">
-                <button id="rage-prescribe-release">GIVE ME A RELEASE</button>
-                <button data-room-link="informing-studio.html">I NEED TO SAY / BOUNDARY SOMETHING</button>
-                <button data-room-link="rest-spa.html">I'M TOO DEPLETED FOR THIS</button>
-              </div>
-              <div class="rage-prescription" id="rage-prescription"><span>START HERE</span><strong>Pick what your body can actually do right now.</strong><p>No gold star for choosing the hardest one.</p></div>
-            </section>
-            <div class="rage-release" id="rage-release" hidden>
-              <label class="anon-consent">
-                <input type="checkbox" id="rage-share-consent" />
-                <span><strong>LET MANIFESTOR ANONYMOUS KEEP THIS ANONYMOUSLY</strong><small>MA may anonymously use this submission for community insights, content or Anonymous Files. No name or contact information is attached.</small></span>
-              </label>
-              <button class="pg-btn rage-burn-button" id="burn-rage">BURN THIS RAGE</button>
-              <p class="submission-status" id="rage-submission-status" aria-live="polite"></p>
-            </div>
+          <div class="room-title"><span>ROOM 03 · RAGE ROOM</span></div>
+          <div class="rage-console" id="rr-console">
+            <div class="rr-toolbar"><span id="rr-progress">01 / 06 · LET IT OUT</span><button class="pg-btn pg-btn-dark" id="rr-wreckage">MY WRECKAGE</button></div>
+            <div id="rr-flow"></div>
+            <div id="rr-history" hidden></div>
+            <p id="rr-status" role="status"></p>
+            <div class="rr-controls"><button class="pg-btn pg-btn-dark" id="rr-back" hidden>← BACK</button><button class="pg-btn pg-btn-dark" id="rr-reset">CLEAR THIS SESSION</button></div>
           </div>
         </div>
       </section>
@@ -107,7 +91,7 @@
 
   </div>
   <script src="../assets/ma-config.js"></script>
-  <script src="../assets/playground.js?v=20260908-modular"></script>
-  <script src="js/rage-room.js?v=20260908-modular"></script>
+  <script src="../assets/playground.js?v=20260908-signals"></script>
+  <script src="js/rage-room.js?v=20260908-signals"></script>
 </body>
 </html>
