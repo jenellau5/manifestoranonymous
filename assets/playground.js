@@ -3,7 +3,7 @@
   const ACCESS_KEY = 'ma_playground_access';
   const SETUP_KEY = 'ma_manifestor_setup_v1';
   const IDEA_KEY = 'ma_idea_market_v1';
-  const ANON_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxPNecfzU4LM73m50dif24N1DCBJUZoZcyNFDKFVrKeWhF5fbSxO6ORbqPvV7SsAM9S/exec';
+  const ANON_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwwPHSXEWDDsgnhew0_ZPpk-ElL7nCY-orUBZXeL_asX1PUcM1z-9YSKfvl850lbMg8/exec';
 
   function escapeHtml(value = '') {
     return String(value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[ch]));
