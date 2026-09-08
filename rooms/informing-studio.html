@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Informing Studio | Manifestor Playground</title>
-  <meta name="description" content="Informing Studio inside the Manifestor Playground." />
+  <meta name="description" content="A voice-first studio for the things you need to say. Inform a person, inform the universe, or just let it out." />
   <link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
   <link rel="stylesheet" href="../assets/style.css" />
   <link rel="stylesheet" href="../assets/playground.css?v=20260908-modular" />
   <link rel="stylesheet" href="../assets/playground-experiences.css?v=20260908-modular" />
-  <link rel="stylesheet" href="css/informing-studio.css?v=20260908-modular" />
+  <link rel="stylesheet" href="css/informing-studio.css?v=20260908-simple" />
 </head>
 <body class="experience-site playground-site room-page informing-studio-page" data-room="informing-studio">
 <div class="pg-access" id="pg-access" aria-hidden="false">
@@ -49,19 +49,8 @@
         <div class="room-shell">
     <figure class="room-scene room-image-scene"><img src="../images/rooms/informing-studio-in-room-header.png" alt="Informing Studio" /></figure>
           <button class="room-back" data-room-link="../playground.html">← Back to lobby</button>
-          <div class="room-title"><span>ROOM 01 · INFORMING STUDIO</span><h1>Say the damn thing.</h1><p>Informing is not asking for permission. It is giving the people actually impacted a clean heads-up before your movement lands in their lap.</p></div>
-          <div class="studio-console">
-            <div class="mode-tabs">
-              <button class="mode-tab is-active" data-inform-mode="open">OPEN MIC</button>
-              <button class="mode-tab" data-inform-mode="someone">I NEED TO TELL SOMEONE</button>
-            </div>
-            <div class="console-screen">
-              <label for="inform-text" id="inform-label">WHAT ARE YOU INFORMING TODAY?</label>
-              <textarea id="inform-text" placeholder="I’m doing... / I’ve decided... / I’m changing... / I need them to know..."></textarea>
-              <button class="pg-btn pg-btn-green" id="run-informing">Put it on the mic</button>
-              <div class="tool-output" id="inform-output" hidden></div>
-            </div>
-          </div>
+          <div class="room-title"><span>ROOM 01 · INFORMING STUDIO</span><h1>Say the damn thing.</h1><p>Your words. Your voice. Your experiment. Get the thing out of your head and through your throat.</p></div>
+          <div class="studio-console" aria-label="Informing Studio"><noscript>This studio needs JavaScript for recording and practice. You can still say the thing out loud.</noscript></div>
         </div>
       </section>
     </main>
@@ -97,6 +86,6 @@
   </div>
   <script src="../assets/ma-config.js"></script>
   <script src="../assets/playground.js?v=20260908-modular"></script>
-  <script src="js/informing-studio.js?v=20260908-modular"></script>
+  <script src="js/informing-studio.js?v=20260908-simple"></script>
 </body>
 </html>
