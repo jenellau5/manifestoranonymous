@@ -46,8 +46,8 @@
 .studio-console .is-privacy { font-size:.875rem; }
 .studio-console .is-privacy a { color:var(--acid); }
 .studio-console audio { max-width:100%;width:100%;margin-top:16px; }
-.studio-console .is-receipt { background:#eaf0df;color:#17200e;padding:28px;margin-top:24px;border-top:7px solid var(--pg-green,#43ff83); }
-.studio-console .is-receipt .is-meta { color:#415032; }
+.studio-console .is-session-sheet { background:#eaf0df;color:#17200e;padding:28px;margin-top:24px;border-top:7px solid var(--pg-green,#43ff83); }
+.studio-console .is-session-sheet .is-meta { color:#415032; }
 .studio-console .is-finish h2 { color:var(--acid); }
 .studio-console .is-rule { font-size:.8rem;text-align:center;color:var(--muted);margin-top:28px;letter-spacing:.08em; }
 @media(max-width:560px){.studio-console .is-modes{grid-template-columns:1fr}.studio-console .is-mode small{display:inline;margin-left:8px}.studio-console .is-top{align-items:flex-start}.studio-console .is-top button{font-size:.8rem}.studio-console .is-actions>*{flex:1 1 140px}}
@@ -56,3 +56,5 @@
 /* Keep focused studio sections below the shared sticky navigation. */
 .informing-studio-page .studio-console { scroll-margin-top:100px; }
 .studio-console [tabindex="-1"],.studio-console button,.studio-console textarea { scroll-margin-top:100px; }
+
+.studio-console .is-prompt-card{margin:20px 0;padding:20px;border:1px solid var(--acid);border-radius:8px;background:#11251a;text-align:left;scroll-margin-top:110px}.studio-console .is-prompt-card p{font-size:1.3rem;line-height:1.5;margin:12px 0}.studio-console .is-prompt-card small{color:var(--muted)}

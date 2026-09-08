@@ -20,7 +20,7 @@
         <button class="is-mic" id="is-mic" aria-label="Start microphone" aria-pressed="false"><svg viewBox="0 0 32 40" fill="none" aria-hidden="true"><rect x="10" y="2" width="12" height="23" rx="6" stroke="currentColor" stroke-width="2"/><path d="M5 18v3a11 11 0 0 0 22 0v-3M16 32v6M10 38h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
         <p class="is-meta" id="is-mic-label">TAP TO SPEAK</p><div class="is-options"><label><input id="is-transcribe" type="checkbox"/> Show my words as text</label><label><input id="is-playback" type="checkbox" checked/> Let me listen back</label></div>
         <p class="is-muted" style="font-size:.875rem">Your recording stays here. Turning speech into text may send audio to your browser’s speech service.</p>
-        <button id="is-type">I’d rather type</button><button id="is-prompt" hidden>Give me something to inform</button>
+        <button id="is-type">I’d rather type</button><button id="is-prompt" hidden>Give me a prompt</button><section id="is-prompt-card" class="is-prompt-card" hidden tabindex="-1" aria-label="Your speaking prompt" aria-live="polite"><span class="is-meta">TRY SAYING THIS OUT LOUD</span><p id="is-prompt-text"></p><small>Speak your answer, or type it below.</small></section>
       </div>
       <div class="is-field" id="is-who-wrap" hidden><label for="is-who">WHO NEEDS TO KNOW? · OPTIONAL</label><select id="is-who"><option value="">Not sure yet</option><option>Partner</option><option>Family</option><option>Friend</option><option>Boss</option><option>Coworker</option><option>Employee</option><option>Client</option><option>Audience</option><option>Other</option></select></div>
       <div class="is-field" id="is-transcript-wrap" hidden><label for="is-transcript">YOUR WORDS · EDIT ANYTHING THE MIC MISHEARD</label><textarea id="is-transcript" maxlength="6000" placeholder="Start wherever you are. It doesn’t have to come out clean." spellcheck="true"></textarea><div class="is-row"><span class="is-meta" id="is-count">0 WORDS</span><span class="is-muted">Up to 6,000 characters per take</span></div></div>
@@ -35,14 +35,14 @@
     </div>
     <section id="is-finish" class="is-finish" hidden tabindex="-1"><span class="is-meta">INFORMED IN THE STUDIO.</span><h2 id="is-finish-heading"></h2><p id="is-finish-copy"></p><blockquote id="is-final"></blockquote>
       <div class="is-actions"><button id="is-copy">COPY IT</button><button id="is-practice">PRACTICE AGAIN</button><button id="is-new">START ANOTHER</button><a class="is-link" href="../playground.html">BACK TO PLAYGROUND</a></div>
-      <details><summary>MAKE AN INFORMING RECEIPT</summary><div class="is-field"><label for="is-noticed">WHAT I NOTICED · OPTIONAL</label><textarea id="is-noticed" maxlength="600" placeholder="I kept trying to explain why."></textarea></div><button id="is-receipt-button">Show my receipt</button></details>
-      <div class="is-receipt" id="is-receipt" hidden><span class="is-meta">MANIFESTOR ANONYMOUS / INFORMING STUDIO</span><h3>INFORMING RECEIPT</h3><span class="is-meta">WHAT NEEDED OUT</span><blockquote id="is-receipt-line"></blockquote><p id="is-receipt-meta"></p><p id="is-receipt-note"></p><strong>SAY THE DAMN THING.</strong></div><button id="is-download" hidden>Download receipt (.txt)</button>
+      <details><summary>KEEP MY WORDS</summary><div class="is-field"><label for="is-noticed">WHAT I NOTICED · OPTIONAL</label><textarea id="is-noticed" maxlength="600" placeholder="I kept trying to explain why."></textarea></div><button id="is-session-sheet-button">Show my transcript</button></details>
+      <div class="is-session-sheet" id="is-session-sheet" hidden><span class="is-meta">MANIFESTOR ANONYMOUS / INFORMING STUDIO</span><h3>SESSION TRANSCRIPT</h3><span class="is-meta">WHAT NEEDED OUT</span><blockquote id="is-session-sheet-line"></blockquote><p id="is-session-sheet-meta"></p><p id="is-session-sheet-note"></p><strong>SAY THE DAMN THING.</strong></div><button id="is-download" hidden>Download transcript (.txt)</button>
     </section>
     <p class="is-status" id="is-status" role="status" aria-live="polite"></p>
     <details class="is-privacy"><summary>Your privacy</summary>
       <p>Your words and recording stay in this tab. Clear the session or leave the page to remove them. A new take replaces the recording.</p>
       <p>Turning speech into text may send audio to your browser’s speech service. Leave that option off to record only.</p>
-      <p>A receipt you download stays on your device until you delete it.</p>
+      <p>A transcript you download stays on your device until you delete it.</p>
     </details><p class="is-rule">YOUR WORDS. YOUR VOICE. YOUR EXPERIMENT.</p>`;
   function status(t){$('status').textContent=t;}
   function hide(id,v=true){$(id).hidden=v;}
@@ -58,11 +58,11 @@
     $('transcript').readOnly=false;$('mic').setAttribute('aria-pressed','false');$('mic').setAttribute('aria-label','Start microphone');$('mic-label').textContent='TAP TO SPEAK';
   }
   function cancelWork(){version++;stopMedia(true);}
-  function clearSession(){cancelWork();releaseAudio();takes=0;seed='';finalWords='';$('done').hidden=false;$('transcript').value='';$('own-line').value='';$('noticed').value='';$('who').value='';for(const id of ['final','receipt-line','receipt-meta','receipt-note'])$(id).textContent='';showMode();status('Session cleared.');}
+  function clearSession(){cancelWork();releaseAudio();takes=0;seed='';finalWords='';$('done').hidden=false;$('transcript').value='';$('own-line').value='';$('noticed').value='';$('who').value='';for(const id of ['final','session-sheet-line','session-sheet-meta','session-sheet-note'])$(id).textContent='';showMode();status('Session cleared.');}
   function showMode(){
     root.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===mode)));
     $('heading').textContent=modes[mode][0];$('intro').textContent=modes[mode][1];$('take').textContent=`TAKE ${String(takes+1).padStart(2,'0')}`;
-    hide('who-wrap',mode!=='person');hide('prompt',mode!=='universe');hide('work',false);hide('finish');hide('result');hide('choices');hide('receipt');hide('download');hide('transcript-wrap',!$('transcript').value&&(canRecord||canTranscribe));if(!canRecord&&!canTranscribe)$('mic-label').textContent='TYPE YOUR WORDS BELOW';count();
+    hide('prompt-card');$('prompt').textContent='Give me a prompt';hide('who-wrap',mode!=='person');hide('prompt',mode!=='universe');hide('work',false);hide('finish');hide('result');hide('choices');hide('session-sheet');hide('download');hide('transcript-wrap',!$('transcript').value&&(canRecord||canTranscribe));if(!canRecord&&!canTranscribe)$('mic-label').textContent='TYPE YOUR WORDS BELOW';count();
   }
   async function mic(){
     if(recording){stopMedia();status('Take stopped. Listen back or choose what happens next.');return;}
@@ -118,13 +118,13 @@
     $('finish-copy').textContent=mode==='person'?'Now the actual person still needs the information.':mode==='universe'?'YOU DON’T HAVE TO FIGURE OUT THE WHOLE FUCKING THING RIGHT NOW.':'It can stay right here. You don’t have to turn it into anything.';
     $('copy').hidden=!line;$('finish').focus();
   }
-  function receipt(){ $('receipt-line').textContent=$('final').textContent;$('receipt-meta').textContent=`INFORMED TO: ${mode==='person'?'PERSON':mode==='universe'?'UNIVERSE':'OPEN MIC'} · TAKES: ${takes} · ${new Date().toLocaleDateString()}`;$('receipt-note').textContent=$('noticed').value;hide('receipt',false);hide('download',false); }
+  function sessionSheet(){ $('session-sheet-line').textContent=$('final').textContent;$('session-sheet-meta').textContent=`INFORMED TO: ${mode==='person'?'PERSON':mode==='universe'?'UNIVERSE':'OPEN MIC'} · TAKES: ${takes} · ${new Date().toLocaleDateString()}`;$('session-sheet-note').textContent=$('noticed').value;hide('session-sheet',false);hide('download',false); }
   $('mic').addEventListener('click',mic);$('clear').addEventListener('click',clearSession);$('done').addEventListener('click',done);$('type').addEventListener('click',()=>{hide('transcript-wrap',false);$('transcript').focus();});$('transcript').addEventListener('input',count);
-  $('prompt').addEventListener('click',()=>{promptIndex=(promptIndex+1)%prompts.length;$('heading').textContent=prompts[promptIndex];$('intro').textContent='ANSWER WITH YOUR THROAT. NOT YOUR NOTES APP.';});
+  $('prompt').addEventListener('click',()=>{promptIndex=(promptIndex+1)%prompts.length;$('prompt-text').textContent=prompts[promptIndex];hide('prompt-card',false);$('prompt').textContent='Give me another prompt';$('prompt-card').focus({preventScroll:true});$('prompt-card').scrollIntoView({block:'center',behavior:'instant'});});
   root.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{if(mode===b.dataset.mode)return;mode=b.dataset.mode;clearSession();$('done').hidden=false;status('New mode. Fresh take.');}));
   $('again').addEventListener('click',another);$('practice').addEventListener('click',another);$('new').addEventListener('click',()=>{clearSession();$('done').hidden=false;});$('keep').addEventListener('click',()=>{if(!$('own-line').value.trim()){status('Add the words you want to keep.');return;}finish(true);});
   $('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('final').textContent);$('copy').textContent='COPIED';setTimeout(()=>$('copy').textContent='COPY IT',1800);}catch{status('Copy is unavailable. Select the sentence and copy it manually.');$('final').setAttribute('tabindex','0');$('final').focus();}});
-  $('receipt-button').addEventListener('click',receipt);$('download').addEventListener('click',()=>{receipt();const url=URL.createObjectURL(new Blob([$('receipt').innerText],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='informing-receipt.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+  $('session-sheet-button').addEventListener('click',sessionSheet);$('download').addEventListener('click',()=>{sessionSheet();const url=URL.createObjectURL(new Blob([$('session-sheet').innerText],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='informing-transcript.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
   document.addEventListener('visibilitychange',()=>{if(document.hidden&&(recording||starting)){if(starting)version++;stopMedia();status('Microphone stopped because you left this tab.');}});
   const canRecord=Boolean(navigator.mediaDevices?.getUserMedia&&window.MediaRecorder);
   const canTranscribe=Boolean(navigator.mediaDevices?.getUserMedia&&(window.SpeechRecognition||window.webkitSpeechRecognition));
