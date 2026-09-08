@@ -242,6 +242,31 @@
       }
     }
   </style>
+  <style id="pg-room-status">
+    /* Live cards are anchors. Building cards are static divs with no navigation.
+       To reopen a room, restore its anchor/href, set data-room-status="live",
+       and remove the building class, aria-disabled, badge and founding note. */
+    .pg-door-image-wrap { position: relative; }
+    .pg-door-card--building { cursor: default; border-color: rgba(255,255,255,.1); }
+    .pg-door-card--building:hover,
+    .pg-door-card--building:focus-visible {
+      transform: none; box-shadow: none; border-color: rgba(255,255,255,.1);
+    }
+    .pg-door-card--building img { filter: saturate(.45) brightness(.65); }
+    .pg-door-card--building .pg-door-copy h2 { color: #c7c7c7; }
+    .pg-building-badge {
+      position: absolute; bottom: 10px; left: 10px; right: 10px;
+      padding: 8px 6px; border: 1px solid #c9ff2e;
+      background: #101407; color: #c9ff2e;
+      font-size: clamp(.62rem, 1vw, .75rem); font-weight: 800;
+      line-height: 1.4; letter-spacing: .06em; text-align: center;
+    }
+    .pg-door-copy .pg-building-note {
+      display: block; margin-top: 10px; color: #b9c49b;
+      font-size: .78rem; line-height: 1.5;
+    }
+    .pg-lobby-heading p { color: #c7c7c7; line-height: 1.5; }
+  </style>
 </head>
 
 <body class="experience-site playground-site">
@@ -286,101 +311,125 @@
           <div class="pg-lobby-compact-copy">
             <p>This is not another pile of definitions. Bring in what is actually happening today and use your design
               against real life.</p>
-            <p>Founding members keep access to new tools and resources added to the Playground as it grows. Personalized
-              services like Chart Drops stay separate.</p>
+            <p><strong>You’re early. That’s the point.</strong> The Playground is being built in public.
+              Some rooms are open, some are under construction, and new experiments will keep showing up.
+              Founding members get access as the Playground grows. Personalized services like Chart Drops stay separate.</p>
           </div>
         </div>
         <div class="pg-lobby-heading">
           <h1>What are you fucking with today?</h1>
-          <p>Choose a room.</p>
+          <p>OPEN DOORS + SHIT WE'RE STILL BUILDING ↓</p>
+          <p>Choose an open room and get into it. The rooms marked UNDER CONSTRUCTION are being built;
+            founding members get access when they open.</p>
         </div>
         <div class="pg-door-grid">
-          <a class="pg-door-card" href="rooms/informing-studio.html"><img
+          <a class="pg-door-card" data-room-status="live" href="rooms/informing-studio.html"><img
               src="images/rooms/informing-studio-lobby-tile.png" alt="Informing Studio" />
             <div class="pg-door-copy">
               <h2>Informing Studio</h2>
               <p>Turn what you need to say into a clear inform without asking for permission or overexplaining.</p>
             </div>
           </a>
-          <a class="pg-door-card" href="rooms/idea-market.html"><img src="images/rooms/idea-market-lobby-tile.png"
+          <a class="pg-door-card" data-room-status="live" href="rooms/idea-market.html"><img src="images/rooms/idea-market-lobby-tile.png"
               alt="Idea Market" />
             <div class="pg-door-copy">
               <h2>Idea Market</h2>
               <p>Sort a real creative urge from mental pressure and decide what deserves your energy.</p>
             </div>
           </a>
-          <a class="pg-door-card" href="rooms/rage-room.html"><img src="images/rooms/rage-room-lobby-tile.png"
+          <a class="pg-door-card" data-room-status="live" href="rooms/rage-room.html"><img src="images/rooms/rage-room-lobby-tile.png"
               alt="Rage Room" />
             <div class="pg-door-copy">
               <h2>Rage Room</h2>
               <p>Release the charge, understand what the anger is signaling and choose a cleaner next move.</p>
             </div>
           </a>
-          <a class="pg-door-card" href="rooms/rest-spa.html"><img src="images/rooms/rest-spa-lobby-tile.png"
+          <a class="pg-door-card" data-room-status="live" href="rooms/rest-spa.html"><img src="images/rooms/rest-spa-lobby-tile.png"
               alt="Rest Spa" />
             <div class="pg-door-copy">
               <h2>Rest Spa</h2>
               <p>Work with non-Sacral energy, recovery and the part of your cycle that cannot be forced.</p>
             </div>
           </a>
-          <a class="pg-door-card" href="rooms/post-office.html"><img src="images/rooms/post-office-lobby-tile.png"
+          <a class="pg-door-card" data-room-status="live" href="rooms/post-office.html"><img src="images/rooms/post-office-lobby-tile.png"
               alt="Post Office" />
             <div class="pg-door-copy">
               <h2>Post Office</h2>
               <p>Get the unsaid words out by writing, sending, printing or releasing them.</p>
             </div>
           </a>
-          <a class="pg-door-card" href="rooms/design-lab.html"><img src="images/rooms/design-lab-lobby-tile.png"
+          <div class="pg-door-card pg-door-card--building" data-room-status="building" aria-disabled="true"><div class="pg-door-image-wrap"><img src="images/rooms/design-lab-lobby-tile.png"
               alt="Design Lab" />
+            <span class="pg-building-badge">UNDER CONSTRUCTION</span>
+          </div>
             <div class="pg-door-copy">
               <h2>Design Lab</h2>
               <p>Explore your Centers, Gates and Channels through the mechanics of a Manifestor design.</p>
+            <small class="pg-building-note">Being built. Founding members get access when it opens.</small>
             </div>
-          </a>
-          <a class="pg-door-card" href="rooms/manifestor-archetypes.html"><img
+          </div>
+          <div class="pg-door-card pg-door-card--building" data-room-status="building" aria-disabled="true"><div class="pg-door-image-wrap"><img
               src="images/rooms/manifestor-archetypes-lobby-tile.png" alt="Manifestor Archetypes" />
+            <span class="pg-building-badge">UNDER CONSTRUCTION</span>
+          </div>
             <div class="pg-door-copy">
               <h2>Manifestor Archetypes</h2>
               <p>See how your Profile changes the way you initiate, influence and move through life.</p>
+            <small class="pg-building-note">Being built. Founding members get access when it opens.</small>
             </div>
-          </a>
-          <a class="pg-door-card" href="rooms/planetarium.html"><img src="images/rooms/planetarium-lobby-tile.png"
+          </div>
+          <div class="pg-door-card pg-door-card--building" data-room-status="building" aria-disabled="true"><div class="pg-door-image-wrap"><img src="images/rooms/planetarium-lobby-tile.png"
               alt="Planetarium" />
+            <span class="pg-building-badge">UNDER CONSTRUCTION</span>
+          </div>
             <div class="pg-door-copy">
               <h2>Planetarium</h2>
               <p>Understand what a Gate means when it is activated by a specific planet in your chart.</p>
+            <small class="pg-building-note">Being built. Founding members get access when it opens.</small>
             </div>
-          </a>
-          <a class="pg-door-card" href="rooms/variables-vending-machine.html"><img
+          </div>
+          <div class="pg-door-card pg-door-card--building" data-room-status="building" aria-disabled="true"><div class="pg-door-image-wrap"><img
               src="images/rooms/variables-vending-machine-lobby-tile.png" alt="Variables Vending Machine" />
+            <span class="pg-building-badge">UNDER CONSTRUCTION</span>
+          </div>
             <div class="pg-door-copy">
               <h2>Variables Vending Machine</h2>
               <p>Experiment with Determination, Environment, Perspective and Motivation without turning them into rules.
               </p>
+            <small class="pg-building-note">Being built. Founding members get access when it opens.</small>
             </div>
-          </a>
-          <a class="pg-door-card" href="rooms/authority-room.html"><img src="images/rooms/authority-room-lobby-tile.png"
+          </div>
+          <div class="pg-door-card pg-door-card--building" data-room-status="building" aria-disabled="true"><div class="pg-door-image-wrap"><img src="images/rooms/authority-room-lobby-tile.png"
               alt="Authority Room" />
+            <span class="pg-building-badge">UNDER CONSTRUCTION</span>
+          </div>
             <div class="pg-door-copy">
               <h2>Authority Room</h2>
               <p>Bring in an actual decision and separate your Authority from urgency, fear and proving.</p>
+            <small class="pg-building-note">Being built. Founding members get access when it opens.</small>
             </div>
-          </a>
-          <a class="pg-door-card" href="rooms/black-market.html"><img src="images/rooms/black-market-lobby-tile.png"
+          </div>
+          <div class="pg-door-card pg-door-card--building" data-room-status="building" aria-disabled="true"><div class="pg-door-image-wrap"><img src="images/rooms/black-market-lobby-tile.png"
               alt="Black Market" />
+            <span class="pg-building-badge">UNDER CONSTRUCTION</span>
+          </div>
             <div class="pg-door-copy">
               <h2>Black Market</h2>
               <p>Find the hidden agreement underneath a pattern you keep repeating.</p>
+            <small class="pg-building-note">Being built. Founding members get access when it opens.</small>
             </div>
-          </a>
-          <a class="pg-door-card" href="rooms/the-speakeasy.html"><img src="images/rooms/the-speakeasy-lobby-tile.png"
+          </div>
+          <div class="pg-door-card pg-door-card--building" data-room-status="building" aria-disabled="true"><div class="pg-door-image-wrap"><img src="images/rooms/the-speakeasy-lobby-tile.png"
               alt="The Speakeasy" />
+            <span class="pg-building-badge">UNDER CONSTRUCTION</span>
+          </div>
             <div class="pg-door-copy">
               <h2>The Speakeasy</h2>
               <p>Enter the private gathering space when a live conversation or event is open.</p>
+            <small class="pg-building-note">Being built. Founding members get access when it opens.</small>
             </div>
-          </a>
-          <a class="pg-door-card" href="rooms/the-library.html"><img src="images/rooms/the-library-lobby-tile.png"
+          </div>
+          <a class="pg-door-card" data-room-status="live" href="rooms/the-library.html"><img src="images/rooms/the-library-lobby-tile.png"
               alt="The Library" />
             <div class="pg-door-copy">
               <h2>The Library</h2>
