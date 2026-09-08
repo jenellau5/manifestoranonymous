@@ -1,43 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Manifestor Playground | Manifestor Anonymous</title>
-  <meta name="description"
-    content="The Manifestor Playground. Stop learning about being a Manifestor. Start fucking with it." />
+  <meta name="description" content="The Manifestor Playground. Stop learning about being a Manifestor. Start fucking with it." />
   <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="stylesheet" href="assets/playground.css?v=20260907-world1" />
   <link rel="stylesheet" href="assets/playground-experiences.css?v=20260906p3" />
   <style id="pg-critical-routing">
     /* Critical room routing fallback. Keeps the Playground from spilling into one giant page even if an external stylesheet is stale. */
-    [data-view] {
-      display: none !important
-    }
-
-    [data-view].is-active {
-      display: block !important
-    }
-
-    #pg-app.is-locked {
-      display: none !important
-    }
-
-    #pg-access[aria-hidden="true"] {
-      display: none !important
-    }
-
-    .setup-drawer[aria-hidden="true"]:not(.is-open) {
-      visibility: hidden;
-      pointer-events: none
-    }
+    [data-view]{display:none !important}
+    [data-view].is-active{display:block !important}
+    #pg-app.is-locked{display:none !important}
+    #pg-access[aria-hidden="true"]{display:none !important}
+    .setup-drawer[aria-hidden="true"]:not(.is-open){visibility:hidden;pointer-events:none}
   </style>
 </head>
-
 <body class="experience-site playground-site">
-  <div class="pg-access" id="pg-access" aria-hidden="false">
+<div class="pg-access" id="pg-access" aria-hidden="false">
     <div class="pg-access-card">
       <span class="pg-kicker">FOUNDING ACCESS</span>
       <h1>Manifestor Playground</h1>
@@ -45,20 +27,19 @@
       <label for="access-code">Enter your access code</label>
       <div class="pg-access-row">
         <p class="access-existing-copy"><strong>Already have access?</strong> Enter your Playground code below.</p>
-        <input id="access-code" type="password" autocomplete="off" placeholder="ACCESS CODE" />
+<input id="access-code" type="password" autocomplete="off" placeholder="ACCESS CODE" />
         <button class="pg-btn pg-btn-green" id="unlock-playground">Enter</button>
-        <div class="access-purchase-path">
-          <span>DON'T HAVE A CODE?</span>
-          <a href="https://payhip.com/b/4SZio" data-ma-link="playgroundPayhip" target="_blank"
-            rel="noopener noreferrer">GET FOUNDING ACCESS · $97 ↗</a>
-        </div>
+            <div class="access-purchase-path">
+              <span>DON'T HAVE A CODE?</span>
+              <a href="https://payhip.com/b/4SZio" data-ma-link="playgroundPayhip" target="_blank" rel="noopener noreferrer">GET FOUNDING ACCESS · $97 ↗</a>
+            </div>
       </div>
       <p class="pg-access-error" id="access-error" aria-live="polite"></p>
       <a href="index.html" class="pg-text-link">← Back to Manifestor Anonymous</a>
     </div>
   </div>
   <div id="pg-app" class="pg-app is-locked" aria-hidden="true">
-    <header class="pg-topbar">
+<header class="pg-topbar">
       <a class="pg-brand" href="index.html">
         <img src="images/logocircle.png" alt="Manifestor Anonymous" />
         <div><strong>Manifestor Anonymous</strong><small>THE PLAYGROUND</small></div>
@@ -66,178 +47,89 @@
       <nav class="pg-nav" aria-label="Playground navigation">
         <a href="playground.html">Lobby</a>
         <button id="open-setup">My Setup</button>
-        <a href="rooms/the-library%20(1).html">Library</a>
+        <a href="rooms/the-library.html">Library</a>
         <a href="index.html">Exit</a>
       </nav>
     </header>
     <main>
-      <section class="pg-view pg-lobby is-active" id="lobby" data-view>
+<section class="pg-view pg-lobby is-active" id="lobby" data-view>
         <div class="pg-lobby-hero">
-          <div class="pg-lobby-copy">
-            <span class="pg-kicker">MANIFESTOR PLAYGROUND</span>
-            <h1>Stop learning about being a Manifestor.<br><em>Start fucking with it.</em></h1>
-            <p>This is not another pile of definitions. Bring in what is actually happening today and use your design
-              against real life.</p>
-            <p class="pg-founding-note">Founding members keep access to new tools and resources added to the Playground
-              as it grows. Personalized services like Chart Drops stay separate.</p>
+          <div class="pg-lobby-banner">
+            <img src="images/manifestor-playground-lobby-header.png" alt="Manifestor Playground. Stop learning about your design. Come fuck around with it." />
+          </div>
+          <div class="pg-lobby-copy pg-lobby-copy-below">
+            <p>This is not another pile of definitions. Bring in what is actually happening today and use your design against real life.</p>
+            <p class="pg-founding-note">Founding members keep access to new tools and resources added to the Playground as it grows. Personalized services like Chart Drops stay separate.</p>
             <div class="pg-lobby-actions">
               <button class="pg-btn pg-btn-green" id="open-setup-hero">Set up my chart</button>
               <button class="pg-btn pg-btn-dark" id="open-setup-secondary">Load my chart skeleton</button>
             </div>
           </div>
-          <div class="pg-lobby-art"><img src="images/neonbodygraph.png" alt="Manifestor Playground" /></div>
         </div>
 
         <div class="pg-question-block">
           <span class="pg-kicker">DON'T OVERTHINK IT</span>
           <h2>What are you fucking with today?</h2>
           <div class="pg-situation-grid pg-situation-grid-current">
-            <button class="pg-situation" data-room-link="rooms/authority-room%20(1).html"><span>01</span><strong>I need
-                to make a decision.</strong><small>Use your actual Authority. Not urgency, fear, pressure or somebody
-                else's deadline.</small></button>
-            <button class="pg-situation" data-room-link="rooms/informing-studio%20(1).html"><span>02</span><strong>I
-                need to say something.</strong><small>Clean up the inform, then actually use your
-                voice.</small></button>
-            <button class="pg-situation" data-room-link="rooms/idea-market%20(1).html"><span>03</span><strong>I have an
-                idea or urge.</strong><small>Sort the spark without pretending a tool outranks
-                Authority.</small></button>
-            <button class="pg-situation rage-choice"
-              data-room-link="rooms/rage-room%20(1).html"><span>04</span><strong>I’m fucking pissed.</strong><small>Move
-                the charge, read the signal, then choose the next clean move.</small></button>
-            <button class="pg-situation spa-choice" data-room-link="rooms/rest-spa%20(1).html"><span>05</span><strong>My
-                system is done.</strong><small>Rest, regulate or use the low-capacity reset.</small></button>
-            <button class="pg-situation" data-room-link="rooms/post-office%20(1).html"><span>06</span><strong>I need to
-                get something out.</strong><small>Write the letter. Send it anonymously, print it or burn
-                it.</small></button>
-            <button class="pg-situation lab-choice"
-              data-room-link="rooms/design-lab%20(1).html"><span>07</span><strong>I want to understand my
-                design.</strong><small>Centers, Gates and Channels. Yours first. Explore all when curiosity
-                wins.</small></button>
-            <button class="pg-situation black-choice"
-              data-room-link="rooms/black-market%20(1).html"><span>08</span><strong>This shit keeps
-                repeating.</strong><small>Go underground. Find the contract underneath the pattern.</small></button>
+            <button class="pg-situation" data-room-link="rooms/authority-room.html"><span>01</span><strong>I need to make a decision.</strong><small>Use your actual Authority. Not urgency, fear, pressure or somebody else's deadline.</small></button>
+            <button class="pg-situation" data-room-link="rooms/informing-studio.html"><span>02</span><strong>I need to say something.</strong><small>Clean up the inform, then actually use your voice.</small></button>
+            <button class="pg-situation" data-room-link="rooms/idea-market.html"><span>03</span><strong>I have an idea or urge.</strong><small>Sort the spark without pretending a tool outranks Authority.</small></button>
+            <button class="pg-situation rage-choice" data-room-link="rooms/rage-room.html"><span>04</span><strong>I’m fucking pissed.</strong><small>Move the charge, read the signal, then choose the next clean move.</small></button>
+            <button class="pg-situation spa-choice" data-room-link="rooms/rest-spa.html"><span>05</span><strong>My system is done.</strong><small>Rest, regulate or use the low-capacity reset.</small></button>
+            <button class="pg-situation" data-room-link="rooms/post-office.html"><span>06</span><strong>I need to get something out.</strong><small>Write the letter. Send it anonymously, print it or burn it.</small></button>
+            <button class="pg-situation lab-choice" data-room-link="rooms/design-lab.html"><span>07</span><strong>I want to understand my design.</strong><small>Centers, Gates and Channels. Yours first. Explore all when curiosity wins.</small></button>
+            <button class="pg-situation black-choice" data-room-link="rooms/black-market.html"><span>08</span><strong>This shit keeps repeating.</strong><small>Go underground. Find the contract underneath the pattern.</small></button>
           </div>
         </div>
 
         <div class="pg-room-map">
-          <div class="pg-room-map-head"><span class="pg-kicker">THE PLAYGROUND</span>
-            <h2>Pick a door. There is no required order.</h2>
-            <p>The rooms share your saved setup, but each one has its own job, interface and atmosphere.</p>
-          </div>
-          <div class="pg-wing">
-            <div class="pg-wing-head"><span>DO SOMETHING WITH IT</span><small>Voice, urges, anger, rest and
-                release.</small></div>
-            <div class="pg-room-grid pg-room-grid-open">
-              <a class="pg-room-image-card" href="rooms/informing-studio%20(1).html"
-                aria-label="Enter Informing Studio"><img src="images/rooms/informing-studio-lobby-tile.png"
-                  alt="Informing Studio" /></a>
-              <a class="pg-room-image-card" href="rooms/idea-market%20(1).html" aria-label="Enter Idea Market"><img
-                  src="images/rooms/idea-market-lobby-tile.png" alt="Idea Market" /></a>
-              <a class="pg-room-image-card" href="rooms/rage-room%20(1).html" aria-label="Enter Rage Room"><img
-                  src="images/rooms/rage-room-lobby-tile.png" alt="Rage Room" /></a>
-              <a class="pg-room-image-card" href="rooms/rest-spa%20(1).html" aria-label="Enter Rest Spa"><img
-                  src="images/rooms/rest-spa-lobby-tile.png" alt="Rest Spa" /></a>
-              <a class="pg-room-image-card" href="rooms/post-office%20(1).html" aria-label="Enter Post Office"><img
-                  src="images/rooms/post-office-lobby-tile.png" alt="Post Office" /></a>
-            </div>
-          </div>
-          <div class="pg-wing">
-            <div class="pg-wing-head"><span>USE YOUR DESIGN</span><small>Mechanics become lived experiments.</small>
-            </div>
-            <div class="pg-room-grid pg-room-grid-open pg-design-wing-grid">
-              <a class="pg-room-image-card" href="rooms/design-lab%20(1).html" aria-label="Enter Design Lab"><img
-                  src="images/rooms/design-lab-lobby-tile.png" alt="Design Lab" /></a>
-              <a class="pg-room-image-card" href="rooms/manifestor-archetypes%20(1).html"
-                aria-label="Enter Manifestor Archetypes"><img src="images/rooms/manifestor-archetypes-lobby-tile.png"
-                  alt="Manifestor Archetypes" /></a>
-              <a class="pg-room-image-card" href="rooms/planetarium%20(1).html" aria-label="Enter Planetarium"><img
-                  src="images/rooms/planetarium-lobby-tile.png" alt="Planetarium" /></a>
-              <a class="pg-room-image-card" href="rooms/variables-vending-machine%20(1).html"
-                aria-label="Enter Variables Vending Machine"><img
-                  src="images/rooms/variables-vending-machine-lobby-tile.png" alt="Variables Vending Machine" /></a>
-              <a class="pg-room-image-card" href="rooms/authority-room%20(1).html"
-                aria-label="Enter Authority Room"><img src="images/rooms/authority-room-lobby-tile.png"
-                  alt="Authority Room" /></a>
-            </div>
-          </div>
-          <div class="pg-wing black-market-wing">
-            <div class="pg-wing-head"><span>GO UNDERGROUND</span><small>Where are you overriding the design you already
-                understand?</small></div><a class="pg-room-image-card" href="rooms/black-market%20(1).html"
-              aria-label="Enter Black Market"><img src="images/rooms/black-market-lobby-tile.png"
-                alt="Black Market" /></a>
-          </div>
-          <div class="pg-wing">
-            <div class="pg-wing-head"><span>AFTER HOURS</span><small>Open only when there is actually something worth
-                gathering for.</small></div><a class="pg-room-image-card" href="rooms/the-speakeasy%20(1).html"
-              aria-label="Enter The Speakeasy"><img src="images/rooms/the-speakeasy-lobby-tile.png"
-                alt="The Speakeasy" /></a>
-          </div>
-          <div class="pg-wing library-wing">
-            <div class="pg-wing-head"><span>GO DEEPER</span><small>The actual resources included with your
-                access.</small></div><a class="pg-room-image-card" href="rooms/the-library%20(1).html"
-              aria-label="Enter The Library"><img src="images/rooms/the-library-lobby-tile.png" alt="The Library" /></a>
-          </div>
+          <div class="pg-room-map-head"><span class="pg-kicker">THE PLAYGROUND</span><h2>Pick a door. There is no required order.</h2><p>The rooms share your saved setup, but each one has its own job, interface and atmosphere.</p></div>
+          <div class="pg-wing"><div class="pg-wing-head"><span>DO SOMETHING WITH IT</span><small>Voice, urges, anger, rest and release.</small></div><div class="pg-room-grid pg-room-grid-open">
+            <a class="pg-room-image-card" href="rooms/informing-studio.html" aria-label="Enter Informing Studio"><img src="images/rooms/informing-studio-lobby-tile.png" alt="Informing Studio" /></a>
+            <a class="pg-room-image-card" href="rooms/idea-market.html" aria-label="Enter Idea Market"><img src="images/rooms/idea-market-lobby-tile.png" alt="Idea Market" /></a>
+            <a class="pg-room-image-card" href="rooms/rage-room.html" aria-label="Enter Rage Room"><img src="images/rooms/rage-room-lobby-tile.png" alt="Rage Room" /></a>
+            <a class="pg-room-image-card" href="rooms/rest-spa.html" aria-label="Enter Rest Spa"><img src="images/rooms/rest-spa-lobby-tile.png" alt="Rest Spa" /></a>
+            <a class="pg-room-image-card" href="rooms/post-office.html" aria-label="Enter Post Office"><img src="images/rooms/post-office-lobby-tile.png" alt="Post Office" /></a>
+          </div></div>
+          <div class="pg-wing"><div class="pg-wing-head"><span>USE YOUR DESIGN</span><small>Mechanics become lived experiments.</small></div><div class="pg-room-grid pg-room-grid-open pg-design-wing-grid">
+            <a class="pg-room-image-card" href="rooms/design-lab.html" aria-label="Enter Design Lab"><img src="images/rooms/design-lab-lobby-tile.png" alt="Design Lab" /></a>
+            <a class="pg-room-image-card" href="rooms/manifestor-archetypes.html" aria-label="Enter Manifestor Archetypes"><img src="images/rooms/manifestor-archetypes-lobby-tile.png" alt="Manifestor Archetypes" /></a>
+            <a class="pg-room-image-card" href="rooms/planetarium.html" aria-label="Enter Planetarium"><img src="images/rooms/planetarium-lobby-tile.png" alt="Planetarium" /></a>
+            <a class="pg-room-image-card" href="rooms/variables-vending-machine.html" aria-label="Enter Variables Vending Machine"><img src="images/rooms/variables-vending-machine-lobby-tile.png" alt="Variables Vending Machine" /></a>
+            <a class="pg-room-image-card" href="rooms/authority-room.html" aria-label="Enter Authority Room"><img src="images/rooms/authority-room-lobby-tile.png" alt="Authority Room" /></a>
+          </div></div>
+          <div class="pg-wing black-market-wing"><div class="pg-wing-head"><span>GO UNDERGROUND</span><small>Where are you overriding the design you already understand?</small></div><a class="pg-room-image-card" href="rooms/black-market.html" aria-label="Enter Black Market"><img src="images/rooms/black-market-lobby-tile.png" alt="Black Market" /></a></div>
+          <div class="pg-wing"><div class="pg-wing-head"><span>AFTER HOURS</span><small>Open only when there is actually something worth gathering for.</small></div><a class="pg-room-image-card" href="rooms/the-speakeasy.html" aria-label="Enter The Speakeasy"><img src="images/rooms/the-speakeasy-lobby-tile.png" alt="The Speakeasy" /></a></div>
+          <div class="pg-wing library-wing"><div class="pg-wing-head"><span>GO DEEPER</span><small>The actual resources included with your access.</small></div><a class="pg-room-image-card" href="rooms/the-library.html" aria-label="Enter The Library"><img src="images/rooms/the-library-lobby-tile.png" alt="The Library" /></a></div>
         </div>
       </section>
     </main>
-    <aside class="setup-drawer" id="setup-drawer" aria-hidden="true">
+<aside class="setup-drawer" id="setup-drawer" aria-hidden="true">
       <div class="setup-panel">
-        <div class="setup-head">
-          <div><span class="pg-kicker">MY MANIFESTOR SETUP</span>
-            <h2>Give the Playground your chart skeleton.</h2>
-          </div><button id="close-setup" aria-label="Close setup">×</button>
-        </div>
-        <p class="setup-intro">Saved only in this browser. No login. No database. Choose what you know now and come back
-          later.</p>
+        <div class="setup-head"><div><span class="pg-kicker">MY MANIFESTOR SETUP</span><h2>Give the Playground your chart skeleton.</h2></div><button id="close-setup" aria-label="Close setup">×</button></div>
+        <p class="setup-intro">Saved only in this browser. No login. No database. Choose what you know now and come back later.</p>
 
         <div class="setup-grid-two">
-          <label>Authority<select id="setup-authority">
-              <option value="">Choose authority</option>
-              <option>Emotional</option>
-              <option>Splenic</option>
-              <option>Ego / Heart</option>
-            </select></label>
-          <label>Profile<select id="setup-profile">
-              <option value="">Choose profile</option>
-              <option>1/3</option>
-              <option>1/4</option>
-              <option>2/4</option>
-              <option>2/5</option>
-              <option>3/5</option>
-              <option>3/6</option>
-              <option>4/6</option>
-              <option>4/1</option>
-              <option>5/1</option>
-              <option>5/2</option>
-              <option>6/2</option>
-              <option>6/3</option>
-            </select></label>
+          <label>Authority<select id="setup-authority"><option value="">Choose authority</option><option>Emotional</option><option>Splenic</option><option>Ego / Heart</option></select></label>
+          <label>Profile<select id="setup-profile"><option value="">Choose profile</option><option>1/3</option><option>1/4</option><option>2/4</option><option>2/5</option><option>3/5</option><option>3/6</option><option>4/6</option><option>4/1</option><option>5/1</option><option>5/2</option><option>6/2</option><option>6/3</option></select></label>
         </div>
 
         <div class="setup-section">
-          <div class="setup-section-head">
-            <h3>Centers</h3><small>Tap each center to mark it defined or undefined.</small>
-          </div>
+          <div class="setup-section-head"><h3>Centers</h3><small>Tap each center to mark it defined or undefined.</small></div>
           <div class="center-toggle-grid" id="center-toggles"></div>
         </div>
 
         <div class="setup-section">
-          <div class="setup-section-head">
-            <h3>Activated Gates</h3><small>No comma-separated homework. Click the gates that are colored in your
-              chart.</small>
-          </div>
+          <div class="setup-section-head"><h3>Activated Gates</h3><small>No comma-separated homework. Click the gates that are colored in your chart.</small></div>
           <div class="gate-chip-grid" id="gate-chips"></div>
         </div>
 
         <div class="setup-section derived-section">
-          <div class="setup-section-head">
-            <h3>Channels found</h3><small>Automatically derived when both gates are selected.</small>
-          </div>
+          <div class="setup-section-head"><h3>Channels found</h3><small>Automatically derived when both gates are selected.</small></div>
           <div id="derived-channels" class="derived-channels"></div>
         </div>
 
-        <div class="setup-actions"><button class="pg-btn pg-btn-green" id="save-setup">Save my setup</button><button
-            class="pg-btn pg-btn-dark" id="clear-setup">Clear</button></div>
+        <div class="setup-actions"><button class="pg-btn pg-btn-green" id="save-setup">Save my setup</button><button class="pg-btn pg-btn-dark" id="clear-setup">Clear</button></div>
       </div>
     </aside>
 
@@ -245,5 +137,4 @@
   <script src="assets/ma-config.js"></script>
   <script src="assets/playground.js?v=20260908-modular"></script>
 </body>
-
 </html>
