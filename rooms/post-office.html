@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Post Office | Manifestor Playground</title>
-  <meta name="description" content="Post Office inside the Manifestor Playground." />
+  <meta name="description" content="Put into words what you have been carrying. Then decide where it belongs." />
   <link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
   <link rel="stylesheet" href="../assets/style.css" />
   <link rel="stylesheet" href="../assets/playground.css?v=20260908-modular" />
   <link rel="stylesheet" href="../assets/playground-experiences.css?v=20260908-modular" />
-  <link rel="stylesheet" href="css/post-office.css?v=20260908-modular" />
+  <link rel="stylesheet" href="css/post-office (1).css?v=20260908-postal" />
 </head>
 <body class="experience-site playground-site room-page post-office-page" data-room="post-office">
 <div class="pg-access" id="pg-access" aria-hidden="false">
@@ -49,16 +49,19 @@
         <div class="room-shell post-shell">
     <figure class="room-scene room-image-scene"><img src="../images/rooms/post-office-in-room-header.png" alt="Post Office" /></figure>
           <button class="room-back" data-room-link="../playground.html">← Back to lobby</button>
-          <div class="post-environment" aria-hidden="true"><div class="post-slot">ANONYMOUS MAIL</div><div class="post-stamp">MA</div><div class="post-lines"></div></div>
-          <div class="room-title post-title"><span>ROOM 05 · ANONYMOUS POST OFFICE</span><h1>Write what you are carrying.</h1><p>No analysis required. No prompt has to make it profound. Put the words somewhere outside of you, then decide what happens to them.</p></div>
-          <div class="post-desk">
-            <div class="letter-prompts" role="group" aria-label="Letter prompt">
-              <button data-letter-prompt="Another Manifestor">TO ANOTHER MANIFESTOR</button><button data-letter-prompt="Another Human Design type">TO ANOTHER TYPE</button><button data-letter-prompt="My younger Manifestor self">TO MY YOUNGER SELF</button><button data-letter-prompt="Someone I cannot say this to">TO SOMEONE I CAN’T SAY THIS TO</button><button data-letter-prompt="No one in particular">BLANK LETTER</button>
-            </div>
-            <div class="letter-paper" id="letter-paper"><label for="letter-text" id="letter-label">DEAR...</label><textarea id="letter-text" placeholder="Write the letter. It does not need to be nice, useful or ready to send."></textarea></div>
-            <div class="letter-actions"><button class="post-action mailbox-action" id="send-letter">SEND TO ANONYMOUS MAILBOX</button><button class="post-action" id="print-letter">PRINT IT</button><button class="post-action burn-action" id="burn-letter">BURN IT</button></div>
-            <div class="mailbox-consent" id="mailbox-consent" hidden><p><strong>Before you send it:</strong> this sends a copy to Manifestor Anonymous. It may be read and shared anonymously in community content or Anonymous Files. Do not include names, contact information or identifying details you do not want shared.</p><div class="mailbox-confirm-row"><button class="pg-btn pg-btn-green" id="confirm-send-letter">I understand. Send it anonymously.</button><button class="pg-btn pg-btn-dark" id="cancel-send-letter">Never mind</button></div></div>
-            <p class="submission-status" id="letter-status" aria-live="polite"></p>
+
+          <div class="room-title post-title"><span>MA POSTAL DIVISION · UNRESOLVED IMPACT</span><h1>THE POST OFFICE</h1><p>Some shit needs to be sent. Some shit needs to be returned. Some shit was never yours to carry.</p><p><strong>Put into words what you've been carrying. Then decide where the fuck it belongs.</strong></p></div>
+          <div id="po-workbench" class="po-workbench">
+            <div class="po-strip">INTAKE → SORTING DESK → THE COUNTER <span>EXPRESSION ≠ DELIVERY</span></div>
+            <p class="po-privacy">Your words stay in this page's memory. They are not submitted or saved by this room. Refreshing or leaving clears them. Playground access and My Setup still use browser storage.</p>
+            <button type="button" id="po-reset">DELETE EVERYTHING / NEW PACKAGE</button>
+            <section id="po-intake" class="po-stage"><h2 tabindex="-1">01 / WHAT ARE YOU HERE TO MAIL?</h2><div id="po-types" class="po-grid"></div></section>
+            <section id="po-address" class="po-stage" hidden><h2 tabindex="-1">02 / WHO/WHAT IS THIS ADDRESSED TO?</h2><label for="po-recipient-type">Address category</label><select id="po-recipient-type"><option value="">Choose an addressee</option><option>A person</option><option>Past self</option><option>Future self</option><option>An idea</option><option>An initiation</option><option>My anger</option><option>My body</option><option>The Universe</option><option>Custom</option></select><label for="po-to">TO — name or your own words</label><input id="po-to" autocomplete="off" maxlength="200"><label for="po-from">FROM — optional name or alias</label><input id="po-from" autocomplete="off" maxlength="200" placeholder="Anonymous"><button id="po-write">TAKE IT TO THE SORTING DESK →</button></section>
+            <section id="po-writing" class="po-stage" hidden><h2 tabindex="-1">03 / PUT IT INTO WORDS</h2><p id="po-package"></p><p>Answer whichever prompts help. Skip the rest. Your answers become paragraphs in your letter, in this order. Nothing gets interpreted for you.</p><div id="po-prompts"></div><button id="po-assemble">BUILD MY LETTER FROM THESE WORDS →</button></section>
+            <section id="po-review" class="po-stage" hidden><h2 tabindex="-1">04 / YOUR LETTER, YOUR WORDS</h2><p>Edit anything. Add an opening or sign-off if you want one.</p><label for="po-letter">Actual letter</label><textarea id="po-letter" rows="14" autocomplete="off" spellcheck="false"></textarea><button id="po-counter-open">TAKE IT TO THE COUNTER →</button></section>
+            <section id="po-counter" class="po-stage" hidden><h2 tabindex="-1">05 / WHERE THE FUCK DOES IT BELONG?</h2><p>Expression and delivery are separate decisions. Choose what happens next. Nothing here sends your letter anywhere.</p><div id="po-dispositions" class="po-grid"></div></section>
+            <section id="po-result" class="po-stage" hidden><h2 tabindex="-1">YOUR POSTAL SLIP</h2><div id="po-slip" class="po-slip"></div><div class="po-actions"><button id="po-print-slip">PRINT POSTAL SLIP</button><button id="po-save-draft">DOWNLOAD LETTER (.TXT)</button></div><p id="po-result-note"></p><section id="po-clean" hidden><h3>CLEAN COPY / READY FOR YOU TO DELIVER</h3><pre id="po-clean-letter"></pre><div class="po-actions"><button id="po-copy">COPY LETTER</button><button id="po-print-letter">PRINT CLEAN LETTER</button></div></section><p>Another package lingering? Delete everything above and come back through intake.</p></section>
+            <p id="po-status" role="status" aria-live="polite"></p>
           </div>
         </div>
       </section>
@@ -95,7 +98,6 @@
   </div>
   <script src="../assets/ma-config.js"></script>
   <script src="../assets/playground.js?v=20260908-modular"></script>
-  <script src="../assets/playground-experiences.js?v=20260908-modular"></script>
-  <script src="js/post-office.js?v=20260908-modular"></script>
+  <script src="js/post-office (1).js?v=20260908-postal"></script>
 </body>
 </html>

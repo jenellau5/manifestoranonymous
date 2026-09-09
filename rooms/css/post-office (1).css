@@ -1,1 +1,51 @@
 .room-page .room-image-scene{height:auto;aspect-ratio:auto;background:#050505}.room-page .room-image-scene img{display:block;width:100%;height:auto}.room-page .room-back{display:inline-block}
+/* Postal room only: shared Playground navigation and other rooms stay untouched. */
+.post-office-page .room-image-scene{max-width:640px;margin:0 auto 20px}
+.post-office-page .post-title{padding:24px 0;max-width:980px}
+.post-office-page .post-title h1{font-size:clamp(2.6rem,7vw,5.5rem);line-height:1;letter-spacing:-.04em}
+.post-office-page .post-title span{font:700 .875rem/1.5 monospace;letter-spacing:.1em;color:#b6ff2e}
+.post-office-page .post-title p{margin:12px 0;font-size:1.05rem}
+.post-office-page .po-workbench{border:1px solid #645174;background:#100d14;padding:clamp(16px,3vw,36px);box-shadow:10px 10px 0 #050505}
+.post-office-page .po-strip{border-block:2px solid #b6ff2e;padding:12px 0;color:#b6ff2e;font:700 .875rem/1.6 monospace;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.post-office-page .po-privacy{color:#c3b9cb;font-size:.875rem;line-height:1.6;max-width:850px}
+.post-office-page .po-stage{border-top:1px dashed #766782;margin-top:28px;padding-top:24px}
+.post-office-page .po-stage h2{font-size:clamp(1.4rem,3vw,2rem);line-height:1.2;margin:0 0 20px}
+.post-office-page .po-stage p{color:#d1c8d7;line-height:1.65;font-size:1rem}
+.post-office-page .po-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.post-office-page .po-workbench button{padding:16px;border:1px solid #897395;background:#211829;color:#fff;font-family:inherit;font-size:1rem;font-weight:700;line-height:1.4;cursor:pointer;text-align:left;border-radius:2px;min-height:48px;white-space:normal}
+.post-office-page .po-workbench button:hover,.post-office-page .po-workbench button[aria-pressed="true"]{border-color:#b6ff2e;background:#28351a;color:#efffdc}
+.post-office-page .po-workbench button:focus-visible,.post-office-page .po-workbench input:focus-visible,.post-office-page .po-workbench select:focus-visible,.post-office-page .po-workbench textarea:focus-visible{outline:3px solid #b6ff2e;outline-offset:4px}
+.post-office-page .po-grid button{position:relative;padding-left:25px;border-left:5px solid #937ba4}
+.post-office-page .po-grid button strong,.post-office-page .po-grid button span{display:block}
+.post-office-page .po-grid button span{font-weight:400;margin-top:9px;line-height:1.5}
+.post-office-page .po-workbench label{display:block;font-size:1rem;margin:22px 0 9px;color:#e4dbe9}
+.post-office-page .po-workbench input,.post-office-page .po-workbench select,.post-office-page .po-workbench textarea{box-sizing:border-box;width:100%;border:1px solid #897395;background:#08070a;color:#fff;padding:14px;font:inherit;font-size:1rem;line-height:1.6;border-radius:2px;max-width:100%}
+.post-office-page .po-workbench textarea{resize:vertical;display:block;margin-bottom:18px}
+.post-office-page #po-write{margin-top:22px}
+.post-office-page #po-reset{background:transparent;font-size:.875rem;color:#d4c4dc;padding:10px}
+.post-office-page .po-actions{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}
+.post-office-page .po-slip{background:#fff;color:#000;padding:clamp(18px,4vw,38px);border:3px solid #000;outline:1px solid #fff;max-width:800px;overflow-wrap:anywhere}
+.post-office-page .po-slip h3{font:900 clamp(1.4rem,3vw,2rem)/1.1 monospace;margin:0;border-bottom:5px solid #000;padding-bottom:15px}
+.post-office-page .po-slip p{color:#000;font: .875rem/1.5 monospace}
+.post-office-page .po-slip dl{display:grid;grid-template-columns:1fr 1fr;border-top:2px solid #000;border-left:1px solid #000;margin:20px 0}
+.post-office-page .po-slip dl>div{padding:12px;border-right:1px solid #000;border-bottom:1px solid #000}
+.post-office-page .po-slip dt{font:700 .875rem/1.5 monospace}
+.post-office-page .po-slip dd{margin:7px 0 0;font:1rem/1.4 monospace;white-space:pre-wrap}
+.post-office-page .po-stamp{display:inline-block;border:5px double #000;padding:10px 16px;font:900 clamp(1.6rem,5vw,3rem)/1.1 monospace;transform:rotate(-3deg);margin:12px 0}
+.post-office-page #po-clean-letter{background:#fff;color:#000;white-space:pre-wrap;overflow-wrap:anywhere;padding:24px;font:1.1rem/1.7 Georgia,serif}
+.post-office-page [hidden]{display:none!important}
+.post-office-page #po-status{color:#b6ff2e;line-height:1.6}
+@media(max-width:600px){.post-office-page .po-grid,.post-office-page .po-slip dl{grid-template-columns:1fr}.post-office-page .po-actions button{width:100%}.post-office-page .po-workbench{box-shadow:none}}
+@media print{
+  @page{margin:15mm}
+  body.post-office-page{background:#fff!important;color:#000!important}
+  .post-office-page .pg-access,.post-office-page .pg-topbar,.post-office-page .setup-drawer,.post-office-page .room-scene,.post-office-page .room-back,.post-office-page .post-title{display:none!important}
+  .post-office-page #pg-app,.post-office-page main,.post-office-page #post-office,.post-office-page .post-shell,.post-office-page .po-workbench,.post-office-page #po-result{display:block!important;position:static!important;width:100%!important;max-width:none!important;padding:0!important;margin:0!important;background:#fff!important;border:0!important;box-shadow:none!important;min-height:0!important}
+  .post-office-page .po-workbench>:not(#po-result),.post-office-page #po-result>:not(#po-slip):not(#po-clean){display:none!important}
+  .post-office-page #po-slip{outline:0;max-width:none;break-inside:avoid}
+  .post-office-page #po-clean{display:none!important}
+  .post-office-page[data-po-print="letter"] #po-slip{display:none!important}
+  .post-office-page[data-po-print="letter"] #po-clean{display:block!important}
+  .post-office-page[data-po-print="letter"] #po-clean>:not(#po-clean-letter){display:none!important}
+  .post-office-page #po-clean-letter{padding:0;margin:0}
+}
