@@ -3495,3 +3495,154 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* Final foundation: common focus, privacy and event treatment. */
+:focus-visible {
+    outline: 2px solid #c9ff2e;
+    outline-offset: 4px;
+}
+
+.ma-privacy {
+    margin: 22px 0;
+    padding: 14px 18px;
+    border: 1px solid #49494e;
+    border-radius: 12px;
+    color: #c7c7cc;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.ma-privacy summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: #eee;
+}
+
+.ma-event {
+    max-width: 1100px;
+    margin: 48px auto 24px;
+    display: grid;
+    grid-template-columns: minmax(150px, 260px) 1fr;
+    gap: 28px;
+    padding: 24px;
+    border: 1px solid #675275;
+    background: #100c15;
+}
+
+.ma-event img {
+    width: 100%;
+    height: 100%;
+    max-height: 330px;
+    object-fit: cover;
+}
+
+.ma-event.library-feature img {
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+}
+
+.ma-event p {
+    line-height: 1.6;
+    color: #cbc5cf;
+}
+
+.ma-event h2 {
+    font-size: clamp(28px, 4vw, 48px);
+    margin: 12px 0;
+}
+
+.ma-neon {
+    display: inline-block;
+    color: #dfb6ef !important;
+    border: 2px solid #916b9e;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 26px;
+    letter-spacing: .14em;
+    text-shadow: 0 0 9px #b676cc;
+    box-shadow: inset 0 0 12px #673d7740, 0 0 12px #673d7740;
+}
+
+.ma-neon-small {
+    font-size: 12px;
+    padding: 8px;
+    letter-spacing: .05em;
+}
+
+.ma-lobby-extra {
+    max-width: 1100px;
+    margin: 24px auto;
+    color: #ccc;
+}
+
+.ma-lobby-extra a {
+    color: #c9ff2e;
+}
+
+.ma-playground-headline {
+    font-size: clamp(42px, 6vw, 76px);
+    line-height: 1;
+    letter-spacing: -.045em;
+}
+
+.pg-access {
+    overflow-y: auto;
+}
+
+.pg-access-card {
+    margin: auto;
+}
+
+.rr-signal-board {
+    margin: 24px 0;
+    border: 2px solid #e28c4b;
+    padding: 20px;
+    background: #1b100e;
+}
+
+.rr-signal-board p {
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+@media(max-width:680px) {
+    .ma-event {
+        grid-template-columns: 1fr;
+        padding: 18px;
+    }
+
+    .ma-event img {
+        max-height: 200px;
+        object-position: center 35%;
+    }
+
+    .pg-nav {
+        flex-wrap: wrap;
+    }
+}
+
+@media print {
+    .ma-privacy {
+        display: none;
+    }
+}
+
+#play .statement-card .btn {
+    display: inline-flex;
+    margin-top: 16px;
+}
+
+#play .statement-card h2 {
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.1;
+    margin: 14px 0;
+}
+
+#play .statement-card p {
+    margin: 12px 0;
+}
+
+.ma-event .section-label {
+    display: block;
+}
