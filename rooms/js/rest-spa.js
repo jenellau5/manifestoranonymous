@@ -135,7 +135,7 @@ const $=id=>root.querySelector('#rs-'+id);
 const el=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;};
 function button(label,fn,cls){const b=el('button',label,cls);b.type='button';b.addEventListener('click',fn);return b;}
 function link(label,url){const a=el('a',label,'rs-link');a.href=url;return a;}
-root.innerHTML=`<div class="rs-toolbar"><button type="button" id="rs-back">← Back to Spa</button><span class="rs-small">THE REST SPA</span></div><section id="rs-main" tabindex="-1"></section><section id="rs-audio" hidden tabindex="-1"></section><p id="rs-status" role="status" aria-live="polite"></p><p class="rs-footer">Not medical advice. Just permission to stop.</p>`;
+root.innerHTML=`<div class="rs-toolbar"><button type="button" id="rs-back">← Back to Spa</button><span class="rs-small">THE REST SPA</span><button type="button" id="rs-reset">START OVER / CLEAR MY SHIT</button></div><section id="rs-main" tabindex="-1"></section><section id="rs-audio" hidden tabindex="-1"></section><p id="rs-status" role="status" aria-live="polite"></p><p class="rs-footer">Not medical advice. Just permission to stop.</p>`;
 const main=$('main');
 function status(t){$('status').textContent=t;}
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(history));}catch{status('This works here, but this browser couldn’t save your history.');}}
@@ -241,6 +241,7 @@ function patterns(){
   main.append(button('CLEAR MY REST HISTORY',()=>{history={recent:[],regRecent:[],visits:[],enabled:history.enabled};visitId=null;let cleared=true;try{localStorage.removeItem(KEY);if(history.enabled)persist();}catch{cleared=false;}patterns();status(cleared?'Rest history cleared.':'Cleared for this visit. This browser could not remove the saved copy.');}));
 }
 $('back').addEventListener('click',home);
+ $('reset').onclick=()=>{if(!confirm('Clear this Spa session and all saved rest history in this browser?'))return;history={recent:[],regRecent:[],visits:[],enabled:false};state='unknown';time=10;current=null;regState='unknown';currentReg=null;visitId=null;issued=null;chosenSound='Silence';let cleared=true;try{localStorage.removeItem(KEY);}catch{cleared=false;}home();status(cleared?'Session and saved rest history cleared.':'Session cleared; browser storage could not be erased. Use browser site-data settings.');};
 window.addEventListener('pagehide',()=>{main.replaceChildren();$('audio').replaceChildren();});
 window.addEventListener('pageshow',e=>{if(e.persisted)home();});
 home();

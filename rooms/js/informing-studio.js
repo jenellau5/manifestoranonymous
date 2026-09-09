@@ -1,4 +1,4 @@
-/* Recordings and words stay in this tab. */
+/* Local recordings; optional browser speech recognition may use a remote service. */
 (() => {
   'use strict';
   const root=document.querySelector('.informing-studio-page .studio-console');
@@ -9,7 +9,7 @@
   let mode='open',takes=0,version=0,recording=false,starting=false,recognition=null,stream=null,recorder=null,audioURL='',timer=null,playbackReady=false,seed='',finalWords='',promptIndex=-1;
   const $=id=>root.querySelector('#is-'+id);
   root.innerHTML=`
-    <div class="is-top"><span class="is-meta"><span class="is-lamp"></span>INFORMING STUDIO / ROOM 01</span><button id="is-clear">Clear this session</button></div>
+    <div class="is-top"><span class="is-meta"><span class="is-lamp"></span>INFORMING STUDIO / ROOM 01</span><button id="is-clear">START OVER · CLEAR THIS SESSION</button></div>
     <div class="is-modes" aria-label="Choose your studio mode">
       <button class="is-mode" data-mode="open" aria-pressed="true">OPEN MIC<small>Just let it out.</small></button>
       <button class="is-mode" data-mode="person" aria-pressed="false">INFORM A PERSON<small>Find your sentence.</small></button>
@@ -33,16 +33,16 @@
         <div class="is-actions"><button class="is-primary" id="is-keep">Keep these words</button><button id="is-again">Say it again</button></div>
       </section>
     </div>
-    <section id="is-finish" class="is-finish" hidden tabindex="-1"><span class="is-meta">INFORMED IN THE STUDIO.</span><h2 id="is-finish-heading"></h2><p id="is-finish-copy"></p><blockquote id="is-final"></blockquote>
+    <section id="is-finish" class="is-finish" hidden tabindex="-1"><span class="is-meta">TAKE COMPLETE · YOUR EXPRESSION, IN YOUR WORDS.</span><h2 id="is-finish-heading"></h2><p id="is-finish-copy"></p><blockquote id="is-final"></blockquote>
       <div class="is-actions"><button id="is-copy">COPY IT</button><button id="is-practice">PRACTICE AGAIN</button><button id="is-new">START ANOTHER</button><a class="is-link" href="../playground.html">BACK TO PLAYGROUND</a></div>
       <details><summary>KEEP MY WORDS</summary><div class="is-field"><label for="is-noticed">WHAT I NOTICED · OPTIONAL</label><textarea id="is-noticed" maxlength="600" placeholder="I kept trying to explain why."></textarea></div><button id="is-session-sheet-button">Show my transcript</button></details>
-      <div class="is-session-sheet" id="is-session-sheet" hidden><span class="is-meta">MANIFESTOR ANONYMOUS / INFORMING STUDIO</span><h3>SESSION TRANSCRIPT</h3><span class="is-meta">WHAT NEEDED OUT</span><blockquote id="is-session-sheet-line"></blockquote><p id="is-session-sheet-meta"></p><p id="is-session-sheet-note"></p><strong>SAY THE DAMN THING.</strong></div><button id="is-download" hidden>Download transcript (.txt)</button>
+      <div class="is-session-sheet" id="is-session-sheet" hidden><span class="is-meta">MANIFESTOR ANONYMOUS / INFORMING STUDIO</span><h3>STUDIO TAKE · SESSION TRANSCRIPT</h3><span class="is-meta">WHAT NEEDED OUT</span><blockquote id="is-session-sheet-line"></blockquote><p id="is-session-sheet-meta"></p><p id="is-session-sheet-note"></p><strong>SAY THE DAMN THING.</strong></div><button id="is-download" hidden>Download transcript (.txt)</button>
     </section>
     <p class="is-status" id="is-status" role="status" aria-live="polite"></p>
-    <details class="is-privacy"><summary>Your privacy</summary>
-      <p>Your words and recording stay in this tab. Clear the session or leave the page to remove them. A new take replaces the recording.</p>
+    <details class="is-privacy ma-privacy"><summary>Your words · privacy + clearing</summary>
+      <p>Typed words and playback recordings are held in this tab, without saving them to browser storage. Clear the session or leave the page to remove them. A new take replaces the recording.</p>
       <p>Turning speech into text may send audio to your browser’s speech service. Leave that option off to record only.</p>
-      <p>A transcript you download stays on your device until you delete it.</p>
+      <p>A transcript you download or copy stays outside this room until you delete it. Playground access and My Setup are stored separately in this browser; clear chart details in My Setup.</p>
     </details><p class="is-rule">YOUR WORDS. YOUR VOICE. YOUR EXPERIMENT.</p>`;
   function status(t){$('status').textContent=t;}
   function hide(id,v=true){$(id).hidden=v;}
@@ -115,7 +115,7 @@
   function finish(celebrate){
     stopMedia();hide('work');hide('finish',false);const line=$('own-line').value.trim()||$('transcript').value.trim();$('final').textContent=line;
     $('finish-heading').textContent=celebrate?'THAT’S THE FUCKING ONE.':'YOU SAID IT.';
-    $('finish-copy').textContent=mode==='person'?'Now the actual person still needs the information.':mode==='universe'?'YOU DON’T HAVE TO FIGURE OUT THE WHOLE FUCKING THING RIGHT NOW.':'It can stay right here. You don’t have to turn it into anything.';
+    $('finish-copy').textContent=mode==='person'?'Your studio take is ready. Choose when and how to give the affected person the information; nothing was sent from here.':mode==='universe'?'YOU DON’T HAVE TO FIGURE OUT THE WHOLE FUCKING THING RIGHT NOW.':'It can stay right here. You don’t have to turn it into anything.';
     $('copy').hidden=!line;$('finish').focus();
   }
   function sessionSheet(){ $('session-sheet-line').textContent=$('final').textContent;$('session-sheet-meta').textContent=`INFORMED TO: ${mode==='person'?'PERSON':mode==='universe'?'UNIVERSE':'OPEN MIC'} · TAKES: ${takes} · ${new Date().toLocaleDateString()}`;$('session-sheet-note').textContent=$('noticed').value;hide('session-sheet',false);hide('download',false); }
