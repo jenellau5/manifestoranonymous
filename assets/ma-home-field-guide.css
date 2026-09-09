@@ -1,0 +1,24 @@
+.ma-archetypes [hidden] { display: none !important; }
+.ma-archetype-layout { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:clamp(24px,4vw,56px); padding:clamp(20px,3vw,36px); border:1px solid var(--line); border-radius:24px; background:var(--panel); }
+.ma-archetype-layout > div { min-width:0; }
+.ma-archetype-art { display:block; width:100%; height:auto; margin-bottom:24px; border-radius:12px; }
+.ma-archetypes label { display:block; font-size:14px; font-weight:750; margin-bottom:12px; }
+.ma-archetypes select { width:100%; min-height:48px; padding:12px; color:var(--text); background:#101216; border:1px solid var(--line-strong); border-radius:8px; font:inherit; }
+.ma-archetypes h3 { font-size:clamp(28px,3vw,42px); line-height:1.1; margin:12px 0; }
+.ma-archetypes h4 { font-size:20px; margin:24px 0 8px; }
+.ma-archetypes p { color:var(--muted); font-size:16px; line-height:1.75; }
+.ma-area-buttons { display:flex; flex-wrap:wrap; gap:8px; }
+.ma-area-buttons button { padding:10px 14px; min-height:44px; border:1px solid var(--line-strong); border-radius:8px; background:#101216; color:var(--text); font:inherit; cursor:pointer; }
+.ma-area-buttons button[aria-pressed="true"] { color:#050608; background:var(--green); border-color:var(--green); }
+.ma-archetypes :is(button,select):focus-visible { outline:2px solid var(--green); outline-offset:4px; }
+.ma-building-label { display:inline-block; padding:6px 9px; margin-bottom:8px; font-size:13px; color:#c9ff2e; border:1px solid #c9ff2e; }
+.field-orientation { margin-top:48px; }
+.field-guide-grid { grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }
+.field-guide-grid #authority { grid-column:1/-1; }
+.field-guide-grid h2 { font-size:clamp(28px,3vw,38px); }
+.learn-jump-nav a { font-size:14px; }
+.field-guide-grid .btn { white-space:normal; }
+#sources a, #chart a { color:var(--green); text-underline-offset:3px; }
+#archetypes, .field-guide-grid [id] { scroll-margin-top:110px; }
+@media(max-width:800px) { .ma-archetype-layout,.field-guide-grid { grid-template-columns:1fr; } .field-guide-grid .authority-grid { grid-template-columns:1fr; } }
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }

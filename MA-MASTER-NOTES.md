@@ -34,3 +34,7 @@ Profile application = My Manifestor Archetype room.
 Planetarium = separate room.
 Variables Vending Machine = separate room with Determination, Environment, Perspective and Motivation color/variation selectors.
 Core mechanic remains fixed; life-area application changes beneath it.
+
+
+## September 2026 home-base update
+Archetypes now lives publicly on index.html#archetypes; its old room URL redirects there. Start Here is a nonlinear field guide. Authority Gym keeps the authority-room.html URL with new Gym graphics. Design Lab, Variables Vending Machine, Planetarium and Black Market remain under construction; the existing Speakeasy status is unchanged.

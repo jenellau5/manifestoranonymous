@@ -2,9 +2,10 @@
   'use strict';
   const root=document.getElementById('market-room');if(!root)return;
   const KEY='ma_idea_market_v1',BACKUP=KEY+'_before_receipts';
-  const statuses=['MOVING','WATCHING','PARKED','RELEASED'];
+  const statuses=['MOVING','WATCHING','PARKED','RELEASED','COMPLETED'];
+  const statusLabel=s=>s==='COMPLETED'?'FUCKING DONE':s==='MOVING'?'INITIATED / MOVING':s;
   const types=['IDEA','URGE','INITIATION',"I DON'T FUCKING KNOW"];
-  const observations=['ENERGY GOT STRONGER','ENERGY DISAPPEARED','I KEEP THINKING ABOUT IT','SOMETHING OPENED UP','I ALREADY STARTED IT','LITERALLY NOTHING'];
+  const observations=['ENERGY GOT STRONGER','ENERGY DISAPPEARED','I KEEP THINKING ABOUT IT','SOMETHING OPENED UP','I ALREADY STARTED IT','I FINISHED IT','LITERALLY NOTHING'];
   let items=[],snapshot=null,filter='ALL',selected=null,opener=null,blocked=false;
   const $=id=>root.querySelector('#im-'+id);
   const node=(tag,text,cls)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(cls)el.className=cls;return el;};
@@ -26,12 +27,12 @@
       const initial=String(i.initialType??i.type??'unknown').toUpperCase();
       const initialType=types.includes(initial)?initial:types[3];
       const oldStatus=String(i.status??'ACTIVE').toUpperCase();
-      const status=statuses.includes(oldStatus)?oldStatus:oldStatus==='ARCHIVED'?'PARKED':'WATCHING';
+      const status=statuses.includes(oldStatus)?oldStatus:oldStatus==='ARCHIVED'?'PARKED':['DONE','FUCKING DONE'].includes(oldStatus)?'COMPLETED':oldStatus==='INITIATED'?'MOVING':'WATCHING';
       const checkIns=Array.isArray(i.checkIns)?i.checkIns.map(c=>{
         if(!c||typeof c.observation!=='string'||date(c.timestamp)===null)throw Error('Invalid history');
         return {...c,timestamp:date(c.timestamp),resultingStatus:statuses.includes(String(c.resultingStatus).toUpperCase())?String(c.resultingStatus).toUpperCase():null};
       }):[];
-      return {...i,id,createdAt,initialType,status,statusUpdatedAt:date(i.statusUpdatedAt),releasedAt:date(i.releasedAt??i.released),initiatedAt:date(i.initiatedAt),checkIns,statusChanges:Array.isArray(i.statusChanges)?i.statusChanges:[],schemaVersion:2};
+      return {...i,id,createdAt,initialType,status,statusUpdatedAt:date(i.statusUpdatedAt),releasedAt:date(i.releasedAt??i.released),initiatedAt:date(i.initiatedAt),completedAt:date(i.completedAt),checkIns,statusChanges:Array.isArray(i.statusChanges)?i.statusChanges:[],schemaVersion:2};
     });
   }
   root.innerHTML=`
@@ -58,7 +59,7 @@
     </dialog>
     <dialog class="im-dialog" id="im-receipt-dialog" aria-labelledby="im-receipt-title"><article class="im-receipt" id="im-receipt"></article><button class="im-receipt-close" id="im-close-receipt" type="button">Back to the market</button></dialog>`;
   types.forEach((t,n)=>{const label=node('label');const input=document.createElement('input');input.type='radio';input.name='im-type';input.value=t;input.required=true;input.id=`im-type-${n}`;label.append(input,node('span',t));$('types').append(label);});
-  for(const f of ['ALL',...statuses.slice(0,3)]){const b=button(f,()=>{filter=f;render();});b.dataset.filter=f;$('filters').append(b);}
+  for(const f of ['ALL',...statuses.filter(s=>s!=='RELEASED')]){const b=button(statusLabel(f),()=>{filter=f;render();});b.dataset.filter=f;$('filters').append(b);}
   function message(text){$('message').textContent=text;}
   function load(){
     try{snapshot=localStorage.getItem(KEY);items=normalize(snapshot?JSON.parse(snapshot):[]);blocked=false;}
@@ -76,8 +77,9 @@
   }
   function card(i){
     const el=node('article',undefined,'im-card');el.dataset.status=i.status;
-    el.append(node('span',i.status,'im-status'),node('p',i.text),node('div',`CAME IN AS ${i.initialType}`,'im-card-meta'),node('div',`${format(i.createdAt)} · ${age(i)}`,'im-card-meta'));
-    const b=button(i.status==='RELEASED'?'Open released idea':'What happened with this?',()=>openItem(i.id,b));el.append(b);return el;
+    el.append(node('span',statusLabel(i.status),'im-status'),node('p',i.text),node('div',`CAME IN AS ${i.initialType}`,'im-card-meta'),node('div',`${format(i.createdAt)} · ${age(i)}`,'im-card-meta'));
+    if(i.status==='COMPLETED')el.append(node('div',`Finished ${format(i.completedAt)}`,'im-card-meta'));
+    const b=button(i.status==='RELEASED'?'Open released idea':i.status==='COMPLETED'?'Look back at this':'What happened with this?',()=>openItem(i.id,b));el.append(b);return el;
   }
   function render(){
     $('active').replaceChildren();$('released').replaceChildren();
@@ -88,7 +90,7 @@
     $('empty').textContent=active.some(i=>filter==='ALL'||i.status===filter)?'':active.length?'Nothing in this part of the market.':'Nothing here yet. Drop something off.';
     $('filters').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter===filter)));
     $('total').textContent=`${items.length} thing${items.length===1?' has':'s have'} landed here.`;
-    $('counts').replaceChildren(...statuses.map(s=>{const el=node('span',s);el.prepend(node('strong',String(items.filter(i=>i.status===s).length)));return el;}));
+    $('counts').replaceChildren(...statuses.map(s=>{const el=node('span',statusLabel(s));el.prepend(node('strong',String(items.filter(i=>i.status===s).length)));return el;}));
     const movedUnknown=items.filter(i=>i.initialType===types[3]&&(i.statusChanges.some(c=>c.to==='MOVING')||i.checkIns.some(c=>c.resultingStatus==='MOVING'))).length;
     $('pattern').hidden=movedUnknown<5;$('pattern').textContent=movedUnknown>=5?`${movedUnknown} things you moved on originally came in as “I DON’T FUCKING KNOW.”`:'';
     const watching=active.filter(i=>i.status==='WATCHING'&&days(i.createdAt)>=1).sort((a,b)=>a.createdAt-b.createdAt)[0];
@@ -103,42 +105,55 @@
   }
   function showItem(){
     const i=items.find(i=>i.id===selected);if(!i)return;
-    $('detail-status').textContent=i.status;$('detail-text').textContent=i.text;$('detail-meta').textContent=`Came in as ${i.initialType} · ${format(i.createdAt)} · ${age(i)}`;
-    const prompt=authority();$('authority').textContent=prompt;$('authority').hidden=!prompt||i.status==='RELEASED';
+    $('detail-status').textContent=statusLabel(i.status);$('detail-text').textContent=i.text;$('detail-meta').textContent=`Came in as ${i.initialType} · ${format(i.createdAt)} · ${age(i)}`;
+    const prompt=authority();$('authority').textContent=prompt;$('authority').hidden=!prompt||['RELEASED','COMPLETED'].includes(i.status);
     const pending=i.checkIns.at(-1)?.resultingStatus===null?i.checkIns.at(-1):null;
-    $('detail-title').textContent=i.status==='RELEASED'?'THIS ALIVE AGAIN?':'WHAT HAPPENED WITH THIS?';
-    $('checkin').hidden=i.status==='RELEASED'||Boolean(pending);$('next').hidden=i.status==='RELEASED'||!pending;$('takeback').hidden=i.status!=='RELEASED';
+    $('detail-title').textContent=i.status==='RELEASED'?'THIS ALIVE AGAIN?':i.status==='COMPLETED'?'YOU FUCKING DID IT.':'WHAT HAPPENED WITH THIS?';
+    $('checkin').hidden=['RELEASED','COMPLETED'].includes(i.status)||Boolean(pending);$('next').hidden=['RELEASED','COMPLETED'].includes(i.status)||!pending;$('takeback').hidden=!['RELEASED','COMPLETED'].includes(i.status);$('takeback').textContent=i.status==='COMPLETED'?'REOPEN IT':'TAKE IT BACK';
     $('chosen').textContent=pending?`You noticed: ${pending.observation}`:'';$('detail-message').textContent='';
     $('history').replaceChildren();
-    const entries=[{timestamp:i.createdAt,text:`Landed as ${i.initialType}.`},...i.checkIns.map(c=>({timestamp:c.timestamp,text:`${c.observation} · ${c.resultingStatus||'Status not changed yet'}`})),...i.statusChanges.filter(c=>!c.checkInTimestamp).map(c=>({timestamp:c.timestamp,text:`${c.from} → ${c.to}`}))];
+    const entries=[{timestamp:i.createdAt,text:`Landed as ${i.initialType}.`},...i.checkIns.map(c=>({timestamp:c.timestamp,text:`${c.observation} · ${c.resultingStatus?statusLabel(c.resultingStatus):'Status not changed yet'}`})),...i.statusChanges.filter(c=>!c.checkInTimestamp).map(c=>({timestamp:c.timestamp,text:`${statusLabel(c.from)} → ${statusLabel(c.to)}`}))];
     entries.sort((a,b)=>(a.timestamp??0)-(b.timestamp??0)).forEach(e=>$('history').append(node('li',`${format(date(e.timestamp))}${date(e.timestamp)!==null?' · '+new Date(e.timestamp).toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'}):''} — ${e.text}`)));
   }
   function checkIn(observation){
-    const i=items.find(i=>i.id===selected);if(!i||i.status==='RELEASED'||i.checkIns.at(-1)?.resultingStatus===null)return;
+    const i=items.find(i=>i.id===selected);if(!i||['RELEASED','COMPLETED'].includes(i.status)||i.checkIns.at(-1)?.resultingStatus===null)return;
     const now=Date.now();const updated={...i,checkIns:[...i.checkIns,{timestamp:now,observation,resultingStatus:null}],initiatedAt:observation==='I ALREADY STARTED IT'?(i.initiatedAt??now):i.initiatedAt};
     if(save(items.map(x=>x.id===selected?updated:x)))showItem();
   }
   function changeStatus(to,takeback=false){
     const i=items.find(i=>i.id===selected);if(!i)return;
     const pending=i.checkIns.at(-1)?.resultingStatus===null;
-    if(takeback?i.status!=='RELEASED':!pending||i.status==='RELEASED')return;
-    const now=Date.now();const updated={...i,status:to,statusUpdatedAt:now,releasedAt:to==='RELEASED'?now:i.releasedAt,
+    if(takeback?!['RELEASED','COMPLETED'].includes(i.status):!pending||['RELEASED','COMPLETED'].includes(i.status))return;
+    const now=Date.now();const updated={...i,status:to,statusUpdatedAt:now,initiatedAt:to==='MOVING'?(i.initiatedAt??now):i.initiatedAt,completedAt:to==='COMPLETED'?now:i.completedAt,releasedAt:to==='RELEASED'?now:i.releasedAt,
       checkIns:i.checkIns.map((c,n)=>!takeback&&n===i.checkIns.length-1?{...c,resultingStatus:to}:c),
       statusChanges:[...i.statusChanges,{timestamp:now,from:i.status,to,checkInTimestamp:takeback?null:i.checkIns.at(-1).timestamp}]};
     if(!save(items.map(x=>x.id===selected?updated:x)))return;
-    $('detail').close();if(to==='RELEASED')receipt(updated,true);else message(takeback?'Back in Watching. Your history is still here.':`Now ${to.toLowerCase()}.`);
+    $('detail').close();if(to==='RELEASED')receipt(updated,true);else if(to==='COMPLETED')receipt(updated,'completed');else message(takeback?'Back in Watching. Your history is still here.':`Now ${to.toLowerCase()}.`);
   }
   function receipt(i,release=false){
     const r=$('receipt');r.replaceChildren();
-    const title=node('h2',release?'RETURN RECEIPT':'IDEA MARKET');title.id='im-receipt-title';r.append(title,node('small',release?'IDEA MARKET · MANIFESTOR PLAYGROUND':'MANIFESTOR PLAYGROUND'),node('hr'));
+    const title=node('h2',release==='completed'?'COMPLETION RECEIPT':release?'RETURN RECEIPT':'IDEA MARKET');title.id='im-receipt-title';r.append(title,node('small',release?'IDEA MARKET · MANIFESTOR PLAYGROUND':'MANIFESTOR PLAYGROUND'),node('hr'));
     const field=(label,value,cls)=>r.append(node('small',label),node('strong',value,cls));
     field('ITEM',i.text);
-    if(release){const n=days(i.createdAt,i.releasedAt);field('HELD FOR',n===null?'Original date not recorded':`${n} DAY${n===1?'':'S'}`);field('FINAL STATUS','RELEASED');r.append(node('hr'));field('REFUND','YOUR FUCKING ENERGY','im-refund');r.append(node('hr'),node('p','Returned to the universe.'),node('p','You are no longer responsible for doing anything with this.'));}
+    if(release==='completed'){field('CAME IN AS',i.initialType);field('FINAL STATUS','FUCKING DONE');field('FINISHED',format(i.completedAt));r.append(node('hr'),node('strong','YOU FUCKING DID IT.'),node('p','This one became something. You don’t have to turn finishing it into the next obligation.'));}
+    else if(release){const n=days(i.createdAt,i.releasedAt);field('HELD FOR',n===null?'Original date not recorded':`${n} DAY${n===1?'':'S'}`);field('FINAL STATUS','RELEASED');r.append(node('hr'));field('REFUND','YOUR FUCKING ENERGY','im-refund');r.append(node('hr'),node('p','Returned to the universe.'),node('p','You are no longer responsible for doing anything with this.'));}
     else{field('CAME IN AS',i.initialType);field('STATUS','WATCHING');field('DATE DROPPED',format(i.createdAt));r.append(node('hr'));field('AMOUNT DUE','$0.00');field('OBLIGATION TO ACT','NONE');r.append(node('hr'),node('p','Having the idea does not mean you have to do the idea.'),node('strong','KEEP THE RECEIPT. SEE WHAT HAPPENS.'));}
     $('receipt-dialog').showModal();
   }
-  observations.forEach(o=>$('observations').append(button(o,()=>checkIn(o))));
-  ['MOVE IT','KEEP WATCHING','PARK IT','RELEASE IT'].forEach((label,n)=>$('status-actions').append(button(label,()=>changeStatus(statuses[n]))));
+  function finishItem(){
+    const i=items.find(i=>i.id===selected);
+    if(!i||['RELEASED','COMPLETED'].includes(i.status))return;
+    const now=Date.now();
+    const updated={...i,status:'COMPLETED',statusUpdatedAt:now,completedAt:now,
+      checkIns:[...i.checkIns,{timestamp:now,observation:'I FINISHED IT',resultingStatus:'COMPLETED'}],
+      statusChanges:[...i.statusChanges,{timestamp:now,from:i.status,to:'COMPLETED',checkInTimestamp:now}]};
+    if(!save(items.map(x=>x.id===selected?updated:x)))return;
+    $('detail').close();receipt(updated,'completed');
+  }
+  const finishButton=button('IT’S FUCKING DONE',finishItem);finishButton.className='im-primary';finishButton.id='im-finish-now';
+  $('observations').append(finishButton);
+  observations.filter(o=>o!=='I FINISHED IT').forEach(o=>$('observations').append(button(o,()=>checkIn(o))));
+  ['INITIATED / MOVING','KEEP WATCHING','PARK IT','RELEASE IT','FUCKING DONE'].forEach((label,n)=>$('status-actions').append(button(label,()=>changeStatus(statuses[n]))));
   $('takeback').addEventListener('click',()=>changeStatus('WATCHING',true));
   $('entry-form').addEventListener('submit',e=>{
     e.preventDefault();const text=$('text').value.trim(),type=root.querySelector('input[name="im-type"]:checked')?.value;
