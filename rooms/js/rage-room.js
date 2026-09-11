@@ -1,100 +1,105 @@
 (() => {
   'use strict';
   document.documentElement.dataset.playgroundRoom = 'rage-room';
-  const KEY = 'ma_rage_wreckage_v1';
-  const signals = [
-    ['BLOCKED','I knew where I wanted to go and something got in my fucking way.','What were you trying to move toward before something got in the way?'],
-    ['CONTROLLED','Someone tried to decide for me, manage me or take over my choice.','What decision or choice feels like somebody else is trying to make for you?'],
-    ['INTERRUPTED','I was already moving, creating, talking or doing something and got stopped.','What was already moving before it got interrupted?'],
-    ['BOUNDARY CROSSED',"Something happened that I already knew I didn’t want.",'What is the no that needs to become clearer?'],
-    ['SWALLOWED IT',"I didn’t say the thing, enforce the no or tell them what I actually needed.",'What sentence is sitting in your throat?'],
-    ['NOT HEARD','I expressed or informed and it was ignored.',"What did you already communicate that you’re pissed you apparently have to communicate again?"],
-    ['MISREAD','Someone decided what I meant, wanted or felt without actually asking me.',"What did they assume that isn’t actually fucking true?"],
-    ['OVERRIDING MYSELF',"I’m doing something I don’t actually want to do.","What would you stop doing if you didn’t have to manage anyone else’s reaction?"],
-    ['DEPLETED','I have no fucking capacity and now everything feels like interference.','Would this still piss you off this much if you actually had capacity right now?'],
-    ['SOMETHING ELSE',"I know I’m pissed. I don’t know what category it belongs in yet.","If your anger could point at ONE thing and say ‘THIS,’ what would it point at?"]
-  ];
-  const uses = [
-    ['INITIATION','Something needs to change, start or move.','What wants to move now?',"Don’t force yourself to initiate because you’re angry. Notice what the anger revealed and take it through Authority."],
-    ['INFORMING','Something needs to be said or made clear.','What do people actually need to know?','Write the clean version. Then SAY THE DAMN THING OUT LOUD.'],
-    ['BOUNDARY','Something needs to stop.','What stops here?',"What’s the simplest sentence that makes that clear?"],
-    ['REDIRECTION',"I don’t actually want this anymore.",'What are you done giving energy to?','What direction actually has your energy instead?'],
-    ['PROTECTION','Something important to me is being fucked with.','What is your anger trying to protect?',"Protection doesn’t automatically mean confrontation. The answer itself can be useful."],
-    ['REST','This may be less about the situation and more about having zero capacity.','What can come off your plate right now?',"If capacity feels gone, try a pause before asking yourself to solve this."],
-    ['NOTHING',"I noticed the signal. I don’t need to do shit about it.",'THAT COUNTS.',"You noticed the signal. You don’t need to turn every emotion into homework. You can leave."]
-  ];
+  const KEY = 'ma_rage_wreckage_v1'; // Preserve previously saved signals.
   const $ = id => document.getElementById(id);
-  const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  let step=0, historyOpen=false, busy=false;
-  const fresh=()=>({rant:'',signal:null,use:null,answer:'',next:'',second:'',note:'',keepNote:false,saved:false,shared:false});
-  let state=fresh();
-  const heading=t=>`<h2 tabindex="-1">${t}</h2>`;
-  const button=(id,t)=>`<button class="pg-btn rage-button" id="${id}">${t}</button>`;
-  const field=(id,label,value,short=true)=>`<label for="${id}">${label}</label><textarea id="${id}" ${short?'class="rr-short"':''} autocomplete="off">${esc(value)}</textarea>`;
-  function capture(){for(const [id,key] of [['rr-rant','rant'],['rr-answer','answer'],['rr-next-text','next'],['rr-second','second'],['rr-note','note']])if($(id))state[key]=$(id).value;if($('rr-keep-note'))state.keepNote=$('rr-keep-note').checked;}
-  function cards(rows,type,selected){return `<div class="rr-grid" role="group" aria-label="${type==='signal'?'Anger signal':'Use the signal'}">${rows.map((r,i)=>`<button class="rr-card" data-${type}="${i}" aria-pressed="${selected===i}"><strong>${r[0]}</strong><span>${esc(r[1])}</span></button>`).join('')}</div>`;}
-  function authority(){let a='';try{a=JSON.parse(localStorage.getItem('ma_manifestor_setup_v1')||'{}').authority;}catch{}const copy={Emotional:'Notice what remains as your feelings change. No decision is required in this room.',Splenic:'Notice what your immediate body knowing is telling you underneath the mental story.','Ego / Heart':'Strip away what you’re supposed to want. What do YOU actually want?'};return copy[a]?`<strong>${esc(a)} AUTHORITY</strong><p>${copy[a]}</p>`:'<p>Not sure? Check your Authority in My Setup.</p>';}
-  function render(focus=true){
-    $('rr-status').textContent='';$('rr-history').hidden=true;$('rr-flow').hidden=false;historyOpen=false;$('rr-wreckage').textContent='MY WRECKAGE';$('rr-back').hidden=step===0;
-    $('rr-progress').textContent=`0${step+1} / 06 · ${['LET IT OUT','NOTICE IT','READ IT','USE THE SIGNAL','AUTHORITY CHECK','WHAT NOW?'][step]}`;
-    let html='';
-    if(step===0)html='<h1 tabindex="-1">WHAT THE FUCK PISSED YOU OFF?</h1><p>Don’t make yourself reasonable first.<br>Don’t explain why they probably meant well.<br>Don’t tell yourself you shouldn’t be mad.<br>Give me the unedited version.</p>'+field('rr-rant','LET IT OUT',state.rant,false)+'<small>Your words stay in this session. Nothing is saved or sent automatically.</small><details class="rr-voice"><summary>SAY IT OUT LOUD</summary><h3>USE YOUR DAMN THROAT.</h3><p>Sometimes you need to hear yourself say it before you can see what the anger is pointing at.</p><p>Say the unedited version somewhere you can speak freely. No recording. Typing is optional.</p></details>'+button('rr-continue','READ THE SIGNAL →');
-    if(step===1)html=heading('WHAT DID YOUR ANGER CATCH?')+'<p>Pick the closest lens. These are possibilities to investigate, not diagnoses or final explanations.</p>'+cards(signals,'signal',state.signal)+button('rr-continue','READ IT →');
-    if(step===2)html='<span class="rr-kicker">READ THE SIGNAL · '+signals[state.signal][0]+'</span>'+heading(signals[state.signal][2])+field('rr-answer','A SHORT ANSWER IS ENOUGH',state.answer)+button('rr-continue','USE THE SIGNAL →');
-    if(step===3)html='<span class="rr-kicker">STOP WASTING YOUR ANGER.</span>'+heading('OKAY. WHAT IS YOUR ANGER GOOD FOR?')+'<p>Anger caught something.<br>That doesn’t mean you have to act on it.<br>But don’t throw away the information.</p>'+cards(uses,'use',state.use)+button('rr-continue','AUTHORITY CHECK →');
-    if(step===4)html=heading('ANGER CAUGHT IT. AUTHORITY DECIDES.')+'<p>Your anger can point at the thing. It doesn’t get to make every decision for you.</p><p>Before you initiate, inform, confront, quit, cancel, change direction or burn the whole fucking thing down, run the decision through your Authority.</p><div class="rr-authority" id="rr-authority">'+authority()+'</div><button class="pg-btn pg-btn-dark" id="rr-setup">MY SETUP</button><p>This next step is space to consider what follows. It doesn’t mean you have decided to act.</p>'+button('rr-continue','WHAT NOW? →');
-    if(step===5){const u=uses[state.use],nothing=u[0]==='NOTHING';html='<span class="rr-kicker">'+u[0]+'</span>'+heading(u[0]==='REST'?'YOU MIGHT NOT NEED TO SOLVE THIS TONIGHT.':u[2])+`<p>${esc(u[3])}</p>`;
-      if(!nothing)html+=field('rr-next-text',u[0]==='REST'?u[2]:u[0]==='BOUNDARY'?u[3]:u[0]==='REDIRECTION'?u[2]:'YOUR WORDS',state.next);
-      if(u[0]==='REDIRECTION')html+=field('rr-second',u[3],state.second);
-      if(u[0]==='BOUNDARY')html+='<p><strong>SAY IT OUT LOUD.</strong></p>';
-      if(u[0]==='INFORMING')html+='<a class="rr-door" href="informing-studio.html">TAKE THIS TO THE INFORMING STUDIO →</a><p><small>Your words won’t transfer automatically.</small></p>';
-      if(u[0]==='REST')html+='<a class="rr-door" href="rest-spa.html">STEP INTO THE REST SPA →</a>';
-      if(nothing)html+='<a class="pg-btn rage-button" href="../playground.html">BACK TO THE PLAYGROUND →</a>';
-      html+='<section class="rr-signal-board"><span class="rr-kicker">YOUR SIGNAL MAP</span><h3>WHAT I NOTICED</h3><p>'+esc(signals[state.signal][0])+'</p><p>'+esc(state.answer||'No words needed yet.')+'</p><h3>WHAT I WANT TO EXPLORE</h3><p>'+esc(u[0])+'</p><small>You chose this lens. It can change. This is a place to notice, not a diagnosis or an instruction.</small></section>';
-      html+='<section class="rr-save"><h3>KEEP THE SIGNAL IN MY WRECKAGE</h3><p>Your Wreckage is saved only in this browser. Save the date, signal and what you chose it was useful for. Your rant and answers are not included.</p><label class="rr-check"><input type="checkbox" id="rr-keep-note" '+(state.keepNote?'checked':'')+'>Include a short note I write below</label><label for="rr-note">OPTIONAL NOTE · 240 CHARACTERS</label><input class="rr-note" id="rr-note" maxlength="240" value="'+esc(state.note)+'" autocomplete="off">'+button('rr-save',state.saved?'SIGNAL SAVED':'SAVE THIS SIGNAL')+'<p>No account. No cloud sync. It won’t follow you between devices.</p></section>';
-      html+='<details class="rr-anon"><summary>SHARE THE RANT ANONYMOUSLY · OPTIONAL</summary><p>This sends your raw rant to Manifestor Anonymous separately from My Wreckage. Remove names or identifying details from the rant first.</p><label class="rr-check"><input type="checkbox" id="rr-consent"><span><strong>LET MANIFESTOR ANONYMOUS KEEP THIS ANONYMOUSLY</strong><br>MA may anonymously use this submission for community insights, content or Anonymous Files. No name, contact information or chart setup is attached by this tool.</span></label>'+button('rr-share',state.shared?'SEND ATTEMPTED':'SEND ANONYMOUS COPY')+'<p id="rr-send-status" role="status"></p></details><div class="rr-actions">'+button('rr-finish','DONE · CLEAR THIS SESSION')+'<a class="rr-door" href="../playground.html">BACK TO THE PLAYGROUND →</a></div>';
+  if (!$('rr-flow')) return;
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const signals = ['A boundary','An interruption','Being controlled','Being misunderstood','Resistance or a blocked direction','Something else'];
+  const fresh = () => ({id:globalThis.crypto?.randomUUID?.() || 'note-'+Date.now()+'-'+Math.random().toString(36).slice(2),rant:'',signal:'',answer:'',next:'',note:'',saved:false,shared:false});
+  let state = fresh(), view = 'write', busy = false;
+  const status = text => { $('rr-status').textContent = text; };
+  const button = (id,text) => `<button type="button" class="pg-btn rage-button" id="${id}">${text}</button>`;
+  const section = (title,text) => text?.trim() ? `<section><h3>${title}</h3><p class="rr-words">${esc(text)}</p></section>` : '';
+  function capture() {
+    for (const [id,key] of [['rr-rant','rant'],['rr-signal','signal'],['rr-answer','answer'],['rr-next-text','next']]) {
+      if (!$(id)) continue;
+      if ($(id).value !== state[key]) { state.saved=false; if (key==='rant') state.shared=false; }
+      state[key]=$(id).value;
     }
-    $('rr-flow').innerHTML=html;
-    if($('rr-continue'))$('rr-continue').disabled=(step===1&&state.signal===null)||(step===3&&state.use===null);
-    if($('rr-save'))$('rr-save').disabled=state.saved;
-    if($('rr-share'))$('rr-share').disabled=state.shared||!state.rant.trim();
-    if(focus){$('rr-flow').querySelector('h1,h2')?.focus({preventScroll:true});$('rr-console').scrollIntoView({block:'start',behavior:'instant'});}
   }
-  function readHistory(){const raw=localStorage.getItem(KEY);if(!raw)return [];const data=JSON.parse(raw);if(!Array.isArray(data))throw Error('history');return data.filter(e=>e&&typeof e.date==='string'&&Number.isFinite(Date.parse(e.date))&&signals.some(s=>s[0]===e.signal)&&uses.some(u=>u[0]===e.use)).map(e=>({date:e.date,signal:e.signal,use:e.use,note:typeof e.note==='string'?e.note.slice(0,240):''}));}
-  function showHistory(){capture();historyOpen=true;$('rr-flow').hidden=true;$('rr-history').hidden=false;$('rr-back').hidden=true;$('rr-wreckage').textContent='BACK TO MY SIGNAL';$('rr-status').textContent='';let rows=[],error=false;try{rows=readHistory();}catch{error=true;}
-    const now=Date.now(),recent=rows.filter(e=>now-Date.parse(e.date)>=0&&now-Date.parse(e.date)<=30*86400000).sort((a,b)=>Date.parse(b.date)-Date.parse(a.date));
-    const counts=signals.map(s=>[s[0],recent.filter(e=>e.signal===s[0]).length]).filter(s=>s[1]).sort((a,b)=>b[1]-a[1]);
-    let html=heading('MY WRECKAGE')+'<p>Your Wreckage is saved only in this browser.</p>';
-    if(error)html+='<p>Wreckage could not be read. Nothing has been overwritten. You can clear it below, or continue without saving.</p>';
-    else if(!rows.length)html+='<p>No signals saved yet. Save one at the end of the flow if you want to track what keeps showing up.</p>';
-    else{html+='<h3>LAST 30 DAYS</h3>'+ (counts.length?counts.map(([s,n])=>`<div class="rr-count"><span>${s}</span><b>× ${n}</b></div>`).join(''):'<p>No signals in the last 30 days.</p>');
-      if(recent.length>=3){html+='<h3>THE SIGNALS YOU KEEP CHOOSING</h3><p><strong>SOMETHING’S SHOWING UP.</strong></p>';const top=counts.filter(c=>c[1]===counts[0][1]);html+=`<p>${top.length===1?'Your most logged signal':'Your joint most logged signals'}: ${top.map(c=>c[0]).join(' + ')} (${counts[0][1]} ${top.length>1?'each ':''}of ${recent.length} in the last 30 days).</p>`;const last=recent.slice(0,6);const b=last.filter(e=>e.use==='BOUNDARY').length;if(b>=2)html+=`<p>${b} of your last ${last.length} signals in this period ended in BOUNDARY.</p>`;}
-      else html+='<p>Save at least three signals within 30 days to start seeing patterns.</p>';
-      html+='<h3>SAVED SIGNALS</h3>'+rows.slice().sort((a,b)=>Date.parse(b.date)-Date.parse(a.date)).map(e=>`<article class="rr-entry"><time>${esc(new Date(e.date).toLocaleString())}</time><strong>${e.signal} → ${e.use}</strong>${e.note?'<p>'+esc(e.note)+'</p>':''}</article>`).join('');}
-    html+='<button class="pg-btn pg-btn-dark" id="rr-clear-history">CLEAR MY WRECKAGE</button>';$('rr-history').innerHTML=html;$('rr-history').querySelector('h2').focus({preventScroll:true});$('rr-console').scrollIntoView({block:'start',behavior:'instant'});
+  function readHistory() {
+    const rows=JSON.parse(localStorage.getItem(KEY)||'[]');
+    if (!Array.isArray(rows) || rows.some(r=>!r || typeof r.date!=='string')) throw Error('Saved notes could not be read.');
+    return rows.map((r,i)=>({...r,id:r.id||'legacy-'+r.date+'-'+i}));
   }
-  function reset(){state=fresh();step=0;render();$('rr-status').textContent='Session cleared. Your saved Wreckage is still here.';}
-  $('rr-wreckage').onclick=()=>historyOpen?render():showHistory();
-  $('rr-back').onclick=()=>{capture();if(step>0)step--;render();};
-  $('rr-reset').onclick=()=>{if(!busy&&confirm('Clear this session’s words and selections? Saved Wreckage stays.'))reset();};
+  function render(focus=true) {
+    $('rr-history').hidden=true; $('rr-flow').hidden=false;
+    $('rr-wreckage').textContent='MY SAVED NOTES'; $('rr-back').hidden=view!=='result';
+    $('rr-progress').textContent=view==='write'?'WRITE → KEEP OR BURN':view==='result'?'YOUR ANGER NOTE':'NOTE BURNED';
+    status('');
+    if (view==='write') {
+      $('rr-flow').innerHTML=`<h1 tabindex="-1">WHAT THE FUCK PISSED YOU OFF?</h1>
+        <p>Anger can be a signal that something needs attention—a boundary, a change, or something you want to get done. Get the words out first. You decide what they mean.</p>
+        <label for="rr-rant">WRITE IT OUT</label><textarea id="rr-rant" autocomplete="off" placeholder="The unedited version.">${esc(state.rant)}</textarea>
+        <details class="rr-reflect" ${state.signal||state.answer||state.next?'open':''}><summary>WANT TO FIND THE SIGNAL? · OPTIONAL</summary>
+          <label for="rr-signal">What might this be pointing toward?</label><select id="rr-signal"><option value="">Leave this open</option>${signals.map(s=>`<option ${state.signal===s?'selected':''}>${s}</option>`).join('')}</select>
+          <label for="rr-answer">What part of life needs attention? · optional</label><textarea id="rr-answer" class="rr-short" placeholder="The part that hit hardest, or what you notice.">${esc(state.answer)}</textarea>
+          <label for="rr-next-text">What do you want to do with that? · optional</label><textarea id="rr-next-text" class="rr-short" placeholder="A conversation, a change, one task, a pause—or nothing yet.">${esc(state.next)}</textarea>
+        </details>
+        <p><small>Nothing is saved or sent unless you choose it. Blank reflections stay off your note.</small></p>${button('rr-continue','SHOW MY ANGER NOTE')}`;
+      // Legacy signal labels remain editable without silently replacing them.
+      if(state.signal&&!signals.includes(state.signal)){const option=new Option(state.signal,state.signal,true,true);$('rr-signal').add(option);}
+    } else if (view==='result') {
+      $('rr-flow').innerHTML=`<h2 tabindex="-1">YOUR WORDS. YOUR SIGNAL.</h2><article class="rr-signal-board" id="rr-note-board"><span class="rr-kicker">MY ANGER NOTE</span>
+        ${section('WHAT PISSED ME OFF',state.rant)}${section('WHAT IT MIGHT POINT TOWARD',state.signal)}${section('WHAT NEEDS ATTENTION',state.answer)}${section('WHAT I WANT TO DO',state.next)}${section('MY SAVED NOTE',state.note)}</article>
+        <p>You can use this information to make a change or get something moving. You can also pause. Feeling angry does not decide the next move for you.</p>
+        <div class="rr-actions">${button('rr-save',state.saved?'NOTE SAVED':'SAVE ANGER NOTE')}${button('rr-burn','BURN THIS NOTE')}${button('rr-edit','EDIT MY NOTE')}</div>
+        <p><small>Save keeps this whole note in this browser, including your rant. Burn deletes this note here, including its saved copy. Neither action sends it to anyone.</small></p>
+        <details class="rr-anon"><summary>SHARE THE RANT WITH MA · OPTIONAL</summary><p>Only your original rant is shared. Remove identifying details before sending. Sharing is separate from saving or burning.</p><label class="rr-check"><input type="checkbox" id="rr-consent">I give MA permission to receive this rant and use it anonymously for community insights or content.</label>${button('rr-share',state.shared?'RANT RECEIVED':'SEND ANONYMOUS COPY')}<p id="rr-send-status" role="status"></p><small>Burning cannot recall a copy already shared with MA.</small></details>`;
+      $('rr-save').disabled=state.saved; $('rr-share').disabled=state.shared||!state.rant.trim();
+    } else {
+      $('rr-flow').innerHTML=`<h2 tabindex="-1">NOTE BURNED.</h2><p>The words are cleared from this session and this note’s saved copy. Other saved notes stay. Burning a note does not erase what happened—you can still act on what you noticed.</p>${button('rr-new','WRITE ANOTHER')}<a class="rr-door" href="../playground.html">BACK TO THE PLAYGROUND →</a>`;
+    }
+    if (focus) { $('rr-flow').querySelector('h1,h2')?.focus({preventScroll:true}); $('rr-console').scrollIntoView({block:'start',behavior:'instant'}); }
+  }
+  function showHistory() {
+    capture(); $('rr-flow').hidden=true; $('rr-history').hidden=false; $('rr-back').hidden=true; $('rr-wreckage').textContent='BACK TO MY NOTE'; status('');
+    let html='<h2 tabindex="-1">MY SAVED ANGER NOTES</h2><p>Saved only in this browser. Older signal-only entries are still here.</p>';
+    try {
+      const rows=readHistory().sort((a,b)=>Date.parse(b.date)-Date.parse(a.date));
+      html+=rows.length ? rows.map(r=>`<article class="rr-entry"><time>${esc(new Date(r.date).toLocaleString())}</time><p>${esc((r.rant||r.note||r.signal||'Saved signal').slice(0,180))}</p><button type="button" data-open-note="${esc(r.id)}">OPEN NOTE</button></article>`).join('') : '<p>No notes saved yet.</p>';
+    } catch { html+='<p>Saved notes could not be opened. Nothing has been overwritten.</p>'; }
+    html+='<button type="button" id="rr-clear-history">DELETE ALL SAVED NOTES</button>';
+    $('rr-history').innerHTML=html; $('rr-history').querySelector('h2').focus();
+  }
+  function reset(message='Session cleared. Other saved notes stay.') { state=fresh(); view='write'; render(); status(message); }
+  $('rr-wreckage').onclick=()=>{if(busy)return;$('rr-history').hidden?showHistory():render();};
+  $('rr-back').onclick=()=>{if(!busy){view='write';render();}};
+  $('rr-reset').onclick=()=>{if(!busy&&confirm('Clear this session? Saved notes stay unless you burn or delete them.'))reset();};
   $('rr-console').addEventListener('click',async e=>{
-    const b=e.target.closest('button');if(!b||busy)return;
-    if(b.dataset.signal!==undefined){capture();const n=Number(b.dataset.signal);if(state.signal!==n){state.answer='';state.saved=false;}state.signal=n;$('rr-flow').querySelectorAll('[data-signal]').forEach(x=>x.setAttribute('aria-pressed',x===b));$('rr-continue').disabled=false;}
-    if(b.dataset.use!==undefined){capture();const n=Number(b.dataset.use);if(state.use!==n){state.next='';state.second='';state.saved=false;}state.use=n;$('rr-flow').querySelectorAll('[data-use]').forEach(x=>x.setAttribute('aria-pressed',x===b));$('rr-continue').disabled=false;}
-    if(b.id==='rr-continue'){capture();step++;render();}
-    if(b.id==='rr-setup')$('open-setup').click();
-    if(b.id==='rr-finish'){if(confirm('Clear your session’s words and finish? Saved Wreckage stays.'))reset();}
-    if(b.id==='rr-save'){capture();try{const rows=readHistory();rows.push({date:new Date().toISOString(),signal:signals[state.signal][0],use:uses[state.use][0],...(state.keepNote&&state.note.trim()?{note:state.note.trim().slice(0,240)}:{})});localStorage.setItem(KEY,JSON.stringify(rows));state.saved=true;b.disabled=true;b.textContent='SIGNAL SAVED';$('rr-status').textContent='Saved in this browser. Your rant and answers were not saved.';}catch{$('rr-status').textContent='Could not save in this browser. Nothing has been overwritten.';}}
-    if(b.id==='rr-clear-history'&&confirm('Delete all Wreckage saved in this browser? This cannot be undone.')){try{localStorage.removeItem(KEY);state.saved=false;showHistory();$('rr-status').textContent='Your Wreckage is cleared.';}catch{$('rr-status').textContent='This browser could not clear Wreckage.';}}
-    if(b.id==='rr-share'){
-      if(!$('rr-consent').checked){$('rr-send-status').textContent='Check the permission box first. Nothing has been sent.';return;}
-      busy=true;b.disabled=true;$('rr-reset').disabled=true;$('rr-back').disabled=true;$('rr-wreckage').disabled=true;$('rr-send-status').textContent='Sending an anonymous copy…';
-      try{await fetch('https://script.google.com/macros/s/AKfycbwwPHSXEWDDsgnhew0_ZPpk-ElL7nCY-orUBZXeL_asX1PUcM1z-9YSKfvl850lbMg8/exec',{method:'POST',mode:'no-cors',credentials:'omit',referrerPolicy:'no-referrer',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({room:'Rage Room',submission:state.rant,category:signals[state.signal][0],context:'User explicitly shared after reading the anger signal.',permission:true}),signal:AbortSignal.timeout(15000)});state.shared=true;$('rr-send-status').textContent='Send attempted. This connection cannot confirm delivery. Your words are still here.';b.textContent='SEND ATTEMPTED';}catch{$('rr-send-status').textContent='Could not confirm sending. Your words are still here. Retrying may send a duplicate.';b.disabled=false;}finally{busy=false;$('rr-reset').disabled=false;$('rr-back').disabled=false;$('rr-wreckage').disabled=false;}
+    const b=e.target.closest('button'); if(!b||busy)return;
+    if(b.id==='rr-continue') {capture();if(!state.rant.trim()){status('Put some words in the note first.');$('rr-rant').focus();return;}view='result';render();}
+    if(b.id==='rr-edit'){view='write';render();}
+    if(b.id==='rr-new')reset('');
+    if(b.id==='rr-save') {
+      try {const rows=readHistory(),entry={id:state.id,date:new Date().toISOString(),rant:state.rant,signal:state.signal,answer:state.answer,next:state.next,note:state.note};const at=rows.findIndex(r=>r.id===state.id);if(at<0)rows.push(entry);else rows[at]=entry;localStorage.setItem(KEY,JSON.stringify(rows));state.saved=true;b.disabled=true;b.textContent='NOTE SAVED';status('Your whole anger note is saved in this browser.');}
+      catch {status('This browser could not save your note. Your words are still on this page.');}
+    }
+    if(b.id==='rr-burn') {
+      if(!confirm('Burn this note? Its words and its saved copy in this browser will be deleted. A shared copy cannot be recalled.'))return;
+      try {const rows=readHistory();if(rows.some(r=>r.id===state.id))localStorage.setItem(KEY,JSON.stringify(rows.filter(r=>r.id!==state.id)));}
+      catch {status('Could not check or remove the saved copy. Your note has not been burned.');return;}
+      busy=true; $('rr-note-board').classList.add('rr-burning');
+      await new Promise(resolve=>setTimeout(resolve,matchMedia('(prefers-reduced-motion: reduce)').matches?0:450));
+      const shared=state.shared;state=fresh();view='burned';busy=false;render();if(shared)status('The copy already shared with MA cannot be recalled.');
+    }
+    if(b.dataset.openNote) {
+      try {const row=readHistory().find(r=>r.id===b.dataset.openNote);if(!row)return;if(state.rant.trim()&&!state.saved&&state.id!==row.id&&!confirm('Open the saved note and discard this unsaved draft?'))return;state={...fresh(),...row,answer:row.answer||'',next:row.next||row.use||'',rant:row.rant||'',signal:row.signal||'',note:row.note||'',saved:true};view='result';render();}
+      catch {status('Could not open that note. Nothing was changed.');}
+    }
+    if(b.id==='rr-clear-history'&&confirm('Delete all saved anger notes in this browser?')) {
+      try {localStorage.removeItem(KEY);state.saved=false;showHistory();status('Saved notes deleted.');}catch {status('Could not delete saved notes. Use your browser’s site-data settings.');}
+    }
+    if(b.id==='rr-share') {
+      if(!$('rr-consent').checked){$('rr-send-status').textContent='Check the permission box first. Nothing sent.';return;}
+      const sendingState=state;busy=true;b.disabled=true;$('rr-send-status').textContent='Sending…';
+      try {await window.maSendAnonymousSubmission({room:'Rage Room',submission:state.rant,category:state.signal||'Anger note',context:'User explicitly chose anonymous sharing.'});if(state!==sendingState)return;state.shared=true;b.textContent='RANT RECEIVED';$('rr-send-status').textContent='Rant received by MA.';}
+      catch(error){if(state!==sendingState)return;$('rr-send-status').textContent='Delivery not confirmed. '+(error.message||'Connection unavailable.')+' Your words are still here. Retrying may send a duplicate.';b.disabled=false;}
+      finally {busy=false;}
     }
   });
-  for(const id of ['save-setup','clear-setup'])$(id)?.addEventListener('click',()=>{if($('rr-authority'))$('rr-authority').innerHTML=authority();});
-  window.addEventListener('storage',e=>{if(e.key==='ma_manifestor_setup_v1'&&$('rr-authority'))$('rr-authority').innerHTML=authority();if(e.key===KEY&&historyOpen)showHistory();});
-  window.addEventListener('pagehide',()=>{state=fresh();step=0;render(false);});
+  window.addEventListener('pagehide',()=>{state=fresh();view='write';busy=false;render(false);});
+  window.addEventListener('storage',e=>{if(e.key===KEY){state.saved=false;if(!$('rr-history').hidden)showHistory();else if(view==='result')render(false);}});
   render(false);
 })();
-

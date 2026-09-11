@@ -49,3 +49,9 @@
   .post-office-page[data-po-print="letter"] #po-clean>:not(#po-clean-letter){display:none!important}
   .post-office-page #po-clean-letter{padding:0;margin:0}
 }
+
+@media print{
+.post-office-page main>:not(#post-office),.post-office-page .ma-privacy{display:none!important}
+.post-office-page #po-clean-letter{font:12pt/1.6 Georgia,serif;white-space:pre-wrap;overflow:visible}
+.post-office-page #po-clean{margin:0;padding:0;border:0}
+}
