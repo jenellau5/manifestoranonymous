@@ -1,4 +1,4 @@
-# MANIFESTOR ANONYMOUS — CURRENT SITE SOURCE OF TRUTH
+# MANIFESTOR ANONYMOUS - CURRENT SITE SOURCE OF TRUTH
 
 This folder is the canonical build. Future edits should be made here instead of stacking random older ZIPs.
 

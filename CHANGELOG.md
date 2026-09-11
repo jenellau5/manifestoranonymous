@@ -47,7 +47,7 @@
 - Added Cognition/Sense and Variable transference/distraction labels.
 
 
-## 2026-09-08 — Homepage, field guide and Authority Gym
+## 2026-09-08 - Homepage, field guide and Authority Gym
 
 ## Homepage
 - Preserved the Manifestor girl, header, hero positioning, concise Open HD chart link, Playground artwork/intro, existing offers, prices, links and anonymous submission workflow.

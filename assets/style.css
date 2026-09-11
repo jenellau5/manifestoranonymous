@@ -2991,7 +2991,7 @@ footer {
 }
 
 
-/* Homepage visual balance refinements — Sept 2026 */
+/* Homepage visual balance refinements - Sept 2026 */
 @media (min-width: 1001px) {
     .free-home-hero .hero-grid {
         grid-template-columns: minmax(0, 1.02fr) minmax(390px, .98fr);
