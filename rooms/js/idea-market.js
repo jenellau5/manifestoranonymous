@@ -139,11 +139,12 @@
     const field=(label,value,cls)=>r.append(node('small',label),node('strong',value,cls));
     field('ITEM',i.text);
     if(i.status==='COMPLETED'){field('STATUS','DONE');field('COMPLETED',format(i.completedAt??i.statusUpdatedAt));r.append(node('p','You marked this complete. Finished, not released.'));}
-    else if(release){const n=days(i.createdAt,i.releasedAt);field('HELD FOR',n===null?'Original date not recorded':`${n} DAY${n===1?'':'S'}`);field('FINAL STATUS','RELEASED');r.append(node('hr'));field('REFUND','YOUR FUCKING ENERGY','im-refund');r.append(node('hr'),node('p','Returned to the universe.'),node('p','You are no longer responsible for doing anything with this.'));}
+    else if(release){const n=days(i.createdAt,i.releasedAt);field('HELD FOR',n===null?'Original date not recorded':`${n} DAY${n===1?'':'S'}`);field('FINAL STATUS','RELEASED');r.append(node('hr'));field('REFUND','YOUR FUCKING ENERGY','im-refund');r.append(node('hr'),node('p','Released. You don’t have to carry this one.'),node('p','You are no longer responsible for doing anything with this.'));}
     else{field('CAME IN AS',i.initialType);field('STATUS',statusLabel(i.status));field('DATE DROPPED',format(i.createdAt));r.append(node('hr'));field('AMOUNT DUE','$0.00');field('OBLIGATION TO ACT','NONE');r.append(node('hr'),node('p','Having the idea does not mean you have to do the idea.'),node('strong','KEEP THE RECEIPT. SEE WHAT HAPPENS.'));}
     if(i.notice)field('YOU NOTICED',i.notice);
     r.append(node('p','Saved in this browser only. This receipt is not sent to MA.'));
     $('receipt-dialog').showModal();
+    if(release&&window.maRoomFinish)window.maRoomFinish(r,'release',i.text);
   }
   observations.forEach(o=>$('observations').append(button(o,()=>checkIn(o))));
   [['KEEP · explore it','MOVING'],['HOLD · not now','WATCHING'],['DONE · completed','COMPLETED'],['RELEASE · let it go','RELEASED']].forEach(([label,to])=>$('status-actions').append(button(label,()=>changeStatus(to))));

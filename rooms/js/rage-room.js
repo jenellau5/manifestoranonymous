@@ -49,7 +49,7 @@
         <details class="rr-anon"><summary>SHARE THE RANT WITH MA · OPTIONAL</summary><p>Only your original rant is shared. Remove identifying details before sending. Sharing is separate from saving or burning.</p><label class="rr-check"><input type="checkbox" id="rr-consent">I give MA permission to receive this rant and use it anonymously for community insights or content.</label>${button('rr-share',state.shared?'RANT RECEIVED':'SEND ANONYMOUS COPY')}<p id="rr-send-status" role="status"></p><small>Burning cannot recall a copy already shared with MA.</small></details>`;
       $('rr-save').disabled=state.saved; $('rr-share').disabled=state.shared||!state.rant.trim();
     } else {
-      $('rr-flow').innerHTML=`<h2 tabindex="-1">NOTE BURNED.</h2><p>The words are cleared from this session and this note’s saved copy. Other saved notes stay. Burning a note does not erase what happened—you can still act on what you noticed.</p>${button('rr-new','WRITE ANOTHER')}<a class="rr-door" href="../playground.html">BACK TO THE PLAYGROUND →</a>`;
+      $('rr-flow').innerHTML=`<h2 tabindex="-1">NOTE BURNED.</h2><p>The note is gone. What you noticed is still yours. This note and its saved copy are cleared here; other saved notes stay.</p>${button('rr-new','WRITE ANOTHER')}<a class="rr-door" href="../playground.html">BACK TO THE PLAYGROUND →</a>`;
     }
     if (focus) { $('rr-flow').querySelector('h1,h2')?.focus({preventScroll:true}); $('rr-console').scrollIntoView({block:'start',behavior:'instant'}); }
   }
@@ -80,8 +80,9 @@
       if(!confirm('Burn this note? Its words and its saved copy in this browser will be deleted. A shared copy cannot be recalled.'))return;
       try {const rows=readHistory();if(rows.some(r=>r.id===state.id))localStorage.setItem(KEY,JSON.stringify(rows.filter(r=>r.id!==state.id)));}
       catch {status('Could not check or remove the saved copy. Your note has not been burned.');return;}
-      busy=true; $('rr-note-board').classList.add('rr-burning');
-      await new Promise(resolve=>setTimeout(resolve,matchMedia('(prefers-reduced-motion: reduce)').matches?0:450));
+      busy=true; const burningState=state;
+      if(window.maRoomFinish)await window.maRoomFinish($('rr-note-board'),'burn');
+      if(state!==burningState)return;
       const shared=state.shared;state=fresh();view='burned';busy=false;render();if(shared)status('The copy already shared with MA cannot be recalled.');
     }
     if(b.dataset.openNote) {

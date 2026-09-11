@@ -10,22 +10,22 @@
 
   async function sendAnonymousSubmission({ room, submission, category = '', context = '' }) {
     if (!submission || !room) return false;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15000);
     try {
-      await fetch(ANON_ENDPOINT, {
-        method: 'POST',
-        mode: 'no-cors',
-        credentials: 'omit',
-        referrerPolicy: 'no-referrer',
+      const response = await fetch(ANON_ENDPOINT, {
+        method: 'POST', mode: 'cors', credentials: 'omit', referrerPolicy: 'no-referrer',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ room, submission, category, context, permission: true }),
-        signal: AbortSignal.timeout(15000)
+        signal: controller.signal
       });
-      return true;
-    } catch (error) {
-      console.warn('Anonymous submission could not be sent.', error);
-      return false;
-    }
+      if (!response.ok) throw new Error('The inbox returned an error (' + response.status + ').');
+      const result = await response.json();
+      if (result.success !== true) throw new Error(result.message || 'The inbox did not accept this submission.');
+      return result;
+    } finally { clearTimeout(timer); }
   }
+  window.maSendAnonymousSubmission = sendAnonymousSubmission;
 
   const centers = ['Head', 'Ajna', 'Throat', 'G / Identity', 'Ego / Heart', 'Solar Plexus', 'Spleen', 'Sacral', 'Root'];
   const channels = [
@@ -46,16 +46,23 @@
   const feedbackInput = document.getElementById('playground-feedback');
   const feedbackButton = document.getElementById('send-playground-feedback');
   const feedbackStatus = document.getElementById('playground-feedback-status');
-  feedbackButton?.addEventListener('click', async () => {
-    const submission = feedbackInput.value.trim();
-    if (!submission) { feedbackStatus.textContent = 'Give me something to work with first.'; return; }
-    feedbackButton.disabled = true;
-    feedbackStatus.textContent = 'Sending...';
-    const sent = await sendAnonymousSubmission({ room: 'Playground Feedback', submission, category: 'LOBBY FEEDBACK', context: 'Manifestor Playground lobby' });
-    feedbackStatus.textContent = sent ? 'Send attempted. This connection cannot confirm delivery. Your feedback is still here.' : 'Could not confirm sending. Retrying may send a duplicate.';
-    // Keep the draft: an opaque no-cors response cannot confirm receipt.
-    feedbackButton.disabled = false;
-  });
+  // The deployed inbox rejects the existing "Playground Feedback" route.
+  // Keep feedback local until the service owner enables that room.
+  if (feedbackButton) {
+    feedbackButton.textContent = 'COPY FEEDBACK';
+    const privacy = document.getElementById('feedback-privacy');
+    if (privacy) privacy.textContent = 'Feedback delivery is unavailable: the inbox is not configured to accept feedback. Copy your words to keep them. Nothing is sent by this button.';
+    feedbackButton.addEventListener('click', async () => {
+      if (!feedbackInput.value.trim()) { feedbackStatus.textContent = 'Give me something to work with first.'; return; }
+      try {
+        await navigator.clipboard.writeText(feedbackInput.value);
+        feedbackStatus.textContent = 'Feedback copied. It has not been sent to MA.';
+      } catch {
+        feedbackInput.focus(); feedbackInput.select();
+        feedbackStatus.textContent = 'Automatic copy is unavailable. Your feedback is selected; use Copy in your browser or keyboard. Nothing was sent.';
+      }
+    });
+  }
 
   function showView(id) { const target = document.getElementById(id); if (!target || !target.hasAttribute('data-view')) return; document.querySelectorAll('[data-view]').forEach(v => v.classList.toggle('is-active', v.id === id)); window.scrollTo({ top: 0, behavior: 'smooth' }); }
   document.addEventListener('click', e => {
@@ -91,4 +98,39 @@
   function renderSetupSummary() { const el = document.getElementById('setup-summary'); if (!el) return; const defs = centers.filter(c => setup.centers[c] === 'defined'); const undefs = centers.filter(c => setup.centers[c] === 'undefined'); const found = getDerived(); el.innerHTML = `<span class="pg-kicker">YOUR SAVED SPECIMEN</span><h2>${setup.profile || 'Profile not set'} · ${setup.authority || 'Authority not set'}</h2><p><strong>Defined centers:</strong> ${defs.join(', ') || 'Not set'}<br><strong>Undefined centers:</strong> ${undefs.join(', ') || 'Not set'}<br><strong>Selected gates:</strong> ${setup.gates.length || 0}<br><strong>Complete channels found:</strong> ${found.map(c => c[2]).join(', ') || 'None yet'}</p>`; }
   renderSetupSummary();
 
+})();
+
+/* Small, local finishing gestures. No sound, network requests or stored copies. */
+(() => {
+  const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const active=new Set(),byTarget=new WeakMap();
+  window.maRoomFinish=(target,kind,text='')=>new Promise(resolve=>{
+    if(!target||!target.isConnected)return resolve();
+    byTarget.get(target)?.();
+    const stage=document.createElement('div');stage.className='ma-finish-stage ma-'+kind;stage.setAttribute('aria-hidden','true');
+    const surface=kind==='burn'?target:target.parentElement;
+    if(kind==='release'){
+      const note=document.createElement('div');note.className='ma-drifting-idea';note.textContent=text;stage.append(note);
+      target.classList.add('ma-receipt-wait');
+    }else{target.classList.add('ma-burning-note');const edge=document.createElement('div');edge.className='ma-burn-edge';stage.append(edge);}
+    if(!reduced())for(let i=0;i<20;i++){const mote=document.createElement('i');mote.className='ma-mote';mote.style.setProperty('--x',(4+(i*47%91))+'%');mote.style.setProperty('--delay',(i%5)*.09+'s');mote.style.setProperty('--drift',((i%2?1:-1)*(15+i*3))+'px');stage.append(mote);}
+    surface.classList.add('ma-finish-surface');surface.append(stage);
+    let raf=0,timer=0,finished=false;const started=performance.now(),duration=reduced()?180:kind==='burn'?1550:1250;
+    const finish=()=>{if(finished)return;finished=true;cancelAnimationFrame(raf);clearTimeout(timer);stage.remove();target.classList.remove('ma-burning-note','ma-receipt-wait');target.style.removeProperty('--ma-burn');surface.classList.remove('ma-finish-surface');active.delete(finish);byTarget.delete(target);resolve();};
+    active.add(finish);byTarget.set(target,finish);
+    const tick=now=>{if(!target.isConnected||!stage.isConnected)return finish();const p=Math.min(1,(now-started)/duration);if(kind==='burn')target.style.setProperty('--ma-burn',(p*103)+'%');if(p<1)raf=requestAnimationFrame(tick);else finish();};
+    raf=requestAnimationFrame(tick);timer=setTimeout(finish,duration+150);
+  });
+  window.addEventListener('pagehide',()=>{for(const finish of [...active])finish();});
+  window.addEventListener('beforeprint',()=>{for(const finish of [...active])finish();});
+  // Animate only newly created results, never personal inputs or navigation.
+  const selectors='#po-slip,#rs-pad,.wod-board,#is-finish,#rr-note-board,.im-receipt';
+  const seen=new WeakSet();
+  const observe=new MutationObserver(()=>{
+    document.querySelectorAll(selectors).forEach(el=>{
+      if(!el.childElementCount||el.hidden||seen.has(el))return;
+      seen.add(el);el.classList.add('ma-result-arrival');
+    });
+  });
+  observe.observe(document.getElementById('pg-app')||document.body,{childList:true,subtree:true});
 })();
