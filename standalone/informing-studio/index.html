@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informing Studio | Manifestor Anonymous</title>
+  <meta name="description" content="A voice-first studio for the things you need to say. Inform a person, inform the universe, or just let it out." />
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
+  <link rel="stylesheet" href="../../assets/style.css" />
+  <link rel="stylesheet" href="../../assets/playground.css?v=20260908-modular" />
+  <link rel="stylesheet" href="../../assets/playground-experiences.css?v=20260908-modular" />
+  <link rel="stylesheet" href="../../rooms/css/informing-studio.css?v=20260908-prompts2" />
+  <style>
+    .pg-access{overflow-y:auto}.pg-access-card{margin:auto;min-width:0}
+    .pg-access-row{flex-direction:column}.pg-access-row input{width:100%;box-sizing:border-box;font-size:16px}
+    .pg-access-row .pg-btn{white-space:normal}
+    .standalone-upgrade{margin:48px auto 24px;padding:24px;border-top:1px solid rgba(255,255,255,.18);max-width:760px}
+    .standalone-upgrade h2{font-size:clamp(24px,5vw,36px)}
+    .standalone-upgrade p{line-height:1.7}.standalone-upgrade strong{overflow-wrap:anywhere}
+    .pg-nav{flex-wrap:wrap}.pg-nav a{overflow-wrap:anywhere}
+  </style>
+</head>
+<body class="experience-site playground-site room-page informing-studio-page" data-room="informing-studio">
+<div class="pg-access" id="pg-access" aria-hidden="false">
+    <div class="pg-access-card">
+      <span class="pg-kicker">INFORMING STUDIO</span>
+      <h1>YOU'VE GOT THE KEY.<br>USE IT.</h1>
+      <label for="access-code">Room password</label>
+      <div class="pg-access-row">
+        <input id="access-code" type="password" autocomplete="current-password" placeholder="PASSWORD" />
+        <button class="pg-btn pg-btn-green" id="unlock-playground">ENTER THE STUDIO</button>
+      </div>
+      <p class="pg-access-error" id="access-error" aria-live="polite"></p>
+      <a href="https://www.manifestoranonymous.com/" class="pg-text-link">MANIFESTOR ANONYMOUS →</a>
+    </div>
+  </div>
+  <div id="pg-app" class="pg-app is-locked" aria-hidden="true">
+<header class="pg-topbar">
+      <a class="pg-brand" href="https://www.manifestoranonymous.com/">
+        <img src="../../images/logocircle.png" alt="Manifestor Anonymous" />
+        <div><strong>Manifestor Anonymous</strong><small>INFORMING STUDIO</small></div>
+      </a>
+      <nav class="pg-nav" aria-label="Studio navigation">
+        <button id="open-setup">My Setup</button>
+        <a href="https://www.manifestoranonymous.com/">MANIFESTOR ANONYMOUS →</a>
+        <a href="https://instagram.com/manifestor.anonymous" target="_blank" rel="noopener noreferrer">FOLLOW @MANIFESTOR.ANONYMOUS →</a>
+      </nav>
+    </header>
+    <main>
+<section class="pg-view room is-active informing-studio" id="informing-studio" data-view>
+        <div class="room-shell">
+    <figure class="room-scene room-image-scene"><img src="../../images/rooms/informing-studio-in-room-header.png" alt="Informing Studio" /></figure>
+          <a class="room-back" href="https://www.manifestoranonymous.com/">MANIFESTOR ANONYMOUS →</a>
+          <div class="room-title"><span>ROOM 01 · INFORMING STUDIO</span><h1>Say the damn thing.</h1><p>Your words. Your voice. Your experiment. Get the thing out of your head and through your throat.</p></div>
+          <div class="studio-console" aria-label="Informing Studio"><noscript>This studio needs JavaScript for recording and practice. You can still say the thing out loud.</noscript></div>
+          <section class="standalone-upgrade" aria-labelledby="upgrade-title">
+            <span class="pg-kicker">YOU'RE IN ONE ROOM.</span>
+            <h2 id="upgrade-title">THERE'S A WHOLE FUCKING PLAYGROUND.</h2>
+            <p>The Informing Studio is one room inside the Manifestor Playground.</p>
+            <p>Want the whole damn place?</p>
+            <h3>$97 MANIFESTOR PLAYGROUND</h3>
+            <p>Bought a standalone room? Use your room-owner code for $10 off.</p>
+            <p>Room-owner code: <strong id="room-owner-code"></strong></p>
+            <a class="pg-btn pg-btn-green" id="playground-purchase">UNLOCK THE PLAYGROUND</a>
+            <p><small>One $10 room credit per Playground purchase. Credits cannot be combined.</small></p>
+          </section>
+        </div>
+      </section>
+    </main>
+<aside class="setup-drawer" id="setup-drawer" aria-hidden="true">
+      <div class="setup-panel">
+        <div class="setup-head"><div><span class="pg-kicker">MY MANIFESTOR SETUP</span><h2>Give the Playground your chart skeleton.</h2></div><button id="close-setup" aria-label="Close setup">×</button></div>
+        <p class="setup-intro">Saved only in this browser. No login. No database. Choose what you know now and come back later.</p>
+
+        <div class="setup-grid-two">
+          <label>Authority<select id="setup-authority"><option value="">Choose authority</option><option>Emotional</option><option>Splenic</option><option>Ego / Heart</option></select></label>
+          <label>Profile<select id="setup-profile"><option value="">Choose profile</option><option>1/3</option><option>1/4</option><option>2/4</option><option>2/5</option><option>3/5</option><option>3/6</option><option>4/6</option><option>4/1</option><option>5/1</option><option>5/2</option><option>6/2</option><option>6/3</option></select></label>
+        </div>
+
+        <div class="setup-section">
+          <div class="setup-section-head"><h3>Centers</h3><small>Tap each center to mark it defined or undefined.</small></div>
+          <div class="center-toggle-grid" id="center-toggles"></div>
+        </div>
+
+        <div class="setup-section">
+          <div class="setup-section-head"><h3>Activated Gates</h3><small>No comma-separated homework. Click the gates that are colored in your chart.</small></div>
+          <div class="gate-chip-grid" id="gate-chips"></div>
+        </div>
+
+        <div class="setup-section derived-section">
+          <div class="setup-section-head"><h3>Channels found</h3><small>Automatically derived when both gates are selected.</small></div>
+          <div id="derived-channels" class="derived-channels"></div>
+        </div>
+
+        <div class="setup-actions"><button class="pg-btn pg-btn-green" id="save-setup">Save my setup</button><button class="pg-btn pg-btn-dark" id="clear-setup">Clear</button></div>
+      </div>
+    </aside>
+
+  </div>
+  <script src="config.js"></script>
+  <script src="../../assets/ma-config.js"></script>
+  <script src="../../assets/playground.js?v=20260923-standalone"></script>
+  <script src="../../rooms/js/informing-studio.js?v=20260908-prompts2"></script>
+  <script>
+    document.getElementById('room-owner-code').textContent = window.MA_STANDALONE.couponCode;
+    document.getElementById('playground-purchase').href = window.MA_STANDALONE.playgroundUrl;
+    const exit = document.querySelector('#is-finish .is-link');
+    exit.href = 'https://www.manifestoranonymous.com/';
+    exit.textContent = 'MANIFESTOR ANONYMOUS →';
+  </script>
+</body>
+</html>
