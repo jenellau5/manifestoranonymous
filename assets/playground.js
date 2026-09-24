@@ -1,6 +1,8 @@
 (() => {
-  const ACCESS_CODE = 'MANIFESTOR97'; // Client-side convenience gate; not secure purchase verification
-  const ACCESS_KEY = 'ma_playground_access';
+  const standalone = window.MA_STANDALONE;
+  const ACCESS_CODE = standalone ? standalone.password : 'MANIFESTOR97'; // Client-side convenience gate; not secure purchase verification
+  const ACCESS_KEY = standalone ? 'ma_informing_studio_access' : 'ma_playground_access';
+  const accessValue = standalone ? ACCESS_CODE : 'yes';
   const SETUP_KEY = 'ma_manifestor_setup_v1';
   const ANON_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwwPHSXEWDDsgnhew0_ZPpk-ElL7nCY-orUBZXeL_asX1PUcM1z-9YSKfvl850lbMg8/exec';
 
@@ -39,8 +41,8 @@
   const accessError = document.getElementById('access-error');
 
   function unlockApp() { access.setAttribute('aria-hidden', 'true'); app.classList.remove('is-locked'); app.setAttribute('aria-hidden', 'false'); }
-  try { if (localStorage.getItem(ACCESS_KEY) === 'yes') unlockApp(); } catch {}
-  function tryUnlock() { if (accessInput.value.trim() === ACCESS_CODE) { try { localStorage.setItem(ACCESS_KEY, 'yes'); } catch {} unlockApp(); } else { accessError.textContent = 'That code did not open the door.'; } }
+  try { if (localStorage.getItem(ACCESS_KEY) === accessValue) unlockApp(); } catch {}
+  function tryUnlock() { if (accessInput.value.trim() === ACCESS_CODE) { try { localStorage.setItem(ACCESS_KEY, accessValue); } catch {} unlockApp(); } else { accessError.textContent = standalone ? "THAT KEY DOESN'T OPEN THIS DOOR." : 'That code did not open the door.'; } }
   unlock?.addEventListener('click', tryUnlock); accessInput?.addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock() });
 
   const feedbackInput = document.getElementById('playground-feedback');
