@@ -1,4 +1,3 @@
-const PLAYGROUND_ACCESS_CODE = "MANIFESTOR97"; // Change this before launch.
 const GATES = {
   "1": {
     "name": "Self Expression",

@@ -5,7 +5,6 @@ window.MA_SITE_CONFIG = Object.freeze({
   musicPayhip: "https://payhip.com/b/eGAgT",
   chartDropPayhip: "https://payhip.com/b/ky9wG",
   songCoderUrl: "https://learn-gates-through-music.jenellau.chatgpt.site/",
-  songCoderPassword: "HEAR64",
   anonymousForm: "https://tr.ee/r3r4PB5Pyh",
   playgroundPrice: "$97"
 });
