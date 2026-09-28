@@ -39,3 +39,11 @@
   .free-home-hero .hero-image-box img { height: 230px; width: 100%; object-fit: cover; object-position: center 28%; }
 }
 .room-preview-footer { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+/* start.html: today prompts + "Read more" folds */
+.ma-today { padding-top: 8px; padding-bottom: 8px; }
+.ma-today .section-label { display: block; margin-bottom: 12px; }
+.ma-more { margin: 4px 0 18px; }
+.ma-more > summary { cursor: pointer; list-style: none; padding: 6px 0; color: #39ff88; font-weight: 700; font-size: 14px; letter-spacing: .04em; }
+.ma-more > summary::-webkit-details-marker { display: none; }
+.ma-more > summary::after { content: " +"; }
+.ma-more[open] > summary::after { content: " −"; }
