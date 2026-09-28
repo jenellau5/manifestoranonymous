@@ -22,3 +22,20 @@
 #archetypes, .field-guide-grid [id] { scroll-margin-top:110px; }
 @media(max-width:800px) { .ma-archetype-layout,.field-guide-grid { grid-template-columns:1fr; } .field-guide-grid .authority-grid { grid-template-columns:1fr; } }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+/* homepage pass: small print, start row, archetype invite, compact hero image on phones */
+.ma-fine { font-size: 13px; opacity: .7; max-width: 640px; }
+.ma-archetype-cta { margin-top: 18px; }
+.ma-archetype-cta .btn { display: flex; width: 100%; justify-content: center; text-align: center; }
+.ma-start-row { display: grid; gap: 10px; }
+.ma-start-row a { display: block; padding: 16px 18px; border: 1px solid rgba(255,255,255,.14); border-radius: 16px; color: #fff; text-decoration: none; font-weight: 700; background: rgba(255,255,255,.03); }
+.ma-start-row a:hover, .ma-start-row a:focus-visible { border-color: #39ff88; }
+.ma-start-row span { display: block; margin-bottom: 4px; font-size: 11px; letter-spacing: .16em; color: #39ff88; font-weight: 800; }
+@media (min-width: 800px) { .ma-start-row { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 799px) {
+  .free-home-hero .hero-grid { display: flex; flex-direction: column; }
+  .free-home-hero .hero-visual-wrap { order: -1; margin: 0 0 18px; }
+  .free-home-hero .visual-meta { display: none; }
+  .free-home-hero .hero-image-box img { height: 230px; width: 100%; object-fit: cover; object-position: center 28%; }
+}
+.room-preview-footer { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
